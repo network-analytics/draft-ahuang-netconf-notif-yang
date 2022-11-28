@@ -89,10 +89,10 @@ Table of Contents
    Notifications [RFC5277].  The notification structure defined in
    [RFC5277] uses a XML Schema [W3C.REC-xml-20001006] allowing to encode
    and validate the message in XML.  Nevertheless, when the notification
-   message encoded using other encodings such as JSON [RFC8040] or CBOR
-   [RFC9254], there is no YANG model to validate or encode the message.
-   This document aims to extend [RFC5277] defining the YANG module for
-   the notification.
+   message is encoded using other encodings such as JSON [RFC8040] or
+   CBOR [RFC9254], there is no YANG model to validate or encode the
+   message.  This document aims to extend [RFC5277] defining the YANG
+   module for the notification.
 
 2.  YANG Module
 

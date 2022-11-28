@@ -116,13 +116,13 @@
       <xref target="RFC5277"/>. The notification structure defined in 
       <xref target="RFC5277"/> uses a XML Schema <xref target="W3C.REC-xml-20001006"/>
       allowing to encode and validate the message in XML. Nevertheless,
-      when the notification message encoded using other encodings such as
+      when the notification message is encoded using other encodings such as
       JSON <xref target="RFC8040"/> or CBOR <xref target="RFC9254"/>, there is 
       no YANG model to validate or encode the message. This document aims to extend 
       <xref target="RFC5277"/> defining the YANG module for the notification.
       </t>
     </section>
-    
+
     <section anchor="yang-model" title="YANG Module">
     
       <section anchor="yang-tree" title="YANG Tree Diagram">
