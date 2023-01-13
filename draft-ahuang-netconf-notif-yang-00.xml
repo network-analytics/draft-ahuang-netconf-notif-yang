@@ -95,10 +95,10 @@
       </address>
     </author>
 
-    <date day="28" month="November" year="2022"/>
+    <date day="14" month="January" year="2023"/>
 
     <abstract>
-      <t>This document defines a YANG data model for Netconf Event Notifications.</t>
+      <t>This document defines a YANG data model for Netconf Event Notifications structure.</t>
     </abstract>
 
     <note title="Requirements Language">
@@ -117,9 +117,10 @@
       <xref target="RFC5277"/> uses a XML Schema <xref target="W3C.REC-xml-20001006"/>
       allowing to encode and validate the message in XML. Nevertheless,
       when the notification message is encoded using other encodings such as
-      JSON <xref target="RFC8040"/> or CBOR <xref target="RFC9254"/>, there is 
-      no YANG model to validate or encode the message. This document aims to extend 
-      <xref target="RFC5277"/> defining the YANG module for the notification.
+      JSON <xref target="RFC8040"/> or CBOR <xref target="RFC9254"/>, a YANG model 
+      to validate or encode the message is necessary. This document aims to extend 
+      <xref target="RFC5277"/> to define the YANG module for the Netconf Event 
+      Notification structure.
       </t>
     </section>
 
@@ -143,10 +144,11 @@ module: ietf-notification
       <section anchor="yang-module" title="YANG Module">
       <t><figure>
           <artwork align="left"><![CDATA[
+<CODE BEGINS> file "ietf-udp-notif@2022-08-29.yang"
 module ietf-notification {
   yang-version 1.1;
   namespace
-    "urn:ietf:params:xml:ns:netconf:notification:1.0";
+    "urn:ietf:params:xml:ns:yang:ietf-notification";
   prefix inn;
   import ietf-yang-types {
     prefix yang;
@@ -168,11 +170,13 @@ module ietf-notification {
                <mailto:thomas.graf@swisscom.com>
                Benoit Claise
                <mailto:benoit.claise@huawei.com>
+               Pierre Francois
+               <mailto:pierre.francois@insa-lyon.fr>
                Alex Huang Feng
                <mailto:alex.huang-feng@insa-lyon.fr>";
 
   description
-    "Defines Netconf Event Notification header.
+    "Defines Netconf Event Notification structure.
 
     Copyright (c) 2022 IETF Trust and the persons identified as
     authors of the code.  All rights reserved.
@@ -186,7 +190,7 @@ module ietf-notification {
     This version of this YANG module is part of RFC XXXX; see the RFC
     itself for full legal notices.";
 
-  revision 2022-11-28 {
+  revision 2023-01-13 {
     description
       "First revision";
     reference
@@ -204,7 +208,7 @@ module ietf-notification {
     }
   }
 }
-]]></artwork>
+<CODE ENDS>]]></artwork>
         </figure></t>
       </section>
     </section>
@@ -216,7 +220,9 @@ module ietf-notification {
     </section>
 
     <section anchor="IANA_Considerations" title="IANA Considerations">
-      <t>TODO: this URI already exists, how should this be managed?</t>
+      <t>TODO: this URI already exists, how should this be managed? 
+      Should this document create a new URI or reuse the RFC5277?</t>
+
       <t>This document describes the URI from IETF XML Registry and the
       registration of a new YANG module name.</t>
       
@@ -228,7 +234,7 @@ module ietf-notification {
 
       <t><figure>
           <artwork align="left"><![CDATA[
-URI: urn:ietf:params:xml:ns:netconf:notification:1.0
+URI: urn:ietf:params:xml:ns:yang:ietf-notification
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.]]></artwork>
         </figure></t>
@@ -243,7 +249,7 @@ XML: N/A; the requested URI is an XML namespace.]]></artwork>
         <t><figure>
             <artwork align="left"><![CDATA[
 name: ietf-udp-notif
-namespace: urn:ietf:params:xml:ns:netconf:notification:1.0
+namespace: urn:ietf:params:xml:ns:yang:ietf-notification
 prefix: inn
 reference: RFC XXXX]]></artwork>
         </figure></t>

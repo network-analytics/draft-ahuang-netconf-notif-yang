@@ -5,11 +5,11 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                  Swisscom
 Intended status: Standards Track                               B. Claise
-Expires: 1 June 2023                                              Huawei
+Expires: 18 July 2023                                             Huawei
                                                            A. Huang Feng
                                                              P. Francois
                                                                INSA-Lyon
-                                                        28 November 2022
+                                                         14 January 2023
 
 
                YANG model for Netconf Event Notifications
@@ -18,7 +18,7 @@ Expires: 1 June 2023                                              Huawei
 Abstract
 
    This document defines a YANG data model for Netconf Event
-   Notifications.
+   Notifications structure.
 
 Requirements Language
 
@@ -43,19 +43,19 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 June 2023.
+   This Internet-Draft will expire on 18 July 2023.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
 
 
-Graf, et al.               Expires 1 June 2023                  [Page 1]
+Graf, et al.              Expires 18 July 2023                  [Page 1]
 
-Internet-Draft       Netconf Event Notification YANG       November 2022
+Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -76,7 +76,7 @@ Table of Contents
    3.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
      4.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     4.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   4
+     4.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   5
    5.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   5
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
@@ -90,9 +90,9 @@ Table of Contents
    [RFC5277] uses a XML Schema [W3C.REC-xml-20001006] allowing to encode
    and validate the message in XML.  Nevertheless, when the notification
    message is encoded using other encodings such as JSON [RFC8040] or
-   CBOR [RFC9254], there is no YANG model to validate or encode the
-   message.  This document aims to extend [RFC5277] defining the YANG
-   module for the notification.
+   CBOR [RFC9254], a YANG model to validate or encode the message is
+   necessary.  This document aims to extend [RFC5277] to define the YANG
+   module for the Netconf Event Notification structure.
 
 2.  YANG Module
 
@@ -109,82 +109,86 @@ Table of Contents
 
 
 
-Graf, et al.               Expires 1 June 2023                  [Page 2]
+Graf, et al.              Expires 18 July 2023                  [Page 2]
 
-Internet-Draft       Netconf Event Notification YANG       November 2022
+Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 2.2.  YANG Module
 
- module ietf-notification {
-   yang-version 1.1;
-   namespace
-     "urn:ietf:params:xml:ns:netconf:notification:1.0";
-   prefix inn;
-   import ietf-yang-types {
-     prefix yang;
-     reference
-       "RFC 6991: Common YANG Data Types";
-   }
-   import ietf-yang-structure-ext {
-     prefix sx;
-     reference
-       "RFC 8791: YANG Data Structure Extensions";
-   }
+   <CODE BEGINS> file "ietf-udp-notif@2022-08-29.yang"
+   module ietf-notification {
+     yang-version 1.1;
+     namespace
+       "urn:ietf:params:xml:ns:yang:ietf-notification";
+     prefix inn;
+     import ietf-yang-types {
+       prefix yang;
+       reference
+         "RFC 6991: Common YANG Data Types";
+     }
+     import ietf-yang-structure-ext {
+       prefix sx;
+       reference
+         "RFC 8791: YANG Data Structure Extensions";
+     }
 
-   organization "IETF NETCONF (Network Configuration) Working Group";
-   contact
-     "WG Web:   <http:/tools.ietf.org/wg/netconf/>
-      WG List:  <mailto:netconf@ietf.org>
+     organization "IETF NETCONF (Network Configuration) Working Group";
+     contact
+       "WG Web:   <http:/tools.ietf.org/wg/netconf/>
+        WG List:  <mailto:netconf@ietf.org>
 
-      Authors:  Thomas Graf
-                <mailto:thomas.graf@swisscom.com>
-                Benoit Claise
-                <mailto:benoit.claise@huawei.com>
-                Alex Huang Feng
-                <mailto:alex.huang-feng@insa-lyon.fr>";
+        Authors:  Thomas Graf
+                  <mailto:thomas.graf@swisscom.com>
+                  Benoit Claise
+                  <mailto:benoit.claise@huawei.com>
+                  Pierre Francois
+                  <mailto:pierre.francois@insa-lyon.fr>
+                  Alex Huang Feng
+                  <mailto:alex.huang-feng@insa-lyon.fr>";
 
-   description
-     "Defines Netconf Event Notification header.
-
-     Copyright (c) 2022 IETF Trust and the persons identified as
-     authors of the code.  All rights reserved.
-
-     Redistribution and use in source and binary forms, with or without
-     modification, is permitted pursuant to, and subject to the license
-     terms contained in, the Revised BSD License set forth in Section
-     4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
-     (https://trustee.ietf.org/license-info).
-
-     This version of this YANG module is part of RFC XXXX; see the RFC
-     itself for full legal notices.";
-
-   revision 2022-11-28 {
      description
-       "First revision";
+       "Defines Netconf Event Notification structure.
+
+       Copyright (c) 2022 IETF Trust and the persons identified as
+       authors of the code.  All rights reserved.
+
+       Redistribution and use in source and binary forms, with or without
+       modification, is permitted pursuant to, and subject to the license
+       terms contained in, the Revised BSD License set forth in Section
+       4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+       (https://trustee.ietf.org/license-info).
+
+       This version of this YANG module is part of RFC XXXX; see the RFC
+       itself for full legal notices.";
 
 
 
-Graf, et al.               Expires 1 June 2023                  [Page 3]
+
+Graf, et al.              Expires 18 July 2023                  [Page 3]
 
-Internet-Draft       Netconf Event Notification YANG       November 2022
+Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
-     reference
-       "RFC XXXX: Netconf Event Notification YANG";
-   }
-
-   sx:structure notification {
-     leaf eventTime {
-       type yang:date-and-time;
-       mandatory true;
+     revision 2023-01-13 {
        description
-         "The time the event was generated by the event source.  This
-          parameter is of type dateTime and compliant to [RFC3339].
-          Implementations must support time zones.";
+         "First revision";
+       reference
+         "RFC XXXX: Netconf Event Notification YANG";
+     }
+
+     sx:structure notification {
+       leaf eventTime {
+         type yang:date-and-time;
+         mandatory true;
+         description
+           "The time the event was generated by the event source.  This
+            parameter is of type dateTime and compliant to [RFC3339].
+            Implementations must support time zones.";
+       }
      }
    }
- }
+   <CODE ENDS>
 
 3.  Security Considerations
 
@@ -194,7 +198,8 @@ Internet-Draft       Netconf Event Notification YANG       November 2022
 
 4.  IANA Considerations
 
-   TODO: this URI already exists, how should this be managed?
+   TODO: this URI already exists, how should this be managed?  Should
+   this document create a new URI or reuse the RFC5277?
 
    This document describes the URI from IETF XML Registry and the
    registration of a new YANG module name.
@@ -206,28 +211,28 @@ Internet-Draft       Netconf Event Notification YANG       November 2022
    IANA is requested to assign a new URI from the IETF XML Registry
    [RFC3688].  The following URI is suggested:
 
-   URI: urn:ietf:params:xml:ns:netconf:notification:1.0
+   URI: urn:ietf:params:xml:ns:yang:ietf-notification
    Registrant Contact: The IESG.
    XML: N/A; the requested URI is an XML namespace.
+
+
+
+
+
+
+
+Graf, et al.              Expires 18 July 2023                  [Page 4]
+
+Internet-Draft       Netconf Event Notification YANG        January 2023
+
 
 4.2.  YANG module name
 
    This document also requests a new YANG module name in the YANG Module
    Names registry [RFC7950] with the following suggestion:
 
-
-
-
-
-
-
-Graf, et al.               Expires 1 June 2023                  [Page 4]
-
-Internet-Draft       Netconf Event Notification YANG       November 2022
-
-
    name: ietf-udp-notif
-   namespace: urn:ietf:params:xml:ns:netconf:notification:1.0
+   namespace: urn:ietf:params:xml:ns:yang:ietf-notification
    prefix: inn
    reference: RFC XXXX
 
@@ -269,18 +274,17 @@ Internet-Draft       Netconf Event Notification YANG       November 2022
 
 6.2.  Informative References
 
+
+
+
+Graf, et al.              Expires 18 July 2023                  [Page 5]
+
+Internet-Draft       Netconf Event Notification YANG        January 2023
+
+
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
-
-
-
-
-
-Graf, et al.               Expires 1 June 2023                  [Page 5]
-
-Internet-Draft       Netconf Event Notification YANG       November 2022
-
 
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
               C., and M. Richardson, "Encoding of Data Modeled with YANG
@@ -329,8 +333,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Graf, et al.               Expires 1 June 2023                  [Page 6]
+Graf, et al.              Expires 18 July 2023                  [Page 6]
