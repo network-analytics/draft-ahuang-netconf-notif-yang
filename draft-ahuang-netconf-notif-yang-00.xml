@@ -118,9 +118,8 @@
       allowing to encode and validate the message in XML. Nevertheless,
       when the notification message is encoded using other encodings such as
       JSON <xref target="RFC8040"/> or CBOR <xref target="RFC9254"/>, a YANG model 
-      to validate or encode the message is necessary. This document aims to extend 
-      <xref target="RFC5277"/> to define the YANG module for the Netconf Event 
-      Notification structure.
+      to validate or encode the message is necessary. This document extends 
+      <xref target="RFC5277"/>, defining the Netconf Event Notification structure in a YANG module.
       </t>
     </section>
 
@@ -220,14 +219,11 @@ module ietf-notification {
     </section>
 
     <section anchor="IANA_Considerations" title="IANA Considerations">
-      <t>TODO: this URI already exists, how should this be managed? 
-      Should this document create a new URI or reuse the RFC5277?</t>
+        
 
-      <t>This document describes the URI from IETF XML Registry and the
-      registration of a new YANG module name.</t>
+      <t>This document describes a URI for the IETF XML Registry and registers a new YANG module name.</t>
       
       <section title="URI">
-      <t>TODO: this URI already exists, how should this be managed?</t>
       <t>IANA is requested to assign a new URI from the <xref
       target="RFC3688">IETF XML Registry</xref>. The following URI is
       suggested:</t>
@@ -242,13 +238,13 @@ XML: N/A; the requested URI is an XML namespace.]]></artwork>
 
       <section title="YANG module name">
 
-        <t>This document also requests a new YANG module name in the <xref
-        target="RFC7950">YANG Module Names registry</xref> with the following
+        <t>This document requests a new YANG module name in the <xref
+        target="RFC7950">YANG Module Names Registry</xref>, with the following
         suggestion:</t>
 
         <t><figure>
             <artwork align="left"><![CDATA[
-name: ietf-udp-notif
+name: ietf-notification
 namespace: urn:ietf:params:xml:ns:yang:ietf-notification
 prefix: inn
 reference: RFC XXXX]]></artwork>
@@ -257,7 +253,7 @@ reference: RFC XXXX]]></artwork>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The authors would like to thank xxx for their review and valuable
+      <t>The authors would like to thank Andy Bierman for their review and valuable
       comments.</t>
     </section>
   </middle>
