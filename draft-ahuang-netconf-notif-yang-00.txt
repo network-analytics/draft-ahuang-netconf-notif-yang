@@ -5,11 +5,11 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                  Swisscom
 Intended status: Standards Track                               B. Claise
-Expires: 18 July 2023                                             Huawei
+Expires: 20 July 2023                                             Huawei
                                                            A. Huang Feng
                                                              P. Francois
                                                                INSA-Lyon
-                                                         14 January 2023
+                                                         16 January 2023
 
 
                YANG model for Netconf Event Notifications
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 July 2023.
+   This Internet-Draft will expire on 20 July 2023.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Graf, et al.              Expires 18 July 2023                  [Page 1]
+Graf, et al.              Expires 20 July 2023                  [Page 1]
 
 Internet-Draft       Netconf Event Notification YANG        January 2023
 
@@ -109,14 +109,14 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 18 July 2023                  [Page 2]
+Graf, et al.              Expires 20 July 2023                  [Page 2]
 
 Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 2.2.  YANG Module
 
-   <CODE BEGINS> file "ietf-udp-notif@2022-08-29.yang"
+   <CODE BEGINS> file "ietf-notification@2023-01-16.yang"
    module ietf-notification {
      yang-version 1.1;
      namespace
@@ -165,12 +165,12 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 
-Graf, et al.              Expires 18 July 2023                  [Page 3]
+Graf, et al.              Expires 20 July 2023                  [Page 3]
 
 Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
-     revision 2023-01-13 {
+     revision 2023-01-16 {
        description
          "First revision";
        reference
@@ -221,7 +221,7 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 
-Graf, et al.              Expires 18 July 2023                  [Page 4]
+Graf, et al.              Expires 20 July 2023                  [Page 4]
 
 Internet-Draft       Netconf Event Notification YANG        January 2023
 
@@ -277,7 +277,7 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 
-Graf, et al.              Expires 18 July 2023                  [Page 5]
+Graf, et al.              Expires 20 July 2023                  [Page 5]
 
 Internet-Draft       Netconf Event Notification YANG        January 2023
 
@@ -333,4 +333,4 @@ Authors' Addresses
 
 
 
-Graf, et al.              Expires 18 July 2023                  [Page 6]
+Graf, et al.              Expires 20 July 2023                  [Page 6]

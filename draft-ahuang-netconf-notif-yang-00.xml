@@ -95,7 +95,7 @@
       </address>
     </author>
 
-    <date day="14" month="January" year="2023"/>
+    <date day="16" month="January" year="2023"/>
 
     <abstract>
       <t>This document defines the Yang model for Netconf Event Notifications.</t>
@@ -143,7 +143,7 @@ module: ietf-notification
       <section anchor="yang-module" title="YANG Module">
       <t><figure>
           <artwork align="left"><![CDATA[
-<CODE BEGINS> file "ietf-udp-notif@2022-08-29.yang"
+<CODE BEGINS> file "ietf-notification@2023-01-16.yang"
 module ietf-notification {
   yang-version 1.1;
   namespace
@@ -189,7 +189,7 @@ module ietf-notification {
     This version of this YANG module is part of RFC XXXX; see the RFC
     itself for full legal notices.";
 
-  revision 2023-01-13 {
+  revision 2023-01-16 {
     description
       "First revision";
     reference
