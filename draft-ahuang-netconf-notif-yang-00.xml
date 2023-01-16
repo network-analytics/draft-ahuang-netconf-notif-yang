@@ -98,7 +98,7 @@
     <date day="14" month="January" year="2023"/>
 
     <abstract>
-      <t>This document defines a YANG data model for Netconf Event Notifications structure.</t>
+      <t>This document defines the Yang model for Netconf Event Notifications.</t>
     </abstract>
 
     <note title="Requirements Language">
