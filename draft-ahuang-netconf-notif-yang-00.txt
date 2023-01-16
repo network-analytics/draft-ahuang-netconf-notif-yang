@@ -17,8 +17,7 @@ Expires: 18 July 2023                                             Huawei
 
 Abstract
 
-   This document defines a YANG data model for Netconf Event
-   Notifications structure.
+   This document defines the Yang model for Netconf Event Notifications.
 
 Requirements Language
 
@@ -53,6 +52,7 @@ Copyright Notice
 
 
 
+
 Graf, et al.              Expires 18 July 2023                  [Page 1]
 
 Internet-Draft       Netconf Event Notification YANG        January 2023
@@ -76,7 +76,7 @@ Table of Contents
    3.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
      4.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     4.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   5
+     4.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   4
    5.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   5
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
@@ -91,8 +91,8 @@ Table of Contents
    and validate the message in XML.  Nevertheless, when the notification
    message is encoded using other encodings such as JSON [RFC8040] or
    CBOR [RFC9254], a YANG model to validate or encode the message is
-   necessary.  This document aims to extend [RFC5277] to define the YANG
-   module for the Netconf Event Notification structure.
+   necessary.  This document extends [RFC5277], defining the Netconf
+   Event Notification structure in a YANG module.
 
 2.  YANG Module
 
@@ -198,15 +198,10 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 4.  IANA Considerations
 
-   TODO: this URI already exists, how should this be managed?  Should
-   this document create a new URI or reuse the RFC5277?
-
-   This document describes the URI from IETF XML Registry and the
-   registration of a new YANG module name.
+   This document describes a URI for the IETF XML Registry and registers
+   a new YANG module name.
 
 4.1.  URI
-
-   TODO: this URI already exists, how should this be managed?
 
    IANA is requested to assign a new URI from the IETF XML Registry
    [RFC3688].  The following URI is suggested:
@@ -214,6 +209,11 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
    URI: urn:ietf:params:xml:ns:yang:ietf-notification
    Registrant Contact: The IESG.
    XML: N/A; the requested URI is an XML namespace.
+
+4.2.  YANG module name
+
+   This document requests a new YANG module name in the YANG Module
+   Names Registry [RFC7950], with the following suggestion:
 
 
 
@@ -226,20 +226,15 @@ Graf, et al.              Expires 18 July 2023                  [Page 4]
 Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
-4.2.  YANG module name
-
-   This document also requests a new YANG module name in the YANG Module
-   Names registry [RFC7950] with the following suggestion:
-
-   name: ietf-udp-notif
+   name: ietf-notification
    namespace: urn:ietf:params:xml:ns:yang:ietf-notification
    prefix: inn
    reference: RFC XXXX
 
 5.  Acknowledgements
 
-   The authors would like to thank xxx for their review and valuable
-   comments.
+   The authors would like to thank Andy Bierman for their review and
+   valuable comments.
 
 6.  References
 
@@ -274,6 +269,11 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 6.2.  Informative References
 
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
+
+
 
 
 
@@ -281,10 +281,6 @@ Graf, et al.              Expires 18 July 2023                  [Page 5]
 
 Internet-Draft       Netconf Event Notification YANG        January 2023
 
-
-   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
-              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
 
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
               C., and M. Richardson, "Encoding of Data Modeled with YANG
@@ -323,6 +319,10 @@ Authors' Addresses
    France
 
    Email: pierre.francois@insa-lyon.fr
+
+
+
+
 
 
 
