@@ -2,22 +2,22 @@
 
 
 
-Network Working Group                                            T. Graf
-Internet-Draft                                                  Swisscom
-Intended status: Standards Track                               B. Claise
-Expires: 20 July 2023                                             Huawei
-                                                           A. Huang Feng
-                                                             P. Francois
-                                                               INSA-Lyon
-                                                         16 January 2023
+Network Working Group                                      A. Huang Feng
+Internet-Draft                                               P. Francois
+Intended status: Standards Track                               INSA-Lyon
+Expires: 23 July 2023                                            T. Graf
+                                                                Swisscom
+                                                               B. Claise
+                                                                  Huawei
+                                                         19 January 2023
 
 
-               YANG model for Netconf Event Notifications
+               YANG model for NETCONF Event Notifications
                    draft-ahuang-netconf-notif-yang-00
 
 Abstract
 
-   This document defines the Yang model for Netconf Event Notifications.
+   This document defines the YANG model for NETCONF Event Notifications.
 
 Requirements Language
 
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 July 2023.
+   This Internet-Draft will expire on 23 July 2023.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Graf, et al.              Expires 20 July 2023                  [Page 1]
+Huang Feng, et al.        Expires 23 July 2023                  [Page 1]
 
-Internet-Draft       Netconf Event Notification YANG        January 2023
+Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -85,13 +85,13 @@ Table of Contents
 
 1.  Introduction
 
-   This document defines a YANG data model for Netconf Event
+   This document defines a YANG data model for NETCONF Event
    Notifications [RFC5277].  The notification structure defined in
    [RFC5277] uses a XML Schema [W3C.REC-xml-20001006] allowing to encode
    and validate the message in XML.  Nevertheless, when the notification
    message is encoded using other encodings such as JSON [RFC8040] or
    CBOR [RFC9254], a YANG model to validate or encode the message is
-   necessary.  This document extends [RFC5277], defining the Netconf
+   necessary.  This document extends [RFC5277], defining the NETCONF
    Event Notification structure in a YANG module.
 
 2.  YANG Module
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 20 July 2023                  [Page 2]
+Huang Feng, et al.        Expires 23 July 2023                  [Page 2]
 
-Internet-Draft       Netconf Event Notification YANG        January 2023
+Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
 2.2.  YANG Module
@@ -148,9 +148,9 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
                   <mailto:alex.huang-feng@insa-lyon.fr>";
 
      description
-       "Defines Netconf Event Notification structure.
+       "Defines NETCONF Event Notification structure.
 
-       Copyright (c) 2022 IETF Trust and the persons identified as
+       Copyright (c) 2023 IETF Trust and the persons identified as
        authors of the code.  All rights reserved.
 
        Redistribution and use in source and binary forms, with or without
@@ -165,16 +165,16 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 
-Graf, et al.              Expires 20 July 2023                  [Page 3]
+Huang Feng, et al.        Expires 23 July 2023                  [Page 3]
 
-Internet-Draft       Netconf Event Notification YANG        January 2023
+Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
      revision 2023-01-16 {
        description
          "First revision";
        reference
-         "RFC XXXX: Netconf Event Notification YANG";
+         "RFC XXXX: NETCONF Event Notification YANG";
      }
 
      sx:structure notification {
@@ -192,7 +192,7 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 3.  Security Considerations
 
-   The security considerations for the Netconf Event notifications are
+   The security considerations for the NETCONF Event notifications are
    described in [RFC5277].  This documents adds no additional security
    considerations.
 
@@ -212,8 +212,8 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 4.2.  YANG module name
 
-   This document requests a new YANG module name in the YANG Module
-   Names Registry [RFC7950], with the following suggestion:
+   This document registers the following YANG module in the YANG Module
+   Names Registry [RFC6020], within the "YANG Parameters" registry:
 
 
 
@@ -221,9 +221,9 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 
-Graf, et al.              Expires 20 July 2023                  [Page 4]
+Huang Feng, et al.        Expires 23 July 2023                  [Page 4]
 
-Internet-Draft       Netconf Event Notification YANG        January 2023
+Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
    name: ietf-notification
@@ -253,9 +253,10 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
               Notifications", RFC 5277, DOI 10.17487/RFC5277, July 2008,
               <https://www.rfc-editor.org/info/rfc5277>.
 
-   [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
-              RFC 7950, DOI 10.17487/RFC7950, August 2016,
-              <https://www.rfc-editor.org/info/rfc7950>.
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/info/rfc6020>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -276,10 +277,9 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
 
 
 
-
-Graf, et al.              Expires 20 July 2023                  [Page 5]
+Huang Feng, et al.        Expires 23 July 2023                  [Page 5]
 
-Internet-Draft       Netconf Event Notification YANG        January 2023
+Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
@@ -289,21 +289,6 @@ Internet-Draft       Netconf Event Notification YANG        January 2023
               <https://www.rfc-editor.org/info/rfc9254>.
 
 Authors' Addresses
-
-   Thomas Graf
-   Swisscom
-   Binzring 17
-   CH-8045 Zurich
-   Switzerland
-
-   Email: thomas.graf@swisscom.com
-
-
-   Benoit Claise
-   Huawei
-
-   Email: benoit.claise@huawei.com
-
 
    Alex Huang Feng
    INSA-Lyon
@@ -321,6 +306,19 @@ Authors' Addresses
    Email: pierre.francois@insa-lyon.fr
 
 
+   Thomas Graf
+   Swisscom
+   Binzring 17
+   CH-8045 Zurich
+   Switzerland
+
+   Email: thomas.graf@swisscom.com
+
+
+   Benoit Claise
+   Huawei
+
+   Email: benoit.claise@huawei.com
 
 
 
@@ -333,4 +331,6 @@ Authors' Addresses
 
 
 
-Graf, et al.              Expires 20 July 2023                  [Page 6]
+
+
+Huang Feng, et al.        Expires 23 July 2023                  [Page 6]
