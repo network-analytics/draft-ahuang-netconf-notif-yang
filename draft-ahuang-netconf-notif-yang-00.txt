@@ -4,9 +4,9 @@
 
 Network Working Group                                      A. Huang Feng
 Internet-Draft                                               P. Francois
-Intended status: Standards Track                               INSA-Lyon
-Expires: 23 July 2023                                            T. Graf
-                                                                Swisscom
+Updates: RFC5277 (if approved)                                 INSA-Lyon
+Intended status: Standards Track                                 T. Graf
+Expires: 23 July 2023                                           Swisscom
                                                                B. Claise
                                                                   Huawei
                                                          19 January 2023

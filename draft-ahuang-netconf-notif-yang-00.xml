@@ -12,7 +12,8 @@
 <?rfc subcompact="no"?>
 <rfc category="std"
      docName="draft-ahuang-netconf-notif-yang-00"
-     ipr="trust200902">
+     ipr="trust200902"
+     updates="RFC5277">
   <front>
     <title abbrev="NETCONF Event Notification YANG">YANG model
     for NETCONF Event Notifications</title>
