@@ -233,7 +233,7 @@ Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 5.  Acknowledgements
 
-   The authors would like to thank Andy Bierman for their review and
+   The authors would like to thank Andy Bierman for his review and
    valuable comments.
 
 6.  References
