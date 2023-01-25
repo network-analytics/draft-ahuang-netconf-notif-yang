@@ -6,10 +6,10 @@ Network Working Group                                      A. Huang Feng
 Internet-Draft                                               P. Francois
 Updates: RFC5277 (if approved)                                 INSA-Lyon
 Intended status: Standards Track                                 T. Graf
-Expires: 23 July 2023                                           Swisscom
+Expires: 29 July 2023                                           Swisscom
                                                                B. Claise
                                                                   Huawei
-                                                         19 January 2023
+                                                         25 January 2023
 
 
                YANG model for NETCONF Event Notifications
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 July 2023.
+   This Internet-Draft will expire on 29 July 2023.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Huang Feng, et al.        Expires 23 July 2023                  [Page 1]
+Huang Feng, et al.        Expires 29 July 2023                  [Page 1]
 
 Internet-Draft       NETCONF Event Notification YANG        January 2023
 
@@ -63,9 +63,9 @@ Internet-Draft       NETCONF Event Notification YANG        January 2023
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
-   extracted from this document must include Simplified BSD License text
-   as described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Simplified BSD License.
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Huang Feng, et al.        Expires 23 July 2023                  [Page 2]
+Huang Feng, et al.        Expires 29 July 2023                  [Page 2]
 
 Internet-Draft       NETCONF Event Notification YANG        January 2023
 
@@ -165,7 +165,7 @@ Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
 
-Huang Feng, et al.        Expires 23 July 2023                  [Page 3]
+Huang Feng, et al.        Expires 29 July 2023                  [Page 3]
 
 Internet-Draft       NETCONF Event Notification YANG        January 2023
 
@@ -221,7 +221,7 @@ Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
 
-Huang Feng, et al.        Expires 23 July 2023                  [Page 4]
+Huang Feng, et al.        Expires 29 July 2023                  [Page 4]
 
 Internet-Draft       NETCONF Event Notification YANG        January 2023
 
@@ -277,7 +277,7 @@ Internet-Draft       NETCONF Event Notification YANG        January 2023
 
 
 
-Huang Feng, et al.        Expires 23 July 2023                  [Page 5]
+Huang Feng, et al.        Expires 29 July 2023                  [Page 5]
 
 Internet-Draft       NETCONF Event Notification YANG        January 2023
 
@@ -294,7 +294,6 @@ Authors' Addresses
    INSA-Lyon
    Lyon
    France
-
    Email: alex.huang-feng@insa-lyon.fr
 
 
@@ -302,7 +301,6 @@ Authors' Addresses
    INSA-Lyon
    Lyon
    France
-
    Email: pierre.francois@insa-lyon.fr
 
 
@@ -311,13 +309,11 @@ Authors' Addresses
    Binzring 17
    CH-8045 Zurich
    Switzerland
-
    Email: thomas.graf@swisscom.com
 
 
    Benoit Claise
    Huawei
-
    Email: benoit.claise@huawei.com
 
 
@@ -333,4 +329,8 @@ Authors' Addresses
 
 
 
-Huang Feng, et al.        Expires 23 July 2023                  [Page 6]
+
+
+
+
+Huang Feng, et al.        Expires 29 July 2023                  [Page 6]
