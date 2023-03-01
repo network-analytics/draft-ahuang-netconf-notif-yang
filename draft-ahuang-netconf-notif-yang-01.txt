@@ -116,7 +116,7 @@ Internet-Draft       NETCONF Event Notification YANG          March 2023
 
 2.2.  YANG Module
 
-   <CODE BEGINS> file "ietf-notification@2023-01-16.yang"
+   <CODE BEGINS> file "ietf-notification@2023-03-01.yang"
    module ietf-notification {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:netconf:notification:1.0";

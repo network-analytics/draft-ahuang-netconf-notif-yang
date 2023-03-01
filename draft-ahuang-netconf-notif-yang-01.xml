@@ -144,7 +144,7 @@ module: ietf-notification
       <section anchor="yang-module" title="YANG Module">
       <t><figure>
           <artwork align="left"><![CDATA[
-<CODE BEGINS> file "ietf-notification@2023-01-16.yang"
+<CODE BEGINS> file "ietf-notification@2023-03-01.yang"
 module ietf-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:netconf:notification:1.0";
