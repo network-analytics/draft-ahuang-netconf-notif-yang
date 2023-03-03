@@ -6,10 +6,10 @@ Network Working Group                                      A. Huang Feng
 Internet-Draft                                               P. Francois
 Updates: RFC5277 (if approved)                                 INSA-Lyon
 Intended status: Standards Track                                 T. Graf
-Expires: 2 September 2023                                       Swisscom
+Expires: 4 September 2023                                       Swisscom
                                                                B. Claise
                                                                   Huawei
-                                                            1 March 2023
+                                                            3 March 2023
 
 
                YANG model for NETCONF Event Notifications
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 September 2023.
+   This Internet-Draft will expire on 4 September 2023.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Huang Feng, et al.      Expires 2 September 2023                [Page 1]
+Huang Feng, et al.      Expires 4 September 2023                [Page 1]
 
 Internet-Draft       NETCONF Event Notification YANG          March 2023
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Huang Feng, et al.      Expires 2 September 2023                [Page 2]
+Huang Feng, et al.      Expires 4 September 2023                [Page 2]
 
 Internet-Draft       NETCONF Event Notification YANG          March 2023
 
@@ -165,7 +165,7 @@ Internet-Draft       NETCONF Event Notification YANG          March 2023
 
 
 
-Huang Feng, et al.      Expires 2 September 2023                [Page 3]
+Huang Feng, et al.      Expires 4 September 2023                [Page 3]
 
 Internet-Draft       NETCONF Event Notification YANG          March 2023
 
@@ -221,7 +221,7 @@ Internet-Draft       NETCONF Event Notification YANG          March 2023
 
 
 
-Huang Feng, et al.      Expires 2 September 2023                [Page 4]
+Huang Feng, et al.      Expires 4 September 2023                [Page 4]
 
 Internet-Draft       NETCONF Event Notification YANG          March 2023
 
@@ -277,7 +277,7 @@ Internet-Draft       NETCONF Event Notification YANG          March 2023
 
 
 
-Huang Feng, et al.      Expires 2 September 2023                [Page 5]
+Huang Feng, et al.      Expires 4 September 2023                [Page 5]
 
 Internet-Draft       NETCONF Event Notification YANG          March 2023
 
@@ -333,4 +333,4 @@ Authors' Addresses
 
 
 
-Huang Feng, et al.      Expires 2 September 2023                [Page 6]
+Huang Feng, et al.      Expires 4 September 2023                [Page 6]
