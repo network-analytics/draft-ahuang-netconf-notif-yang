@@ -83,14 +83,16 @@ Table of Contents
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
      5.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      5.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   5
-   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   5
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
+     5.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .   5
+   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   6
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
      7.2.  Informative References  . . . . . . . . . . . . . . . . .   7
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .   7
      A.1.  YANG-JSON encoded message . . . . . . . . . . . . . . . .   7
      A.2.  YANG-CBOR encoded message . . . . . . . . . . . . . . . .   8
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
+   Appendix B.  .sid file  . . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
@@ -102,8 +104,6 @@ Table of Contents
    or YANG-CBOR [RFC9254], a YANG model to validate or encode the
    message is necessary.  This document extends [RFC5277], defining the
    NETCONF Event Notification structure in a YANG module.
-
-
 
 
 
@@ -263,6 +263,25 @@ Internet-Draft       NETCONF Event Notification YANG       December 2023
    prefix: inotif
    reference: RFC-to-be
 
+5.3.  YANG SID-file
+
+   IANA is requested to register a new ".sid" file in the "IETF YANG SID
+   Registry" [I-D.ietf-core-sid]:
+
+   SID range entry point: TBD
+   SID range size: 50
+   YANG module name: ietf-notification
+   reference: RFC-to-be
+
+   A ".sid" file is proposed in Appendix B.
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                  [Page 5]
+
+Internet-Draft       NETCONF Event Notification YANG       December 2023
+
+
 6.  Acknowledgements
 
    The authors would like to thank Andy Bierman, Tom Petch and Jason
@@ -272,15 +291,12 @@ Internet-Draft       NETCONF Event Notification YANG       December 2023
 
 7.1.  Normative References
 
-
-
-
-
-
-Huang Feng, et al.        Expires 10 June 2024                  [Page 5]
-
-Internet-Draft       NETCONF Event Notification YANG       December 2023
-
+   [I-D.ietf-core-sid]
+              Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
+              Richardson, "YANG Schema Item iDentifier (YANG SID)", Work
+              in Progress, Internet-Draft, draft-ietf-core-sid-23, 30
+              October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-sid-23>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -312,6 +328,16 @@ Internet-Draft       NETCONF Event Notification YANG       December 2023
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
 
+
+
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                  [Page 6]
+
+Internet-Draft       NETCONF Event Notification YANG       December 2023
+
+
    [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <https://www.rfc-editor.org/info/rfc7951>.
@@ -329,14 +355,6 @@ Internet-Draft       NETCONF Event Notification YANG       December 2023
               "Extensible Markup Language (XML) 1.0 (Second Edition)",
               W3C, October 2000,
               <https://www.w3.org/TR/2000/REC-xml-20001006>.
-
-
-
-
-Huang Feng, et al.        Expires 10 June 2024                  [Page 6]
-
-Internet-Draft       NETCONF Event Notification YANG       December 2023
-
 
 7.2.  Informative References
 
@@ -363,6 +381,19 @@ A.1.  YANG-JSON encoded message
 
    This is an example of a YANG-JSON encoded notification.
 
+
+
+
+
+
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                  [Page 7]
+
+Internet-Draft       NETCONF Event Notification YANG       December 2023
+
+
               {
                   "ietf-notification:notification": {
                       "eventTime": "2023-02-10T08:00:11.22Z",
@@ -383,16 +414,6 @@ A.1.  YANG-JSON encoded message
               }
 
                     Figure 1: JSON-encoded notification
-
-
-
-
-
-
-Huang Feng, et al.        Expires 10 June 2024                  [Page 7]
-
-Internet-Draft       NETCONF Event Notification YANG       December 2023
-
 
 A.2.  YANG-CBOR encoded message
 
@@ -421,6 +442,72 @@ A.2.  YANG-CBOR encoded message
 
        Figure 2: CBOR-encoded notification using diagnostic notation
 
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                  [Page 8]
+
+Internet-Draft       NETCONF Event Notification YANG       December 2023
+
+
+Appendix B.  .sid file
+
+   Note to the RFC-Editor: Please remove this section before publishing.
+
+   For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is
+   requested to IANA in Section 5.3.
+
+    {
+      "ietf-sid-file:sid-file": {
+        "module-name": "ietf-notification",
+        "module-revision": "2023-03-23",
+        "description": "NETCONF Event Notification structure",
+        "dependency-revision": [
+          {
+            "module-name": "ietf-yang-types",
+            "module-revision": "2013-07-15"
+          },
+          {
+            "module-name": "ietf-yang-structure-ext",
+            "module-revision": "2020-06-17"
+          }
+        ],
+        "assignment-range": [
+          {
+            "entry-point": "2550",
+            "size": "50"
+          }
+        ],
+        "item": [
+          {
+            "namespace": "module",
+            "identifier": "ietf-notification",
+            "sid": "2550"
+          },
+          {
+            "namespace": "data",
+            "identifier": "/ietf-notification:notification",
+            "sid": "2551"
+          },
+          {
+            "namespace": "data",
+            "identifier": "/ietf-notification:notification/eventTime",
+            "sid": "2552"
+          }
+        ]
+      }
+    }
+
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                  [Page 9]
+
+Internet-Draft       NETCONF Event Notification YANG       December 2023
+
+
+             Figure 3: .sid file for "ietf-notification" module
+
 Authors' Addresses
 
    Alex Huang Feng
@@ -442,14 +529,6 @@ Authors' Addresses
    Binzring 17
    CH-8045 Zurich
    Switzerland
-
-
-
-Huang Feng, et al.        Expires 10 June 2024                  [Page 8]
-
-Internet-Draft       NETCONF Event Notification YANG       December 2023
-
-
    Email: thomas.graf@swisscom.com
 
 
@@ -478,27 +557,4 @@ Internet-Draft       NETCONF Event Notification YANG       December 2023
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Huang Feng, et al.        Expires 10 June 2024                  [Page 9]
+Huang Feng, et al.        Expires 10 June 2024                 [Page 10]

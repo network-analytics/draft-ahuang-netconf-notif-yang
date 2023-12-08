@@ -1,0 +1,40 @@
+{
+  "ietf-sid-file:sid-file": {
+    "module-name": "ietf-notification",
+    "module-revision": "2023-03-23",
+    "description": "NETCONF Event Notification structure",
+    "dependency-revision": [
+      {
+        "module-name": "ietf-yang-types",
+        "module-revision": "2013-07-15"
+      },
+      {
+        "module-name": "ietf-yang-structure-ext",
+        "module-revision": "2020-06-17"
+      }
+    ],
+    "assignment-range": [
+      {
+        "entry-point": "2550",
+        "size": "50"
+      }
+    ],
+    "item": [
+      {
+        "namespace": "module",
+        "identifier": "ietf-notification",
+        "sid": "2550"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-notification:notification",
+        "sid": "2551"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-notification:notification/eventTime",
+        "sid": "2552"
+      }
+    ]
+  }
+}

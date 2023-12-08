@@ -273,6 +273,21 @@ prefix: inotif
 reference: RFC-to-be]]></artwork>
         </figure></t>
       </section>
+
+      <section title="YANG SID-file" anchor="iana-sid">
+        <t>IANA is requested to register a new ".sid" file in the <xref
+        target="I-D.ietf-core-sid">"IETF YANG SID Registry"</xref>:</t>
+
+        <t><figure>
+            <artwork align="left"><![CDATA[
+SID range entry point: TBD
+SID range size: 50
+YANG module name: ietf-notification
+reference: RFC-to-be]]></artwork>
+        </figure></t>
+
+        <t>A ".sid" file is proposed in <xref target="sid_appendix"/>.</t>
+      </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
@@ -322,6 +337,9 @@ reference: RFC-to-be]]></artwork>
 
         <refcontent>W3C</refcontent>
       </reference>
+      
+      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-core-sid.xml"?>
+
     </references>
 
     <references title="Informative References">
@@ -388,6 +406,59 @@ reference: RFC-to-be]]></artwork>
     ]]></artwork>
             </figure></t>
       </section>
+    </section>
+    <section title=".sid file" anchor="sid_appendix">
+      <t>Note to the RFC-Editor: Please remove this section before publishing.</t>
+
+      <t>For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is requested
+      to IANA in <xref target="iana-sid"/>.</t>
+
+      <t><figure anchor="fig_sid_file"
+            title='.sid file for "ietf-notification" module'>
+            <artwork align="center"><![CDATA[
+{
+  "ietf-sid-file:sid-file": {
+    "module-name": "ietf-notification",
+    "module-revision": "2023-03-23",
+    "description": "NETCONF Event Notification structure",
+    "dependency-revision": [
+      {
+        "module-name": "ietf-yang-types",
+        "module-revision": "2013-07-15"
+      },
+      {
+        "module-name": "ietf-yang-structure-ext",
+        "module-revision": "2020-06-17"
+      }
+    ],
+    "assignment-range": [
+      {
+        "entry-point": "2550",
+        "size": "50"
+      }
+    ],
+    "item": [
+      {
+        "namespace": "module",
+        "identifier": "ietf-notification",
+        "sid": "2550"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-notification:notification",
+        "sid": "2551"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-notification:notification/eventTime",
+        "sid": "2552"
+      }
+    ]
+  }
+}
+    ]]></artwork>
+          </figure>
+        </t>
     </section>
   </back>
 </rfc>
