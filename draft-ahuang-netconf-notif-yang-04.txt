@@ -89,10 +89,12 @@ Table of Contents
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
      7.2.  Informative References  . . . . . . . . . . . . . . . . .   7
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .   7
-     A.1.  YANG-JSON encoded message . . . . . . . . . . . . . . . .   7
-     A.2.  YANG-CBOR encoded message . . . . . . . . . . . . . . . .   8
-   Appendix B.  .sid file  . . . . . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+     A.1.  XML encoded message . . . . . . . . . . . . . . . . . . .   7
+     A.2.  YANG-JSON encoded message . . . . . . . . . . . . . . . .   8
+     A.3.  YANG-CBOR encoded message . . . . . . . . . . . . . . . .   8
+     A.4.  YANG-CBOR encoded message using SIDs  . . . . . . . . . .   9
+   Appendix B.  .sid file  . . . . . . . . . . . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -104,8 +106,6 @@ Table of Contents
    or YANG-CBOR [RFC9254], a YANG model to validate or encode the
    message is necessary.  This document extends [RFC5277], defining the
    NETCONF Event Notification structure in a YANG module.
-
-
 
 
 
@@ -374,13 +374,13 @@ Internet-Draft       NETCONF Event Notification YANG       December 2023
 
 Appendix A.  Examples
 
-   This non-normative section shows an example of how a YANG-JSON and
+   This non-normative section shows examples of how XML, YANG-JSON and
    YANG-CBOR are encoded.
 
-A.1.  YANG-JSON encoded message
+A.1.  XML encoded message
 
-   This is an example of a YANG-JSON encoded notification.
-
+   This is an example of a XML-encoded notification as defined in
+   [RFC5277].
 
 
 
@@ -394,58 +394,114 @@ Huang Feng, et al.        Expires 10 June 2024                  [Page 7]
 Internet-Draft       NETCONF Event Notification YANG       December 2023
 
 
-              {
-                  "ietf-notification:notification": {
-                      "eventTime": "2023-02-10T08:00:11.22Z",
-                      "ietf-yang-push:push-update": {
-                          "id": 1011,
-                          "datastore-contents": {
-                              "ietf-interfaces:interfaces": [
-                                  {
-                                      "interface": {
-                                          "name": "eth0",
-                                          "oper-status": "up"
-                                      }
-                                  }
-                              ]
-                          }
-                      }
-                  }
-              }
+   <notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+     <eventTime>2022-09-02T10:59:55.32Z</eventTime>
+     <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
+       <id>1011</id>
+       <datastore-contents>
+         <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+           <interface>
+             <name>eth0</name>
+             <oper-status>up</oper-status>
+           </interface>
+         </interfaces>
+       </datastore-contents>
+     </push-update>
+   </notification>
 
-                    Figure 1: JSON-encoded notification
+                     Figure 1: XML-encoded notification
 
-A.2.  YANG-CBOR encoded message
+A.2.  YANG-JSON encoded message
+
+   This is an example of a YANG-JSON encoded notification.
+
+   {
+       "ietf-notification:notification": {
+           "eventTime": "2023-02-10T08:00:11.22Z",
+           "ietf-yang-push:push-update": {
+               "id": 1011,
+               "datastore-contents": {
+                   "ietf-interfaces:interfaces": [
+                       {
+                           "interface": {
+                               "name": "eth0",
+                               "oper-status": "up"
+                           }
+                       }
+                   ]
+               }
+           }
+       }
+   }
+
+                    Figure 2: JSON-encoded notification
+
+A.3.  YANG-CBOR encoded message
 
    This is an example of YANG-CBOR encoded notification.  The figure
-   Figure 2 shows the message using the CBOR diagnostic notation as
+   Figure 3 shows the message using the CBOR diagnostic notation as
    defined in section 3.1 of [RFC9254].
-
-              {
-                  "ietf-notification:notification": {
-                      "eventTime": "2023-02-10T08:00:11.22Z",
-                      "ietf-yang-push:push-update": {
-                          "id": 1011,
-                          "datastore-contents": {
-                              "ietf-interfaces:interfaces": [
-                                  {
-                                      "interface": {
-                                          "name": "eth0",
-                                          "oper-status": "up"
-                                      }
-                                  }
-                              ]
-                          }
-                      }
-                  }
-              }
-
-       Figure 2: CBOR-encoded notification using diagnostic notation
 
 
 
 
 Huang Feng, et al.        Expires 10 June 2024                  [Page 8]
+
+Internet-Draft       NETCONF Event Notification YANG       December 2023
+
+
+   {
+       "ietf-notification:notification": {
+           "eventTime": "2023-02-10T08:00:11.22Z",
+           "ietf-yang-push:push-update": {
+               "id": 1011,
+               "datastore-contents": {
+                   "ietf-interfaces:interfaces": [
+                       {
+                           "interface": {
+                               "name": "eth0",
+                               "oper-status": "up"
+                           }
+                       }
+                   ]
+               }
+           }
+       }
+   }
+
+       Figure 3: CBOR-encoded notification using diagnostic notation
+
+A.4.  YANG-CBOR encoded message using SIDs
+
+   This is an example of YANG-CBOR encoded notification using YANG SIDs
+   [I-D.ietf-core-sid].  The figure Figure 4 shows the message using the
+   CBOR diagnostic notation as defined in section 3.1 of [RFC9254].
+
+   {
+       2551: {
+           1: "2023-02-10T08:00:11.22Z",
+           "ietf-yang-push:push-update": {
+               "id": 1011,
+               "datastore-contents": {
+                   "ietf-interfaces:interfaces": [
+                       {
+                           "interface": {
+                               "name": "eth0",
+                               "oper-status": "up"
+                           }
+                       }
+                   ]
+               }
+           }
+       }
+   }
+
+        Figure 4: CBOR-encoded notification using YANG SIDs in CBOR
+                            diagnostic notation
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                  [Page 9]
 
 Internet-Draft       NETCONF Event Notification YANG       December 2023
 
@@ -457,58 +513,110 @@ Appendix B.  .sid file
    For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is
    requested to IANA in Section 5.3.
 
-    {
-      "ietf-sid-file:sid-file": {
-        "module-name": "ietf-notification",
-        "module-revision": "2023-03-23",
-        "description": "NETCONF Event Notification structure",
-        "dependency-revision": [
-          {
-            "module-name": "ietf-yang-types",
-            "module-revision": "2013-07-15"
-          },
-          {
-            "module-name": "ietf-yang-structure-ext",
-            "module-revision": "2020-06-17"
-          }
-        ],
-        "assignment-range": [
-          {
-            "entry-point": "2550",
-            "size": "50"
-          }
-        ],
-        "item": [
-          {
-            "namespace": "module",
-            "identifier": "ietf-notification",
-            "sid": "2550"
-          },
-          {
-            "namespace": "data",
-            "identifier": "/ietf-notification:notification",
-            "sid": "2551"
-          },
-          {
-            "namespace": "data",
-            "identifier": "/ietf-notification:notification/eventTime",
-            "sid": "2552"
-          }
-        ]
-      }
-    }
 
 
 
 
-Huang Feng, et al.        Expires 10 June 2024                  [Page 9]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                 [Page 10]
 
 Internet-Draft       NETCONF Event Notification YANG       December 2023
 
 
-             Figure 3: .sid file for "ietf-notification" module
+   <CODE BEGINS> file "ietf-notification@2023-07-23.sid"
+   {
+     "ietf-sid-file:sid-file": {
+       "module-name": "ietf-notification",
+       "module-revision": "2023-03-23",
+       "description": "NETCONF Event Notification structure",
+       "dependency-revision": [
+         {
+           "module-name": "ietf-yang-types",
+           "module-revision": "2013-07-15"
+         },
+         {
+           "module-name": "ietf-yang-structure-ext",
+           "module-revision": "2020-06-17"
+         }
+       ],
+       "assignment-range": [
+         {
+           "entry-point": "2550",
+           "size": "50"
+         }
+       ],
+       "item": [
+         {
+           "namespace": "module",
+           "identifier": "ietf-notification",
+           "sid": "2550"
+         },
+         {
+           "namespace": "data",
+           "identifier": "/ietf-notification:notification",
+           "sid": "2551"
+         },
+         {
+           "namespace": "data",
+           "identifier": "/ietf-notification:notification/eventTime",
+           "sid": "2552"
+         }
+       ]
+     }
+   }
+   <CODE ENDS>
+
+             Figure 5: .sid file for "ietf-notification" module
 
 Authors' Addresses
+
+
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                 [Page 11]
+
+Internet-Draft       NETCONF Event Notification YANG       December 2023
+
 
    Alex Huang Feng
    INSA-Lyon
@@ -557,4 +665,8 @@ Authors' Addresses
 
 
 
-Huang Feng, et al.        Expires 10 June 2024                 [Page 10]
+
+
+
+
+Huang Feng, et al.        Expires 10 June 2024                 [Page 12]

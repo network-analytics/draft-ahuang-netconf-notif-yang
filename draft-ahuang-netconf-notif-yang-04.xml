@@ -337,7 +337,31 @@ reference: RFC-to-be]]></artwork>
     </references>
 
     <section anchor="example" title="Examples">
-      <t>This non-normative section shows an example of how a YANG-JSON and YANG-CBOR are encoded.</t>
+      <t>This non-normative section shows examples of how XML, YANG-JSON and YANG-CBOR are encoded.</t>
+      <section anchor="xml-example" title="XML encoded message">
+        <t>This is an example of a XML-encoded notification as defined in <xref target="RFC5277"/>.</t>
+
+        <figure anchor="fig_xml"
+              title="XML-encoded notification">
+              <sourcecode type="xml"><![CDATA[
+<notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+  <eventTime>2022-09-02T10:59:55.32Z</eventTime>
+  <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
+    <id>1011</id>
+    <datastore-contents>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+        <interface>
+          <name>eth0</name>
+          <oper-status>up</oper-status>
+        </interface>
+      </interfaces>
+    </datastore-contents>
+  </push-update>
+</notification>
+    ]]></sourcecode>
+            </figure>
+      </section>
+      
       <section anchor="json-example" title="YANG-JSON encoded message">
         <t>This is an example of a YANG-JSON encoded notification.</t>
 
@@ -377,6 +401,37 @@ reference: RFC-to-be]]></artwork>
 {
     "ietf-notification:notification": {
         "eventTime": "2023-02-10T08:00:11.22Z",
+        "ietf-yang-push:push-update": {
+            "id": 1011,
+            "datastore-contents": {
+                "ietf-interfaces:interfaces": [
+                    {
+                        "interface": {
+                            "name": "eth0",
+                            "oper-status": "up"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
+    ]]></sourcecode>
+        </figure>
+      </section>
+
+      <section anchor="cbor-sid-example" title="YANG-CBOR encoded message using SIDs">
+        <t>This is an example of YANG-CBOR encoded notification using YANG SIDs <xref
+        target="I-D.ietf-core-sid"/>. The figure <xref target="fig_cbor_sid"/> shows
+        the message using the CBOR diagnostic notation as defined in section 3.1 of
+        <xref target="RFC9254"/>.</t>
+
+        <figure anchor="fig_cbor_sid"
+              title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
+              <sourcecode type="cbor-diag"><![CDATA[
+{
+    2551: {
+        1: "2023-02-10T08:00:11.22Z",
         "ietf-yang-push:push-update": {
             "id": 1011,
             "datastore-contents": {
