@@ -284,8 +284,8 @@ Internet-Draft       NETCONF Event Notification YANG       December 2023
 
 6.  Acknowledgements
 
-   The authors would like to thank Andy Bierman, Tom Petch and Jason
-   Sterne for their review and valuable comments.
+   The authors would like to thank Andy Bierman, Carsten Bormann, Tom
+   Petch and Jason Sterne for their review and valuable comments.
 
 7.  References
 
