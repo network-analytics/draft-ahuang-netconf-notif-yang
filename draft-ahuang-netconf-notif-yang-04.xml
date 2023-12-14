@@ -145,14 +145,12 @@
         definition of the XSD element name defined in Section 4 of <xref target="RFC5277"/>.
         </t>
 
-        <t><figure>
-          <artwork align="left"><![CDATA[
+          <sourcecode type="yangtree"><![CDATA[
 module: ietf-notification
 
   structure notification:
     +-- eventTime    yang:date-and-time
-]]></artwork>
-        </figure></t>
+]]></sourcecode>
       </section>
 
       <section anchor="yang-module" title="YANG Module">
@@ -160,9 +158,7 @@ module: ietf-notification
       defined in Section 4 of <xref target="RFC5277"/> allowing to use this YANG module 
       to also validate already implemented XML encoded NETCONF Event Notifications.</t>
 
-      <t><figure>
-          <artwork align="left"><![CDATA[
-<CODE BEGINS> file "ietf-notification@2023-07-23.yang"
+      <sourcecode type="yang" markers="true" name="ietf-notification@2023-07-23.yang"><![CDATA[
 module ietf-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:netconf:notification:1.0";
@@ -230,8 +226,7 @@ module ietf-notification {
     }
   }
 }
-<CODE ENDS>]]></artwork>
-        </figure></t>
+]]></sourcecode>
       </section>
     </section>
 
@@ -250,13 +245,11 @@ module ietf-notification {
       <t>IANA is requested to add this document as a reference in the following
       URI in the <xref target="RFC3688">IETF XML Registry</xref>.</t>
 
-      <t><figure>
-          <artwork align="left"><![CDATA[
+      <artwork align="left"><![CDATA[
 URI: urn:ietf:params:xml:ns:netconf:notification:1.0
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.
 Reference: RFC5277; RFC-to-be]]></artwork>
-        </figure></t>
       </section>
 
       <section title="YANG module name">
@@ -265,26 +258,22 @@ Reference: RFC5277; RFC-to-be]]></artwork>
         target="RFC6020">YANG Module Names Registry</xref>, within the
         "YANG Parameters" registry:</t>
 
-        <t><figure>
-            <artwork align="left"><![CDATA[
+        <artwork align="left"><![CDATA[
 name: ietf-notification
 namespace: urn:ietf:params:xml:ns:netconf:notification:1.0
 prefix: inotif
 reference: RFC-to-be]]></artwork>
-        </figure></t>
       </section>
 
       <section title="YANG SID-file" anchor="iana-sid">
         <t>IANA is requested to register a new ".sid" file in the <xref
         target="I-D.ietf-core-sid">"IETF YANG SID Registry"</xref>:</t>
 
-        <t><figure>
-            <artwork align="left"><![CDATA[
+        <artwork align="left"><![CDATA[
 SID range entry point: TBD
 SID range size: 50
 YANG module name: ietf-notification
 reference: RFC-to-be]]></artwork>
-        </figure></t>
 
         <t>A ".sid" file is proposed in <xref target="sid_appendix"/>.</t>
       </section>
@@ -352,9 +341,9 @@ reference: RFC-to-be]]></artwork>
       <section anchor="json-example" title="YANG-JSON encoded message">
         <t>This is an example of a YANG-JSON encoded notification.</t>
 
-          <t><figure anchor="fig_json"
+        <figure anchor="fig_json"
               title="JSON-encoded notification">
-              <artwork align="center"><![CDATA[
+              <sourcecode type="json"><![CDATA[
 {
     "ietf-notification:notification": {
         "eventTime": "2023-02-10T08:00:11.22Z",
@@ -373,8 +362,8 @@ reference: RFC-to-be]]></artwork>
         }
     }
 }
-    ]]></artwork>
-            </figure></t>
+    ]]></sourcecode>
+            </figure>
       </section>
 
       <section anchor="cbor-example" title="YANG-CBOR encoded message">
@@ -382,9 +371,9 @@ reference: RFC-to-be]]></artwork>
         The figure <xref target="fig_cbor"/> shows the message using the CBOR
         diagnostic notation as defined in section 3.1 of <xref target="RFC9254"/>.</t>
 
-          <t><figure anchor="fig_cbor"
+        <figure anchor="fig_cbor"
               title="CBOR-encoded notification using diagnostic notation">
-              <artwork align="center"><![CDATA[
+              <sourcecode type="cbor-diag"><![CDATA[
 {
     "ietf-notification:notification": {
         "eventTime": "2023-02-10T08:00:11.22Z",
@@ -403,8 +392,8 @@ reference: RFC-to-be]]></artwork>
         }
     }
 }
-    ]]></artwork>
-            </figure></t>
+    ]]></sourcecode>
+        </figure>
       </section>
     </section>
     <section title=".sid file" anchor="sid_appendix">
@@ -413,9 +402,9 @@ reference: RFC-to-be]]></artwork>
       <t>For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is requested
       to IANA in <xref target="iana-sid"/>.</t>
 
-      <t><figure anchor="fig_sid_file"
+      <figure anchor="fig_sid_file"
             title='.sid file for "ietf-notification" module'>
-            <artwork align="center"><![CDATA[
+        <sourcecode type="yang-sid" markers="true" name="ietf-notification@2023-07-23.sid"><![CDATA[
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-notification",
@@ -456,9 +445,8 @@ reference: RFC-to-be]]></artwork>
     ]
   }
 }
-    ]]></artwork>
-          </figure>
-        </t>
+    ]]></sourcecode>
+      </figure>
     </section>
   </back>
 </rfc>
