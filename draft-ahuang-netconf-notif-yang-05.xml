@@ -143,22 +143,61 @@
       in other encodings than XML. A YANG 1.1 <xref target="RFC7950"/> model
       is defined for such purposes.</t>
 
-      <t>This document updates <xref target="RFC5277"/>,<xref target="RFC8639"/>
+      <t>This document updates <xref target="RFC5277"/>, <xref target="RFC8639"/>
       and <xref target="RFC7951"/> specifying how a Notification header should be
       encoded. RESTCONF Notifications <xref target="RFC8040"/> are out of scope
       of this document.</t>
     </section>
 
-    <section title="Relationship to RFC5277">
-      <t>TODO</t>
-    </section>
+    <section title="Relationship to past documents">
 
-    <section title="Relationship to RFC8639">
-      <t>TODO</t>
-    </section>
+      <t>This section exposes the relationship to <xref target="RFC5277"/>,
+      <xref target="RFC8639"/> and <xref target="RFC7951"/>.</t>
 
-    <section title="Relationship to RFC7951">
-      <t>TODO</t>
+      <section title="Relationship to RFC5277">
+        <t><xref target="RFC5277"/> defines a mechanism for NETCONF nodes to
+        send notifications to a collector. These are the key relationships
+        between the current document and <xref target="RFC5277"/>:
+        </t>
+
+        <t>
+          <ul>
+            <li>Section 2.1 of <xref target="RFC5277"/> defines how to configure
+            a subscription to receive NETCONF Event Notifications. The RPCs are
+            defined in the XML schema of Section 3.4 of <xref target="RFC5277"/>.
+            This document does not update or add any new RPCs to this schema.</li>
+
+            <li>The notification structure is defined in Section 4 of <xref target="RFC5277"/>
+            using a XML schema. This document defines the structure of ...</li>
+          </ul>
+        </t>
+      </section>
+
+      <section title="Relationship to RFC8639">
+        <t>Subscribed Notifications <xref target="RFC8639"/> defines a mechanism 
+        on top of <xref target="RFC5277"/> to stream notifications from
+        the NETCONF node. These are the key relationships between the current document and <xref target="RFC8639"/>:
+        </t>
+
+        <t>
+          <ul>
+            <li>Section 1.4 of <xref target="RFC8639"/> states that the solution</li>
+          </ul>
+        </t>
+      </section>
+
+      <section title="Relationship to RFC7951">
+        <t><xref target="RFC7951"/> defined how YANG data is encoded using JSON.
+        These are the key relantioship points between the current document and 
+        <xref target="RFC7951"/>:
+        </t>
+
+        <t>
+          <ul>
+            <li>TODO</li>
+          </ul>
+        </t>
+      </section>
     </section>
 
     <section title="Differences to draft-ietf-netconf-notification-messages">
@@ -174,8 +213,19 @@
       </t>
     </section>
 
+    <section title="NETCONF Notification structure">
+      <section title="XML Structure"></section>
+      <section title="JSON Structure">
+        <t>TODO: state that when RESTCONF is used, ietf-restconf is used. This doc does not update restconf.</t>
+      </section>
+      <section title="CBOR Structure">
+        <section title="CBOR encoded messages"></section>
+        <section title="CBOR encoded messages using YANG-SIDS"></section>
+      </section>
+    </section>
+
     <section anchor="yang-model" title="YANG Module">
-    
+
       <section anchor="yang-tree" title="YANG Tree Diagram">
         <t>This YANG module adds a structure with one leaf for the datetime as defined in 
         section 2.2.1 of <xref target="RFC5277"/>. The name of the leaf matches the 

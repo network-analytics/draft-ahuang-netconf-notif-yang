@@ -75,34 +75,34 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Relationship to RFC5277 . . . . . . . . . . . . . . . . . . .   3
-   3.  Relationship to RFC8639 . . . . . . . . . . . . . . . . . . .   3
-   4.  Relationship to RFC7951 . . . . . . . . . . . . . . . . . . .   3
-   5.  Differences to draft-ietf-netconf-notification-messages . . .   3
-   6.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     6.1.  YANG Tree Diagram . . . . . . . . . . . . . . . . . . . .   4
-     6.2.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   4
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
-     8.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     8.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   6
-     8.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .   6
-   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .   7
-     10.2.  Informative References . . . . . . . . . . . . . . . . .   8
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .   9
-     A.1.  XML encoded message . . . . . . . . . . . . . . . . . . .   9
-     A.2.  YANG-JSON encoded message . . . . . . . . . . . . . . . .   9
-     A.3.  YANG-CBOR encoded message . . . . . . . . . . . . . . . .  10
-     A.4.  YANG-CBOR encoded message using SIDs  . . . . . . . . . .  11
-   Appendix B.  .sid file  . . . . . . . . . . . . . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
-
-
-
-
-
+   2.  Relationship to past documents  . . . . . . . . . . . . . . .   3
+     2.1.  Relationship to RFC5277 . . . . . . . . . . . . . . . . .   3
+     2.2.  Relationship to RFC8639 . . . . . . . . . . . . . . . . .   4
+     2.3.  Relationship to RFC7951 . . . . . . . . . . . . . . . . .   4
+   3.  Differences to draft-ietf-netconf-notification-messages . . .   4
+   4.  NETCONF Notification structure  . . . . . . . . . . . . . . .   4
+     4.1.  XML Structure . . . . . . . . . . . . . . . . . . . . . .   4
+     4.2.  JSON Structure  . . . . . . . . . . . . . . . . . . . . .   4
+     4.3.  CBOR Structure  . . . . . . . . . . . . . . . . . . . . .   4
+   5.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     5.1.  YANG Tree Diagram . . . . . . . . . . . . . . . . . . . .   5
+     5.2.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   5
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+     7.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     7.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   7
+     7.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .   7
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  10
+     A.1.  XML encoded message . . . . . . . . . . . . . . . . . . .  10
+     A.2.  YANG-JSON encoded message . . . . . . . . . . . . . . . .  10
+     A.3.  YANG-CBOR encoded message . . . . . . . . . . . . . . . .  11
+     A.4.  YANG-CBOR encoded message using SIDs  . . . . . . . . . .  12
+   Appendix B.  .sid file  . . . . . . . . . . . . . . . . . . . . .  12
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 
 
@@ -138,30 +138,30 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    encoded in other encodings than XML.  A YANG 1.1 [RFC7950] model is
    defined for such purposes.
 
-   This document updates [RFC5277],[RFC8639] and [RFC7951] specifying
+   This document updates [RFC5277], [RFC8639] and [RFC7951] specifying
    how a Notification header should be encoded.  RESTCONF Notifications
    [RFC8040] are out of scope of this document.
 
-2.  Relationship to RFC5277
+2.  Relationship to past documents
 
-   TODO
+   This section exposes the relationship to [RFC5277], [RFC8639] and
+   [RFC7951].
 
-3.  Relationship to RFC8639
+2.1.  Relationship to RFC5277
 
-   TODO
+   [RFC5277] defines a mechanism for NETCONF nodes to send notifications
+   to a collector.  These are the key relationships between the current
+   document and [RFC5277]:
 
-4.  Relationship to RFC7951
+   *  Section 2.1 of [RFC5277] defines how to configure a subscription
+      to receive NETCONF Event Notifications.  The RPCs are defined in
+      the XML schema of Section 3.4 of [RFC5277].  This document does
+      not update or add any new RPCs to this schema.
 
-   TODO
+   *  The notification structure is defined in Section 4 of [RFC5277]
+      using a XML schema.  This document defines the structure of ...
 
-5.  Differences to draft-ietf-netconf-notification-messages
 
-   Note to the RFC-Editor: Please remove this section before publishing.
-
-   [I-D.ietf-netconf-notification-messages] proposes a structure to send
-   multiple notifications in a single message.  Unlike
-   [I-D.ietf-netconf-notification-messages], this document defines a
-   YANG module to encode NETCONF Notifications with encodings other than
 
 
 
@@ -170,15 +170,63 @@ Huang Feng, et al.      Expires 28 November 2024                [Page 3]
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
+2.2.  Relationship to RFC8639
+
+   Subscribed Notifications [RFC8639] defines a mechanism on top of
+   [RFC5277] to stream notifications from the NETCONF node.  These are
+   the key relationships between the current document and [RFC8639]:
+
+   *  Section 1.4 of [RFC8639] states that the solution
+
+2.3.  Relationship to RFC7951
+
+   [RFC7951] defined how YANG data is encoded using JSON.  These are the
+   key relantioship points between the current document and [RFC7951]:
+
+   *  TODO
+
+3.  Differences to draft-ietf-netconf-notification-messages
+
+   Note to the RFC-Editor: Please remove this section before publishing.
+
+   [I-D.ietf-netconf-notification-messages] proposes a structure to send
+   multiple notifications in a single message.  Unlike
+   [I-D.ietf-netconf-notification-messages], this document defines a
+   YANG module to encode NETCONF Notifications with encodings other than
    XML, which is currently not existing.  The structure for NETCONF
    notifications is defined in [RFC5277] using a XSD, but there is no
    YANG module defining the structure of the notification message sent
    by a server when the message is encoded in YANG-JSON [RFC7951] or
    YANG-CBOR [RFC9254].
 
-6.  YANG Module
+4.  NETCONF Notification structure
 
-6.1.  YANG Tree Diagram
+4.1.  XML Structure
+
+4.2.  JSON Structure
+
+   TODO: state that when RESTCONF is used, ietf-restconf is used.  This
+   doc does not update restconf.
+
+4.3.  CBOR Structure
+
+4.3.1.  CBOR encoded messages
+
+4.3.2.  CBOR encoded messages using YANG-SIDS
+
+5.  YANG Module
+
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 4]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
+5.1.  YANG Tree Diagram
 
    This YANG module adds a structure with one leaf for the datetime as
    defined in section 2.2.1 of [RFC5277].  The name of the leaf matches
@@ -190,7 +238,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
      structure notification:
        +-- eventTime    yang:date-and-time
 
-6.2.  YANG Module
+5.2.  YANG Module
 
    The YANG module uses the same namespace from the XML Schema defined
    in Section 4 of [RFC5277] allowing to use this YANG module to also
@@ -218,14 +266,6 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
        "WG Web:   <https://datatracker.ietf.org/group/netconf/>
         WG List:  <mailto:netconf@ietf.org>
 
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 4]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
         Authors:  Alex Huang Feng
                   <mailto:alex.huang-feng@insa-lyon.fr>
                   Pierre Francois
@@ -234,6 +274,13 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
                   <mailto:thomas.graf@swisscom.com>
                   Benoit Claise
                   <mailto:benoit.claise@huawei.com>";
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 5]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
 
      description
        "Defines NETCONF Event Notification structure as defined in
@@ -274,29 +321,29 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
            element defined in Section 4 of RFC5277.";
        }
      }
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 5]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
    }
    <CODE ENDS>
 
-7.  Security Considerations
+6.  Security Considerations
 
    The security considerations for the NETCONF Event notifications are
    described in [RFC5277].  This documents adds no additional security
    considerations.
 
-8.  IANA Considerations
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 6]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
+7.  IANA Considerations
 
    This document describes the URI used for the IETF XML Registry and
    registers a new YANG module name.
 
-8.1.  URI
+7.1.  URI
 
    IANA is requested to add this document as a reference in the
    following URI in the IETF XML Registry [RFC3688].
@@ -306,7 +353,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    XML: N/A; the requested URI is an XML namespace.
    Reference: RFC5277; RFC-to-be
 
-8.2.  YANG module name
+7.2.  YANG module name
 
    This document registers the following YANG module in the YANG Module
    Names Registry [RFC6020], within the "YANG Parameters" registry:
@@ -316,7 +363,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    prefix: inotif
    reference: RFC-to-be
 
-8.3.  YANG SID-file
+7.3.  YANG SID-file
 
    IANA is requested to register a new ".sid" file in the "IETF YANG SID
    Registry" [I-D.ietf-core-sid]:
@@ -328,24 +375,24 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
    A ".sid" file is proposed in Appendix B.
 
-
-
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 6]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
-9.  Acknowledgements
+8.  Acknowledgements
 
    The authors would like to thank Andy Bierman, Carsten Bormann, Tom
    Petch and Jason Sterne for their review and valuable comments.
 
-10.  References
+9.  References
 
-10.1.  Normative References
+9.1.  Normative References
+
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 7]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
 
    [I-D.ietf-core-sid]
               Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
@@ -385,15 +432,6 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
-
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 7]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
@@ -401,6 +439,16 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <https://www.rfc-editor.org/info/rfc7951>.
+
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 8]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -431,7 +479,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
               W3C, October 2000,
               <https://www.w3.org/TR/2000/REC-xml-20001006>.
 
-10.2.  Informative References
+9.2.  Informative References
 
    [I-D.ietf-netconf-notification-messages]
               Voit, E., Jenkins, T., Birkholz, H., Bierman, A., and A.
@@ -441,15 +489,6 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               notification-messages-08>.
 
-
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 8]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
@@ -457,6 +496,15 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 9]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
 
 Appendix A.  Examples
 
@@ -501,7 +549,15 @@ A.2.  YANG-JSON encoded message
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 9]
+
+
+
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024               [Page 10]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -557,7 +613,7 @@ A.3.  YANG-CBOR encoded message
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 10]
+Huang Feng, et al.      Expires 28 November 2024               [Page 11]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -595,7 +651,7 @@ Appendix B.  .sid file
    Note to the RFC-Editor: Please remove this section before publishing.
 
    For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is
-   requested to IANA in Section 8.3.
+   requested to IANA in Section 7.3.
 
 
 
@@ -613,7 +669,7 @@ Appendix B.  .sid file
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 11]
+Huang Feng, et al.      Expires 28 November 2024               [Page 12]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -669,7 +725,7 @@ Authors' Addresses
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 12]
+Huang Feng, et al.      Expires 28 November 2024               [Page 13]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -725,4 +781,4 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 13]
+Huang Feng, et al.      Expires 28 November 2024               [Page 14]
