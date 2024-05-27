@@ -87,7 +87,7 @@ Table of Contents
      8.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      8.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   6
      8.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .   6
-   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   6
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
      10.1.  Normative References . . . . . . . . . . . . . . . . . .   7
      10.2.  Informative References . . . . . . . . . . . . . . . . .   8
@@ -125,7 +125,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    data.
 
    The structure of NETCONF Event notifications has been defined in
-   [RFC5277] using an XML Schema [W3C.REC-xml-20001006] allowing NETCONF
+   [RFC5277] using a XML Schema [W3C.REC-xml-20001006] allowing NETCONF
    nodes to validate the header of the notification message when it is
    encoded in XML.  However, when these notifications are sent using
    YANG-Push [RFC8639][RFC8641], they can be encoded in other encodings
@@ -135,8 +135,8 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
    This document defines the content of the header of such notifications
    allowing implementations to validate the notifications when they are
-   encoded in other encodings than XML.  A YANG model is defined for
-   such purposes.
+   encoded in other encodings than XML.  A YANG 1.1 [RFC7950] model is
+   defined for such purposes.
 
    This document updates [RFC5277],[RFC8639] and [RFC7951] specifying
    how a Notification header should be encoded.  RESTCONF Notifications
@@ -195,8 +195,9 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    The YANG module uses the same namespace from the XML Schema defined
    in Section 4 of [RFC5277] allowing to use this YANG module to also
    validate already implemented XML encoded NETCONF Event Notifications.
+   It imports
 
-   <CODE BEGINS> file "ietf-notification@2024-01-22.yang"
+   <CODE BEGINS> file "ietf-notification@2024-05-27.yang"
    module ietf-notification {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:netconf:notification:1.0";
@@ -217,7 +218,6 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
        "WG Web:   <https://datatracker.ietf.org/group/netconf/>
         WG List:  <mailto:netconf@ietf.org>
 
-        Authors:  Alex Huang Feng
 
 
 
@@ -226,6 +226,7 @@ Huang Feng, et al.      Expires 28 November 2024                [Page 4]
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
+        Authors:  Alex Huang Feng
                   <mailto:alex.huang-feng@insa-lyon.fr>
                   Pierre Francois
                   <mailto:pierre.francois@insa-lyon.fr>
@@ -235,24 +236,26 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
                   <mailto:benoit.claise@huawei.com>";
 
      description
-       "Defines NETCONF Event Notification structure as defined in RFC5277.
-       This YANG module uses the same namespace from the XML schema defined
-       in Section 4 of RFC5277 to be able to validate already implemented
-       XML encoded messages.
+       "Defines NETCONF Event Notification structure as defined in
+       RFC5277. This YANG module uses the same namespace from the XML
+       schema defined in Section 4 of RFC5277 to be able to validate
+       already implemented XML encoded messages.
 
-       Copyright (c) 2023 IETF Trust and the persons identified as
+       Copyright (c) 2024 IETF Trust and the persons identified as
        authors of the code.  All rights reserved.
 
-       Redistribution and use in source and binary forms, with or without
-       modification, is permitted pursuant to, and subject to the license
-       terms contained in, the Revised BSD License set forth in Section
-       4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+       Redistribution and use in source and binary forms, with or
+       without modification, is permitted pursuant to, and subject to
+       the license terms contained in, the Revised BSD License set
+       forth in Section 4.c of the IETF Trust's Legal Provisions
+       Relating to IETF Documents
        (https://trustee.ietf.org/license-info).
 
-       This version of this YANG module is part of RFC XXXX; see the RFC
-       itself for full legal notices.";
+       This version of this YANG module is part of RFC XXXX
+       (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+       for full legal notices.";
 
-     revision 2024-01-22 {
+     revision 2024-05-27 {
        description
          "First revision";
        reference
@@ -264,16 +267,13 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
          type yang:date-and-time;
          mandatory true;
          description
-           "The date and time the event was generated by the event source.
-           This parameter is of type dateTime and compliant to [RFC3339].
-           Implementations must support time zones.
-           The leaf name in camel case matches the name of the XSD element
-           defined in Section 4 of RFC5277.";
+           "The date and time the event was generated by the event
+           source. This parameter is of type dateTime and compliant
+           to [RFC3339]. Implementations must support time zones.
+           The leaf name in camel case matches the name of the XSD
+           element defined in Section 4 of RFC5277.";
        }
      }
-   }
-   <CODE ENDS>
-
 
 
 
@@ -281,6 +281,9 @@ Huang Feng, et al.      Expires 28 November 2024                [Page 5]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
+
+   }
+   <CODE ENDS>
 
 7.  Security Considerations
 
@@ -325,10 +328,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
    A ".sid" file is proposed in Appendix B.
 
-9.  Acknowledgements
 
-   The authors would like to thank Andy Bierman, Carsten Bormann, Tom
-   Petch and Jason Sterne for their review and valuable comments.
 
 
 
@@ -337,6 +337,11 @@ Huang Feng, et al.      Expires 28 November 2024                [Page 6]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
+
+9.  Acknowledgements
+
+   The authors would like to thank Andy Bierman, Carsten Bormann, Tom
+   Petch and Jason Sterne for their review and valuable comments.
 
 10.  References
 
@@ -380,11 +385,6 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
-   [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
-              RFC 7950, DOI 10.17487/RFC7950, August 2016,
-              <https://www.rfc-editor.org/info/rfc7950>.
-
-
 
 
 
@@ -393,6 +393,10 @@ Huang Feng, et al.      Expires 28 November 2024                [Page 7]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
+
+   [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
+              RFC 7950, DOI 10.17487/RFC7950, August 2016,
+              <https://www.rfc-editor.org/info/rfc7950>.
 
    [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
@@ -437,10 +441,6 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               notification-messages-08>.
 
-   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
-              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
-
 
 
 
@@ -449,6 +449,10 @@ Huang Feng, et al.      Expires 28 November 2024                [Page 8]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
@@ -484,10 +488,6 @@ A.1.  XML encoded message
 A.2.  YANG-JSON encoded message
 
    This is an example of a YANG-JSON encoded notification.
-
-
-
-
 
 
 
