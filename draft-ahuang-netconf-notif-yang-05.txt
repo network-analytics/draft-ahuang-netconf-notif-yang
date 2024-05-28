@@ -82,27 +82,27 @@ Table of Contents
    3.  Differences to draft-ietf-netconf-notification-messages . . .   4
    4.  NETCONF Notification structure  . . . . . . . . . . . . . . .   4
      4.1.  XML Structure . . . . . . . . . . . . . . . . . . . . . .   4
-     4.2.  JSON Structure  . . . . . . . . . . . . . . . . . . . . .   4
-     4.3.  CBOR Structure  . . . . . . . . . . . . . . . . . . . . .   4
-   5.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     5.1.  YANG Tree Diagram . . . . . . . . . . . . . . . . . . . .   5
-     5.2.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   5
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-     7.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     7.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .   7
-     7.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .   7
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .   9
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  10
-     A.1.  XML encoded message . . . . . . . . . . . . . . . . . . .  10
-     A.2.  YANG-JSON encoded message . . . . . . . . . . . . . . . .  10
-     A.3.  YANG-CBOR encoded message . . . . . . . . . . . . . . . .  11
-     A.4.  YANG-CBOR encoded message using SIDs  . . . . . . . . . .  12
-   Appendix B.  .sid file  . . . . . . . . . . . . . . . . . . . . .  12
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
+     4.2.  JSON Structure  . . . . . . . . . . . . . . . . . . . . .   5
+     4.3.  CBOR Structure  . . . . . . . . . . . . . . . . . . . . .   6
+   5.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  YANG Tree Diagram . . . . . . . . . . . . . . . . . . . .   8
+     5.2.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   8
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+     7.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     7.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  10
+     7.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .  10
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  12
+   Appendix A.  .sid file  . . . . . . . . . . . . . . . . . . . . .  13
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+
+
+
+
+
 
 
 
@@ -155,13 +155,13 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
    *  Section 2.1 of [RFC5277] defines how to configure a subscription
       to receive NETCONF Event Notifications.  The RPCs are defined in
-      the XML schema of Section 3.4 of [RFC5277].  This document does
+      the XML schema in Section 3.4 of [RFC5277].  This document does
       not update or add any new RPCs to this schema.
 
    *  The notification structure is defined in Section 4 of [RFC5277]
-      using a XML schema.  This document defines the structure of ...
-
-
+      using a XML schema.  This document defines the structure of the
+      notification in XML, JSON and CBOR in Section 4.  In XML, the same
+      structure is used.
 
 
 
@@ -176,14 +176,20 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    [RFC5277] to stream notifications from the NETCONF node.  These are
    the key relationships between the current document and [RFC8639]:
 
-   *  Section 1.4 of [RFC8639] states that the solution
+   *  Section 1.4 of [RFC8639] states that the the solution uses the
+      notification structure defined in [RFC5277].  This document
+      replaces this structure using a YANG module allowing JSON and CBOR
+      encodings.
 
 2.3.  Relationship to RFC7951
 
    [RFC7951] defined how YANG data is encoded using JSON.  These are the
-   key relantioship points between the current document and [RFC7951]:
+   key relationship points between the current document and [RFC7951]:
 
-   *  TODO
+   *  [RFC7951] does not define explicitely how a YANG notification
+      should be encoded using JSON encoding.  This document specifies
+      the structure of such notification for JSON when these are used in
+      a NETCONF [RFC6241] environment.
 
 3.  Differences to draft-ietf-netconf-notification-messages
 
@@ -196,27 +202,21 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    XML, which is currently not existing.  The structure for NETCONF
    notifications is defined in [RFC5277] using a XSD, but there is no
    YANG module defining the structure of the notification message sent
-   by a server when the message is encoded in YANG-JSON [RFC7951] or
-   YANG-CBOR [RFC9254].
+   by a server when the message is encoded in JSON [RFC7951] or CBOR
+   [RFC9254].
 
 4.  NETCONF Notification structure
 
+   This section defines how a NETCONF YANG Notifications are structured
+   in XML, JSON and CBOR encodings.  The same namespace "ietf-
+   notification" is used to be compliant with [RFC5277].
+
 4.1.  XML Structure
 
-4.2.  JSON Structure
+   The same structure as defined in Section 4 of [RFC5277] is used.  The
+   structure uses the XML namespace that has been defined in [RFC5277]:
 
-   TODO: state that when RESTCONF is used, ietf-restconf is used.  This
-   doc does not update restconf.
-
-4.3.  CBOR Structure
-
-4.3.1.  CBOR encoded messages
-
-4.3.2.  CBOR encoded messages using YANG-SIDS
-
-5.  YANG Module
-
-
+     urn:ietf:params:xml:ns:netconf:notification:1.0
 
 
 
@@ -225,6 +225,179 @@ Huang Feng, et al.      Expires 28 November 2024                [Page 4]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
+
+   Two child nodes within the "notification" container are expected,
+   representing the event time and the notification payload.  The
+   "eventTime" node is defined within the same XML namespace as the
+   "notification" element and is compliant with [RFC3339].
+
+   The name and namespace of the payload element are determined by the
+   YANG module containing the notification statement representing the
+   notification message.
+
+   The following example shows a "push-update" defined in the YANG
+   module of YANG-Push [RFC8641] encoded in XML:
+
+   <notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+     <eventTime>2022-09-02T10:59:55.32Z</eventTime>
+     <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
+       <id>1011</id>
+       <datastore-contents>
+         <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+           <interface>
+             <name>eth0</name>
+             <oper-status>up</oper-status>
+           </interface>
+         </interfaces>
+       </datastore-contents>
+     </push-update>
+   </notification>
+
+                     Figure 1: XML-encoded notification
+
+4.2.  JSON Structure
+
+   TODO: state that a leaf with name space ietf-notification is used
+
+   TODO: state that when RESTCONF is used, ietf-restconf is used.  This
+   doc does not update restconf.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 5]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
+   {
+       "ietf-notification:notification": {
+           "eventTime": "2023-02-10T08:00:11.22Z",
+           "ietf-yang-push:push-update": {
+               "id": 1011,
+               "datastore-contents": {
+                   "ietf-interfaces:interfaces": [
+                       {
+                           "interface": {
+                               "name": "eth0",
+                               "oper-status": "up"
+                           }
+                       }
+                   ]
+               }
+           }
+       }
+   }
+
+                    Figure 2: JSON-encoded notification
+
+4.3.  CBOR Structure
+
+4.3.1.  CBOR encoded messages
+
+   TODO: use CBOR diagnostic notation and ietf-notification as namespace
+
+   This is an example of YANG-CBOR encoded notification.  The figure
+   Figure 3 shows the message using the CBOR diagnostic notation as
+   defined in section 3.1 of [RFC9254].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 6]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
+   {
+       "ietf-notification:notification": {
+           "eventTime": "2023-02-10T08:00:11.22Z",
+           "ietf-yang-push:push-update": {
+               "id": 1011,
+               "datastore-contents": {
+                   "ietf-interfaces:interfaces": [
+                       {
+                           "interface": {
+                               "name": "eth0",
+                               "oper-status": "up"
+                           }
+                       }
+                   ]
+               }
+           }
+       }
+   }
+
+       Figure 3: CBOR-encoded notification using diagnostic notation
+
+4.3.2.  CBOR encoded messages using YANG-SIDS
+
+   TODO: State that instead of keys, YANG-SIDs are used
+
+   This is an example of YANG-CBOR encoded notification using YANG SIDs
+   [I-D.ietf-core-sid].  The figure Figure 4 shows the message using the
+   CBOR diagnostic notation as defined in section 3.1 of [RFC9254].
+
+   {
+       2551: {
+           1: "2023-02-10T08:00:11.22Z",
+           "ietf-yang-push:push-update": {
+               "id": 1011,
+               "datastore-contents": {
+                   "ietf-interfaces:interfaces": [
+                       {
+                           "interface": {
+                               "name": "eth0",
+                               "oper-status": "up"
+                           }
+                       }
+                   ]
+               }
+           }
+       }
+   }
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 7]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
+        Figure 4: CBOR-encoded notification using YANG SIDs in CBOR
+                            diagnostic notation
+
+5.  YANG Module
 
 5.1.  YANG Tree Diagram
 
@@ -269,18 +442,19 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
         Authors:  Alex Huang Feng
                   <mailto:alex.huang-feng@insa-lyon.fr>
                   Pierre Francois
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 8]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
                   <mailto:pierre.francois@insa-lyon.fr>
                   Thomas Graf
                   <mailto:thomas.graf@swisscom.com>
                   Benoit Claise
                   <mailto:benoit.claise@huawei.com>";
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 5]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
 
      description
        "Defines NETCONF Event Notification structure as defined in
@@ -324,19 +498,19 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    }
    <CODE ENDS>
 
+
+
+
+Huang Feng, et al.      Expires 28 November 2024                [Page 9]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
 6.  Security Considerations
 
    The security considerations for the NETCONF Event notifications are
    described in [RFC5277].  This documents adds no additional security
    considerations.
-
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 6]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
 
 7.  IANA Considerations
 
@@ -373,26 +547,24 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    YANG module name: ietf-notification
    reference: RFC-to-be
 
-   A ".sid" file is proposed in Appendix B.
+   A ".sid" file is proposed in Appendix A.
 
 8.  Acknowledgements
 
    The authors would like to thank Andy Bierman, Carsten Bormann, Tom
    Petch and Jason Sterne for their review and valuable comments.
 
-9.  References
-
-9.1.  Normative References
 
 
 
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 7]
+Huang Feng, et al.      Expires 28 November 2024               [Page 10]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
+
+9.  References
+
+9.1.  Normative References
 
    [I-D.ietf-core-sid]
               Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
@@ -436,19 +608,19 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
 
-   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
-              RFC 7951, DOI 10.17487/RFC7951, August 2016,
-              <https://www.rfc-editor.org/info/rfc7951>.
 
 
 
 
 
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 8]
+Huang Feng, et al.      Expires 28 November 2024               [Page 11]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
+
+   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
+              RFC 7951, DOI 10.17487/RFC7951, August 2016,
+              <https://www.rfc-editor.org/info/rfc7951>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -493,160 +665,20 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
 
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024               [Page 12]
+
+Internet-Draft       NETCONF Event Notification YANG            May 2024
+
+
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
-
-
-
-
-Huang Feng, et al.      Expires 28 November 2024                [Page 9]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
-Appendix A.  Examples
-
-   This non-normative section shows examples of how XML, YANG-JSON and
-   YANG-CBOR are encoded.
-
-A.1.  XML encoded message
-
-   This is an example of a XML-encoded notification as defined in
-   [RFC5277].
-
-   <notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
-     <eventTime>2022-09-02T10:59:55.32Z</eventTime>
-     <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
-       <id>1011</id>
-       <datastore-contents>
-         <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
-           <interface>
-             <name>eth0</name>
-             <oper-status>up</oper-status>
-           </interface>
-         </interfaces>
-       </datastore-contents>
-     </push-update>
-   </notification>
-
-                     Figure 1: XML-encoded notification
-
-A.2.  YANG-JSON encoded message
-
-   This is an example of a YANG-JSON encoded notification.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Huang Feng, et al.      Expires 28 November 2024               [Page 10]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
-   {
-       "ietf-notification:notification": {
-           "eventTime": "2023-02-10T08:00:11.22Z",
-           "ietf-yang-push:push-update": {
-               "id": 1011,
-               "datastore-contents": {
-                   "ietf-interfaces:interfaces": [
-                       {
-                           "interface": {
-                               "name": "eth0",
-                               "oper-status": "up"
-                           }
-                       }
-                   ]
-               }
-           }
-       }
-   }
-
-                    Figure 2: JSON-encoded notification
-
-A.3.  YANG-CBOR encoded message
-
-   This is an example of YANG-CBOR encoded notification.  The figure
-   Figure 3 shows the message using the CBOR diagnostic notation as
-   defined in section 3.1 of [RFC9254].
-
-   {
-       "ietf-notification:notification": {
-           "eventTime": "2023-02-10T08:00:11.22Z",
-           "ietf-yang-push:push-update": {
-               "id": 1011,
-               "datastore-contents": {
-                   "ietf-interfaces:interfaces": [
-                       {
-                           "interface": {
-                               "name": "eth0",
-                               "oper-status": "up"
-                           }
-                       }
-                   ]
-               }
-           }
-       }
-   }
-
-       Figure 3: CBOR-encoded notification using diagnostic notation
-
-
-
-
-Huang Feng, et al.      Expires 28 November 2024               [Page 11]
-
-Internet-Draft       NETCONF Event Notification YANG            May 2024
-
-
-A.4.  YANG-CBOR encoded message using SIDs
-
-   This is an example of YANG-CBOR encoded notification using YANG SIDs
-   [I-D.ietf-core-sid].  The figure Figure 4 shows the message using the
-   CBOR diagnostic notation as defined in section 3.1 of [RFC9254].
-
-   {
-       2551: {
-           1: "2023-02-10T08:00:11.22Z",
-           "ietf-yang-push:push-update": {
-               "id": 1011,
-               "datastore-contents": {
-                   "ietf-interfaces:interfaces": [
-                       {
-                           "interface": {
-                               "name": "eth0",
-                               "oper-status": "up"
-                           }
-                       }
-                   ]
-               }
-           }
-       }
-   }
-
-        Figure 4: CBOR-encoded notification using YANG SIDs in CBOR
-                            diagnostic notation
-
-Appendix B.  .sid file
+Appendix A.  .sid file
 
    Note to the RFC-Editor: Please remove this section before publishing.
 
@@ -669,16 +701,40 @@ Appendix B.  .sid file
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Huang Feng, et al.      Expires 28 November 2024               [Page 13]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
-   <CODE BEGINS> file "ietf-notification@2024-01-22.sid"
+   <CODE BEGINS> file "ietf-notification@2024-05-27.sid"
    {
      "ietf-sid-file:sid-file": {
        "module-name": "ietf-notification",
-       "module-revision": "2024-01-22",
+       "module-revision": "2024-05-27",
        "description": "NETCONF Event Notification structure",
        "dependency-revision": [
          {
@@ -725,7 +781,7 @@ Authors' Addresses
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 13]
+Huang Feng, et al.      Expires 28 November 2024               [Page 14]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -781,4 +837,4 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 14]
+Huang Feng, et al.      Expires 28 November 2024               [Page 15]

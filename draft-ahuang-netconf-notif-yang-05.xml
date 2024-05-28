@@ -164,11 +164,13 @@
           <ul>
             <li>Section 2.1 of <xref target="RFC5277"/> defines how to configure
             a subscription to receive NETCONF Event Notifications. The RPCs are
-            defined in the XML schema of Section 3.4 of <xref target="RFC5277"/>.
+            defined in the XML schema in Section 3.4 of <xref target="RFC5277"/>.
             This document does not update or add any new RPCs to this schema.</li>
 
             <li>The notification structure is defined in Section 4 of <xref target="RFC5277"/>
-            using a XML schema. This document defines the structure of ...</li>
+            using a XML schema. This document defines the structure of the notification
+            in XML, JSON and CBOR in <xref target="struct-notif"/>. In XML, the same
+            structure is used.</li>
           </ul>
         </t>
       </section>
@@ -176,25 +178,31 @@
       <section title="Relationship to RFC8639">
         <t>Subscribed Notifications <xref target="RFC8639"/> defines a mechanism 
         on top of <xref target="RFC5277"/> to stream notifications from
-        the NETCONF node. These are the key relationships between the current document and <xref target="RFC8639"/>:
-        </t>
+        the NETCONF node. These are the key relationships between the current
+        document and <xref target="RFC8639"/>:</t>
 
         <t>
           <ul>
-            <li>Section 1.4 of <xref target="RFC8639"/> states that the solution</li>
+            <li>Section 1.4 of <xref target="RFC8639"/> states that the 
+            the solution uses the notification structure defined in
+            <xref target="RFC5277"/>. This document replaces this structure
+            using a YANG module allowing JSON and CBOR encodings.</li>
           </ul>
         </t>
       </section>
 
       <section title="Relationship to RFC7951">
         <t><xref target="RFC7951"/> defined how YANG data is encoded using JSON.
-        These are the key relantioship points between the current document and 
+        These are the key relationship points between the current document and 
         <xref target="RFC7951"/>:
         </t>
 
         <t>
           <ul>
-            <li>TODO</li>
+            <li><xref target="RFC7951"/> does not define explicitely how a YANG
+            notification should be encoded using JSON encoding. This document
+            specifies the structure of such notification for JSON when these are
+            used in a NETCONF <xref target="RFC6241"/> environment.</li>
           </ul>
         </t>
       </section>
@@ -203,24 +211,156 @@
     <section title="Differences to draft-ietf-netconf-notification-messages">
       <t>Note to the RFC-Editor: Please remove this section before publishing.</t>
 
-      <t><xref target="I-D.ietf-netconf-notification-messages"/> proposes a
-      structure to send multiple notifications in a single message. Unlike 
-      <xref target="I-D.ietf-netconf-notification-messages"/>, this document defines 
-      a YANG module to encode NETCONF Notifications with encodings other than XML, which is currently
-      not existing. The structure for NETCONF notifications is defined in <xref target="RFC5277"/> using
-      a XSD, but there is no YANG module defining the structure of the notification message sent by a server 
-      when the message is encoded in YANG-JSON <xref target="RFC7951"/> or YANG-CBOR <xref target="RFC9254"/>. 
-      </t>
+      <t><xref target="I-D.ietf-netconf-notification-messages"/> proposes
+      a structure to send multiple notifications in a single message.
+      Unlike <xref target="I-D.ietf-netconf-notification-messages"/>,
+      this document defines a YANG module to encode NETCONF Notifications
+      with encodings other than XML, which is currently not existing.
+      The structure for NETCONF notifications is defined in 
+      <xref target="RFC5277"/> using a XSD, but there is no YANG module
+      defining the structure of the notification message sent by a server
+      when the message is encoded in JSON <xref target="RFC7951"/>
+      or CBOR <xref target="RFC9254"/>.</t>
     </section>
 
-    <section title="NETCONF Notification structure">
-      <section title="XML Structure"></section>
+    <section anchor="struct-notif" title="NETCONF Notification structure">
+
+      <t>This section defines how a NETCONF YANG Notifications are structured in
+      XML, JSON and CBOR encodings. The same namespace "ietf-notification" is
+      used to be compliant with <xref target="RFC5277"/>.</t>
+
+      <section title="XML Structure">
+        <t>The same structure as defined in Section 4 of <xref target="RFC5277"/>
+        is used. The structure uses the XML namespace that has been defined in
+        <xref target="RFC5277"/>:</t>
+
+        <artwork align="left"><![CDATA[
+  urn:ietf:params:xml:ns:netconf:notification:1.0
+        ]]></artwork>
+
+        <t>Two child nodes within the &quot;notification&quot; container are expected,
+        representing the event time and the notification payload.  The "eventTime"
+        node is defined within the same XML namespace as the &quot;notification&quot;
+        element and is compliant with <xref target="RFC3339"/>.</t>
+
+        <t>The name and namespace of the payload element are determined by the
+        YANG module containing the notification statement representing the
+        notification message.</t>
+
+        <t>The following example shows a &quot;push-update&quot; defined
+        in the YANG module of YANG-Push <xref target="RFC8641"/> encoded in XML:</t>
+
+        <figure anchor="fig_xml"
+              title="XML-encoded notification">
+              <sourcecode type="xml"><![CDATA[
+<notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+  <eventTime>2022-09-02T10:59:55.32Z</eventTime>
+  <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
+    <id>1011</id>
+    <datastore-contents>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+        <interface>
+          <name>eth0</name>
+          <oper-status>up</oper-status>
+        </interface>
+      </interfaces>
+    </datastore-contents>
+  </push-update>
+</notification>
+    ]]></sourcecode>
+            </figure>
+      </section>
       <section title="JSON Structure">
+        <t>TODO: state that a leaf with name space ietf-notification is used</t>
         <t>TODO: state that when RESTCONF is used, ietf-restconf is used. This doc does not update restconf.</t>
+
+        <figure anchor="fig_json"
+              title="JSON-encoded notification">
+              <sourcecode type="json"><![CDATA[
+{
+    "ietf-notification:notification": {
+        "eventTime": "2023-02-10T08:00:11.22Z",
+        "ietf-yang-push:push-update": {
+            "id": 1011,
+            "datastore-contents": {
+                "ietf-interfaces:interfaces": [
+                    {
+                        "interface": {
+                            "name": "eth0",
+                            "oper-status": "up"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
+    ]]></sourcecode>
+        </figure>
       </section>
       <section title="CBOR Structure">
-        <section title="CBOR encoded messages"></section>
-        <section title="CBOR encoded messages using YANG-SIDS"></section>
+        <section title="CBOR encoded messages">
+          <t>TODO: use CBOR diagnostic notation and ietf-notification as namespace</t>
+          
+          <t>This is an example of YANG-CBOR encoded notification. 
+          The figure <xref target="fig_cbor"/> shows the message using the CBOR
+          diagnostic notation as defined in section 3.1 of <xref target="RFC9254"/>.</t>
+
+          <figure anchor="fig_cbor"
+              title="CBOR-encoded notification using diagnostic notation">
+              <sourcecode type="cbor-diag"><![CDATA[
+{
+    "ietf-notification:notification": {
+        "eventTime": "2023-02-10T08:00:11.22Z",
+        "ietf-yang-push:push-update": {
+            "id": 1011,
+            "datastore-contents": {
+                "ietf-interfaces:interfaces": [
+                    {
+                        "interface": {
+                            "name": "eth0",
+                            "oper-status": "up"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
+    ]]></sourcecode>
+          </figure>
+        </section>
+        <section title="CBOR encoded messages using YANG-SIDS">
+          <t>TODO: State that instead of keys, YANG-SIDs are used</t>
+          <t>This is an example of YANG-CBOR encoded notification using YANG SIDs <xref
+            target="I-D.ietf-core-sid"/>. The figure <xref target="fig_cbor_sid"/> shows
+            the message using the CBOR diagnostic notation as defined in section 3.1 of
+            <xref target="RFC9254"/>.</t>
+
+          <figure anchor="fig_cbor_sid"
+              title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
+              <sourcecode type="cbor-diag"><![CDATA[
+{
+    2551: {
+        1: "2023-02-10T08:00:11.22Z",
+        "ietf-yang-push:push-update": {
+            "id": 1011,
+            "datastore-contents": {
+                "ietf-interfaces:interfaces": [
+                    {
+                        "interface": {
+                            "name": "eth0",
+                            "oper-status": "up"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
+    ]]></sourcecode>
+          </figure>
+        </section>
       </section>
     </section>
 
@@ -431,121 +571,6 @@ reference: RFC-to-be]]></artwork>
       <?rfc include="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-netconf-notification-messages-08.xml"?>
     </references>
 
-    <section anchor="example" title="Examples">
-      <t>This non-normative section shows examples of how XML, YANG-JSON and YANG-CBOR are encoded.</t>
-      <section anchor="xml-example" title="XML encoded message">
-        <t>This is an example of a XML-encoded notification as defined in <xref target="RFC5277"/>.</t>
-
-        <figure anchor="fig_xml"
-              title="XML-encoded notification">
-              <sourcecode type="xml"><![CDATA[
-<notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
-  <eventTime>2022-09-02T10:59:55.32Z</eventTime>
-  <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
-    <id>1011</id>
-    <datastore-contents>
-      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
-        <interface>
-          <name>eth0</name>
-          <oper-status>up</oper-status>
-        </interface>
-      </interfaces>
-    </datastore-contents>
-  </push-update>
-</notification>
-    ]]></sourcecode>
-            </figure>
-      </section>
-      
-      <section anchor="json-example" title="YANG-JSON encoded message">
-        <t>This is an example of a YANG-JSON encoded notification.</t>
-
-        <figure anchor="fig_json"
-              title="JSON-encoded notification">
-              <sourcecode type="json"><![CDATA[
-{
-    "ietf-notification:notification": {
-        "eventTime": "2023-02-10T08:00:11.22Z",
-        "ietf-yang-push:push-update": {
-            "id": 1011,
-            "datastore-contents": {
-                "ietf-interfaces:interfaces": [
-                    {
-                        "interface": {
-                            "name": "eth0",
-                            "oper-status": "up"
-                        }
-                    }
-                ]
-            }
-        }
-    }
-}
-    ]]></sourcecode>
-            </figure>
-      </section>
-
-      <section anchor="cbor-example" title="YANG-CBOR encoded message">
-        <t>This is an example of YANG-CBOR encoded notification. 
-        The figure <xref target="fig_cbor"/> shows the message using the CBOR
-        diagnostic notation as defined in section 3.1 of <xref target="RFC9254"/>.</t>
-
-        <figure anchor="fig_cbor"
-              title="CBOR-encoded notification using diagnostic notation">
-              <sourcecode type="cbor-diag"><![CDATA[
-{
-    "ietf-notification:notification": {
-        "eventTime": "2023-02-10T08:00:11.22Z",
-        "ietf-yang-push:push-update": {
-            "id": 1011,
-            "datastore-contents": {
-                "ietf-interfaces:interfaces": [
-                    {
-                        "interface": {
-                            "name": "eth0",
-                            "oper-status": "up"
-                        }
-                    }
-                ]
-            }
-        }
-    }
-}
-    ]]></sourcecode>
-        </figure>
-      </section>
-
-      <section anchor="cbor-sid-example" title="YANG-CBOR encoded message using SIDs">
-        <t>This is an example of YANG-CBOR encoded notification using YANG SIDs <xref
-        target="I-D.ietf-core-sid"/>. The figure <xref target="fig_cbor_sid"/> shows
-        the message using the CBOR diagnostic notation as defined in section 3.1 of
-        <xref target="RFC9254"/>.</t>
-
-        <figure anchor="fig_cbor_sid"
-              title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
-              <sourcecode type="cbor-diag"><![CDATA[
-{
-    2551: {
-        1: "2023-02-10T08:00:11.22Z",
-        "ietf-yang-push:push-update": {
-            "id": 1011,
-            "datastore-contents": {
-                "ietf-interfaces:interfaces": [
-                    {
-                        "interface": {
-                            "name": "eth0",
-                            "oper-status": "up"
-                        }
-                    }
-                ]
-            }
-        }
-    }
-}
-    ]]></sourcecode>
-        </figure>
-      </section>
-    </section>
     <section title=".sid file" anchor="sid_appendix">
       <t>Note to the RFC-Editor: Please remove this section before publishing.</t>
 
@@ -554,11 +579,11 @@ reference: RFC-to-be]]></artwork>
 
       <figure anchor="fig_sid_file"
             title='.sid file for "ietf-notification" module'>
-        <sourcecode type="yang-sid" markers="true" name="ietf-notification@2024-01-22.sid"><![CDATA[
+        <sourcecode type="yang-sid" markers="true" name="ietf-notification@2024-05-27.sid"><![CDATA[
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-notification",
-    "module-revision": "2024-01-22",
+    "module-revision": "2024-05-27",
     "description": "NETCONF Event Notification structure",
     "dependency-revision": [
       {
