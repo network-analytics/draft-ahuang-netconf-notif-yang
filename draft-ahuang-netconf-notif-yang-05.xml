@@ -121,9 +121,9 @@
 
       <t>NETCONF Event Notifications <xref target="RFC5277"/> and
       YANG-Push <xref target="RFC8639"/> allow NETCONF 
-      <xref target="RFC6241"/> servers and YANG-Push publishers to send notifications.
-      The NETCONF client and the YANG-Push receiver decodes the message and optionally
-      validates the header and the content before forward it to the next process.
+      <xref target="RFC6241"/> servers and YANG-Push publishers to send notifications to
+      a data collection. The NETCONF client and the YANG-Push receiver decodes the message
+      and optionally validates the header and the content before forward it to the next process.
       This schema validation process ensures to not break the data processing
       pipeline.</t>
 
@@ -442,8 +442,7 @@ module: ietf-notification
       <section anchor="yang-module" title="YANG Module">
       <t>The YANG module uses the same namespace from the XML Schema
       defined in Section 4 of <xref target="RFC5277"/> allowing to use this YANG module 
-      to also validate already implemented XML encoded NETCONF Event Notifications.
-      It imports </t>
+      to also validate already implemented XML encoded NETCONF Event Notifications.</t>
 
       <sourcecode type="yang" markers="true" name="ietf-notification@2024-05-27.yang"><![CDATA[
 module ietf-notification {
