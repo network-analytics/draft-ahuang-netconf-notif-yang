@@ -6,10 +6,10 @@ Network Working Group                                      A. Huang Feng
 Internet-Draft                                               P. Francois
 Updates: RFC5277 RFC8639 RFC7951 (if approved)                 INSA-Lyon
 Intended status: Standards Track                                 T. Graf
-Expires: 28 November 2024                                       Swisscom
+Expires: 29 November 2024                                       Swisscom
                                                                B. Claise
                                                                   Huawei
-                                                             27 May 2024
+                                                             28 May 2024
 
 
                YANG model for NETCONF Event Notifications
@@ -17,10 +17,10 @@ Expires: 28 November 2024                                       Swisscom
 
 Abstract
 
-   This document defines the YANG model for NETCONF Event Notifications.
-   The definition of this YANG model allows the encoding of NETCONF
-   Event Notifications in YANG compatible encodings such as YANG-JSON
-   and YANG-CBOR.
+   This document defines the structure of NETCONF Event Notification in
+   a YANG model to be used in NETCONF environments.  The definition of
+   this YANG model allows the encoding of NETCONF Event Notifications in
+   YANG compatible encodings such as JSON and CBOR.
 
 Requirements Language
 
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2024.
+   This Internet-Draft will expire on 29 November 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 1]
+Huang Feng, et al.      Expires 29 November 2024                [Page 1]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 2]
+Huang Feng, et al.      Expires 29 November 2024                [Page 2]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -119,12 +119,12 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    NETCONF Event Notifications [RFC5277] and YANG-Push [RFC8639] allow
    NETCONF [RFC6241] nodes to send notifications to a collector.  The
    collector can then decode the message and validate the header and the
-   content before forwarding to the next process.  This validation
+   content before forward it to the next process.  This validation
    process ensures not breaking the data collection pipeline and
    protects the different pieces of software in charge of processing the
    data.
 
-   The structure of NETCONF Event notifications has been defined in
+   The structure of a NETCONF Event notification has been defined in
    [RFC5277] using a XML Schema [W3C.REC-xml-20001006] allowing NETCONF
    nodes to validate the header of the notification message when it is
    encoded in XML.  However, when these notifications are sent using
@@ -165,7 +165,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 3]
+Huang Feng, et al.      Expires 29 November 2024                [Page 3]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -221,7 +221,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 4]
+Huang Feng, et al.      Expires 29 November 2024                [Page 4]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -259,7 +259,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
    A YANG notification encoded in JSON is structured as a root
    "notification" container.  The namespace of this container is the
-   name of the YANG module defined in Section 5.
+   name of the YANG module "ietf-notification" defined in Section 5.
 
    Two child nodes within the "ietf-notification:notification" container
    are expected, representing the event time and the notification
@@ -277,7 +277,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 5]
+Huang Feng, et al.      Expires 29 November 2024                [Page 5]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -317,9 +317,9 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
    Notifications encoded using keys is similar to JSON encoding as
    defined in Section 3.3 of [RFC9254].  The key of the element can be
-   the element itself or use be namespace-qualified.  In the latter
-   case, the namespace of the notification container uses the YANG
-   module name defined in Section 5.
+   the element itself or be namespace-qualified.  In the latter case,
+   the namespace of the notification container uses the YANG module name
+   "ietf-notification" defined in Section 5.
 
    Two child nodes within the "ietf-notification:notification" container
    are expected, representing the event time and the notification
@@ -333,7 +333,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 6]
+Huang Feng, et al.      Expires 29 November 2024                [Page 6]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -377,8 +377,8 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    compliant with [RFC3339].
 
    This is an example of YANG-CBOR encoded notification using YANG SIDs
-   [RFC9254].  The figure Figure 4 shows the message using the CBOR
-   diagnostic notation as defined in section 3.1 of [RFC9254]:
+   [RFC9254].  The Figure 4 shows the message using the CBOR diagnostic
+   notation as defined in section 3.1 of [RFC9254]:
 
 
 
@@ -389,7 +389,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 7]
+Huang Feng, et al.      Expires 29 November 2024                [Page 7]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -445,7 +445,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 8]
+Huang Feng, et al.      Expires 29 November 2024                [Page 8]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -501,7 +501,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024                [Page 9]
+Huang Feng, et al.      Expires 29 November 2024                [Page 9]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -557,7 +557,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 10]
+Huang Feng, et al.      Expires 29 November 2024               [Page 10]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -586,8 +586,9 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 8.  Acknowledgements
 
-   The authors would like to thank Andy Bierman, Carsten Bormann, Tom
-   Petch and Jason Sterne for their review and valuable comments.
+   The authors would like to thank Per Anderson, Andy Bierman, Carsten
+   Bormann, Mohamed Boucadair, Tom Petch, Jason Sterne, Kent Watsen and
+   Rob Wilton for their review and valuable comments.
 
 9.  References
 
@@ -612,8 +613,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-
-Huang Feng, et al.      Expires 28 November 2024               [Page 11]
+Huang Feng, et al.      Expires 29 November 2024               [Page 11]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -669,7 +669,7 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 12]
+Huang Feng, et al.      Expires 29 November 2024               [Page 12]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -725,7 +725,7 @@ Appendix A.  .sid file
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 13]
+Huang Feng, et al.      Expires 29 November 2024               [Page 13]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -781,7 +781,7 @@ Authors' Addresses
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 14]
+Huang Feng, et al.      Expires 29 November 2024               [Page 14]
 
 Internet-Draft       NETCONF Event Notification YANG            May 2024
 
@@ -837,4 +837,4 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 
 
-Huang Feng, et al.      Expires 28 November 2024               [Page 15]
+Huang Feng, et al.      Expires 29 November 2024               [Page 15]

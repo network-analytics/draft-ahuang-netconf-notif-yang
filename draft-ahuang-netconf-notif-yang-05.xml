@@ -98,12 +98,13 @@
       </address>
     </author>
 
-    <date day="27" month="May" year="2024"/>
+    <date day="28" month="May" year="2024"/>
 
     <abstract>
-      <t>This document defines the YANG model for NETCONF Event Notifications.
-      The definition of this YANG model allows the encoding of NETCONF Event
-      Notifications in YANG compatible encodings such as YANG-JSON and YANG-CBOR.</t>
+      <t>This document defines the structure of NETCONF Event Notification in a
+      YANG model to be used in NETCONF environments. The definition of this YANG
+      model allows the encoding of NETCONF Event Notifications in YANG compatible
+      encodings such as JSON and CBOR.</t>
     </abstract>
 
     <note title="Requirements Language">
@@ -122,12 +123,12 @@
       YANG-Push <xref target="RFC8639"/> allow NETCONF 
       <xref target="RFC6241"/> nodes to send notifications
       to a collector. The collector can then decode the message and
-      validate the header and the content before forwarding to the next process.
+      validate the header and the content before forward it to the next process.
       This validation process ensures not breaking the data collection pipeline and
       protects the different pieces of software in charge of processing the data.
       </t>
 
-      <t>The structure of NETCONF Event notifications has been
+      <t>The structure of a NETCONF Event notification has been
       defined in <xref target="RFC5277"/> using a XML Schema 
       <xref target="W3C.REC-xml-20001006"/> allowing NETCONF nodes
       to validate the header of the notification message when it is encoded in XML.
@@ -273,7 +274,7 @@
       <section title="JSON Structure">
         <t>A YANG notification encoded in JSON is structured as a root
         "notification" container. The namespace of this container is the name of
-        the YANG module defined in <xref target="yang-model"/>.</t>
+        the YANG module "ietf-notification" defined in <xref target="yang-model"/>.</t>
 
         <t>Two child nodes within the "ietf-notification:notification" container are expected,
         representing the event time and the notification payload.  The "eventTime"
@@ -320,8 +321,9 @@
         <section title="CBOR encoded messages">
           <t>Notifications encoded using keys is similar to JSON encoding as defined in
           Section 3.3 of <xref target="RFC9254"/>. The key of the element can be the element
-          itself or use be namespace-qualified. In the latter case, the namespace of the
-          notification container uses the YANG module name defined in <xref target="yang-model"/>.</t>
+          itself or be namespace-qualified. In the latter case, the namespace of the
+          notification container uses the YANG module name "ietf-notification" defined
+          in <xref target="yang-model"/>.</t>
 
           <t>Two child nodes within the "ietf-notification:notification" container are expected,
           representing the event time and the notification payload.  The "eventTime"
@@ -370,7 +372,7 @@
           compliant with <xref target="RFC3339"/>.</t>
 
           <t>This is an example of YANG-CBOR encoded notification using YANG SIDs 
-          <xref target="RFC9254"/>. The figure <xref target="fig_cbor_sid"/> shows
+          <xref target="RFC9254"/>. The <xref target="fig_cbor_sid"/> shows
           the message using the CBOR diagnostic notation as defined in section 3.1 of
           <xref target="RFC9254"/>:</t>
 
@@ -547,8 +549,9 @@ reference: RFC-to-be]]></artwork>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The authors would like to thank Andy Bierman, Carsten Bormann, Tom Petch and
-      Jason Sterne for their review and valuable comments.</t>
+      <t>The authors would like to thank Per Anderson, Andy Bierman, Carsten Bormann,
+      Mohamed Boucadair, Tom Petch, Jason Sterne, Kent Watsen and Rob Wilton for
+      their review and valuable comments.</t>
     </section>
   </middle>
 
