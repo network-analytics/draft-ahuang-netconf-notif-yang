@@ -15,7 +15,7 @@
   ipr="trust200902"
   consensus="true"
   submissionType="IETF"
-  updates="RFC5277 RFC8639 RFC7951">
+  updates="RFC5277 RFC8639 RFC7951 RFC9254">
   <front>
     <title abbrev="NETCONF Event Notification YANG">YANG model
     for NETCONF Event Notifications</title>
@@ -121,12 +121,11 @@
 
       <t>NETCONF Event Notifications <xref target="RFC5277"/> and
       YANG-Push <xref target="RFC8639"/> allow NETCONF 
-      <xref target="RFC6241"/> nodes to send notifications
-      to a collector. The collector can then decode the message and
-      validate the header and the content before forward it to the next process.
-      This validation process ensures not breaking the data collection pipeline and
-      protects the different pieces of software in charge of processing the data.
-      </t>
+      <xref target="RFC6241"/> servers and YANG-Push publishers to send notifications.
+      The NETCONF client and the YANG-Push receiver decodes the message and optionally
+      validates the header and the content before forward it to the next process.
+      This schema validation process ensures to not break the data processing
+      pipeline.</t>
 
       <t>The structure of a NETCONF Event notification has been
       defined in <xref target="RFC5277"/> using a XML Schema 
@@ -193,7 +192,7 @@
       </section>
 
       <section title="Relationship to RFC7951">
-        <t><xref target="RFC7951"/> defined how YANG data is encoded using JSON.
+        <t><xref target="RFC7951"/> defines how YANG data is encoded using JSON.
         These are the key relationship points between the current document and 
         <xref target="RFC7951"/>:
         </t>
@@ -207,6 +206,27 @@
           </ul>
         </t>
       </section>
+
+      <section title="Relationship to RFC9254">
+        <t><xref target="RFC9254"/> defines how YANG data is encoded using CBOR.
+        These are the key relationship points between the current document and 
+        <xref target="RFC9254"/>:
+        </t>
+
+        <t>
+          <ul>
+            <li><xref target="RFC9254"/> does not define explicitely how a YANG
+            notification should be encoded using CBOR encoding. <xref target="RFC9254"/>
+            states that Notifications are container-like instances which does not follow
+            how notifications are encoded in XML and JSON encodings.
+            This document replaces this statement and ensures consistency between the
+            different notification structures in YANG. This structure is to be used
+            within NETCONF <xref target="RFC6241"/> environments.</li>
+          </ul>
+        </t>
+      </section>
+
+      
     </section>
 
     <section title="Differences to draft-ietf-netconf-notification-messages">
