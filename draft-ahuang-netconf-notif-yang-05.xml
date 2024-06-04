@@ -125,12 +125,12 @@
       a data collection. The NETCONF client and the YANG-Push receiver decodes the message
       and optionally validates the header and the content before forward it to the next process.
       This schema validation process ensures to not break the data processing
-      pipeline.</t>
+      chain.</t>
 
       <t>The structure of a NETCONF Event notification has been
       defined in <xref target="RFC5277"/> using a XML Schema 
       <xref target="W3C.REC-xml-20001006"/> allowing NETCONF nodes
-      to validate the header of the notification message when it is encoded in XML.
+      to validate the header schema of the notification message when it is encoded in XML.
       However, when these notifications are sent using YANG-Push
       <xref target="RFC8639"/><xref target="RFC8641"/>, they can be encoded in other
       encodings such as JSON <xref target="RFC7951"/> or CBOR <xref target="RFC9254"/>.
@@ -139,7 +139,7 @@
       </t>
 
       <t>This document defines the content of the header of such notifications
-      allowing implementations to validate the notifications when they are encoded
+      allowing implementations to validate the schema of the notifications when they are encoded
       in other encodings than XML. A YANG 1.1 <xref target="RFC7950"/> model
       is defined for such purposes.</t>
 
@@ -246,7 +246,7 @@
 
     <section anchor="struct-notif" title="NETCONF Notification structure">
 
-      <t>This section defines how a NETCONF YANG Notifications are structured in
+      <t>This section defines how NETCONF YANG Notifications are structured in
       XML, JSON and CBOR encodings. The same namespace "ietf-notification" is
       used to be compliant with <xref target="RFC5277"/>.</t>
 

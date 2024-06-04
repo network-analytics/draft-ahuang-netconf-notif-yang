@@ -121,21 +121,21 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
    notifications to a data collection.  The NETCONF client and the YANG-
    Push receiver decodes the message and optionally validates the header
    and the content before forward it to the next process.  This schema
-   validation process ensures to not break the data processing pipeline.
+   validation process ensures to not break the data processing chain.
 
    The structure of a NETCONF Event notification has been defined in
    [RFC5277] using a XML Schema [W3C.REC-xml-20001006] allowing NETCONF
-   nodes to validate the header of the notification message when it is
-   encoded in XML.  However, when these notifications are sent using
-   YANG-Push [RFC8639][RFC8641], they can be encoded in other encodings
-   such as JSON [RFC7951] or CBOR [RFC9254].  In such cases, the model
-   defined in [RFC5277] cannot be used to validate the notification
-   header.
+   nodes to validate the header schema of the notification message when
+   it is encoded in XML.  However, when these notifications are sent
+   using YANG-Push [RFC8639][RFC8641], they can be encoded in other
+   encodings such as JSON [RFC7951] or CBOR [RFC9254].  In such cases,
+   the model defined in [RFC5277] cannot be used to validate the
+   notification header.
 
    This document defines the content of the header of such notifications
-   allowing implementations to validate the notifications when they are
-   encoded in other encodings than XML.  A YANG 1.1 [RFC7950] model is
-   defined for such purposes.
+   allowing implementations to validate the schema of the notifications
+   when they are encoded in other encodings than XML.  A YANG 1.1
+   [RFC7950] model is defined for such purposes.
 
    This document updates [RFC5277], [RFC8639] and [RFC7951] specifying
    how a Notification header should be encoded.  RESTCONF Notifications
@@ -228,9 +228,9 @@ Internet-Draft       NETCONF Event Notification YANG            May 2024
 
 4.  NETCONF Notification structure
 
-   This section defines how a NETCONF YANG Notifications are structured
-   in XML, JSON and CBOR encodings.  The same namespace "ietf-
-   notification" is used to be compliant with [RFC5277].
+   This section defines how NETCONF YANG Notifications are structured in
+   XML, JSON and CBOR encodings.  The same namespace "ietf-notification"
+   is used to be compliant with [RFC5277].
 
 4.1.  XML Structure
 
