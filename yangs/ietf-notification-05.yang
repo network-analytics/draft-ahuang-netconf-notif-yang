@@ -29,9 +29,14 @@ module ietf-notification {
 
   description
     "Defines NETCONF Event Notification structure as defined in
-    RFC5277. This YANG module uses the same namespace from the XML
-    schema defined in Section 4 of RFC5277 to be able to validate
-    already implemented XML encoded messages.
+    RFC5277 and RFC7950. This YANG module uses the same namespace
+    from the XML schema defined in Section 4 of RFC5277 to be able to
+    validate already implemented XML encoded messages.
+    
+    This module can be used to validate XML encoded notifications
+    [RFC7950], JSON encoded messages [RFC7951] and CBOR encoded
+    messages [RFC9254]. Refer to Section 4 of RFC XXXX for more
+    details.
 
     Copyright (c) 2024 IETF Trust and the persons identified as
     authors of the code.  All rights reserved.
