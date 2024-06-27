@@ -170,7 +170,15 @@
             <li>The notification structure is defined in Section 4 of <xref target="RFC5277"/>
             using a XML schema. This document defines the structure of the notification
             in XML, JSON and CBOR in <xref target="struct-notif"/>. In XML, the same
-            structure is used.</li>
+            structure as defined in <xref target="RFC5277"/> is used.</li>
+
+            <li>Section 2.2.1 of <xref target="RFC5277"/> states that the structure also 
+            contains notification-specific tagged content and that, with
+            the exception of "eventTime", the content of the notification is
+            beyond the scope of <xref target="RFC5277"/>. The content
+            of the notification, with the exception of "eventTime" remains out of scope
+            of this document.
+            </li>
           </ul>
         </t>
       </section>
