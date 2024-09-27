@@ -11,14 +11,14 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std"
-  docName="draft-ahuang-netconf-notif-yang-06"
+  docName="draft-ahuang-netconf-notif-container-00"
   ipr="trust200902"
   consensus="true"
   submissionType="IETF"
   updates="RFC5277 RFC8639 RFC7951 RFC9254">
   <front>
-    <title abbrev="NETCONF Event Notification YANG">YANG model
-    for NETCONF Event Notifications</title>
+    <title abbrev="YANG-Push Notifications Container">Extensible YANG model
+    for YANG-Push Notifications</title>
 
     <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
       <organization>INSA-Lyon</organization>

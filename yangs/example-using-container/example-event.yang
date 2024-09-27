@@ -1,0 +1,23 @@
+module example-event {
+  yang-version 1.1;
+  namespace "urn:example:event";
+  prefix "ev";
+
+  import ietf-notification {
+    prefix inotif;
+  }
+
+  augment "/inotif:notification" {
+    container event {
+      leaf event-class {
+        type string;
+      }
+      leaf reporting-entity {
+        type instance-identifier;
+      }
+      leaf severity {
+        type string;
+      }
+    }
+  }
+}
