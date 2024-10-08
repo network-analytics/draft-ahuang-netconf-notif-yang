@@ -15,9 +15,9 @@
   ipr="trust200902"
   consensus="true"
   submissionType="IETF"
-  updates="RFC5277 RFC8639 RFC7951 RFC9254">
+  updates="RFC7951 RFC9254">
   <front>
-    <title abbrev="YANG-Push Notifications Container">Extensible YANG model
+    <title abbrev="YANG-Push Notification Container">Extensible YANG model
     for YANG-Push Notifications</title>
 
     <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
@@ -162,7 +162,7 @@
       of this document.</t> -->
     </section>
 
-    <!-- <section title="Relationship to past documents">
+    <section title="Relationship to past documents">
 
       <t>This section exposes the relationship to <xref target="RFC5277"/>,
       <xref target="RFC8639"/>, <xref target="RFC7951"/> and <xref target="RFC9254"/>.</t>
@@ -173,27 +173,21 @@
         between the current document and <xref target="RFC5277"/>:
         </t>
 
-        <t>
-          <ul>
-            <li>Section 2.1 of <xref target="RFC5277"/> defines how to configure
-            a subscription to receive NETCONF Event Notifications. The RPCs are
-            defined in the XML schema in Section 3.4 of <xref target="RFC5277"/>.
-            This document does not update or add any new RPCs to this schema.</li>
+        <ul>
+          <li>TODO:</li>
+          <!-- <li>The notification structure is defined in Section 4 of <xref target="RFC5277"/>
+          using a XML schema. This document defines the structure of the notification
+          in XML, JSON and CBOR in <xref target="struct-notif"/>. In XML, the same
+          structure as defined in <xref target="RFC5277"/> is used.</li>
 
-            <li>The notification structure is defined in Section 4 of <xref target="RFC5277"/>
-            using a XML schema. This document defines the structure of the notification
-            in XML, JSON and CBOR in <xref target="struct-notif"/>. In XML, the same
-            structure as defined in <xref target="RFC5277"/> is used.</li>
-
-            <li>Section 2.2.1 of <xref target="RFC5277"/> states that the structure also 
-            contains notification-specific tagged content and that, with
-            the exception of "eventTime", the content of the notification is
-            beyond the scope of <xref target="RFC5277"/>. The content
-            of the notification, with the exception of "eventTime" remains out of scope
-            of this document.
-            </li>
-          </ul>
-        </t>
+          <li>Section 2.2.1 of <xref target="RFC5277"/> states that the structure also 
+          contains notification-specific tagged content and that, with
+          the exception of "eventTime", the content of the notification is
+          beyond the scope of <xref target="RFC5277"/>. The content
+          of the notification, with the exception of "eventTime" remains out of scope
+          of this document.
+          </li> -->
+        </ul>
       </section>
 
       <section title="Relationship to RFC8639">
@@ -247,21 +241,70 @@
         </t>
       </section>
 
+    </section>
+
+    <section anchor="overview" title="Solution Overview">
+      <t>What is a notification envelope?</t>
+      <t>What is metadata?</t>
+      <t>What is the content of the notification?</t>
+    </section>
+
+    <section title="Enabling the Notification Envelope">
+      <t>The use of the Notification envelope defined in this document can be 
+      enabled during the configuration of a YANG-Push subscription. 
+      This document augments the "ietf-subscribed-notification" model <xref target="RFC8639"/>
+      to support the configuration of "notification-envelope".
+      </t>
+
+      <sourcecode type="yangtree"><![CDATA[
+module: ietf-notification-container
+
+  augment /sn:subscriptions/sn:subscription:
+    +--rw enable-notification-envelope?   boolean {notification-envelope}?
+    +--rw metadata
+  augment /sn:establish-subscription/sn:input:
+    +---w enable-notification-envelope?   boolean {notification-envelope}?
+    +---w metadata
+  augment /sn:modify-subscription/sn:input:
+    +---w enable-notification-envelope?   boolean {notification-envelope}?
+    +---w metadata
+]]></sourcecode>
       
-    </section> -->
+      <t>When the node 'enable-notification-envelope' is set to true, the notifications produced
+      by a NETCONF server uses the format defined in <xref target="base-notif-model"/>.
+      </t>
+    </section>
 
-    <section anchor="struct-notif" title="NETCONF Notification structure">
+    <section title="Discovering the support of this model"><t>TODO: move capabilities here</t></section>
 
-      <t></t>
-      <t>This section defines how NETCONF YANG Notifications are structured in
-      XML, JSON and CBOR encodings. The same namespace "ietf-notification" is
-      used to be compliant with <xref target="RFC5277"/>.</t>
+    <section anchor="struct-notif" title="Notification Container">
 
-      <section title="Base Notification Model">
-        <t>TODO: structure with only the eventTime</t>
-        <t>TODO: example</t>
+      <t>This section defines how NETCONF YANG Notifications are structured when 
+      the notification envelope is enabled. It defines how this model is used when
+      encoded in XML, JSON and CBOR.
+      <!-- The same namespace "ietf-notification" is
+      used to be compliant with <xref target="RFC5277"/>. -->
+      </t>
+
+      <!-- <t></t> -->
+      <section anchor="base-notif-model" title="Base Notification Model">
+        <t>When a YANG-Push publisher uses the Notification Model defined in this document,
+        the notification is structured as following:</t>
+        <!-- <lu>
+          <li>The notification .</li>
+          <li>The content of the notification is encoded in the 'notification-contents' leaf.</li>
+        </lu> -->
+
+      <sourcecode type="yangtree"><![CDATA[
+  notifications:
+    +---n notification-envelope
+       +--ro event-time               yang:date-and-time
+       +--ro some-other-metadata      string
+       +--ro notification-contents?   <anydata>
+]]></sourcecode>
       </section>
-      <section title="Encoding of this Notification model">
+
+      <section anchor="encodings-notif" title="Encoding of this Notification model">
         <t>TODO: introduce</t>
 
         <section title="XML encoding">
@@ -437,12 +480,6 @@
         </section>
       </section>
     </section>
-    <section title="Discovering the support of this model">
-      <t>TODO: NETCONF capabilities extensions</t>
-    </section>
-    <section title="Enabling this model in Subscribed Notifications">
-      <t>TODO: Augmentations to Sub-notif for enabling this header</t>
-    </section>
 
     <!-- <section title="Differences to draft-ietf-netconf-notification-messages">
       <t>Note to the RFC-Editor: Please remove this section before publishing.</t>
@@ -467,7 +504,7 @@
         definition of the XSD element name defined in Section 4 of <xref target="RFC5277"/>.
         </t>
 
-          <sourcecode type="yangtree"><![CDATA[
+        <sourcecode type="yangtree"><![CDATA[
 module: ietf-notification
 
   structure notification:
@@ -480,20 +517,20 @@ module: ietf-notification
       defined in Section 4 of <xref target="RFC5277"/> allowing to use this YANG module 
       to also validate already implemented XML encoded NETCONF Event Notifications.</t>
 
-      <sourcecode type="yang" markers="true" name="ietf-notification@2024-06-17.yang"><![CDATA[
-module ietf-notification {
+      <sourcecode type="yang" markers="true" name="ietf-notification-container@2024-06-17.yang"><![CDATA[
+module ietf-notification-container {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:netconf:notification:1.0";
-  prefix inotif;
+  namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
+  prefix inotifc;
   import ietf-yang-types {
     prefix yang;
     reference
       "RFC 6991: Common YANG Data Types";
   }
-  import ietf-yang-structure-ext {
-    prefix sx;
+  import ietf-subscribed-notifications {
+    prefix sn;
     reference
-      "RFC 8791: YANG Data Structure Extensions";
+      "RFC 8639: Subscription to YANG Notifications";
   }
 
   organization "IETF NETCONF (Network Configuration) Working Group";
@@ -511,14 +548,14 @@ module ietf-notification {
                <mailto:benoit.claise@huawei.com>";
 
   description
-    "Defines NETCONF Event Notification structure as defined in
-    RFC5277 and RFC7950. This YANG module uses the same namespace
-    from the XML schema defined in Section 4 of RFC5277 to be able to
-    validate already implemented XML encoded messages.
+    "Defines a Notification structure for Subscribed Notifications
+    [RFC8639] and YANG-Push [RFC8641]. When this Notification header
+    is enabled through a configuration, the root container of the 
+    notification is defined by the 
     
     This module can be used to validate XML encoded notifications
     [RFC7950], JSON encoded messages [RFC7951] and CBOR encoded
-    messages [RFC9254]. Refer to Section 4 of RFC XXXX for more
+    messages [RFC9254]. Refer to Section Y of RFC XXXX for more
     details.
 
     Copyright (c) 2024 IETF Trust and the persons identified as
@@ -539,20 +576,78 @@ module ietf-notification {
     description
       "First revision";
     reference
-      "RFC XXXX: NETCONF Event Notification YANG";
+      "RFC XXXX: YANG-Push Notification Container";
   }
 
-  sx:structure notification {
-    leaf eventTime {
+  feature notification-envelope {
+    description
+      "Indicates that YANG-Push supports the notification-envelope
+      as defined in RFC XXXX.";
+  }
+
+  grouping notif-env-configuration {
+    description
+      "This grouping defines the configuration switches for
+      enabling the notification-envelope defined in RFC XXXX
+      and the different supported metadata.";
+    leaf enable-notification-envelope {
+      if-feature notification-envelope;
+      type boolean;
+      default false;
+      description
+        "Enables YANG-Push to use the notification-envelope 
+        defined in RFC XXXX. When enabled, the base metadata
+        is sent along with the notification contents.";
+    }
+    container metadata {
+      description 
+        "Container for configuring optional metadata.";
+    }
+  }
+
+  notification notification-envelope {
+    leaf event-time {
       type yang:date-and-time;
       mandatory true;
       description
         "The date and time the event was generated by the event
         source. This parameter is of type dateTime and compliant
-        to [RFC3339]. Implementations must support time zones.
-        The leaf name in camel case matches the name of the XSD
-        element defined in Section 4 of RFC5277.";
+        to [RFC3339].";
     }
+    leaf some-other-metadata {
+      type string;
+      mandatory true;
+      description 
+        "Some metadata";
+    }
+    anydata notification-contents {
+      description 
+        "This contains the values defined by the 'notification'
+        statement unchanged.";
+    }
+  }
+
+  // Subscription container
+  augment "/sn:subscriptions/sn:subscription" {
+    description
+      "This augmentation adds the configuration switches for
+      enabling the notification envelope and metadatas.";
+    uses notif-env-configuration;
+  }
+  // Subscription RPCs
+  augment "/sn:establish-subscription/sn:input" {
+    description
+      "This augmentation adds the configuration switches for
+      enabling the notification envelope and other metadatas
+      during the 'establish-subscription' RPC.";
+    uses notif-env-configuration;
+  }
+  augment "/sn:modify-subscription/sn:input" {
+    description
+      "This augmentation adds the configuration switches for
+      enabling the notification envelope and other metadatas
+      during the 'establish-subscription' RPC.";
+    uses notif-env-configuration;
   }
 }
 ]]></sourcecode>
@@ -575,7 +670,7 @@ module ietf-notification {
       URI in the <xref target="RFC3688">IETF XML Registry</xref>.</t>
 
       <artwork align="left"><![CDATA[
-URI: urn:ietf:params:xml:ns:netconf:notification:1.0
+URI: urn:ietf:params:xml:ns:netconf:notification:2.0
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.
 Reference: RFC5277; RFC-to-be]]></artwork>
@@ -589,7 +684,7 @@ Reference: RFC5277; RFC-to-be]]></artwork>
 
         <artwork align="left"><![CDATA[
 name: ietf-notification
-namespace: urn:ietf:params:xml:ns:netconf:notification:1.0
+namespace: urn:ietf:params:xml:ns:netconf:notification:2.0
 prefix: inotif
 reference: RFC-to-be]]></artwork>
       </section>
