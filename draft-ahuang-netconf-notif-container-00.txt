@@ -74,24 +74,23 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Relationship to past documents  . . . . . . . . . . . . . . .   3
      2.1.  Relationship to RFC5277 . . . . . . . . . . . . . . . . .   3
      2.2.  Relationship to RFC8639 . . . . . . . . . . . . . . . . .   3
      2.3.  Relationship to RFC7950 . . . . . . . . . . . . . . . . .   4
      2.4.  Relationship to RFC7951 . . . . . . . . . . . . . . . . .   4
      2.5.  Relationship to RFC9254 . . . . . . . . . . . . . . . . .   4
-   3.  Solution  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   3.  Solution  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.1.  Enabling the Notification Envelope  . . . . . . . . . . .   5
      3.2.  Discovering the support of this model . . . . . . . . . .   6
      3.3.  Notification Envelope . . . . . . . . . . . . . . . . . .   6
    4.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     4.1.  YANG Tree Diagram . . . . . . . . . . . . . . . . . . . .  10
-     4.2.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  10
+     4.1.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  10
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
      6.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     6.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  14
+     6.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  13
      6.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .  14
    7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  14
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -100,20 +99,6 @@ Table of Contents
    Appendix A.  .sid file  . . . . . . . . . . . . . . . . . . . . .  16
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
-
-
-
-
-
-
-
-
-
-Huang Feng, et al.        Expires 31 March 2025                 [Page 2]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
 1.  Introduction
 
    YANG-Push [RFC8639] allow NETCONF [RFC6241] servers and YANG-Push
@@ -121,6 +106,13 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    client and the YANG-Push receiver decodes the message and optionally
    validates the header and the content before forward it to the next
    process.
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                 [Page 2]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
 
    The notification container from YANG-Push was defined based on the
    XML model from NETCONF Event Notifications [RFC5277].  This model
@@ -161,6 +153,14 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    [RFC5277] to stream notifications from the NETCONF node.  These are
    the key relationships between the current document and [RFC8639]:
 
+   *  Section 1.4 of [RFC8639] states that the the solution uses the
+      notification structure defined in [RFC5277].  This document
+      proposes a new structure that NETCONF clients can enable.  When
+      the this new strcture is used, Notification messages are encoded
+      as defined in Section Section 3.3.
+
+
+
 
 
 
@@ -169,12 +169,6 @@ Huang Feng, et al.        Expires 31 March 2025                 [Page 3]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
-
-   *  Section 1.4 of [RFC8639] states that the the solution uses the
-      notification structure defined in [RFC5277].  This document
-      proposes a new structure that NETCONF clients can enable.  When
-      the this new strcture is used, Notification messages are encoded
-      as defined in Section Section 3.3.
 
    *  Section 2.4.2 of [RFC8639] defines how a YANG-Push subscription is
       defined via an the 'establish-subscription' RPC.  This document
@@ -214,7 +208,13 @@ Internet-Draft      YANG-Push Notification Container      September 2024
       or YANG-Push publisher implements this document, the Notifications
       are encoded following Section 3.3.2.3.
 
+3.  Solution
 
+   Section 4.2.10 of [RFC7950] defines the encoding of YANG
+   Notifications.  A YANG Notification is defined by using the
+   'notification' statement.  When a NETCONF server sends this
+   notification, it is composed of two parts: a header containing
+   metadata and the content of the notification.
 
 
 
@@ -225,14 +225,6 @@ Huang Feng, et al.        Expires 31 March 2025                 [Page 4]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
-
-3.  Solution
-
-   Section 4.2.10 of [RFC7950] defines the encoding of YANG
-   Notifications.  A YANG Notification is defined by using the
-   'notification' statement.  When a NETCONF server sends this
-   notification, it is composed of two parts: a header containing
-   metadata and the content of the notification.
 
    In [RFC7950], the Notification header is based on the model defined
    in [RFC5277] which contains a single metadata 'eventTime' leaf as
@@ -266,9 +258,17 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    document augments the "ietf-subscribed-notification" model [RFC8639]
    to support the configuration of "notification-envelope".
 
+     module: ietf-notification-container
 
-
-
+       augment /sn:subscriptions/sn:subscription:
+         +--rw enable-notification-envelope?   boolean {notification-envelope}?
+         +--rw metadata
+       augment /sn:establish-subscription/sn:input:
+         +---w enable-notification-envelope?   boolean {notification-envelope}?
+         +---w metadata
+       augment /sn:modify-subscription/sn:input:
+         +---w enable-notification-envelope?   boolean {notification-envelope}?
+         +---w metadata
 
 
 
@@ -281,18 +281,6 @@ Huang Feng, et al.        Expires 31 March 2025                 [Page 5]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
-
-     module: ietf-notification-container
-
-       augment /sn:subscriptions/sn:subscription:
-         +--rw enable-notification-envelope?   boolean {notification-envelope}?
-         +--rw metadata
-       augment /sn:establish-subscription/sn:input:
-         +---w enable-notification-envelope?   boolean {notification-envelope}?
-         +---w metadata
-       augment /sn:modify-subscription/sn:input:
-         +---w enable-notification-envelope?   boolean {notification-envelope}?
-         +---w metadata
 
    When the node 'enable-notification-envelope' is set to true, the
    notifications produced by a NETCONF server MUST use the structure
@@ -331,13 +319,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
          +--ro some-other-metadata      string
          +--ro notification-contents?   <anydata>
 
-
-
-Huang Feng, et al.        Expires 31 March 2025                 [Page 6]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
    The following sections defines the encodings of this header.
 
 3.3.2.  Encoding of the Notification model
@@ -349,6 +330,13 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
    The same structure as defined in Section 4 of [RFC5277] is used.  The
    structure uses the XML namespace that has been defined in [RFC5277]:
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                 [Page 6]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
 
        urn:ietf:params:xml:ns:netconf:notification:1.0
 
@@ -387,13 +375,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    "notification" container.  The namespace of this container is the
    name of the YANG module "ietf-notification" defined in Section 4.
 
-
-
-Huang Feng, et al.        Expires 31 March 2025                 [Page 7]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
    Two child nodes within the "ietf-notification:notification" container
    are expected, representing the event time and the notification
    payload.  The "eventTime" node is defined within the same namespace
@@ -402,6 +383,16 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
    The following example shows a "push-update" notification defined in
    the YANG module of YANG-Push [RFC8641] encoded in JSON:
+
+
+
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                 [Page 7]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
 
        {
            "ietf-notification:notification": {
@@ -434,13 +425,22 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    The following sections shows how these messages are encoded in both
    cases.
 
-3.3.2.3.1.  CBOR encoded messages
+3.3.2.3.1.  CBOR encoded messages using keys
 
    Notifications encoded using keys is similar to JSON encoding as
    defined in Section 3.3 of [RFC9254].  The key of the element can be
    the element itself or be namespace-qualified.  In the latter case,
    the namespace of the notification container uses the YANG module name
    "ietf-notification" defined in Section 4.
+
+   Two child nodes within the "ietf-notification:notification" container
+   are expected, representing the event time and the notification
+   payload.  The "eventTime" node is defined within the same namespace
+   as the "ietf-notification:notification" container and is compliant
+   with [RFC3339].
+
+
+
 
 
 
@@ -449,12 +449,6 @@ Huang Feng, et al.        Expires 31 March 2025                 [Page 8]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
-
-   Two child nodes within the "ietf-notification:notification" container
-   are expected, representing the event time and the notification
-   payload.  The "eventTime" node is defined within the same namespace
-   as the "ietf-notification:notification" container and is compliant
-   with [RFC3339].
 
    The following example shows a "push-update" notification defined in
    the YANG module of YANG-Push [RFC8641] encoded in CBOR using names as
@@ -501,6 +495,12 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
 
 
+
+
+
+
+
+
 Huang Feng, et al.        Expires 31 March 2025                 [Page 9]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
@@ -530,38 +530,18 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
 4.  YANG Module
 
-4.1.  YANG Tree Diagram
-
-   This YANG module adds a structure with one leaf for the datetime as
-   defined in section 2.2.1 of [RFC5277].  The name of the leaf matches
-   the definition of the XSD element name defined in Section 4 of
-   [RFC5277].
-
-   module: ietf-notification
-
-     structure notification:
-       +-- eventTime    yang:date-and-time
-
-4.2.  YANG Module
+4.1.  YANG Module
 
    The YANG module uses the same namespace from the XML Schema defined
    in Section 4 of [RFC5277] allowing to use this YANG module to also
    validate already implemented XML encoded NETCONF Event Notifications.
 
-   <CODE BEGINS> file "ietf-notification-container@2024-06-17.yang"
-   module ietf-notification-container {
+   <CODE BEGINS> file "ietf-notification-envelope@2024-06-17.yang"
+   module ietf-notification-envelope {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
      prefix inotifc;
      import ietf-yang-types {
-
-
-
-Huang Feng, et al.        Expires 31 March 2025                [Page 10]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
        prefix yang;
        reference
          "RFC 6991: Common YANG Data Types";
@@ -574,6 +554,14 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
      organization "IETF NETCONF (Network Configuration) Working Group";
      contact
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                [Page 10]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
+
        "WG Web:   <https://datatracker.ietf.org/group/netconf/>
         WG List:  <mailto:netconf@ietf.org>
 
@@ -611,13 +599,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
        (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
        for full legal notices.";
 
-
-
-Huang Feng, et al.        Expires 31 March 2025                [Page 11]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
      revision 2024-06-17 {
        description
          "First revision";
@@ -629,6 +610,14 @@ Internet-Draft      YANG-Push Notification Container      September 2024
        description
          "Indicates that YANG-Push supports the notification-envelope
          as defined in RFC XXXX.";
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                [Page 11]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
+
      }
 
      grouping notif-env-configuration {
@@ -666,14 +655,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
          description
            "Some metadata";
        }
-
-
-
-Huang Feng, et al.        Expires 31 March 2025                [Page 12]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
        anydata notification-contents {
          description
            "This contains the values defined by the 'notification'
@@ -685,6 +666,14 @@ Internet-Draft      YANG-Push Notification Container      September 2024
      augment "/sn:subscriptions/sn:subscription" {
        description
          "This augmentation adds the configuration switches for
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                [Page 12]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
+
          enabling the notification envelope and metadatas.";
        uses notif-env-configuration;
      }
@@ -722,14 +711,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    IANA is requested to add this document as a reference in the
    following URI in the IETF XML Registry [RFC3688].
 
-
-
-
-Huang Feng, et al.        Expires 31 March 2025                [Page 13]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
    URI: urn:ietf:params:xml:ns:netconf:notification:2.0
    Registrant Contact: The IESG.
    XML: N/A; the requested URI is an XML namespace.
@@ -739,6 +720,15 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
    This document registers the following YANG module in the YANG Module
    Names Registry [RFC6020], within the "YANG Parameters" registry:
+
+
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                [Page 13]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
 
    name: ietf-notification
    namespace: urn:ietf:params:xml:ns:netconf:notification:2.0
@@ -779,13 +769,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-Huang Feng, et al.        Expires 31 March 2025                [Page 14]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
    [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
               Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
               <https://www.rfc-editor.org/info/rfc3339>.
@@ -793,6 +776,15 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
+
+
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                [Page 14]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
 
    [RFC5277]  Chisholm, S. and H. Trevino, "NETCONF Event
               Notifications", RFC 5277, DOI 10.17487/RFC5277, July 2008,
@@ -833,15 +825,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
               September 2019, <https://www.rfc-editor.org/info/rfc8641>.
 
-
-
-
-
-Huang Feng, et al.        Expires 31 March 2025                [Page 15]
-
-Internet-Draft      YANG-Push Notification Container      September 2024
-
-
    [RFC8791]  Bierman, A., Björklund, M., and K. Watsen, "YANG Data
               Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
               June 2020, <https://www.rfc-editor.org/info/rfc8791>.
@@ -850,6 +833,14 @@ Internet-Draft      YANG-Push Notification Container      September 2024
               Describing Capabilities for Systems and Datastore Update
               Notifications", RFC 9196, DOI 10.17487/RFC9196, February
               2022, <https://www.rfc-editor.org/info/rfc9196>.
+
+
+
+
+Huang Feng, et al.        Expires 31 March 2025                [Page 15]
+
+Internet-Draft      YANG-Push Notification Container      September 2024
+
 
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
               C., and M. Richardson, "Encoding of Data Modeled with YANG
@@ -887,6 +878,15 @@ Appendix A.  .sid file
 
    For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is
    requested to IANA in Section 6.3.
+
+
+
+
+
+
+
+
+
 
 
 

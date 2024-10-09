@@ -453,7 +453,7 @@
             <t>YANG data can be represented in CBOR using Names or SIDs in keys. The following 
             sections shows how these messages are encoded in both cases.</t>
 
-            <section title="CBOR encoded messages">
+            <section title="CBOR encoded messages using keys">
               <t>Notifications encoded using keys is similar to JSON encoding as defined in
               Section 3.3 of <xref target="RFC9254"/>. The key of the element can be the element
               itself or be namespace-qualified. In the latter case, the namespace of the
@@ -540,44 +540,22 @@
       </section>
     </section>
 
-    <!-- <section title="Differences to draft-ietf-netconf-notification-messages">
-      <t>Note to the RFC-Editor: Please remove this section before publishing.</t>
-
-      <t><xref target="I-D.ietf-netconf-notification-messages"/> proposes
-      a structure to send multiple notifications in a single message.
-      Unlike <xref target="I-D.ietf-netconf-notification-messages"/>,
-      this document defines a YANG module to encode NETCONF Notifications
-      with encodings other than XML, which is currently not existing.
-      The structure for NETCONF notifications is defined in 
-      <xref target="RFC5277"/> using a XSD, but there is no YANG module
-      defining the structure of the notification message sent by a server
-      when the message is encoded in JSON <xref target="RFC7951"/>
-      or CBOR <xref target="RFC9254"/>.</t>
-    </section> -->
-
     <section anchor="yang-model" title="YANG Module">
 
-      <section anchor="yang-tree" title="YANG Tree Diagram">
+      <!-- <section anchor="yang-tree" title="YANG Tree Diagram">
         <t>This YANG module adds a structure with one leaf for the datetime as defined in 
         section 2.2.1 of <xref target="RFC5277"/>. The name of the leaf matches the 
         definition of the XSD element name defined in Section 4 of <xref target="RFC5277"/>.
         </t>
-
-        <sourcecode type="yangtree"><![CDATA[
-module: ietf-notification
-
-  structure notification:
-    +-- eventTime    yang:date-and-time
-]]></sourcecode>
-      </section>
+      </section> -->
 
       <section anchor="yang-module" title="YANG Module">
       <t>The YANG module uses the same namespace from the XML Schema
       defined in Section 4 of <xref target="RFC5277"/> allowing to use this YANG module 
       to also validate already implemented XML encoded NETCONF Event Notifications.</t>
 
-      <sourcecode type="yang" markers="true" name="ietf-notification-container@2024-06-17.yang"><![CDATA[
-module ietf-notification-container {
+      <sourcecode type="yang" markers="true" name="ietf-notification-envelope@2024-06-17.yang"><![CDATA[
+module ietf-notification-envelope {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
   prefix inotifc;
@@ -761,6 +739,21 @@ reference: RFC-to-be]]></artwork>
         <t>A ".sid" file is proposed in <xref target="sid_appendix"/>.</t>
       </section>
     </section>
+
+    <!-- <section title="Differences to draft-ietf-netconf-notification-messages">
+      <t>Note to the RFC-Editor: Please remove this section before publishing.</t>
+
+      <t><xref target="I-D.ietf-netconf-notification-messages"/> proposes
+      a structure to send multiple notifications in a single message.
+      Unlike <xref target="I-D.ietf-netconf-notification-messages"/>,
+      this document defines a YANG module to encode NETCONF Notifications
+      with encodings other than XML, which is currently not existing.
+      The structure for NETCONF notifications is defined in 
+      <xref target="RFC5277"/> using a XSD, but there is no YANG module
+      defining the structure of the notification message sent by a server
+      when the message is encoded in JSON <xref target="RFC7951"/>
+      or CBOR <xref target="RFC9254"/>.</t>
+    </section> -->
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Per Anderson, Andy Bierman, Carsten Bormann,
