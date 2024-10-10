@@ -557,7 +557,7 @@
     {
         2551: {
             1: "2023-02-10T08:00:11.22Z",
-            3: {
+            2: {
               "ietf-yang-push:push-update": {
                   "id": 1011,
                   "datastore-contents": {
@@ -908,6 +908,11 @@ reference: RFC-to-be]]></artwork>
         "namespace": "data",
         "identifier": "/ietf-notification-envelope:notification-envelope/event-time",
         "sid": "2552"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-notification-envelope:notification-envelope/notification-contents",
+        "sid": "2553"
       }
     ]
   }

@@ -98,7 +98,7 @@ Table of Contents
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  17
    Appendix A.  .sid file  . . . . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 
 
@@ -565,7 +565,7 @@ Internet-Draft      YANG-Push Notification Container      September 2024
        {
            2551: {
                1: "2023-02-10T08:00:11.22Z",
-               3: {
+               2: {
                  "ietf-yang-push:push-update": {
                      "id": 1011,
                      "datastore-contents": {
@@ -991,16 +991,16 @@ Internet-Draft      YANG-Push Notification Container      September 2024
            "namespace": "data",
            "identifier": "/ietf-notification-envelope:notification-envelope/event-time",
            "sid": "2552"
+         },
+         {
+           "namespace": "data",
+           "identifier": "/ietf-notification-envelope:notification-envelope/notification-contents",
+           "sid": "2553"
          }
        ]
      }
    }
    <CODE ENDS>
-
-        Figure 5: .sid file for "ietf-notification-envelope" module
-
-Authors' Addresses
-
 
 
 
@@ -1009,6 +1009,10 @@ Huang Feng, et al.        Expires 31 March 2025                [Page 18]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
+
+        Figure 5: .sid file for "ietf-notification-envelope" module
+
+Authors' Addresses
 
    Alex Huang Feng
    INSA-Lyon
@@ -1035,10 +1039,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    Benoit Claise
    Huawei
    Email: benoit.claise@huawei.com
-
-
-
-
 
 
 
