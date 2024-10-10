@@ -91,7 +91,7 @@ Table of Contents
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
      6.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     6.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  14
+     6.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  15
      6.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .  15
    7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
@@ -588,7 +588,11 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
 3.4.  Extensions for the Notification Envelope
 
-   TBD
+   TBD: YANG versioning
+
+   TBD: sequencing and hostname
+
+   TBD: observation-time
 
 4.  YANG Module
 
@@ -606,10 +610,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
        prefix yang;
        reference
          "RFC 6991: Common YANG Data Types";
-     }
-     import ietf-subscribed-notifications {
-       prefix sn;
-       reference
 
 
 
@@ -618,6 +618,10 @@ Huang Feng, et al.        Expires 31 March 2025                [Page 11]
 Internet-Draft      YANG-Push Notification Container      September 2024
 
 
+     }
+     import ietf-subscribed-notifications {
+       prefix sn;
+       reference
          "RFC 8639: Subscription to YANG Notifications";
      }
 
@@ -662,10 +666,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
 
      revision 2024-06-17 {
        description
-         "First revision";
-       reference
-         "RFC XXXX: YANG-Push Notification Container";
-     }
 
 
 
@@ -673,6 +673,11 @@ Huang Feng, et al.        Expires 31 March 2025                [Page 12]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
+
+         "First revision";
+       reference
+         "RFC XXXX: YANG-Push Notification Container";
+     }
 
      feature notification-envelope {
        description
@@ -717,11 +722,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
        }
        anydata notification-contents {
          description
-           "This contains the values defined by the 'notification'
-           statement unchanged.";
-       }
-     }
-
 
 
 
@@ -729,6 +729,11 @@ Huang Feng, et al.        Expires 31 March 2025                [Page 13]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
+
+           "This contains the values defined by the 'notification'
+           statement unchanged.";
+       }
+     }
 
      // Subscription container
      augment "/sn:subscriptions/sn:subscription" {
@@ -774,17 +779,17 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    XML: N/A; the requested URI is an XML namespace.
    Reference: RFC-to-be
 
-6.2.  YANG module name
-
-   This document registers the following YANG module in the YANG Module
-   Names Registry [RFC6020], within the "YANG Parameters" registry:
-
 
 
 Huang Feng, et al.        Expires 31 March 2025                [Page 14]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
+
+6.2.  YANG module name
+
+   This document registers the following YANG module in the YANG Module
+   Names Registry [RFC6020], within the "YANG Parameters" registry:
 
    name: ietf-notification
    namespace: urn:ietf:params:xml:ns:netconf:notification:2.0
@@ -829,11 +834,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
               Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
               <https://www.rfc-editor.org/info/rfc3339>.
 
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              DOI 10.17487/RFC3688, January 2004,
-              <https://www.rfc-editor.org/info/rfc3688>.
-
-
 
 
 
@@ -841,6 +841,10 @@ Huang Feng, et al.        Expires 31 March 2025                [Page 15]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/info/rfc3688>.
 
    [RFC5277]  Chisholm, S. and H. Trevino, "NETCONF Event
               Notifications", RFC 5277, DOI 10.17487/RFC5277, July 2008,
@@ -885,10 +889,6 @@ Internet-Draft      YANG-Push Notification Container      September 2024
               Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
               June 2020, <https://www.rfc-editor.org/info/rfc8791>.
 
-   [RFC9196]  Lengyel, B., Clemm, A., and B. Claise, "YANG Modules
-              Describing Capabilities for Systems and Datastore Update
-              Notifications", RFC 9196, DOI 10.17487/RFC9196, February
-              2022, <https://www.rfc-editor.org/info/rfc9196>.
 
 
 
@@ -897,6 +897,11 @@ Huang Feng, et al.        Expires 31 March 2025                [Page 16]
 
 Internet-Draft      YANG-Push Notification Container      September 2024
 
+
+   [RFC9196]  Lengyel, B., Clemm, A., and B. Claise, "YANG Modules
+              Describing Capabilities for Systems and Datastore Update
+              Notifications", RFC 9196, DOI 10.17487/RFC9196, February
+              2022, <https://www.rfc-editor.org/info/rfc9196>.
 
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
               C., and M. Richardson, "Encoding of Data Modeled with YANG
@@ -934,11 +939,6 @@ Appendix A.  .sid file
 
    For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is
    requested to IANA in Section 6.3.
-
-
-
-
-
 
 
 

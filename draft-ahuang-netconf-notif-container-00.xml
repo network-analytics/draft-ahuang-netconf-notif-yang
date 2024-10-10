@@ -581,7 +581,9 @@
         </section>
       </section>
       <section title="Extensions for the Notification Envelope">
-        <t>TBD</t>
+        <t>TBD: YANG versioning</t>
+        <t>TBD: sequencing and hostname</t>
+        <t>TBD: observation-time</t>
       </section>
     </section>
 
