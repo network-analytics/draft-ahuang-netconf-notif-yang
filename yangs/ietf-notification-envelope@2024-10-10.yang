@@ -52,7 +52,7 @@ module ietf-notification-envelope {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2024-06-17 {
+  revision 2024-10-10 {
     description
       "First revision";
     reference
