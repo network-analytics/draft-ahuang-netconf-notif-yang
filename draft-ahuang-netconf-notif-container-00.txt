@@ -601,11 +601,11 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    The YANG module augments the module "ietf-subscribed-notifications"
    [RFC8641] and uses "ietf-yang-types" module [RFC6991].
 
-   <CODE BEGINS> file "ietf-notification-envelope@2024-06-17.yang"
+   <CODE BEGINS> file "ietf-notification-envelope@2024-10-10.yang"
    module ietf-notification-envelope {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
-     prefix inotifc;
+     prefix inotenv;
      import ietf-yang-types {
        prefix yang;
        reference
@@ -664,7 +664,7 @@ Internet-Draft      YANG-Push Notification Container      September 2024
        (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
        for full legal notices.";
 
-     revision 2024-06-17 {
+     revision 2024-10-10 {
        description
 
 
@@ -791,7 +791,7 @@ Internet-Draft      YANG-Push Notification Container      September 2024
    This document registers the following YANG module in the YANG Module
    Names Registry [RFC6020], within the "YANG Parameters" registry:
 
-   name: ietf-notification
+   name: ietf-notification-envelope
    namespace: urn:ietf:params:xml:ns:netconf:notification:2.0
    prefix: inotenv
    reference: RFC-to-be

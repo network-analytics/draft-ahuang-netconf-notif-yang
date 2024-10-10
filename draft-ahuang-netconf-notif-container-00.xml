@@ -600,11 +600,11 @@
       <t>The YANG module augments the module "ietf-subscribed-notifications" <xref target="RFC8641"/> and uses 
       "ietf-yang-types" module <xref target="RFC6991"/>.</t>
 
-      <sourcecode type="yang" markers="true" name="ietf-notification-envelope@2024-06-17.yang"><![CDATA[
+      <sourcecode type="yang" markers="true" name="ietf-notification-envelope@2024-10-10.yang"><![CDATA[
 module ietf-notification-envelope {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
-  prefix inotifc;
+  prefix inotenv;
   import ietf-yang-types {
     prefix yang;
     reference
@@ -655,7 +655,7 @@ module ietf-notification-envelope {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2024-06-17 {
+  revision 2024-10-10 {
     description
       "First revision";
     reference
@@ -764,7 +764,7 @@ Reference: RFC-to-be]]></artwork>
         "YANG Parameters" registry:</t>
 
         <artwork align="left"><![CDATA[
-name: ietf-notification
+name: ietf-notification-envelope
 namespace: urn:ietf:params:xml:ns:netconf:notification:2.0
 prefix: inotenv
 reference: RFC-to-be]]></artwork>
