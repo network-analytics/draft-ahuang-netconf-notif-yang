@@ -12,6 +12,18 @@ module ietf-notification-envelope {
     reference
       "RFC 8639: Subscription to YANG Notifications";
   }
+  import ietf-system-capabilities {
+    prefix sysc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
+  import ietf-notification-capabilities {
+    prefix notc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
 
   organization "IETF NETCONF (Network Configuration) Working Group";
   contact
@@ -85,6 +97,26 @@ module ietf-notification-envelope {
     }
   }
 
+  grouping notif-env-capabilities {
+    description
+      "This grouping defines the capabilities for
+      the notification-envelope defined in RFC XXXX
+      and the different supported metadata.";
+    leaf notification-envelope {
+      if-feature notification-envelope;
+      type boolean;
+      default false;
+      description
+        "Supports YANG-Push to use the notification-envelope 
+        defined in RFC XXXX.";
+    }
+    container metadata {
+      description 
+        "Container with the supported optional metadata by the
+        YANG-Push publisher.";
+    }
+  }
+
   notification notification-envelope {
     leaf event-time {
       type yang:date-and-time;
@@ -128,5 +160,20 @@ module ietf-notification-envelope {
       enabling the notification envelope and other metadatas
       during the 'establish-subscription' RPC.";
     uses notif-env-configuration;
+  }
+
+  // YANG-Push Capabilities extension
+  augment "/sysc:system-capabilities/notc:subscription-capabilities" {
+    description
+      "Extension to the subscription-capabilities model to enable
+      clients to learn whether the publisher supports the 
+      notification-envelope";
+
+    container notification-metadata {
+      description 
+        "Adds the notification metadata capabilities to subscription
+        capabilities.";
+      uses notif-env-capabilities;
+    }
   }
 }

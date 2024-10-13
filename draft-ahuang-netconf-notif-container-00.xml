@@ -333,7 +333,27 @@
       </section>
       
       <section anchor="discovery-notif" title="Discovering the support of this model">
-        <t>TBD: Add RFC9196 extensions</t>
+        <t>A NETCONF client or YANG-Push receiver can discover the support of 'notification-envelope'
+        model through the capabilities model defined in <xref target="RFC9196"/>. This documents
+        extends the 'ietf-notification-capabilities' model with a container that includes:</t>
+
+        <ul>
+          <li>A leaf 'notification-envelope', stating that the YANG notification can be encoded
+          following the notification-envelope model.</li>
+          <li>A container 'metadata' containing all the supported extensions to this header.</li>
+        </ul>
+
+        <t>The YANG model defined in <xref target="yang-model"/> augments the
+        'ietf-notification-capabilities' model with the leaf and container listed above.</t>
+
+        <sourcecode type="yangtree"><![CDATA[
+  augment /sysc:system-capabilities/notc:subscription-capabilities:
+    +--ro notification-metadata
+       +--ro notification-envelope?   boolean {notification-envelope}?
+       +--ro metadata
+]]></sourcecode>
+
+        <t>This model can be retrieved via a NETCONF &lt;get&gt; RPC.</t>
       </section>
       
       <section anchor="struct-notif" title="Notification Envelope">
@@ -615,6 +635,18 @@ module ietf-notification-envelope {
     reference
       "RFC 8639: Subscription to YANG Notifications";
   }
+  import ietf-system-capabilities {
+    prefix sysc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
+  import ietf-notification-capabilities {
+    prefix notc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
 
   organization "IETF NETCONF (Network Configuration) Working Group";
   contact
@@ -688,6 +720,26 @@ module ietf-notification-envelope {
     }
   }
 
+  grouping notif-env-capabilities {
+    description
+      "This grouping defines the capabilities for
+      the notification-envelope defined in RFC XXXX
+      and the different supported metadata.";
+    leaf notification-envelope {
+      if-feature notification-envelope;
+      type boolean;
+      default false;
+      description
+        "Supports YANG-Push to use the notification-envelope 
+        defined in RFC XXXX.";
+    }
+    container metadata {
+      description 
+        "Container with the supported optional metadata by the
+        YANG-Push publisher.";
+    }
+  }
+
   notification notification-envelope {
     leaf event-time {
       type yang:date-and-time;
@@ -731,6 +783,21 @@ module ietf-notification-envelope {
       enabling the notification envelope and other metadatas
       during the 'establish-subscription' RPC.";
     uses notif-env-configuration;
+  }
+
+  // YANG-Push Capabilities extension
+  augment "/sysc:system-capabilities/notc:subscription-capabilities" {
+    description
+      "Extension to the subscription-capabilities model to enable
+      clients to learn whether the publisher supports the 
+      notification-envelope";
+
+    container notification-metadata {
+      description 
+        "Adds the notification metadata capabilities to subscription
+        capabilities.";
+      uses notif-env-capabilities;
+    }
   }
 }
 ]]></sourcecode>
