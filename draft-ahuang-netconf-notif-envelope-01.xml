@@ -11,13 +11,13 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std"
-  docName="draft-ahuang-netconf-notif-container-00"
+  docName="draft-ahuang-netconf-notif-envelope-01"
   ipr="trust200902"
   consensus="true"
   submissionType="IETF"
   updates="RFC7950 RFC7951 RFC9254">
   <front>
-    <title abbrev="YANG-Push Notification Container">Extensible YANG model
+    <title abbrev="YANG-Push Notification Envelope">Extensible YANG model
     for YANG-Push Notifications</title>
 
     <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
@@ -98,10 +98,10 @@
       </address>
     </author>
 
-    <date day="27" month="September" year="2024"/>
+    <date day="14" month="October" year="2024"/>
 
     <abstract>
-      <t>This document defines a extensible structure for YANG-Push Notification
+      <t>This document defines an extensible structure for YANG-Push Notification
       to be used in NETCONF environments.
       The definition of this YANG model allows the encoding of YANG-Push Notifications
       in any YANG compatible encodings such as XML, JSON or CBOR.</t>
@@ -122,7 +122,7 @@
       <t>YANG-Push <xref target="RFC8639"/> allow NETCONF 
       <xref target="RFC6241"/> servers and YANG-Push publishers to send notifications to
       a data collection. The NETCONF client and the YANG-Push receiver decodes the message
-      and optionally validates the header and the content before forward it to the next process.
+      and optionally validates the header and the content before forwarding to the next process.
       </t>
 
       <t>The notification container from YANG-Push was defined based on the XML model 
@@ -130,22 +130,22 @@
       single mandatory "eventTime" leaf and does offer a way to extend this header with new metadata.
       Additionally, this XML model is only valid for XML-based environments. When messages
       are encoded in other YANG encodings, such as JSON <xref target="RFC7951"/> or CBOR
-      <xref target="RFC9254"/>, validators cannot use pure YANG to complete validate
-      the message.</t>
+      <xref target="RFC9254"/>, validators cannot use YANG to validate
+      the message schema.</t>
 
-      <t>When an network engineer receives a notification, key metadata is required to provide
-      context for the message. Information such as the router which generated the notification
-      and the time the event was detected helps network engineers correlate the event with other
-      telemetry data collected through other protocols.
+      <t>When a network engineer receives notifications, key metadata is required to provide
+      message context. Information such as the hostname of the network node which published the notification
+      and the time the events or metrics were observed helps network engineers to correlate with other
+      Network Telemetry <xref target="RFC9232"/> data collected through other protocols.
       </t>
 
       <t>For such reasons, this document proposes the following.
       First, it provides an extensible YANG notification header allowing implementors and IETF contributors
       to easily add new metadata to the notification message.
-      Second, it provides the first crutial extensions enabling operators to track the versions of
-      the subscribed YANG modules and the identification of the node that pushes the YANG-Push messages.
+      Second, it provides the first crucial extensions enabling operators to identify which network node
+	  publishes which YANG-Push messages and when the events or metrics were observed on the network node.
       And finally, it provides a way to enable and disable these extensions on a subscription basis, 
-      making the cohexistence of different YANG-Push and NETCONF Event Notification <xref target="RFC5277"/>
+      making the coexistence of different YANG-Push and NETCONF Event Notification <xref target="RFC5277"/>
       possible.</t>
       <!-- <t>The structure of a NETCONF Event notification has been
       defined in <xref target="RFC5277"/> using a XML Schema 
@@ -210,8 +210,8 @@
           <li>Section 1.4 of <xref target="RFC8639"/> states that the 
           the solution uses the notification structure defined in
           <xref target="RFC5277"/>. This document proposes a new
-          structure that NETCONF clients can enable. When the this new
-          strcture is used, Notification messages are encoded as defined
+          structure that NETCONF clients can enable. When this new
+          structure is used, notification messages are encoded as defined
           in Section <xref target="struct-notif"/>.</li>
 
           <li>Section 2.4.2 of <xref target="RFC8639"/> defines how a
@@ -230,7 +230,7 @@
 
         <ul>
           <li>Section 4.2.10 of <xref target="RFC7950"/> defines the XML encoding
-          of YANG notification. This document defines a new header for such Notifications.
+          of YANG notification. This document defines a new header for such notifications.
           When a NETCONF server or YANG-Push publisher implements this document, the notifications 
           are encoded according to <xref target="xml-encoding"/>.</li>
         </ul>
@@ -243,7 +243,7 @@
         </t>
 
         <ul>
-          <li><xref target="RFC7951"/> does not define explicitely how a YANG
+          <li><xref target="RFC7951"/> does not define explicitly how a YANG
           notification should be encoded using JSON encoding. This document
           specifies a new header for such notifications. 
           When a NETCONF server or YANG-Push publisher implements this document, the notifications 
@@ -258,7 +258,7 @@
         </t>
 
         <ul>
-          <li><xref target="RFC9254"/> does not define explicitely how a YANG
+          <li><xref target="RFC9254"/> does not define explicitly how a YANG
           notification should be encoded using CBOR encoding. 
           <!-- <xref target="RFC9254"/> states that Notifications are container-like instances. -->
           When a NETCONF server or YANG-Push publisher implements this document, the notifications 
@@ -292,7 +292,7 @@
   </notification>
 ]]></sourcecode>
 
-      <t>This document defines a new Notification header and enables
+      <t>This document defines a new notification header and enables
       extending it with new metadata.
       The Notification header defined in the following sections is to be used in YANG-Push
       <xref target="RFC8641"/> environments and
@@ -325,7 +325,7 @@
       +---w metadata
   ]]></sourcecode>
         
-        <t>When the node 'enable-notification-envelope' is set to true, the notifications produced
+        <t>When the node 'enable-notification-envelope' is set to true, the notifications published
         by a NETCONF server MUST use the structure defined in <xref target="base-notif-model"/>.
         If any metadata is enabled during the configuration of the subscription, the metadata nodes
         MUST be present in the header.
@@ -378,13 +378,17 @@
           </ul>
 
           <t>The following YANG tree <xref target="RFC8340"/> illustrates the notification envelope
-           containing the metadata 'event-time' and 'some-other-metadata'.</t>
+           containing the metadata 'event-time', 'hostname', 'sequence-number', observation-timestamp and
+		   'observation-point-in-time'.</t>
           <sourcecode type="yangtree"><![CDATA[
   notifications:
     +---n notification-envelope
-      +--ro event-time               yang:date-and-time
-      +--ro some-other-metadata      string
-      +--ro notification-contents?   <anydata>
+       +--ro event-time                   yang:date-and-time
+       +--ro hostname?                    inet:host
+       +--ro sequence-number?             yang:counter32
+       +--ro observation-timestamp?       yang:date-and-time
+       +--ro observation-point-in-time?   enumeration
+       +--ro notification-contents?       <anydata>
 ]]></sourcecode>
           
           <!-- <t>The following sections defines the encodings of this header.</t> -->
@@ -601,9 +605,262 @@
         </section>
       </section>
       <section title="Extensions for the Notification Envelope">
-        <t>TBD: YANG versioning</t>
-        <t>TBD: sequencing and hostname</t>
-        <t>TBD: observation-time</t>
+	    <t>This section described two optional YANG notification header extensions
+		which are by default enabled when supported.</t>
+	    <section title="Support of Hostname and Sequencing in YANG Notifications">
+
+        <t>When YANG-Push Notification messages are forwarded from a
+        receiver to another system, such as a message broker or a time series
+        database, the transport context is lost since it is not part of the
+        metadata of the notification container. Therefore, the downstream
+        system is unable to associate the message to the publishing process (the
+        exporting network node), nor able to detect message loss or reordering.</t>
+
+        <t>To correlate network data among different Network Telemetry planes as
+        described in <xref section="3.1" target="RFC9232"/> or among different
+        YANG-Push subscription types as defined in <xref section="3.1"
+        target="RFC8641"/>, a reference to the node streaming the data is
+        needed. This is essential for understanding the timely relationship
+        among these different planes and YANG-Push subscription types.</t>
+
+        <t>Today, network operators work around this impediment by preserving
+        the transport source IP address and sequence numbers of the publishing
+        process. However, this implies encoding this information in the YANG-Push
+	    Notification messages which impacts the semantic readability of the
+        message in the downstream system.</t>
+
+        <t>On top of that, the transport source IP address might not represent
+        the management IP address by which the YANG-Push publisher should be
+        known. In other terms, the source-host <xref target="RFC6470"/>, which
+        is the "Address of the remote host for the session" might not be the
+        management IP address.</t>
+
+        <t>To overcome these issues, this document proposes a notification
+	    container extension with a hostname and a sequence number. This allows
+		the downstream system to not only be able to identify from which network
+		node, subscription, and time the message was published but also, the order
+		of the published messages.</t>	
+
+        <dl>
+          <dt>hostname:</dt>
+
+          <dd>Describes the node's hostname according to the
+          'sysName' object definition in <xref target="RFC1213"/> from where the
+          message was published from. This value is usually configured on the
+          node by the administrator to uniquely identify the node in the
+          network.</dd>
+        </dl>
+
+        <dl>
+          <dt>sequence-number:</dt>
+
+          <dd>Generates a unique sequence number for each published message by
+          the publisher process. The number counts up at every published
+          notification message as described in <xref target="RFC9187"/>.</dd>
+        </dl>
+
+        </section>	
+
+	    <section title="Support of Observation Time in YANG Notifications">
+
+        <t>To correlate network data among different Network Telemetry planes as
+        described in Section 3.1 of <xref target="RFC9232"/> or among different
+        YANG-Push subscription types defined in Section 3.1 of <xref
+        target="RFC8641"/>, observation-timestamp describes when the state
+        change was observed or when the data was accounted. This is essential
+        for understanding the timely relationship among these different planes
+        and YANG push subscription types.</t>
+
+        <t>With above described hostname and sequence-number extensions the delay
+        between the YANG Notification export and the arrival at the downstream
+        system storing the data can be measured. With observation-timestamp, the 
+		delay between the time of the network observation and the data export of
+		the YANG push publisher process can be measured as well, extending the
+		delay measurement scope from the time the network observation and storing
+		the data.</t>
+
+        <t>When the time bucket length in a time series database and the
+        periodical YANG push subscription time is identical, the eventTime of
+        the netconf notification message header is used for indexing, there is
+        variable delay between the observation-timestamp and the event-time, and
+        the anchor-time as described in Section 4.2 of <xref target="RFC8641"/>
+        is close to the time bucket boundaries, a time bucket is going to have
+        periodically 0 or 2 measurements indexed instead of 1. Leading to
+        inconsistent accounting errors in the time series database. This problem
+        is resolved by using the observation-timestamp instead of the event-time
+        for time series database indexing.</t>
+
+        <t>By extending YANG-Push Notifications with the observation-timestamp
+        YANG object and a observation-point-in-time enumeration for streaming update
+        YANG-Push notifications it is ensured that the observation-timestamp is
+        always present with the best available time, it can be therefore used
+        unconditionally in the data processing chain and with the 
+		observation-point-in-time enumeration there is semantic describing at
+		which point in time the observation-timestamp was observed.</t>
+		
+        <dl>
+          <dt>observation-timestamp:</dt>
+
+          <dd>
+            <t>States the measurement observation time for the "push-update"
+            notification in a "periodical" and for the "push-change-update"
+            notification in a "on-change" subscription.</t>
+
+            <t>By comparing the observation-timestamp of two "push-update"
+            notifications in a periodical subscription, the collector can deduce
+            the actual cadence of the measurements, and compare it with the
+            subscription configuration. In case of an "on-change" subscription
+            it states the time when the network state change was observed.</t>
+          </dd>
+
+          <dt>observation-point-in-time:</dt>
+
+          <dd>
+            <t>The enumeration states at which point in time the value of the
+            observation-timestamp was observed. Choices are:</t>
+
+            <t>current-accounting states for "periodical" subscriptions, the
+            point-in-time where the metrics are being polled and observed.</t>
+
+            <t>initial-state states for "on-change sync on start" subscriptions,
+            the initial point in time when the subscription was established and
+            the state was observed.</t>
+
+            <t>state-changed states for "on-change" and "on-change sync on
+            start" subscriptions, the point in time when the state change was
+            observed after the subscription was established.</t>
+          </dd>
+        </dl>
+
+        <t><xref target="fig_observation-time_timeline_on-change"/> provides an example
+        timeline of events to describe observation-timestamp and observation-point-in-time
+        for "on-change sync on start" subscriptions. At "T2" when the "on-change
+        sync on start" subscription is established, the timestamp of "T2" is
+        used in observation-timestamp and observation-point-in-time is set to
+        "initial-state". At "T3" and "T4" the timestamp of "T3" respectively
+        "T4" is used in observation-timestamp and observation-point-in-time is set to
+        "state-changed".</t>
+
+        <figure anchor="fig_observation-time_timeline_on-change"
+              title="Example Timeline for On-Change Sync on Start Subscription">
+          <artwork><![CDATA[
+Timeline
+---------------------------------------------------------------------->
+ | (T1) Interface | (T2) YANG-Push   | (T3) Interface | (T4) Interface
+ | state changed  | "on-change sync  | state changed  | state changed
+ | to "Up".       | on start"        | to "Down".     | to "Up".
+ |                | subscription for |                |
+ |                | interface state  |                |
+ |                | is established.  |                |
+ v                v                  v                v
+          ]]></artwork>
+        </figure>
+
+        <t><xref target="fig_observation-time_json_push-change-update"/> provides an example of
+        a JSON encoded, <xref target="RFC8259"/>, "push-change-update"
+        notification message with hostname and sequence-number as extension.</t>
+
+        <figure anchor="fig_observation-time_json_push-change-update"
+              title="JSON Push Example for a push-change-update notification message">
+          <sourcecode type="json"><![CDATA[
+========== NOTE: '\' line wrapping per RFC 8792) ===========
+
+{
+    "ietf-notification-envelope:notification-envelope": {
+    "event-time": "2023-03-25T08:30:11.22Z",
+    "hostname": "example-router",
+    "sequence-number": 1,
+    "observation-timestamp": "2023-03-25T08:30:11.22Z",
+    "observation-point-in-time": "state-changed",
+    "ietf-yang-push:push-change-update": {
+      "id": 2222,
+      "datastore-contents": {
+        "yang-patch": {
+          "patch-id": "patch_54",
+          "comment": "Changing encoding to JSON and increasing \
+          the period to 10 minutes",
+          "edit": [
+            {
+              "edit-id": "id_change_1",
+              "operation": "merge",
+              "target": "/ietf-subscribed-notifications\:subs\
+              criptions/subscription[id=2222]",
+              "value": {
+                "ietf-subscribed-notifications:encoding": \
+                "ietf-subscribed-notifications:encode-json",
+                "ietf-yang-push:periodic": {
+                  "period": 60000
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}    
+          ]]></sourcecode>
+        </figure>
+
+        <t><xref target="fig_observation-time_timeline_periodical"/> provides an example
+        timeline of events to describe observation-point-in-time for "periodical"
+        subscriptions. The timestamp of observation-timestamp in "T2" is set at
+        the start of the polling of the YANG data store to "T2" and
+        point-in-time is set "current-accounting". At "T3" the timestamp of
+        observation-timestamp of "T3" is used. At "T4" the timestamp of
+        observation-timestamp of "T4" is used.</t>
+
+        <figure anchor="fig_observation-time_timeline_periodical"
+              title="Example Timeline for Periodical Subscription">
+          <artwork><![CDATA[
+Timeline
+---------------------------------------------------------------------->
+ | (T1) YANG-Push | (T2) YANG-Push | (T3) YANG-Push | (T4) YANG-Push
+ | "periodical"   | "periodical"   | "periodical"   | "periodical"
+ | subscription   | current        | current        | current
+ | for interface  | accounting     | accounting.    | accounting.
+ | counter is     |                |                |
+ | established    |                |                |
+ v                v                v                v
+          ]]></artwork>
+        </figure>
+
+        <t><xref target="fig_observation-time_json_push-update"/> provides an example of
+        a JSON encoded, <xref target="RFC8259"/>, "push-update"
+        notification message with hostname and sequence-number as extension.</t>
+
+        <figure anchor="fig_observation-time_json_push-update"
+              title="JSON Push Example for a push-update notification message">
+          <artwork><![CDATA[
+========== NOTE: '\' line wrapping per RFC 8792) ===========
+
+{
+    "ietf-notification-envelope:notification-envelope": {
+    "event-time": "2023-03-25T08:30:11.22Z",
+    "hostname": "example-router",
+    "sequnce-number": 1,
+    "observation-timestamp": "2023-03-25T08:30:11.22Z",
+    "observation-point-in-time": "current-accounting",
+    "ietf-yang-push:push-update": {
+      "id": 6666,
+      "datastore-contents": {
+        "ietf-interfaces:interfaces": [
+          {
+            "interface": {
+              "name": "eth0",
+              "type": "iana-if-type:ethernetCsmacd",
+              "oper-status": "up",
+              "mtu": 1500
+            }
+          }
+        ]
+      }
+    }
+  }
+}     
+             ]]></artwork>
+        </figure>
+        </section>
       </section>
     </section>
 
@@ -627,6 +884,11 @@ module ietf-notification-envelope {
   prefix inotenv;
   import ietf-yang-types {
     prefix yang;
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+  import ietf-inet-types {
+    prefix inet;
     reference
       "RFC 6991: Common YANG Data Types";
   }
@@ -687,7 +949,7 @@ module ietf-notification-envelope {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2024-10-10 {
+  revision 2024-10-14 {
     description
       "First revision";
     reference
@@ -698,6 +960,19 @@ module ietf-notification-envelope {
     description
       "Indicates that YANG-Push supports the notification-envelope
       as defined in RFC XXXX.";
+  }
+
+  feature notification-hostname-sequence-number {
+    description
+      "Indicates that YANG-Push supports the hostname 
+	  and sequence-number metadata in the notification-envelope
+	  as defined in RFC XXXX.";
+  }
+
+  feature notification-observation-timestamp {
+    description
+      "Indicates that YANG-Push supports the sequence-number metadata
+	  in the notification-envelope as defined in RFC XXXX.";
   }
 
   grouping notif-env-configuration {
@@ -711,12 +986,30 @@ module ietf-notification-envelope {
       default false;
       description
         "Enables YANG-Push to use the notification-envelope 
-        defined in RFC XXXX. When enabled, the base metadata
-        is sent along with the notification contents.";
+        defined in RFC XXXX.";
     }
     container metadata {
       description 
         "Container for configuring optional metadata.";
+		    leaf notification-hostname-sequence-number {
+			  if-feature notification-hostname-sequence-number;
+			  type boolean;
+			  default true;
+			  description
+                "When enabled, hostname and sequence-number is sent
+				in the YANG-Push notifications as defined in the
+				YANG-Push notification-envelope in RFC XXXX.";
+			}
+		    leaf notification-observation-timestamp {
+			  if-feature notification-observation-timestamp;
+			  type boolean;
+			  default true;
+			  description
+                "When enabled, observation-timestamp and 
+				observation-point-in-time is sent in the YANG-Push
+				notifications as defined in the YANG-Push
+				notification-envelope in RFC XXXX.";
+			}
     }
   }
 
@@ -728,7 +1021,6 @@ module ietf-notification-envelope {
     leaf notification-envelope {
       if-feature notification-envelope;
       type boolean;
-      default false;
       description
         "Supports YANG-Push to use the notification-envelope 
         defined in RFC XXXX.";
@@ -737,6 +1029,23 @@ module ietf-notification-envelope {
       description 
         "Container with the supported optional metadata by the
         YANG-Push publisher.";
+		    leaf notification-hostname-sequence-number {
+			  if-feature notification-hostname-sequence-number;
+			  type boolean;
+			  description
+                "Supports hostname and sequence-number
+				in the YANG-Push notifications as defined in the
+				YANG-Push notification-envelope in RFC XXXX.";
+			}
+		    leaf notification-observation-timestamp {
+			  if-feature notification-observation-timestamp;
+			  type boolean;
+			  description
+                "Supports observation-timestamp and 
+				observation-point-in-time in the YANG-Push
+				notifications as defined in the YANG-Push
+				notification-envelope in RFC XXXX.";
+			}
     }
   }
 
@@ -749,11 +1058,45 @@ module ietf-notification-envelope {
         source. This parameter is of type dateTime and compliant
         to [RFC3339].";
     }
-    leaf some-other-metadata {
-      type string;
-      mandatory true;
-      description 
-        "Some metadata";
+    leaf hostname {
+      type inet:host;
+      description
+        "The hostname of the network node according to
+        [RFC1213]. This value is usually configured on the node
+        by the administrator to uniquely identify the node in
+        the network.";
+    }
+    leaf sequence-number {
+      type yang:counter32;
+      description
+        "Unique sequence number as described in [RFC9187] for each
+        published message.";
+    }
+    leaf observation-timestamp {
+      type yang:date-and-time;
+      description
+        "This is the time when events or metrics were observed.";
+    }
+    leaf observation-point-in-time {
+      type enumeration {
+        enum current-accounting {
+          description "For periodical subscriptions, the 
+		  observation-point-in-time where the metrics are being polled
+		  and observed.";
+        }
+        enum initial-state {
+          description "For 'on-change sync on start' subscriptions, the
+            initial point in time when the subscription was established
+            and the state was observed.";
+        }
+        enum state-changed {
+          description "For 'on-change sync on start' subscriptions, the
+            point in time when the state change was observed after the
+            subscription was established.";
+        }
+      }
+      description
+      "This describes at which point in time the metrics were observed";
     }
     anydata notification-contents {
       description 
@@ -875,6 +1218,7 @@ reference: RFC-to-be]]></artwork>
 
   <back>
     <references title="Normative References">
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.1213.xml'?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml"?>
@@ -889,6 +1233,8 @@ reference: RFC-to-be]]></artwork>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8639.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8641.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8791.xml"?>
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8792.xml'?>
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9187.xml'?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9254.xml"?>
 
       <reference anchor="W3C.REC-xml-20001006"
@@ -925,8 +1271,11 @@ reference: RFC-to-be]]></artwork>
     </references>
 
     <references title="Informative References">
-      <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"?>
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6470.xml'?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"?>
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8259.xml'?>
+      <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"?>
+      <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9232.xml"?>
       <?rfc include="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-netconf-notification-messages-08.xml"?>
     </references>
 
