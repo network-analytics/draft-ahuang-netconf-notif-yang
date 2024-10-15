@@ -73,7 +73,7 @@ module ietf-notification-envelope {
     description
       "First revision";
     reference
-      "RFC XXXX: YANG-Push Notification Container";
+      "RFC XXXX: YANG-Push Notification Envelope";
   }
 
   feature notification-envelope {
@@ -85,14 +85,14 @@ module ietf-notification-envelope {
   feature notification-hostname-sequence-number {
     description
       "Indicates that YANG-Push supports the hostname 
-	  and sequence-number metadata in the notification-envelope
-	  as defined in RFC XXXX.";
+    and sequence-number metadata in the notification-envelope
+    as defined in RFC XXXX.";
   }
 
   feature notification-observation-timestamp {
     description
       "Indicates that YANG-Push supports the sequence-number metadata
-	  in the notification-envelope as defined in RFC XXXX.";
+    in the notification-envelope as defined in RFC XXXX.";
   }
 
   grouping notif-env-configuration {
@@ -111,25 +111,25 @@ module ietf-notification-envelope {
     container metadata {
       description 
         "Container for configuring optional metadata.";
-		    leaf notification-hostname-sequence-number {
-			  if-feature notification-hostname-sequence-number;
-			  type boolean;
-			  default true;
-			  description
-                "When enabled, hostname and sequence-number is sent
-				in the YANG-Push notifications as defined in the
-				YANG-Push notification-envelope in RFC XXXX.";
-			}
-		    leaf notification-observation-timestamp {
-			  if-feature notification-observation-timestamp;
-			  type boolean;
-			  default true;
-			  description
-                "When enabled, observation-timestamp and 
-				observation-point-in-time is sent in the YANG-Push
-				notifications as defined in the YANG-Push
-				notification-envelope in RFC XXXX.";
-			}
+      leaf hostname-sequence-number {
+        if-feature notification-hostname-sequence-number;
+        type boolean;
+        default true;
+        description
+          "When enabled, hostname and sequence-number is sent
+          in the YANG-Push notifications as defined in the
+          YANG-Push notification-envelope in RFC XXXX.";
+      }
+      leaf observation-timestamp {
+        if-feature notification-observation-timestamp;
+        type boolean;
+        default true;
+        description
+          "When enabled, observation-timestamp and 
+          observation-point-in-time is sent in the YANG-Push
+          notifications as defined in the YANG-Push
+          notification-envelope in RFC XXXX.";
+      }
     }
   }
 
@@ -149,23 +149,23 @@ module ietf-notification-envelope {
       description 
         "Container with the supported optional metadata by the
         YANG-Push publisher.";
-		    leaf notification-hostname-sequence-number {
-			  if-feature notification-hostname-sequence-number;
-			  type boolean;
-			  description
-                "Supports hostname and sequence-number
-				in the YANG-Push notifications as defined in the
-				YANG-Push notification-envelope in RFC XXXX.";
-			}
-		    leaf notification-observation-timestamp {
-			  if-feature notification-observation-timestamp;
-			  type boolean;
-			  description
-                "Supports observation-timestamp and 
-				observation-point-in-time in the YANG-Push
-				notifications as defined in the YANG-Push
-				notification-envelope in RFC XXXX.";
-			}
+      leaf hostname-sequence-number {
+        if-feature notification-hostname-sequence-number;
+        type boolean;
+        description
+          "Supports hostname and sequence-number
+          in the YANG-Push notifications as defined in the
+          YANG-Push notification-envelope in RFC XXXX.";
+      }
+      leaf observation-timestamp {
+        if-feature notification-observation-timestamp;
+        type boolean;
+        description
+          "Supports observation-timestamp and 
+          observation-point-in-time in the YANG-Push
+          notifications as defined in the YANG-Push
+          notification-envelope in RFC XXXX.";
+      }
     }
   }
 
@@ -179,6 +179,7 @@ module ietf-notification-envelope {
         to [RFC3339].";
     }
     leaf hostname {
+      if-feature notification-hostname-sequence-number;
       type inet:host;
       description
         "The hostname of the network node according to
@@ -187,36 +188,42 @@ module ietf-notification-envelope {
         the network.";
     }
     leaf sequence-number {
+      if-feature notification-hostname-sequence-number;
       type yang:counter32;
       description
         "Unique sequence number as described in [RFC9187] for each
         published message.";
     }
     leaf observation-timestamp {
+      if-feature notification-observation-timestamp;
       type yang:date-and-time;
       description
         "This is the time when events or metrics were observed.";
     }
     leaf observation-point-in-time {
+      if-feature notification-observation-timestamp;
       type enumeration {
         enum current-accounting {
-          description "For periodical subscriptions, the 
-		  observation-point-in-time where the metrics are being polled
-		  and observed.";
+          description
+            "For periodical subscriptions, the 
+            observation-point-in-time where the metrics are being polled
+            and observed.";
         }
         enum initial-state {
-          description "For 'on-change sync on start' subscriptions, the
+          description
+            "For 'on-change sync on start' subscriptions, the
             initial point in time when the subscription was established
             and the state was observed.";
         }
         enum state-changed {
-          description "For 'on-change sync on start' subscriptions, the
+          description
+            "For 'on-change sync on start' subscriptions, the
             point in time when the state change was observed after the
             subscription was established.";
         }
       }
       description
-      "This describes at which point in time the metrics were observed";
+        "This describes at which point in time the metrics were observed";
     }
     anydata notification-contents {
       description 
