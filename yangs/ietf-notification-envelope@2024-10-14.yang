@@ -45,10 +45,10 @@ module ietf-notification-envelope {
                <mailto:benoit.claise@huawei.com>";
 
   description
-    "Defines a Notification structure for Subscribed Notifications
-    [RFC8639] and YANG-Push [RFC8641]. When this Notification header
-    is enabled through a configuration, the root container of the 
-    notification is defined by the 
+    "Defines a notification header for Subscribed Notifications
+    [RFC8639] and YANG-Push [RFC8641]. When this notification header
+    is enabled through configuration, the root container of the 
+    notification is encoded as defined in RFCXXX.
     
     This module can be used to validate XML encoded notifications
     [RFC7950], JSON encoded messages [RFC7951] and CBOR encoded
