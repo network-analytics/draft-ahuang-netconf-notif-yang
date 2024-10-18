@@ -17,7 +17,7 @@
   submissionType="IETF"
   updates="RFC7950 RFC7951 RFC9254">
   <front>
-    <title abbrev="YANG-Push Notification Envelope">Extensible YANG model
+    <title abbrev="YANG-Push Notification Envelope">Extensible YANG Model
     for YANG-Push Notifications</title>
 
     <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
@@ -112,7 +112,8 @@
 
       <t>YANG-Push <xref target="RFC8639"/> allows publishers to send notifications to a
 	  data collection. The YANG-Push receiver decodes the message and optionally validates
-	  the header and the content before forwarding to the next process.</t>
+	  the header and the content before forwarding to the next process in the data collection
+    system.</t>
 
       <t>The notification container from YANG-Push is currently based on the XML model 
       from NETCONF Event Notifications <xref target="RFC5277"/>. This model has
@@ -125,11 +126,11 @@
 
       <t>YANG data consumer receiving notifications require additional metadata to
       understand the full context of the received message. For example, in addition
-	  to the timestamp of when the event was encoded, it is also important to know the
-	  hostname which sourced the message, and have sequence numbers in generated messages
-	  so that lost notification messages can be detected. This additional metadata is also
-	  helpful to correlate the data with other sources of Network Telemetry
-	  <xref target="RFC9232"/> information.</t>
+	    to the timestamp of when the event was encoded, it is also important to know the
+	    hostname that sourced the message, and have sequence numbers in generated messages
+	    so that lost notification messages can be detected (in case of UDP transport protocol). 
+      This additional metadata is also helpful to correlate the data with other sources of 
+      Network Telemetry <xref target="RFC9232"/> information.</t>
 
       <t>For such reasons, this document proposes the following:
 	  
@@ -231,11 +232,11 @@
 
         <ul>
           <li>Section 1.4 of <xref target="RFC8639"/> states that the 
-          the solution uses the notification header defined in
+          solution uses the notification header defined in
           <xref target="RFC5277"/>. This document proposes a new
           header that NETCONF or RESTCONF clients can enable. When this new
           header is used, notification messages are encoded as defined
-          in Section <xref target="struct-notif"/>.</li>
+          in  <xref target="struct-notif"/>.</li>
 
           <li>Section 2.4.2 of <xref target="RFC8639"/> defines how a
           YANG-Push subscription is defined via an the 'establish-subscription'
