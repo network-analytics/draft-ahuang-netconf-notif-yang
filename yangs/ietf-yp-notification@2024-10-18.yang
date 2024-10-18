@@ -133,14 +133,6 @@ module ietf-yp-notification {
       description 
         "Container with the supported optional metadata by the
         YANG-Push publisher.";
-      leaf hostname-sequence-number {
-        if-feature notification-hostname-sequence-number;
-        type boolean;
-        description
-          "Supports hostname and sequence-number
-          in the YANG-Push notifications as defined in the
-          YANG-Push notification-envelope in RFC XXXX.";
-      }
     }
   }
 

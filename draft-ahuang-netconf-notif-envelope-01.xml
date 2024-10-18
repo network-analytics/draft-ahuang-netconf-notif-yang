@@ -916,15 +916,6 @@ module ietf-yp-notification {
     container metadata {
       description 
         "Container for configuring optional metadata.";
-      leaf hostname-sequence-number {
-        if-feature notification-hostname-sequence-number;
-        type boolean;
-        default true;
-        description
-          "When enabled, hostname and sequence-number is sent
-          in the YANG-Push notifications as defined in the
-          YANG-Push notification-envelope in RFC XXXX.";
-      }
     }
   }
 
