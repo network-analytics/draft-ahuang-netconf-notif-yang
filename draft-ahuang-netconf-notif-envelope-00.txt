@@ -96,7 +96,7 @@ Table of Contents
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  21
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  23
    Appendix A.  .sid file  . . . . . . . . . . . . . . . . . . . . .  23
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
 
 1.  Introduction
 
@@ -531,28 +531,28 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
 
 3.3.2.3.  CBOR Encoding
 
-   YANG data can be represented in CBOR using Names or SIDs in keys.
-   The following sections shows how these messages are encoded in both
-   cases.
+   YANG notifications can be encoded in CBOR using Names or SIDs in
+   keys.
 
-3.3.2.3.1.  CBOR encoded messages using keys
-
-   Notifications encoded using keys is similar to JSON encoding as
+   Notifications encoded using names is similar to JSON encoding as
    defined in Section 3.3 of [RFC9254].  The key of the element can be
-   the element itself or be namespace-qualified.  In the latter case,
-   the namespace of the notification container uses the YANG module name
-   "ietf-yp-notification" defined in Section 5.
+   the name of the element itself or be namespace-qualified.  In the
+   latter case, the namespace of the notification container uses the
+   YANG module name "ietf-yp-notification" defined in Section 5.
 
-   Four child nodes within the "ietf-yp-notification:envelope" container
-   are expected, representing the event time, hostname, sequence-number
-   and the notification payload.  The "event-time" node is defined
-   within the same namespace as the "ietf-yp-notification:envelope"
-   container and is compliant with [RFC3339].
+   Notification encoded using YANG-SIDs replaces the names of the keys
+   of the CBOR encoded message for a 63 bit unsigned integer.  In this
+   case, the keys of the encoded data use the SID value as defined in
+   Section 3.2 of [RFC9254].  A SID allocation process is needed
+   beforehand following [I-D.ietf-core-sid].
 
-   When other metadata is enabled through configuration, the
-   supplementary nodes are encoded at the same level of the mandatory
-   "event-time" node and use the YANG module name as its namespace.  See
-   Section 3.4 for more details.
+   In the notification, four child nodes within the "ietf-yp-
+   notification:envelope" container are expected, representing the event
+   time, the hostname, the sequence-number and the notification payload.
+   The "event-time" node is defined within the same namespace as the
+   "ietf-yp-notification:envelope" container and is compliant with
+   [RFC3339].
+
 
 
 
@@ -562,53 +562,53 @@ Huang Feng, et al.        Expires 21 April 2025                [Page 10]
 Internet-Draft       YANG-Push Notification Envelope        October 2024
 
 
+   When other metadata is enabled through configuration, the
+   supplementary nodes are encoded at the same level of the mandatory
+   "event-time" node and use the YANG module name as its namespace when
+   they are encoded as names.  When they are encoded using YANG SIDs, a
+   SID value assigned to the metadata node is used.
+
    The content of the notification that is defined by the 'notification'
    statement is encoded in the "notification-contents" node.  The name
    and namespace of this payload element are determined by the YANG
    module containing the 'notification' statement representing the
-   notification message.
+   notification message.  Similarly, SIDs can be used as keys if they
+   are well allocated.
 
-   The following example shows a "push-update" notification defined in
-   the YANG module of YANG-Push [RFC8641] encoded in CBOR using names as
-   keys.  The example uses the CBOR diagnostic notation as defined in
-   section 3.1 of [RFC9254]:
+   Figure 3 shows a "push-update" notification defined in the YANG
+   module of YANG-Push [RFC8641] encoded in CBOR using names as keys.
+   The example uses the CBOR diagnostic notation as defined in section
+   3.1 of [RFC9254]:
 
-       {
-           "ietf-yp-notification:envelope": {
-               "event-time": "2024-10-10T08:00:11.22Z",
-               "hostname": "example-router",
-               "sequence-number": 1,
-               "notification-contents": {
-                 "ietf-yang-push:push-update": {
-                     "id": 1011,
-                     "datastore-contents": {
-                         "ietf-interfaces:interfaces": [
-                             {
-                                 "interface": {
-                                     "name": "eth0",
-                                     "oper-status": "up"
-                                 }
-                             }
-                         ]
-                     }
-                 }
+     {
+         "ietf-yp-notification:envelope": {
+             "event-time": "2024-10-10T08:00:11.22Z",
+             "hostname": "example-router",
+             "sequence-number": 1,
+             "notification-contents": {
+               "ietf-yang-push:push-update": {
+                   "id": 1011,
+                   "datastore-contents": {
+                       "ietf-interfaces:interfaces": [
+                           {
+                               "interface": {
+                                   "name": "eth0",
+                                   "oper-status": "up"
+                               }
+                           }
+                       ]
+                   }
                }
-           }
-       }
+             }
+         }
+     }
 
        Figure 3: CBOR-encoded notification using diagnostic notation
 
-3.3.2.3.2.  CBOR encoded messages using YANG-SIDs
+   And Figure 4 shows the same notifcation encoded using SIDs:
 
-   A notification encoded using YANG-SIDs replaces the names of the keys
-   of the CBOR encoded message for a 63 bit unsigned integer.  This is
-   defined in Section 3.2 of [RFC9254] and a process for SID allocation
-   is defined in [I-D.ietf-core-sid].
 
-   Two child nodes within the root container are expected, representing
-   the event time and the notification payload.  The root container and
-   the "event-time" node uses a SID and the content of the "event-time"
-   is compliant with [RFC3339].
+
 
 
 
@@ -618,39 +618,28 @@ Huang Feng, et al.        Expires 21 April 2025                [Page 11]
 Internet-Draft       YANG-Push Notification Envelope        October 2024
 
 
-   When other metadata is enabled through configuration, the
-   supplementary nodes are encoded at the same level of the mandatory
-   'event-time' node.  The key fields are encoded by SID.
-
-   The content of the notification that is defined by the 'notification'
-   statement is encoded in the "notification-contents" node.  The name
-   and namespace of this payload element are determined by the SIDs of
-   the YANG module containing the 'notification' statement.
-
-   This is an example of YANG-CBOR encoded notification using YANG SIDs
-   [RFC9254].  The Figure 4 shows the message using the CBOR diagnostic
-   notation as defined in section 3.1 of [RFC9254]:
-
-       {
-           2551: {
-               1: "2024-10-10T08:00:11.22Z",
-               2: {
-                 "ietf-yang-push:push-update": {
-                     "id": 1011,
-                     "datastore-contents": {
-                         "ietf-interfaces:interfaces": [
-                             {
-                                 "interface": {
-                                     "name": "eth0",
-                                     "oper-status": "up"
-                                 }
-                             }
-                         ]
-                     }
-                 }
+     {
+         2551: {
+             1: "2024-10-10T08:00:11.22Z",
+             2: "example-router",
+             3: 1,
+             4: {
+               "ietf-yang-push:push-update": {
+                   "id": 1011,
+                   "datastore-contents": {
+                       "ietf-interfaces:interfaces": [
+                           {
+                               "interface": {
+                                   "name": "eth0",
+                                   "oper-status": "up"
+                               }
+                           }
+                       ]
+                   }
                }
-           }
-       }
+             }
+         }
+     }
 
         Figure 4: CBOR-encoded notification using YANG SIDs in CBOR
                             diagnostic notation
@@ -658,21 +647,14 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
 3.4.  Extensions for the Notification Envelope
 
    This section described two optional YANG notification header
-   extensions which are by default enabled when supported.
+   extensions which are disabled by default.  The client discovers the
+   support of these headers with the mechanism defined in Section 3.2.
+   If these headers are supported, the metadata is included in the
+   notification header.
 
    This document defines the following metadata as shown in the
    following YANG tree [RFC8340].  See the following sections for more
    details.
-
-
-
-
-
-
-Huang Feng, et al.        Expires 21 April 2025                [Page 12]
-
-Internet-Draft       YANG-Push Notification Envelope        October 2024
-
 
      notifications:
        +---n envelope
@@ -682,6 +664,15 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
           +--ro sequence-number?             yang:counter32
           |       {notification-hostname-sequence-number}?
           +--ro notification-contents?       <anydata>
+
+
+
+
+
+Huang Feng, et al.        Expires 21 April 2025                [Page 12]
+
+Internet-Draft       YANG-Push Notification Envelope        October 2024
+
 
 3.4.1.  Support of Hostname and Sequencing in YANG Notifications
 
@@ -723,13 +714,6 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
       published from.  This value is usually configured on the node by
       the administrator to uniquely identify the node in the network.
 
-
-
-Huang Feng, et al.        Expires 21 April 2025                [Page 13]
-
-Internet-Draft       YANG-Push Notification Envelope        October 2024
-
-
    sequence-number:  Generates a unique sequence number for each
       published message by the publisher process.  The number counts up
       at every published notification message as described in [RFC9187].
@@ -737,6 +721,14 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
    Figure 5 provides an example of a JSON encoded, [RFC8259], "push-
    update" notification message with hostname and sequence-number as
    extension.
+
+
+
+
+Huang Feng, et al.        Expires 21 April 2025                [Page 13]
+
+Internet-Draft       YANG-Push Notification Envelope        October 2024
+
 
    ========== NOTE: '\' line wrapping per RFC 8792) ===========
 
@@ -778,6 +770,14 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
    This YANG module extends "ietf-subscribed-notifications" [RFC8641]
    and "ietf-notification-capabilities" [RFC9196] as shown in the
    following YANG tree [RFC8340]:
+
+
+
+
+
+
+
+
 
 
 
@@ -1267,29 +1267,6 @@ Appendix A.  .sid file
    For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is
    requested to IANA in Section 7.3.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Huang Feng, et al.        Expires 21 April 2025                [Page 23]
-
-Internet-Draft       YANG-Push Notification Envelope        October 2024
-
-
    <CODE BEGINS> file "ietf-yp-notification@2024-10-18.sid"
    {
      "ietf-sid-file:sid-file": {
@@ -1305,6 +1282,14 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
            "module-name": "ietf-subscribed-notifications",
            "module-revision": "2019-09-09"
          }
+
+
+
+Huang Feng, et al.        Expires 21 April 2025                [Page 23]
+
+Internet-Draft       YANG-Push Notification Envelope        October 2024
+
+
        ],
        "assignment-range": [
          {
@@ -1320,23 +1305,38 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
          },
          {
            "namespace": "data",
-           "identifier": "/ietf-yp-notification:notification-envelope",
+           "identifier": "/ietf-yp-notification:envelope",
            "sid": "2551"
          },
          {
            "namespace": "data",
-           "identifier": "/ietf-yp-notification:notification-envelope/event-time",
+           "identifier": "/ietf-yp-notification:envelope/event-time",
            "sid": "2552"
          },
          {
            "namespace": "data",
-           "identifier": "/ietf-yp-notification:notification-envelope/notification-contents",
+           "identifier": "/ietf-yp-notification:envelope/hostname",
            "sid": "2553"
+         },
+         {
+           "namespace": "data",
+           "identifier": "/ietf-yp-notification:envelope/sequence-number",
+           "sid": "2554"
+         },
+         {
+           "namespace": "data",
+           "identifier": "/ietf-yp-notification:envelope/notification-contents",
+           "sid": "2555"
          }
        ]
      }
    }
    <CODE ENDS>
+
+           Figure 6: .sid file for "ietf-yp-notification" module
+
+Authors' Addresses
+
 
 
 
@@ -1345,10 +1345,6 @@ Huang Feng, et al.        Expires 21 April 2025                [Page 24]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2024
 
-
-           Figure 6: .sid file for "ietf-yp-notification" module
-
-Authors' Addresses
 
    Alex Huang Feng
    INSA-Lyon
@@ -1375,6 +1371,10 @@ Authors' Addresses
    Benoit Claise
    Huawei
    Email: benoit.claise@huawei.com
+
+
+
+
 
 
 

@@ -419,9 +419,6 @@
           <t>The YANG notification can be encoded using XML <xref target="W3C.REC-xml-20001006"/><xref target="RFC7951"/>,
           JSON <xref target="RFC7951"/> and CBOR <xref target="RFC9254"/>.</t>
 
-          <!-- <t>This section assumes that only the mandatory 'event-time' metadata is encoded.
-          </t> -->
-
           <section anchor="xml-encoding" title="XML encoding">
             <t>A YANG notification encoded in XML is structured as a root
             "envelope" container. The namespace of this container is the namespace
@@ -433,19 +430,18 @@
 
             <t>Four mandatory child nodes within the "envelope" container are expected,
             representing the event time, hostname, sequence-number and the notification
-			payload. The "event-time", "hostname" and "sequence-number" nodes are defined
-			within the same XML namespace as the "envelope" container. The "event-time"
-			node MUST be compliant with <xref target="RFC3339"/>. Other metadata defined
-			within the YANG module defined in <xref target="yang-model"/> MUST use the
-			same XML namespace. See <xref target="extensions-notif"/> for more details.</t>
+            payload. The "event-time", "hostname" and "sequence-number" nodes are defined
+            within the same XML namespace as the "envelope" container. The "event-time"
+            node MUST be compliant with <xref target="RFC3339"/>. Other metadata defined
+            within the YANG module defined in <xref target="yang-model"/> MUST use the
+            same XML namespace. See <xref target="extensions-notif"/> for more details.</t>
 
             <t>When other future metadata is enabled through configuration, the
-			supplementary nodes are encoded at the same level of the mandatory 
-			"event-time" node and use the XML namespace defined in the YANG module.</t>
+            supplementary nodes are encoded at the same level of the mandatory 
+            "event-time" node and use the XML namespace defined in the YANG module.</t>
 
-            <t>
-            The content of the notification that is defined by the 'notification'
-			statement is encoded in the "notification-contents" node.
+            <t>The content of the notification that is defined by the 'notification'
+			      statement is encoded in the "notification-contents" node.
             The name and namespace of this payload element are determined by the
             YANG module containing the 'notification' statement representing the
             notification message.</t>
@@ -482,9 +478,10 @@
 
             <t>Four child nodes within the "ietf-notification:envelope" container are expected,
             representing the event time, hostname and sequence-number and the notification
-			payload.  The "event-time" node is defined within the same namespace as the "ietf-yp-notification:notification-envelope" container and is compliant with
-			<xref target="RFC3339"/>. Other metadata defined within the YANG module defined
-			in <xref target="yang-model"/> MUST use the same namespace "ietf-yp-notification".</t>
+            payload.  The "event-time" node is defined within the same namespace as the
+            "ietf-yp-notification:notification-envelope" container and is compliant with
+            <xref target="RFC3339"/>. Other metadata defined within the YANG module defined
+            in <xref target="yang-model"/> MUST use the same namespace "ietf-yp-notification".</t>
 
             <t>When other metadata is enabled through configuration, the supplementary nodes are
             encoded at the same level of the mandatory 'event-time' node and use the YANG module
@@ -532,123 +529,108 @@
           </section>
           <section anchor="cbor-encoding" title="CBOR Encoding">
 
-            <t>YANG data can be represented in CBOR using Names or SIDs in keys. The following 
-            sections shows how these messages are encoded in both cases.</t>
+            <t>YANG notifications can be encoded in CBOR using Names or SIDs in keys.</t>
 
-            <section title="CBOR encoded messages using keys">
-              <t>Notifications encoded using keys is similar to JSON encoding as defined in
-              Section 3.3 of <xref target="RFC9254"/>. The key of the element can be the element
-              itself or be namespace-qualified. In the latter case, the namespace of the
-              notification container uses the YANG module name "ietf-yp-notification" defined
-              in <xref target="yang-model"/>.</t>
+            <t>Notifications encoded using names is similar to JSON encoding as defined in
+            Section 3.3 of <xref target="RFC9254"/>. The key of the element can be the name of
+            the element itself or be namespace-qualified. In the latter case, the namespace of the
+            notification container uses the YANG module name "ietf-yp-notification" defined
+            in <xref target="yang-model"/>.</t>
 
-              <t>Four child nodes within the "ietf-yp-notification:envelope" container are expected,
-              representing the event time, hostname, sequence-number and the notification payload. 
-			  The "event-time" node is defined within the same namespace as the 
-			  "ietf-yp-notification:envelope" container and is compliant with <xref
-			  target="RFC3339"/>.</t>
+            <t>Notification encoded using YANG-SIDs replaces the names of
+            the keys of the CBOR encoded message for a 63 bit unsigned integer.
+            In this case, the keys of the encoded data use the SID value as defined in Section 3.2
+            of <xref target="RFC9254"/>.
+            A SID allocation process is needed beforehand following <xref target="I-D.ietf-core-sid"/>.</t>
 
-              <t>When other metadata is enabled through configuration, the supplementary nodes are
-              encoded at the same level of the mandatory "event-time" node and use the YANG module
-              name as its namespace. See <xref target="extensions-notif"/> for more details.</t>
+            <t>In the notification, four child nodes within the "ietf-yp-notification:envelope" container
+            are expected, representing the event time, the hostname, the sequence-number and the notification
+            payload. The "event-time" node is defined within the same namespace as the 
+            "ietf-yp-notification:envelope" container and is compliant with <xref
+            target="RFC3339"/>.</t>
 
-              <t>The content of the notification that is defined by the 'notification' statement is
-              encoded in the "notification-contents" node.
-              The name and namespace of this payload element are determined by the
-              YANG module containing the 'notification' statement representing the
-              notification message.</t>
+            <t>When other metadata is enabled through configuration, the supplementary nodes are
+            encoded at the same level of the mandatory "event-time" node and use the YANG module
+            name as its namespace when they are encoded as names. When they are encoded using YANG SIDs,
+            a SID value assigned to the metadata node is used.</t>
 
-              <t>The following example shows a "push-update" notification defined
-              in the YANG module of YANG-Push <xref target="RFC8641"/> encoded in CBOR
-              using names as keys. The example uses the CBOR diagnostic notation as defined
-              in section 3.1 of <xref target="RFC9254"/>:</t>
+            <t>The content of the notification that is defined by the 'notification' statement is
+            encoded in the "notification-contents" node.
+            The name and namespace of this payload element are determined by the
+            YANG module containing the 'notification' statement representing the
+            notification message. Similarly, SIDs can be used as keys if they are well allocated.</t>
 
-              <figure anchor="fig_cbor"
-                  title="CBOR-encoded notification using diagnostic notation">
-                  <sourcecode type="cbor-diag"><![CDATA[
-    {
-        "ietf-yp-notification:envelope": {
-            "event-time": "2024-10-10T08:00:11.22Z",
-            "hostname": "example-router",
-            "sequence-number": 1,
-            "notification-contents": {
-              "ietf-yang-push:push-update": {
-                  "id": 1011,
-                  "datastore-contents": {
-                      "ietf-interfaces:interfaces": [
-                          {
-                              "interface": {
-                                  "name": "eth0",
-                                  "oper-status": "up"
-                              }
-                          }
-                      ]
-                  }
-              }
+            <t><xref target="fig_cbor"/> shows a "push-update" notification defined
+            in the YANG module of YANG-Push <xref target="RFC8641"/> encoded in CBOR
+            using names as keys. The example uses the CBOR diagnostic notation as defined
+            in section 3.1 of <xref target="RFC9254"/>:</t>
+
+            <figure anchor="fig_cbor"
+                title="CBOR-encoded notification using diagnostic notation">
+                <sourcecode type="cbor-diag"><![CDATA[
+  {
+      "ietf-yp-notification:envelope": {
+          "event-time": "2024-10-10T08:00:11.22Z",
+          "hostname": "example-router",
+          "sequence-number": 1,
+          "notification-contents": {
+            "ietf-yang-push:push-update": {
+                "id": 1011,
+                "datastore-contents": {
+                    "ietf-interfaces:interfaces": [
+                        {
+                            "interface": {
+                                "name": "eth0",
+                                "oper-status": "up"
+                            }
+                        }
+                    ]
+                }
             }
-        }
-    }
-        ]]></sourcecode>
-              </figure>
-            </section>
-            <section title="CBOR encoded messages using YANG-SIDs">
+          }
+      }
+  }
+      ]]></sourcecode>
+            </figure>
 
-              <t>A notification encoded using YANG-SIDs replaces the names of
-              the keys of the CBOR encoded message for a 63 bit unsigned integer.
-              This is defined in Section 3.2 of <xref target="RFC9254"/> and
-              a process for SID allocation is defined in <xref target="I-D.ietf-core-sid"/>.</t>
 
-              <t>Two child nodes within the root container are expected,
-              representing the event time and the notification payload. The root container
-              and the "event-time" node uses a SID and the content of the "event-time" is
-              compliant with <xref target="RFC3339"/>.</t>
+            <t>And <xref target="fig_cbor_sid"/> shows the same notifcation encoded using SIDs:</t>
 
-              <t>When other metadata is enabled through configuration, the supplementary nodes are
-              encoded at the same level of the mandatory 'event-time' node. The key fields are encoded 
-              by SID.</t>
-
-              <t>The content of the notification that is defined by the 'notification' statement is
-              encoded in the "notification-contents" node.
-              The name and namespace of this payload element are determined by the SIDs of the
-              YANG module containing the 'notification' statement.</t>
-
-              <t>This is an example of YANG-CBOR encoded notification using YANG SIDs 
-              <xref target="RFC9254"/>. The <xref target="fig_cbor_sid"/> shows
-              the message using the CBOR diagnostic notation as defined in section 3.1 of
-              <xref target="RFC9254"/>:</t>
-
-              <figure anchor="fig_cbor_sid"
-                  title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
-                  <sourcecode type="cbor-diag"><![CDATA[
-    {
-        2551: {
-            1: "2024-10-10T08:00:11.22Z",
-            2: {
-              "ietf-yang-push:push-update": {
-                  "id": 1011,
-                  "datastore-contents": {
-                      "ietf-interfaces:interfaces": [
-                          {
-                              "interface": {
-                                  "name": "eth0",
-                                  "oper-status": "up"
-                              }
-                          }
-                      ]
-                  }
-              }
+            <figure anchor="fig_cbor_sid"
+                title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
+                <sourcecode type="cbor-diag"><![CDATA[
+  {
+      2551: {
+          1: "2024-10-10T08:00:11.22Z",
+          2: "example-router",
+          3: 1,
+          4: {
+            "ietf-yang-push:push-update": {
+                "id": 1011,
+                "datastore-contents": {
+                    "ietf-interfaces:interfaces": [
+                        {
+                            "interface": {
+                                "name": "eth0",
+                                "oper-status": "up"
+                            }
+                        }
+                    ]
+                }
             }
-        }
-    }
+          }
+      }
+  }
         ]]></sourcecode>
-              </figure>
-            </section>
+            </figure>
           </section>
         </section>
       </section>
       <section anchor="extensions-notif" title="Extensions for the Notification Envelope">
 	    <t>This section described two optional YANG notification header extensions
-		    which are by default enabled when supported.</t>
+		    which are disabled by default. The client discovers the support of these headers
+        with the mechanism defined in <xref target="discovery-notif"/>. If these headers
+        are supported, the metadata is included in the notification header.</t>
 
       <t>This document defines the following metadata as shown in the following YANG tree
       <xref target="RFC8340"/>. See the following sections for more details.</t>
@@ -1176,18 +1158,28 @@ reference: RFC-to-be]]></artwork>
       },
       {
         "namespace": "data",
-        "identifier": "/ietf-yp-notification:notification-envelope",
+        "identifier": "/ietf-yp-notification:envelope",
         "sid": "2551"
       },
       {
         "namespace": "data",
-        "identifier": "/ietf-yp-notification:notification-envelope/event-time",
+        "identifier": "/ietf-yp-notification:envelope/event-time",
         "sid": "2552"
       },
       {
         "namespace": "data",
-        "identifier": "/ietf-yp-notification:notification-envelope/notification-contents",
+        "identifier": "/ietf-yp-notification:envelope/hostname",
         "sid": "2553"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-yp-notification:envelope/sequence-number",
+        "sid": "2554"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-yp-notification:envelope/notification-contents",
+        "sid": "2555"
       }
     ]
   }
