@@ -144,7 +144,7 @@ module ietf-yp-notification {
     }
   }
 
-  notification yang {
+  notification notification-envelop {
     leaf event-time {
       type yang:date-and-time;
       mandatory true;

@@ -159,8 +159,8 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
    The terms "subscriber", "publisher", and "receiver" are used as
    defined in [RFC8639].
 
-   The terms "client" is used as defined in [RFC6241].
-
+   The terms "client" is used as defined in [RFC6241] for NETCONF and
+   [RFC8040] for RESTCONF.
 
 
 
@@ -200,9 +200,9 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
 
    *  Section 1.4 of [RFC8639] states that the the solution uses the
       notification header defined in [RFC5277].  This document proposes
-      a new header that NETCONF clients can enable.  When this new
-      header is used, notification messages are encoded as defined in
-      Section Section 3.3.
+      a new header that NETCONF or RESTCONF clients can enable.  When
+      this new header is used, notification messages are encoded as
+      defined in Section Section 3.3.
 
    *  Section 2.4.2 of [RFC8639] defines how a YANG-Push subscription is
       defined via an the 'establish-subscription' RPC.  This document
@@ -299,8 +299,8 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
 
    Section 3.1 defines how a client enables the header defined in this
    document.  Section 3.2 extends the model from [RFC9196] to enable
-   NETCONF clients to discover the capability of using the new
-   notification header for both implementation-time information and
+   NETCONF or RESTCONF clients to discover the capability of using the
+   new notification header for both implementation-time information and
    runtime information.  Lastly, Section 3.3.2 defines the new
    notification header and how it is encoded using XML, JSON and CBOR.
 
@@ -340,10 +340,10 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
 
 3.2.  Discovering the support of this model
 
-   A NETCONF client can discover the support of 'notification-envelope'
-   model through the capabilities model defined in [RFC9196].  This
-   documents extends the 'ietf-notification-capabilities' model with a
-   container that includes:
+   A NETCONF or RESTCONF client can discover the support of
+   'notification-envelope' model through the capabilities model defined
+   in [RFC9196].  This documents extends the 'ietf-notification-
+   capabilities' model with a container that includes:
 
    *  A leaf 'notification-envelope', stating that the YANG notification
       can be encoded following the notification-envelope model.
@@ -1212,6 +1212,10 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <https://www.rfc-editor.org/info/rfc7951>.
 
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -1221,10 +1225,6 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
               RFC 8639, DOI 10.17487/RFC8639, September 2019,
               <https://www.rfc-editor.org/info/rfc8639>.
 
-   [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
-              for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
-              September 2019, <https://www.rfc-editor.org/info/rfc8641>.
-
 
 
 
@@ -1233,6 +1233,10 @@ Huang Feng, et al.        Expires 21 April 2025                [Page 22]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2024
 
+
+   [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
+              for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
+              September 2019, <https://www.rfc-editor.org/info/rfc8641>.
 
    [RFC8791]  Bierman, A., Björklund, M., and K. Watsen, "YANG Data
               Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
@@ -1278,10 +1282,6 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
-
-
-
-
 
 
 

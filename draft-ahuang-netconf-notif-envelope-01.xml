@@ -182,7 +182,7 @@
           defined in <xref target="RFC8639"/>.</t>
         
         <t>The terms "client" is used as
-          defined in <xref target="RFC6241"/>.</t>
+          defined in <xref target="RFC6241"/> for NETCONF and <xref target="RFC8040"/> for RESTCONF.</t>
 
         <t>The terms "implementation-time information" and "runtime information" are used as
           defined in <xref target="RFC9196"/>.</t>
@@ -233,7 +233,7 @@
           <li>Section 1.4 of <xref target="RFC8639"/> states that the 
           the solution uses the notification header defined in
           <xref target="RFC5277"/>. This document proposes a new
-          header that NETCONF clients can enable. When this new
+          header that NETCONF or RESTCONF clients can enable. When this new
           header is used, notification messages are encoded as defined
           in Section <xref target="struct-notif"/>.</li>
 
@@ -325,7 +325,7 @@
       
       <t><xref target="enable-notif"/> defines how a client enables the header defined in this document.
       <xref target="discovery-notif"/> extends the model from <xref target="RFC9196"/> to enable NETCONF
-      clients to discover the capability of using the new notification header
+      or RESTCONF clients to discover the capability of using the new notification header
       for both implementation-time information and runtime information.
       Lastly, <xref target="encodings-notif"/> defines the new notification header and how
       it is encoded using XML, JSON and CBOR.</t>
@@ -359,7 +359,7 @@
       </section>
       
       <section anchor="discovery-notif" title="Discovering the support of this model">
-        <t>A NETCONF client can discover the support of 'notification-envelope'
+        <t>A NETCONF or RESTCONF client can discover the support of 'notification-envelope'
         model through the capabilities model defined in <xref target="RFC9196"/>. This documents
         extends the 'ietf-notification-capabilities' model with a container that includes:</t>
 
@@ -1111,6 +1111,7 @@ reference: RFC-to-be]]></artwork>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9196.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7951.xml"?>
+	  <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8639.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8641.xml"?>
@@ -1154,7 +1155,6 @@ reference: RFC-to-be]]></artwork>
 
     <references title="Informative References">
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6470.xml'?>
-      <!-- <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"?> -->
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8259.xml'?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9232.xml"?>
