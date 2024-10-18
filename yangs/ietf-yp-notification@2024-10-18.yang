@@ -73,20 +73,7 @@ module ietf-yp-notification {
     description
       "First revision";
     reference
-      "RFC XXXX: YANG-Push Notification";
-  }
-
-  feature notification-envelope {
-    description
-      "Indicates that YANG-Push supports the notification-envelope
-      as defined in RFC XXXX.";
-  }
-
-  feature notification-hostname-sequence-number {
-    description
-      "Indicates that YANG-Push supports the hostname 
-    and sequence-number metadata in the notification-envelope
-    as defined in RFC XXXX.";
+      "RFC XXXX: YANG-Push Notification Envelope";
   }
 
   grouping notif-env-configuration {
@@ -95,7 +82,6 @@ module ietf-yp-notification {
       enabling the notification-envelope defined in RFC XXXX
       and the different supported metadata.";
     leaf enable-notification-envelope {
-      if-feature notification-envelope;
       type boolean;
       default false;
       description
@@ -105,15 +91,6 @@ module ietf-yp-notification {
     container metadata {
       description 
         "Container for configuring optional metadata.";
-      leaf hostname-sequence-number {
-        if-feature notification-hostname-sequence-number;
-        type boolean;
-        default true;
-        description
-          "When enabled, hostname and sequence-number is sent
-          in the YANG-Push notifications as defined in the
-          YANG-Push notification-envelope in RFC XXXX.";
-      }
     }
   }
 
@@ -123,8 +100,8 @@ module ietf-yp-notification {
       the notification-envelope defined in RFC XXXX
       and the different supported metadata.";
     leaf notification-envelope {
-      if-feature notification-envelope;
       type boolean;
+      default false;
       description
         "Supports YANG-Push to use the notification-envelope 
         defined in RFC XXXX.";
@@ -133,10 +110,18 @@ module ietf-yp-notification {
       description 
         "Container with the supported optional metadata by the
         YANG-Push publisher.";
+      leaf hostname-sequence-number {
+        type boolean;
+        default false;
+        description
+          "Supports hostname and sequence-number
+          in the YANG-Push notifications as defined in the
+          YANG-Push notification-envelope in RFC XXXX.";
+      }
     }
   }
 
-  notification notification-envelop {
+  notification envelope {
     leaf event-time {
       type yang:date-and-time;
       mandatory true;
@@ -146,7 +131,6 @@ module ietf-yp-notification {
         to [RFC3339].";
     }
     leaf hostname {
-      if-feature notification-hostname-sequence-number;
       type inet:host;
       description
         "The hostname of the network node according to
@@ -155,7 +139,6 @@ module ietf-yp-notification {
         the network.";
     }
     leaf sequence-number {
-      if-feature notification-hostname-sequence-number;
       type yang:counter32;
       description
         "Unique sequence number as described in [RFC9187] for each
