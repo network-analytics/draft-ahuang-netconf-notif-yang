@@ -647,7 +647,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2024
    This section described two optional YANG notification header
    extensions which are enabled by default when the notification
    envelope is enabled.  When the envelope is enabled using the "enable-
-   notification-envelope" node, the published includes by default the
+   notification-envelope" node, the publisher includes by default the
    "hostname" and "sequence-number" defined in the following sections.
    The client discovers the support of these two extension headers with
    the mechanism defined in Section 3.2.
