@@ -428,15 +428,15 @@
     urn:ietf:params:xml:ns:netconf:notification:2.0
             ]]></artwork>
 
-            <t>Four mandatory child nodes within the "envelope" container are expected,
-            representing the event time, hostname, sequence-number and the notification
-            payload. The "event-time", "hostname" and "sequence-number" nodes are defined
+            <t>Two mandatory child nodes within the "envelope" container are expected,
+            representing the event time and the notification
+            payload. The "event-time" node is defined
             within the same XML namespace as the "envelope" container. The "event-time"
             node MUST be compliant with <xref target="RFC3339"/>. Other metadata defined
             within the YANG module defined in <xref target="yang-model"/> MUST use the
             same XML namespace. See <xref target="extensions-notif"/> for more details.</t>
 
-            <t>When other future metadata is enabled through configuration, the
+            <t>When other metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level of the mandatory 
             "event-time" node and use the XML namespace defined in the YANG module.</t>
 
@@ -476,10 +476,10 @@
             "envelope" container. The namespace of this container is the name of
             the YANG module "ietf-yp-notification" defined in <xref target="yang-model"/>.</t>
 
-            <t>Four child nodes within the "ietf-notification:envelope" container are expected,
-            representing the event time, hostname and sequence-number and the notification
+            <t>Two mandatory child nodes within the "ietf-notification:envelope" container are expected,
+            representing the event time and the notification
             payload.  The "event-time" node is defined within the same namespace as the
-            "ietf-yp-notification:notification-envelope" container and is compliant with
+            "ietf-yp-notification:envelope" container and is compliant with
             <xref target="RFC3339"/>. Other metadata defined within the YANG module defined
             in <xref target="yang-model"/> MUST use the same namespace "ietf-yp-notification".</t>
 
@@ -543,8 +543,8 @@
             of <xref target="RFC9254"/>.
             A SID allocation process is needed beforehand following <xref target="I-D.ietf-core-sid"/>.</t>
 
-            <t>In the notification, four child nodes within the "ietf-yp-notification:envelope" container
-            are expected, representing the event time, the hostname, the sequence-number and the notification
+            <t>In the notification, two mandatory child nodes within the "ietf-yp-notification:envelope" container
+            are expected, representing the event time and the notification
             payload. The "event-time" node is defined within the same namespace as the 
             "ietf-yp-notification:envelope" container and is compliant with <xref
             target="RFC3339"/>.</t>
@@ -552,7 +552,7 @@
             <t>When other metadata is enabled through configuration, the supplementary nodes are
             encoded at the same level of the mandatory "event-time" node and use the YANG module
             name as its namespace when they are encoded as names. When they are encoded using YANG SIDs,
-            a SID value assigned to the metadata node is used.</t>
+            a SID value assigned to the metadata node is used. See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "notification-contents" node.
@@ -571,8 +571,6 @@
   {
       "ietf-yp-notification:envelope": {
           "event-time": "2024-10-10T08:00:11.22Z",
-          "hostname": "example-router",
-          "sequence-number": 1,
           "notification-contents": {
             "ietf-yang-push:push-update": {
                 "id": 1011,
@@ -602,8 +600,6 @@
   {
       2551: {
           1: "2024-10-10T08:00:11.22Z",
-          2: "example-router",
-          3: 1,
           4: {
             "ietf-yang-push:push-update": {
                 "id": 1011,
@@ -628,9 +624,12 @@
       </section>
       <section anchor="extensions-notif" title="Extensions for the Notification Envelope">
 	    <t>This section described two optional YANG notification header extensions
-		    which are disabled by default. The client discovers the support of these headers
-        with the mechanism defined in <xref target="discovery-notif"/>. If these headers
-        are supported, the metadata is included in the notification header.</t>
+		    which are enabled by default when the notification envelope is enabled.
+        When the envelope is enabled using the "enable-notification-envelope" node, the
+        published includes by default the "hostname" and "sequence-number" defined in the
+        following sections.
+        The client discovers the support of these two extension headers
+        with the mechanism defined in <xref target="discovery-notif"/>.</t>
 
       <t>This document defines the following metadata as shown in the following YANG tree
       <xref target="RFC8340"/>. See the following sections for more details.</t>
