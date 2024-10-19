@@ -11,7 +11,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std"
-  docName="draft-ahuang-netconf-notif-envelope-00"
+  docName="draft-netana-netconf-notif-envelope-00"
   ipr="trust200902"
   consensus="true"
   submissionType="IETF"
@@ -98,7 +98,7 @@
       </address>
     </author>
 
-    <date day="18" month="October" year="2024"/>
+    <date day="19" month="October" year="2024"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -231,11 +231,12 @@
 
         <ul>
           <li>Section 1.4 of <xref target="RFC8639"/> states that the 
-          the solution uses the notification header defined in
-          <xref target="RFC5277"/>. This document proposes a new
-          header that NETCONF or RESTCONF clients can enable. When this new
-          header is used, notification messages are encoded as defined
-          in Section <xref target="struct-notif"/>.</li>
+          the solution uses the notification header defined in <xref
+		  target="RFC5277"/>. This document proposes a new header, which
+		  clients can enable and replace the previously <xref
+		  target="RFC5277"/> defined. When this new header is used, notification
+		  messages are encoded as defined in Section <xref
+		  target="struct-notif"/>.</li>
 
           <li>Section 2.4.2 of <xref target="RFC8639"/> defines how a
           YANG-Push subscription is defined via an the 'establish-subscription'
@@ -321,11 +322,11 @@
       extending it with new metadata.
       The notification header defined in the following sections is to be used in YANG-Push
       <xref target="RFC8641"/> environments and
-      can be implemented with NETCONF <xref target="RFC6241"/>.</t>
+      can be implemented with NETCONF <xref target="RFC6241"/>
+	  and RESTCONF <xref target="RFC8040"/>.</t>
       
       <t><xref target="enable-notif"/> defines how a client enables the header defined in this document.
-      <xref target="discovery-notif"/> extends the model from <xref target="RFC9196"/> to enable NETCONF
-      or RESTCONF clients to discover the capability of using the new notification header
+      <xref target="discovery-notif"/> extends the model from <xref target="RFC9196"/> to enable clients to discover the capability of using the new notification header
       for both implementation-time information and runtime information.
       Lastly, <xref target="encodings-notif"/> defines the new notification header and how
       it is encoded using XML, JSON and CBOR.</t>
@@ -359,7 +360,7 @@
       </section>
       
       <section anchor="discovery-notif" title="Discovering the support of this model">
-        <t>A NETCONF or RESTCONF client can discover the support of 'notification-envelope'
+        <t>A client can discover the support of 'notification-envelope'
         model through the capabilities model defined in <xref target="RFC9196"/>. This documents
         extends the 'ietf-notification-capabilities' model with a container that includes:</t>
 
