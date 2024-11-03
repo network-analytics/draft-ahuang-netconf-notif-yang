@@ -98,7 +98,7 @@
       </address>
     </author>
 
-    <date day="19" month="October" year="2024"/>
+    <date day="3" month="November" year="2024"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -775,8 +775,9 @@ module: ietf-yp-notification
       </section>
 
       <section anchor="yang-module" title="YANG Module">
-      <t>The YANG module augments the module "ietf-subscribed-notifications" <xref target="RFC8641"/> and uses 
-      "ietf-yang-types" module <xref target="RFC6991"/>.</t>
+      <t>The YANG module augments the module "ietf-subscribed-notifications" <xref target="RFC8641"/>,
+      augments the module "ietf-system-capabilities" <xref target="RFC9196"/>,
+      and uses  "ietf-yang-types" module <xref target="RFC6991"/> and .</t>
 
       <sourcecode type="yang" markers="true" name="ietf-yp-notification@2024-10-18.yang"><![CDATA[
 module ietf-yp-notification {
@@ -1056,7 +1057,7 @@ reference: RFC-to-be]]></artwork>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9196.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7951.xml"?>
-	  <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"?>
+	    <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8639.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8641.xml"?>
