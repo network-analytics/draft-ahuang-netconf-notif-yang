@@ -118,27 +118,27 @@
       <t>The notification container from YANG-Push is currently based on the XML model 
       from NETCONF Event Notifications <xref target="RFC5277"/>. This model has
       the drawback that only a single mandatory "eventTime" leaf is defined and does offer a way
-      to extend this header with new metadata.
+      to extend this header with new notification metadata.
       Additionally, this XML model is only valid for XML-based environments. When messages
       are encoded in other YANG encodings, such as JSON <xref target="RFC7951"/> or CBOR
       <xref target="RFC9254"/>, validators cannot use YANG to validate
       the message schema.</t>
 
-      <t>YANG data consumer receiving notifications require additional metadata to
+      <t>YANG data consumer receiving notifications require additional notification metadata to
       understand the full context of the received message. For example, in addition to the
 	  timestamp of when the event was encoded, it is also important to know the timestamp when
 	  the metrics were observed, the hostname that sourced the message, and have
 	  sequence numbers in generated messages so that lost notification messages can be
-	  detected (in case of UDP transport protocol). This additional metadata is also helpful
-	  to correlate the data with other sources of Network Telemetry <xref target="RFC9232"/>
-	  information.</t>
+	  detected (in case of UDP transport protocol). This additional notification metadata is
+	  also helpful to correlate the data with other sources of Network Telemetry <xref
+	  target="RFC9232"/> information.</t>
 
       <t>For such reasons, this document proposes the following:
 	  
         <ul>
           <li>First, it provides an extensible YANG notification header allowing
-		  implementors and IETF contributors to easily add new metadata to the notification
-		  message.</li>
+		  implementors and IETF contributors to easily add new notification metadata to the
+		  notification message.</li>
 	  
           <li>Second, it provides the first crucial extensions enabling operators to
 		  identify which network node publishes which YANG-Push messages and when the events
@@ -188,6 +188,11 @@
 
         <t>The terms "implementation-time information" and "runtime information" are used as
           defined in <xref target="RFC9196"/>.</t>
+
+        <t>In addition, this document defines the following terms:</t>
+
+        <t>Notification Metadata: Additional data describing notification context. Such as from
+		which node, at which time the notification has been published.</t>
       </section>
     </section>
 
@@ -301,8 +306,8 @@
       <t>Section 4.2.10 of <xref target="RFC7950"/> defines the encoding of YANG notifications.
       A notification is created by defining a 'notification' statement in the YANG module.
       When a NETCONF server sends this notification, it is composed of two parts: a header
-      containing metadata which encapsulates the content and the content defined by the 'notification'
-      statement.</t>
+      containing notification metadata which encapsulates the content and the content defined
+	  by the 'notification' statement.</t>
       
       <t>In YANG 1.1 <xref target="RFC7950"/>, the notification header is based on the model
       defined in <xref target="RFC5277"/> which contains a single metadata 'eventTime'
@@ -321,7 +326,7 @@
 ]]></sourcecode>
 
       <t>This document defines a new notification header, enables
-      notification and YANG-Push extensions with new metadata.
+      notification and YANG-Push extensions with new notification metadata.
       The notification header and extensions defined in the following sections is to be used in YANG-Push
       <xref target="RFC8641"/> environments and
       can be implemented with NETCONF <xref target="RFC6241"/>
@@ -356,8 +361,8 @@
         
         <t>When the node 'enable-notification-envelope' is set to true, the notifications published
         by a YANG-Push publisher MUST use the header defined in <xref target="base-notif-model"/>.
-        If any metadata is enabled during the configuration of the subscription, the metadata nodes
-        MUST be present in the header.
+        If any notification metadata is enabled during the configuration of the subscription, the
+		notification metadata nodes MUST be present in the header.
         </t>
       </section>
       
@@ -403,7 +408,7 @@
           the notification is structured as follows:</t>
           <ul>
             <li>The notification is encapsulated in a root "envelope" container.</li>
-            <li>The header of the notification contains the metadata that is enabled during
+            <li>The header of the notification contains the notification metadata that is enabled during
             the configuration of the subscription as a child nodes of the root "notification-envelope"
             container.</li>
             <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
@@ -441,12 +446,12 @@
             representing the event time and the notification
             payload. The "event-time" node is defined
             within the same XML namespace as the "envelope" container. The "event-time"
-            node MUST be compliant with <xref target="RFC3339"/>. Other metadata defined
-            within the YANG module defined in <xref
+            node MUST be compliant with <xref target="RFC3339"/>. Other notification
+			metadata defined within the YANG module defined in <xref
 			target="ietf-yp-notification-yang-module"/> MUST use the same XML namespace.
 			See <xref target="extensions-notif"/> for more details.</t>
 
-            <t>When other metadata is enabled through configuration, the
+            <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level of the mandatory 
             "event-time" node and use the XML namespace defined in the YANG module.</t>
 
@@ -494,9 +499,10 @@
             <xref target="RFC3339"/>. Other metadata defined within the YANG module defined
             in <xref target="ietf-yp-notification-yang-module"/> MUST use the same namespace "ietf-yp-notification".</t>
 
-            <t>When other metadata is enabled through configuration, the supplementary nodes are
-            encoded at the same level of the mandatory 'event-time' node and use the YANG module
-            name as its namespace. See <xref target="extensions-notif"/> for more details.</t>
+            <t>When other notification metadata is enabled through configuration, the
+			supplementary nodes are encoded at the same level of the mandatory 'event-time'
+			node and use the YANG module name as its namespace. See <xref
+			target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "notification-contents" node.
@@ -560,10 +566,11 @@
             "ietf-yp-notification:envelope" container and is compliant with <xref
             target="RFC3339"/>.</t>
 
-            <t>When other metadata is enabled through configuration, the supplementary nodes are
-            encoded at the same level of the mandatory "event-time" node and use the YANG module
-            name as its namespace when they are encoded as names. When they are encoded using YANG SIDs,
-            a SID value assigned to the metadata node is used. See <xref target="extensions-notif"/> for more details.</t>
+            <t>When other notification metadata is enabled through configuration, the
+			supplementary nodes are encoded at the same level of the mandatory "event-time"
+			node and use the YANG module name as its namespace when they are encoded as
+			names. When they are encoded using YANG SIDs, a SID value assigned to the
+			metadata node is used. See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "notification-contents" node.
@@ -642,8 +649,9 @@
         The client discovers the support of these two extension headers
         with the mechanism defined in <xref target="discovery-notif"/>.</t>
 
-      <t>This document defines the following metadata as shown in the following YANG tree
-      <xref target="RFC8340"/>. See the following sections for more details.</t>
+      <t>This document defines the following notification metadata as shown in the
+	  following YANG tree <xref target="RFC8340"/>. See the following sections for more
+	  details.</t>
         <sourcecode type="yangtree"><![CDATA[
   notifications:
     +---n envelope
@@ -660,7 +668,7 @@
         <t>When YANG-Push notification messages are forwarded from a
         receiver to another system, such as a message broker or a time series
         database, the transport context is lost since it is not part of the
-        metadata of the notification container. Therefore, the downstream
+        notification metadata of the notification container. Therefore, the downstream
         system is unable to associate the message to the publishing process (the
         exporting network node), nor able to detect message loss or reordering.</t>
 
@@ -746,10 +754,14 @@
       </section>
 
         <section anchor="extensions-yang-push" title="Extensions for the YANG-Push Envelope">
-	    <t>This section described two optional YANG push-update and push-change-update notification header extensions which are enabled by default. The client discovers the support of these two extension headers with the mechanism defined in <xref target="discovery-notif"/>.</t>
+	    <t>This section described two optional YANG push-update and push-change-update
+		notification header extensions which are enabled by default. The client discovers
+		the support of these two extension headers with the mechanism defined in <xref
+		target="discovery-notif"/>.</t>
 
-        <t>This document defines the following metadata as shown in the following YANG tree
-        <xref target="RFC8340"/>. See the following sections for more details.</t>
+        <t>This document defines the following notification metadata as shown in the
+		following YANG tree <xref target="RFC8340"/>. See the following sections for more
+		details.</t>
         <sourcecode type="yangtree"><![CDATA[
 module: ietf-yang-push
 
@@ -1115,7 +1127,7 @@ module ietf-yp-notification {
     description
       "This grouping defines the configuration switches for
       enabling the notification-envelope defined in RFC XXXX
-      and the different supported metadata.";
+      and the different supported notification metadata.";
     leaf enable-notification-envelope {
       type boolean;
       default false;
