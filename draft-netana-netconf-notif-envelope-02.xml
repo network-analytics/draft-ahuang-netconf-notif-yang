@@ -98,7 +98,7 @@
       </address>
     </author>
 
-    <date day="15" month="December" year="2024"/>
+    <date day="17" month="December" year="2024"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -1264,7 +1264,7 @@ module: ietf-yp-observation
       <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
       augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
 
-      <sourcecode type="yang" markers="true" name="ietf-yp-observation@2024-06-18.yang"><![CDATA[
+      <sourcecode type="yang" markers="true" name="ietf-yp-observation@2024-12-17.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
   namespace
@@ -1326,7 +1326,7 @@ module ietf-yp-observation {
     This version of this YANG module is part of RFC XXXX; see the RFC
     itself for full legal notices.";
 
-  revision 2024-06-18 {
+  revision 2024-12-17 {
     description
       "First revision";
     reference
@@ -1390,7 +1390,7 @@ module ietf-yp-observation {
       "Add system level capabilities";
     leaf yang-push-observation-supported {
       if-feature "yang-push-observation-timestamp";
-      type inotifseq:notification-support;
+      type boolean;
       description
         "Specifies whether the publisher supports exporting
         observation-timestamp and point-in-time in notifications.";
