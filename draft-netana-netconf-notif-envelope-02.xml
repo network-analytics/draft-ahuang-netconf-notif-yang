@@ -98,7 +98,7 @@
       </address>
     </author>
 
-    <date day="17" month="December" year="2024"/>
+    <date day="15" month="January" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -126,27 +126,27 @@
 
       <t>YANG data consumer receiving notifications require additional notification metadata to
       understand the full context of the received message. For example, in addition to the
-	  timestamp of when the event was encoded, it is also important to know the timestamp when
-	  the metrics were observed, the hostname that sourced the message, and have
-	  sequence numbers in generated messages so that lost notification messages can be
-	  detected (in case of UDP transport protocol). This additional notification metadata is
-	  also helpful to correlate the data with other sources of Network Telemetry <xref
-	  target="RFC9232"/> information.</t>
+      timestamp of when the event was encoded, it is also important to know the timestamp when
+      the metrics were observed, the hostname that sourced the message, and have
+      sequence numbers in generated messages so that lost notification messages can be
+      detected in unreliable transports. This additional notification metadata is
+      also helpful to correlate the data with other sources of Network Telemetry <xref
+      target="RFC9232"/> information.</t>
 
       <t>For such reasons, this document proposes the following:
 	  
         <ul>
           <li>First, it provides an extensible YANG notification header allowing
-		  implementors and IETF contributors to easily add new notification metadata to the
-		  notification message.</li>
+          implementors and IETF contributors to easily add new notification metadata to the
+          notification message.</li>
 	  
           <li>Second, it provides the first crucial extensions enabling operators to
-		  identify which network node publishes which YANG-Push messages and when the events
-		  or metrics were observed on the network node.</li>
+          identify which network node publishes which YANG-Push messages and when the events
+          or metrics were observed on the network node.</li>
 	  
           <li>And finally, it provides a way to enable and disable these extensions on a
-		  subscription basis, making the coexistence of different YANG-Push and NETCONF Event
-	      Notification <xref target="RFC5277"/> possible.</li>
+          subscription basis, making the coexistence of different YANG-Push and NETCONF Event
+          Notification <xref target="RFC5277"/> possible.</li>
 		</ul>
 		
 	  </t>
@@ -191,8 +191,8 @@
 
         <t>In addition, this document defines the following terms:</t>
 
-        <t>Notification Metadata: Additional data describing notification context. Such as from
-		which node, at which time the notification has been published.</t>
+        <t>Notification Metadata: Additional data describing the context of a notification, e.g.
+        which node generated the messsage or at which time the notification was published.</t>
       </section>
     </section>
 
@@ -327,10 +327,10 @@
 
       <t>This document defines a new notification header, enables
       notification and YANG-Push extensions with new notification metadata.
-      The notification header and extensions defined in the following sections is to be used in YANG-Push
+      The notification header and extensions defined in the following sections are to be used in YANG-Push
       <xref target="RFC8641"/> environments and
       can be implemented with NETCONF <xref target="RFC6241"/>
-	  and RESTCONF <xref target="RFC8040"/>.</t>
+	    and RESTCONF <xref target="RFC8040"/>.</t>
       
       <t><xref target="enable-notif"/> defines how a client enables the header defined in this document.
       <xref target="discovery-notif"/> extends the model from <xref target="RFC9196"/> to enable clients to discover the capability of using the new notification header
@@ -439,7 +439,7 @@
             defined in the YANG module "ietf-yp-notification":</t>
 
             <artwork align="left"><![CDATA[
-    urn:ietf:params:xml:ns:netconf:notification:2.0
+    urn:ietf:params:xml:ns:yang:ietf-yp-notification
             ]]></artwork>
 
             <t>Two mandatory child nodes within the "envelope" container are expected,
@@ -447,9 +447,9 @@
             payload. The "event-time" node is defined
             within the same XML namespace as the "envelope" container. The "event-time"
             node MUST be compliant with <xref target="RFC3339"/>. Other notification
-			metadata defined within the YANG module defined in <xref
-			target="ietf-yp-notification-yang-module"/> MUST use the same XML namespace.
-			See <xref target="extensions-notif"/> for more details.</t>
+            metadata defined within the YANG module defined in <xref
+            target="ietf-yp-notification-yang-module"/> MUST use the same XML namespace.
+            See <xref target="extensions-notif"/> for more details.</t>
 
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level of the mandatory 
@@ -490,7 +490,7 @@
             <t>A YANG notification encoded in JSON is structured as a root
             "envelope" container. The namespace of this container is the name of
             the YANG module "ietf-yp-notification" defined in <xref
-			target="ietf-yp-notification-yang-module"/>.</t>
+			      target="ietf-yp-notification-yang-module"/>.</t>
 
             <t>Two mandatory child nodes within the "ietf-notification:envelope" container are expected,
             representing the event time and the notification
@@ -500,9 +500,9 @@
             in <xref target="ietf-yp-notification-yang-module"/> MUST use the same namespace "ietf-yp-notification".</t>
 
             <t>When other notification metadata is enabled through configuration, the
-			supplementary nodes are encoded at the same level of the mandatory 'event-time'
-			node and use the YANG module name as its namespace. See <xref
-			target="extensions-notif"/> for more details.</t>
+            supplementary nodes are encoded at the same level of the mandatory 'event-time'
+            node and use the YANG module name as its namespace. See <xref
+            target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "notification-contents" node.
@@ -1006,48 +1006,51 @@ Timeline
     </section>
 
     <section anchor="yang-models" title="YANG Modules">
+      <section anchor="ietf-yp-notif-model" title="The 'ietf-yp-notification' Module">
+        <t>The following sections shows the YANG tree and YANG module for the 'ietf-yp-notification' module.</t>
 
-      <section anchor="ietf-yp-notification-yang-tree" title="YANG ietf-yp-notification Tree Diagram">
-        <t>This YANG module extends "ietf-subscribed-notifications" <xref target="RFC8641"/>
-        and "ietf-notification-capabilities" <xref target="RFC9196"/> as shown in the
-        following YANG tree <xref target="RFC8340"/>:
-        </t>
-        <sourcecode type="yangtree"><![CDATA[
+        <section anchor="ietf-yp-notification-yang-tree" title="YANG ietf-yp-notification Tree Diagram">
+          <t>This YANG module extends "ietf-subscribed-notifications" <xref target="RFC8641"/>
+          and "ietf-notification-capabilities" <xref target="RFC9196"/> as shown in the
+          following YANG tree <xref target="RFC8340"/>:
+          </t>
+          <sourcecode type="yangtree"><![CDATA[
 module: ietf-yp-notification
 
-  augment /sn:subscriptions/sn:subscription:
+  augment /sn:subscriptions:
     +--rw enable-notification-envelope?   boolean
     +--rw metadata
-  augment /sn:establish-subscription/sn:input:
-    +---w enable-notification-envelope?   boolean
-    +---w metadata
-  augment /sn:modify-subscription/sn:input:
-    +---w enable-notification-envelope?   boolean
-    +---w metadata
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro notification-metadata
        +--ro notification-envelope?   boolean
        +--ro metadata
           +--ro hostname-sequence-number?   boolean
 
-  notifications:
-    +---n envelope
-       +--ro event-time               yang:date-and-time
-       +--ro hostname?                inet:host
-       +--ro sequence-number?         yang:counter32
-       +--ro notification-contents?   <anydata>
+  rpcs:
+    +---x enable-notif-envelope
+       +---w input
+          +---w enable-notification-envelope?   boolean
+          +---w metadata
+
+  structure envelope:
+    +-- event-time               yang:date-and-time
+    +-- hostname?                inet:host
+    +-- sequence-number?         yang:counter32
+    +-- notification-contents?   <anydata>
 ]]></sourcecode>
-      </section>
+        </section>
 
-      <section anchor="ietf-yp-notification-yang-module" title="YANG ietf-yp-notification Module">
-      <t>The YANG module augments the module "ietf-subscribed-notifications" <xref target="RFC8641"/>,
-      augments the module "ietf-system-capabilities" <xref target="RFC9196"/>,
-      and uses  "ietf-yang-types" module <xref target="RFC6991"/> and .</t>
 
-      <sourcecode type="yang" markers="true" name="ietf-yp-notification@2024-10-18.yang"><![CDATA[
+        <section anchor="ietf-yp-notification-yang-module" title="YANG ietf-yp-notification Module">
+          <t>The YANG module augments the module "ietf-subscribed-notifications" <xref target="RFC8641"/>,
+          augments the module "ietf-notification-capabilities" <xref target="RFC9196"/> and
+          uses "ietf-yang-types" module <xref target="RFC6991"/> and "ietf-yang-structure-ext" module <xref target="RFC8791"/>.</t>
+
+        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-01-15.yang"><![CDATA[
+
 module ietf-yp-notification {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
   prefix inotenv;
   import ietf-yang-types {
     prefix yang;
@@ -1075,6 +1078,11 @@ module ietf-yp-notification {
     reference
       "RFC 9196: YANG Modules Describing Capabilities for
        Systems and Datastore Update Notifications";
+  }
+  import ietf-yang-structure-ext {
+    prefix sx;
+    reference
+      "RFC 8791: YANG Data Structure Extensions";
   }
 
   organization "IETF NETCONF (Network Configuration) Working Group";
@@ -1116,7 +1124,7 @@ module ietf-yp-notification {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2024-10-18 {
+  revision 2025-01-15 {
     description
       "First revision";
     reference
@@ -1127,7 +1135,7 @@ module ietf-yp-notification {
     description
       "This grouping defines the configuration switches for
       enabling the notification-envelope defined in RFC XXXX
-      and the different supported notification metadata.";
+      and the different supported metadata.";
     leaf enable-notification-envelope {
       type boolean;
       default false;
@@ -1168,7 +1176,7 @@ module ietf-yp-notification {
     }
   }
 
-  notification envelope {
+  sx:structure envelope {
     leaf event-time {
       type yang:date-and-time;
       mandatory true;
@@ -1199,26 +1207,23 @@ module ietf-yp-notification {
   }
 
   // Subscription container
-  augment "/sn:subscriptions/sn:subscription" {
+  augment "/sn:subscriptions" {
     description
       "This augmentation adds the configuration switches for
       enabling the notification envelope and metadatas.";
     uses notif-env-configuration;
   }
-  // Subscription RPCs
-  augment "/sn:establish-subscription/sn:input" {
+
+  // RPCs
+  rpc enable-notif-envelope {
     description
-      "This augmentation adds the configuration switches for
-      enabling the notification envelope and other metadatas
-      during the 'establish-subscription' RPC.";
-    uses notif-env-configuration;
-  }
-  augment "/sn:modify-subscription/sn:input" {
-    description
-      "This augmentation adds the configuration switches for
-      enabling the notification envelope and other metadatas
-      during the 'establish-subscription' RPC.";
-    uses notif-env-configuration;
+      "This RPC allows a client to enable the notification envelope
+      globally for the server. When this option is enabled, all the YANG-Push
+      Notifications from all the subscriptions are encoded following
+      this structure.";
+    input {
+      uses notif-env-configuration;
+    }
   }
 
   // YANG-Push Capabilities extension
@@ -1237,14 +1242,17 @@ module ietf-yp-notification {
   }
 }
 ]]></sourcecode>
+        </section>
       </section>
 
-      <section anchor="ietf-yp-observation-yang-tree" title="YANG ietf-yp-observation Tree Diagram">
-        <t>This YANG module extends "ietf-yang-push" <xref target="RFC8641"/>
-        and "ietf-notification-capabilities" <xref target="RFC9196"/> as shown in the
-        following YANG tree <xref target="RFC8340"/>:
-        </t>
-        <sourcecode type="yangtree"><![CDATA[
+      <section anchor="ietf-yp-observation-model" title="The 'ietf-yp-observation' Module">
+        <t>The following sections shows the YANG tree and YANG module for the 'ietf-yp-observation' module.</t>
+        <section anchor="ietf-yp-observation-yang-tree" title="YANG ietf-yp-observation Tree Diagram">
+          <t>This YANG module extends "ietf-yang-push" <xref target="RFC8641"/>
+          and "ietf-notification-capabilities" <xref target="RFC9196"/> as shown in the
+          following YANG tree <xref target="RFC8340"/>:
+          </t>
+          <sourcecode type="yangtree"><![CDATA[
 module: ietf-yp-observation
 
   augment /yp:push-update:
@@ -1258,13 +1266,13 @@ module: ietf-yp-observation
             inotifseq:notification-support
             {yang-push-observation-timestamp}?
 ]]></sourcecode>
-      </section>
+        </section>
 
-      <section anchor="ietf-yp-observation-yang-module" title="YANG ietf-yp-observation Module">
-      <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
-      augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
+        <section anchor="ietf-yp-observation-yang-module" title="YANG ietf-yp-observation Module">
+          <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
+          augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
 
-      <sourcecode type="yang" markers="true" name="ietf-yp-observation@2024-12-17.yang"><![CDATA[
+          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2024-12-17.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
   namespace
@@ -1400,6 +1408,7 @@ module ietf-yp-observation {
   }
 }
 ]]></sourcecode>
+        </section>
       </section>
     </section>
 
@@ -1446,7 +1455,7 @@ module ietf-yp-observation {
       URI's in the <xref target="RFC3688">IETF XML Registry</xref>.</t>
 
       <artwork align="left"><![CDATA[
-URI: urn:ietf:params:xml:ns:netconf:notification:2.0
+URI: urn:ietf:params:xml:ns:yang:ietf-yp-notification
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.
 Reference: RFC-to-be]]></artwork>
@@ -1466,7 +1475,7 @@ Reference: RFC-to-be]]></artwork>
 
         <artwork align="left"><![CDATA[
 name: ietf-yp-notification
-namespace: urn:ietf:params:xml:ns:netconf:notification:2.0
+namespace: urn:ietf:params:xml:ns:yang:ietf-yp-notification
 prefix: inotenv
 reference: RFC-to-be]]></artwork>
 
@@ -1526,10 +1535,11 @@ reference: RFC-to-be]]></artwork>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9196.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.7951.xml"?>
-	  <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"?>
+	    <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8639.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8641.xml"?>
+      <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8791.xml"?>
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9187.xml'?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9254.xml"?>
 

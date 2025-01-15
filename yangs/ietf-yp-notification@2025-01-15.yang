@@ -1,6 +1,6 @@
 module ietf-yp-notification {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
   prefix inotenv;
   import ietf-yang-types {
     prefix yang;
@@ -28,6 +28,11 @@ module ietf-yp-notification {
     reference
       "RFC 9196: YANG Modules Describing Capabilities for
        Systems and Datastore Update Notifications";
+  }
+  import ietf-yang-structure-ext {
+    prefix sx;
+    reference
+      "RFC 8791: YANG Data Structure Extensions";
   }
 
   organization "IETF NETCONF (Network Configuration) Working Group";
@@ -69,7 +74,7 @@ module ietf-yp-notification {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2024-10-18 {
+  revision 2025-01-15 {
     description
       "First revision";
     reference
@@ -121,7 +126,7 @@ module ietf-yp-notification {
     }
   }
 
-  notification envelope {
+  sx:structure envelope {
     leaf event-time {
       type yang:date-and-time;
       mandatory true;
@@ -152,26 +157,23 @@ module ietf-yp-notification {
   }
 
   // Subscription container
-  augment "/sn:subscriptions/sn:subscription" {
+  augment "/sn:subscriptions" {
     description
       "This augmentation adds the configuration switches for
       enabling the notification envelope and metadatas.";
     uses notif-env-configuration;
   }
-  // Subscription RPCs
-  augment "/sn:establish-subscription/sn:input" {
+
+  // RPCs
+  rpc enable-notif-envelope {
     description
-      "This augmentation adds the configuration switches for
-      enabling the notification envelope and other metadatas
-      during the 'establish-subscription' RPC.";
-    uses notif-env-configuration;
-  }
-  augment "/sn:modify-subscription/sn:input" {
-    description
-      "This augmentation adds the configuration switches for
-      enabling the notification envelope and other metadatas
-      during the 'establish-subscription' RPC.";
-    uses notif-env-configuration;
+      "This RPC allows a client to enable the notification envelope
+      globally for the server. When this option is enabled, all the YANG-Push
+      Notifications from all the subscriptions are encoded following
+      this structure.";
+    input {
+      uses notif-env-configuration;
+    }
   }
 
   // YANG-Push Capabilities extension

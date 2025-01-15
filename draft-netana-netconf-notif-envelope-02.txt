@@ -6,10 +6,10 @@ Network Working Group                                      A. Huang Feng
 Internet-Draft                                               P. Francois
 Updates: RFC7950 RFC7951 RFC9254 (if approved)                 INSA-Lyon
 Intended status: Standards Track                                 T. Graf
-Expires: 20 June 2025                                           Swisscom
+Expires: 19 July 2025                                           Swisscom
                                                                B. Claise
                                                                   Huawei
-                                                        17 December 2024
+                                                         15 January 2025
 
 
            Extensible YANG Model for YANG-Push Notifications
@@ -37,11 +37,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 June 2025.
+   This Internet-Draft will expire on 19 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 1]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 1]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -89,33 +89,35 @@ Table of Contents
        3.5.1.  Support of Observation Timestamp  . . . . . . . . . .  16
    4.  Operational Considerations  . . . . . . . . . . . . . . . . .  21
    5.  YANG Modules  . . . . . . . . . . . . . . . . . . . . . . . .  21
-     5.1.  YANG ietf-yp-notification Tree Diagram  . . . . . . . . .  21
-     5.2.  YANG ietf-yp-notification Module  . . . . . . . . . . . .  22
-     5.3.  YANG ietf-yp-observation Tree Diagram . . . . . . . . . .  26
-     5.4.  YANG ietf-yp-observation Module . . . . . . . . . . . . .  27
+     5.1.  The 'ietf-yp-notification' Module . . . . . . . . . . . .  21
+       5.1.1.  YANG ietf-yp-notification Tree Diagram  . . . . . . .  22
+       5.1.2.  YANG ietf-yp-notification Module  . . . . . . . . . .  22
+     5.2.  The 'ietf-yp-observation' Module  . . . . . . . . . . . .  26
+       5.2.1.  YANG ietf-yp-observation Tree Diagram . . . . . . . .  27
+       5.2.2.  YANG ietf-yp-observation Module . . . . . . . . . . .  27
    6.  Implementation Status . . . . . . . . . . . . . . . . . . . .  30
      6.1.  Huawei VRP  . . . . . . . . . . . . . . . . . . . . . . .  30
      6.2.  6WIND VSR . . . . . . . . . . . . . . . . . . . . . . . .  30
      6.3.  Cisco IOS XR  . . . . . . . . . . . . . . . . . . . . . .  30
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  30
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  30
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  31
      8.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .  31
      8.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  31
      8.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .  31
-   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  31
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  32
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  32
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  32
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  33
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 2]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 2]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  32
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  34
    Appendix A.  .sid file  . . . . . . . . . . . . . . . . . . . . .  34
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  35
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  36
 
 1.  Introduction
 
@@ -139,9 +141,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    was encoded, it is also important to know the timestamp when the
    metrics were observed, the hostname that sourced the message, and
    have sequence numbers in generated messages so that lost notification
-   messages can be detected (in case of UDP transport protocol).  This
-   additional notification metadata is also helpful to correlate the
-   data with other sources of Network Telemetry [RFC9232] information.
+   messages can be detected in unreliable transports.  This additional
+   notification metadata is also helpful to correlate the data with
+   other sources of Network Telemetry [RFC9232] information.
 
    For such reasons, this document proposes the following:
 
@@ -163,11 +165,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-
-
-Huang Feng, et al.        Expires 20 June 2025                  [Page 3]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 3]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
 1.1.  Terminology
@@ -189,9 +189,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
    In addition, this document defines the following terms:
 
-   Notification Metadata: Additional data describing notification
-   context.  Such as from which node, at which time the notification has
-   been published.
+   Notification Metadata: Additional data describing the context of a
+   notification, e.g.  which node generated the messsage or at which
+   time the notification was published.
 
 2.  Relationship to past documents
 
@@ -221,9 +221,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 4]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 4]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    *  Section 1.4 of [RFC8639] states that the solution uses the
@@ -277,9 +277,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 5]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 5]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
 3.  Solution
@@ -309,7 +309,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    This document defines a new notification header, enables notification
    and YANG-Push extensions with new notification metadata.  The
    notification header and extensions defined in the following sections
-   is to be used in YANG-Push [RFC8641] environments and can be
+   are to be used in YANG-Push [RFC8641] environments and can be
    implemented with NETCONF [RFC6241] and RESTCONF [RFC8040].
 
    Section 3.1 defines how a client enables the header defined in this
@@ -333,9 +333,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 6]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 6]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
      module: ietf-notification-container
@@ -389,9 +389,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 7]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 7]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
 3.3.  Notification Envelope
@@ -435,7 +435,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    container.  The namespace of this container is the namespace defined
    in the YANG module "ietf-yp-notification":
 
-       urn:ietf:params:xml:ns:netconf:notification:2.0
+       urn:ietf:params:xml:ns:yang:ietf-yp-notification
 
 
 
@@ -445,9 +445,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 8]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 8]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    Two mandatory child nodes within the "envelope" container are
@@ -455,7 +455,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    The "event-time" node is defined within the same XML namespace as the
    "envelope" container.  The "event-time" node MUST be compliant with
    [RFC3339].  Other notification metadata defined within the YANG
-   module defined in Section 5.2 MUST use the same XML namespace.  See
+   module defined in Section 5.1.2 MUST use the same XML namespace.  See
    Section 3.4 for more details.
 
    When other notification metadata is enabled through configuration,
@@ -495,15 +495,15 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
    A YANG notification encoded in JSON is structured as a root
    "envelope" container.  The namespace of this container is the name of
-   the YANG module "ietf-yp-notification" defined in Section 5.2.
+   the YANG module "ietf-yp-notification" defined in Section 5.1.2.
 
 
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                  [Page 9]
+Huang Feng, et al.        Expires 19 July 2025                  [Page 9]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    Two mandatory child nodes within the "ietf-notification:envelope"
@@ -511,7 +511,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    notification payload.  The "event-time" node is defined within the
    same namespace as the "ietf-yp-notification:envelope" container and
    is compliant with [RFC3339].  Other metadata defined within the YANG
-   module defined in Section 5.2 MUST use the same namespace "ietf-yp-
+   module defined in Section 5.1.2 MUST use the same namespace "ietf-yp-
    notification".
 
    When other notification metadata is enabled through configuration,
@@ -557,9 +557,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 10]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 10]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
 3.3.2.3.  CBOR Encoding
@@ -571,7 +571,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    defined in Section 3.3 of [RFC9254].  The key of the element can be
    the name of the element itself or be namespace-qualified.  In the
    latter case, the namespace of the notification container uses the
-   YANG module name "ietf-yp-notification" defined in Section 5.2.
+   YANG module name "ietf-yp-notification" defined in Section 5.1.2.
 
    Notification encoded using YANG-SIDs replaces the names of the keys
    of the CBOR encoded message for a 63 bit unsigned integer.  In this
@@ -613,9 +613,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 11]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 11]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
      {
@@ -669,9 +669,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 12]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 12]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
 3.4.  Extensions for the Notification Envelope
@@ -725,9 +725,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 13]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 13]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    On top of that, the transport source IP address might not represent
@@ -781,9 +781,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 14]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 14]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    ========== NOTE: '\' line wrapping per RFC 8792) ===========
@@ -837,9 +837,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 15]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 15]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    module: ietf-yang-push
@@ -893,9 +893,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 16]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 16]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    When the time bucket length in a time series database and the
@@ -949,9 +949,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 17]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 17]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    Figure 6 provides an example timeline of events to describe
@@ -1005,9 +1005,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 18]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 18]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    ========== NOTE: '\' line wrapping per RFC 8792) ===========
@@ -1061,9 +1061,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 19]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 19]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    Figure 8 provides an example timeline of events to describe point-in-
@@ -1117,9 +1117,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-Huang Feng, et al.        Expires 20 June 2025                 [Page 20]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 20]
 
-Internet-Draft       YANG-Push Notification Envelope       December 2024
+Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
    ========== NOTE: '\' line wrapping per RFC 8792) ===========
@@ -1161,57 +1161,63 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 5.  YANG Modules
 
-5.1.  YANG ietf-yp-notification Tree Diagram
+5.1.  The 'ietf-yp-notification' Module
+
+   The following sections shows the YANG tree and YANG module for the
+   'ietf-yp-notification' module.
+
+
+
+
+
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 21]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
+5.1.1.  YANG ietf-yp-notification Tree Diagram
 
    This YANG module extends "ietf-subscribed-notifications" [RFC8641]
    and "ietf-notification-capabilities" [RFC9196] as shown in the
    following YANG tree [RFC8340]:
 
-
-
-
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 21]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
    module: ietf-yp-notification
 
-     augment /sn:subscriptions/sn:subscription:
+     augment /sn:subscriptions:
        +--rw enable-notification-envelope?   boolean
        +--rw metadata
-     augment /sn:establish-subscription/sn:input:
-       +---w enable-notification-envelope?   boolean
-       +---w metadata
-     augment /sn:modify-subscription/sn:input:
-       +---w enable-notification-envelope?   boolean
-       +---w metadata
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro notification-metadata
           +--ro notification-envelope?   boolean
           +--ro metadata
              +--ro hostname-sequence-number?   boolean
 
-     notifications:
-       +---n envelope
-          +--ro event-time               yang:date-and-time
-          +--ro hostname?                inet:host
-          +--ro sequence-number?         yang:counter32
-          +--ro notification-contents?   <anydata>
+     rpcs:
+       +---x enable-notif-envelope
+          +---w input
+             +---w enable-notification-envelope?   boolean
+             +---w metadata
 
-5.2.  YANG ietf-yp-notification Module
+     structure envelope:
+       +-- event-time               yang:date-and-time
+       +-- hostname?                inet:host
+       +-- sequence-number?         yang:counter32
+       +-- notification-contents?   <anydata>
+
+5.1.2.  YANG ietf-yp-notification Module
 
    The YANG module augments the module "ietf-subscribed-notifications"
-   [RFC8641], augments the module "ietf-system-capabilities" [RFC9196],
-   and uses "ietf-yang-types" module [RFC6991] and .
+   [RFC8641], augments the module "ietf-notification-capabilities"
+   [RFC9196] and uses "ietf-yang-types" module [RFC6991] and "ietf-yang-
+   structure-ext" module [RFC8791].
 
-   <CODE BEGINS> file "ietf-yp-notification@2024-10-18.yang"
+   <CODE BEGINS> file "ietf-yp-notification@2025-01-15.yang"
    module ietf-yp-notification {
      yang-version 1.1;
-     namespace "urn:ietf:params:xml:ns:netconf:notification:2.0";
+     namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
      prefix inotenv;
      import ietf-yang-types {
        prefix yang;
@@ -1220,20 +1226,20 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
      }
      import ietf-inet-types {
        prefix inet;
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 22]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
        reference
          "RFC 6991: Common YANG Data Types";
      }
      import ietf-subscribed-notifications {
        prefix sn;
        reference
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 22]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
          "RFC 8639: Subscription to YANG Notifications";
      }
      import ietf-system-capabilities {
@@ -1247,6 +1253,11 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
        reference
          "RFC 9196: YANG Modules Describing Capabilities for
           Systems and Datastore Update Notifications";
+     }
+     import ietf-yang-structure-ext {
+       prefix sx;
+       reference
+         "RFC 8791: YANG Data Structure Extensions";
      }
 
      organization "IETF NETCONF (Network Configuration) Working Group";
@@ -1271,6 +1282,14 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
        This module can be used to validate XML encoded notifications
        [RFC7950], JSON encoded messages [RFC7951] and CBOR encoded
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 23]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
        messages [RFC9254]. Refer to Section Y of RFC XXXX for more
        details.
 
@@ -1282,21 +1301,13 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
        the license terms contained in, the Revised BSD License set
        forth in Section 4.c of the IETF Trust's Legal Provisions
        Relating to IETF Documents
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 23]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
        (https://trustee.ietf.org/license-info).
 
        This version of this YANG module is part of RFC XXXX
        (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
        for full legal notices.";
 
-     revision 2024-10-18 {
+     revision 2025-01-15 {
        description
          "First revision";
        reference
@@ -1307,7 +1318,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
        description
          "This grouping defines the configuration switches for
          enabling the notification-envelope defined in RFC XXXX
-         and the different supported notification metadata.";
+         and the different supported metadata.";
        leaf enable-notification-envelope {
          type boolean;
          default false;
@@ -1327,6 +1338,14 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
          the notification-envelope defined in RFC XXXX
          and the different supported metadata.";
        leaf notification-envelope {
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 24]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
          type boolean;
          default false;
          description
@@ -1338,14 +1357,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
            "Container with the supported optional metadata by the
            YANG-Push publisher.";
          leaf hostname-sequence-number {
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 24]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
            type boolean;
            default false;
            description
@@ -1356,7 +1367,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
        }
      }
 
-     notification envelope {
+     sx:structure envelope {
        leaf event-time {
          type yang:date-and-time;
          mandatory true;
@@ -1383,38 +1394,35 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
          description
            "This contains the values defined by the 'notification'
            statement unchanged.";
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 25]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
        }
      }
 
      // Subscription container
-     augment "/sn:subscriptions/sn:subscription" {
+     augment "/sn:subscriptions" {
        description
          "This augmentation adds the configuration switches for
          enabling the notification envelope and metadatas.";
        uses notif-env-configuration;
      }
-     // Subscription RPCs
 
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 25]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
-     augment "/sn:establish-subscription/sn:input" {
+     // RPCs
+     rpc enable-notif-envelope {
        description
-         "This augmentation adds the configuration switches for
-         enabling the notification envelope and other metadatas
-         during the 'establish-subscription' RPC.";
-       uses notif-env-configuration;
-     }
-     augment "/sn:modify-subscription/sn:input" {
-       description
-         "This augmentation adds the configuration switches for
-         enabling the notification envelope and other metadatas
-         during the 'establish-subscription' RPC.";
-       uses notif-env-configuration;
+         "This RPC allows a client to enable the notification envelope
+         globally for the server. When this option is enabled, all the YANG-Push
+         Notifications from all the subscriptions are encoded following
+         this structure.";
+       input {
+         uses notif-env-configuration;
+       }
      }
 
      // YANG-Push Capabilities extension
@@ -1434,29 +1442,27 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    }
    <CODE ENDS>
 
-5.3.  YANG ietf-yp-observation Tree Diagram
+5.2.  The 'ietf-yp-observation' Module
+
+   The following sections shows the YANG tree and YANG module for the
+   'ietf-yp-observation' module.
+
+
+
+
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 26]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
+5.2.1.  YANG ietf-yp-observation Tree Diagram
 
    This YANG module extends "ietf-yang-push" [RFC8641] and "ietf-
    notification-capabilities" [RFC9196] as shown in the following YANG
    tree [RFC8340]:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 26]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
 
    module: ietf-yp-observation
 
@@ -1471,7 +1477,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
                inotifseq:notification-support
                {yang-push-observation-timestamp}?
 
-5.4.  YANG ietf-yp-observation Module
+5.2.2.  YANG ietf-yp-observation Module
 
    The YANG module augments the module "ietf-yang-push" [RFC8641],
    augments the module "ietf-system-capabilities" [RFC9196].
@@ -1500,20 +1506,20 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
      }
      import ietf-notification-capabilities {
        prefix notc;
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 27]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
        reference
          "RFC 9196: YANG Modules Describing Capabilities for
           Systems and Datastore Update Notifications";
      }
      import ietf-notification-sequencing {
        prefix inotifseq;
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 27]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
        reference
          "draft-tgraf-netconf-notif-sequencing-05: YANG Notifications
          Sequencing";
@@ -1556,20 +1562,20 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
      feature yang-push-observation-timestamp {
        description
          "This feature indicates the YANG-push Notifications support
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 28]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
          the observation timestamps in streaming update notifications.";
      }
 
      grouping yang-push-observation {
        description
          "This grouping adds the observation timestamp for the observed metrics.";
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 28]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
        leaf timestamp {
          type yang:date-and-time;
          description
@@ -1612,20 +1618,20 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
          uses ypot:yang-push-observation;
      }
 
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 29]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
      // Event capabilities
      augment "/sysc:system-capabilities/notc:subscription-capabilities" {
        description
          "Add system level capabilities";
        leaf yang-push-observation-supported {
          if-feature "yang-push-observation-timestamp";
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 29]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
          type boolean;
          description
            "Specifies whether the publisher supports exporting
@@ -1667,27 +1673,26 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
    TBD
 
+
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 30]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
 8.  IANA Considerations
 
    This document describes the URI used for the IETF XML Registry and
    registers a new YANG module name.
-
-
-
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 30]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
 
 8.1.  URI
 
    IANA is requested to add this document as a reference in the
    following URI's in the IETF XML Registry [RFC3688].
 
-   URI: urn:ietf:params:xml:ns:netconf:notification:2.0
+   URI: urn:ietf:params:xml:ns:yang:ietf-yp-notification
    Registrant Contact: The IESG.
    XML: N/A; the requested URI is an XML namespace.
    Reference: RFC-to-be
@@ -1703,7 +1708,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
    Names Registry [RFC6020], within the "YANG Parameters" registry:
 
    name: ietf-yp-notification
-   namespace: urn:ietf:params:xml:ns:netconf:notification:2.0
+   namespace: urn:ietf:params:xml:ns:yang:ietf-yp-notification
    prefix: inotenv
    reference: RFC-to-be
 
@@ -1724,19 +1729,20 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
    A ".sid" file is proposed in Appendix A.
 
+
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 31]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
 9.  Acknowledgements
 
    The authors would like to thank Per Anderson, Andy Bierman, Carsten
    Bormann, Mohamed Boucadair, Tom Petch, Jason Sterne, Kent Watsen and
    Rob Wilton for their review and valuable comments.
-
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 31]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
 
 10.  References
 
@@ -1781,18 +1787,16 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/info/rfc6241>.
 
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 32]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
    [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
-
-
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 32]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -1819,6 +1823,10 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
               September 2019, <https://www.rfc-editor.org/info/rfc8641>.
 
+   [RFC8791]  Bierman, A., Björklund, M., and K. Watsen, "YANG Data
+              Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
+              June 2020, <https://www.rfc-editor.org/info/rfc8791>.
+
    [RFC9187]  Touch, J., "Sequence Number Extension for Windowed
               Protocols", RFC 9187, DOI 10.17487/RFC9187, January 2022,
               <https://www.rfc-editor.org/info/rfc9187>.
@@ -1834,6 +1842,14 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
               RFC 9254, DOI 10.17487/RFC9254, July 2022,
               <https://www.rfc-editor.org/info/rfc9254>.
 
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 33]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
    [W3C.REC-xml-20001006]
               Bray, T., Paoli, J., Sperberg-McQueen, M., and E. Maler,
               "Extensible Markup Language (XML) 1.0 (Second Edition)",
@@ -1842,21 +1858,13 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 10.2.  Informative References
 
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 33]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
    [I-D.ietf-netconf-udp-notif]
               Zheng, G., Zhou, T., Graf, T., Francois, P., Feng, A. H.,
               and P. Lucente, "UDP-based Transport for Configured
               Subscriptions", Work in Progress, Internet-Draft, draft-
-              ietf-netconf-udp-notif-17, 1 December 2024,
+              ietf-netconf-udp-notif-18, 13 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
-              udp-notif-17>.
+              udp-notif-18>.
 
    [RFC6470]  Bierman, A., "Network Configuration Protocol (NETCONF)
               Base Notifications", RFC 6470, DOI 10.17487/RFC6470,
@@ -1890,6 +1898,14 @@ Appendix A.  .sid file
        "module-revision": "2024-10-10",
        "description": "YANG-Push Notification Envelope",
        "dependency-revision": [
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 34]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
          {
            "module-name": "ietf-yang-types",
            "module-revision": "2013-07-15"
@@ -1898,14 +1914,6 @@ Appendix A.  .sid file
            "module-name": "ietf-subscribed-notifications",
            "module-revision": "2019-09-09"
          }
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 34]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
-
        ],
        "assignment-range": [
          {
@@ -1946,21 +1954,20 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
          }
        ]
      }
+
+
+
+Huang Feng, et al.        Expires 19 July 2025                 [Page 35]
+
+Internet-Draft       YANG-Push Notification Envelope        January 2025
+
+
    }
    <CODE ENDS>
 
            Figure 10: .sid file for "ietf-yp-notification" module
 
 Authors' Addresses
-
-
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 35]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2024
-
 
    Alex Huang Feng
    INSA-Lyon
@@ -2006,11 +2013,4 @@ Internet-Draft       YANG-Push Notification Envelope       December 2024
 
 
 
-
-
-
-
-
-
-
-Huang Feng, et al.        Expires 20 June 2025                 [Page 36]
+Huang Feng, et al.        Expires 19 July 2025                 [Page 36]
