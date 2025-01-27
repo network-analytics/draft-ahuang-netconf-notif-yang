@@ -98,7 +98,7 @@
       </address>
     </author>
 
-    <date day="15" month="January" year="2025"/>
+    <date day="27" month="January" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -354,8 +354,8 @@
 module: ietf-yp-notification
 
   augment /sn:subscriptions:
-    +--rw enable-notification-envelope?   boolean
-    +--rw metadata
+    +--ro enable-notification-envelope?   boolean
+    +--ro metadata
 
   rpcs:
     +---x enable-notif-envelope
@@ -368,11 +368,20 @@ module: ietf-yp-notification
         by a YANG-Push publisher MUST use the header defined in <xref target="base-notif-model"/>.
         If any notification metadata is enabled during the configuration of the subscription, the
 		    notification metadata nodes MUST be present in the header.
+        When this node is disabled, notifications are encoded following <xref target="RFC5277"/>.
         </t>
 
-        <t>This node 'enable-notification-envelope' is enabled via the RPC 'enable-notif-envelope'.
-        This same RPC can be used to disable this notification envelope. When disabled, notifications are 
-        encoded following <xref target="RFC5277"/>.</t>
+        <t>This node 'enable-notification-envelope' MUST be enabled and disabled via the RPC
+        'enable-notif-envelope' only. This node MUST be changed prior to the creation of any
+        Dynamic Subscriptions. If any Dynamic Subscription is sending YANG-Push notifications
+        at the time of modifying this node, the server MUST refuse the change and send an
+        'invalid-notification-envelope-config' error.</t>
+
+        <t>When a client changes this node 'enable-notification-envelope', any new Dynamic 
+        Subscriptions send YANG-Push notifications according to the new value of this node.
+        In Configured Subscriptions, when the node 'enable-notification-envelope' changes,
+        the YANG-Push subscription is restarted using the header defined by this node, i.e. encoded as
+        <xref target="base-notif-model"/> when enabled and using <xref target="RFC5277"/> if disabled.</t>
       </section>
       
       <section anchor="discovery-notif" title="Discovering the support of this model">
@@ -418,9 +427,9 @@ module: ietf-yp-notification
             <li>The header of the notification contains the notification metadata that is enabled during
             the configuration of the subscription as a child nodes of the root "notification-envelope"
             container.</li>
-            <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
             <li>The content of the notification defined by the 'notification' statement is encoded
               in the 'notification-contents' leaf.</li>
+            <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
           </ul>
 
           <t>The following YANG tree <xref target="RFC8340"/> illustrates the notification envelope
@@ -460,7 +469,9 @@ module: ietf-yp-notification
 
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level of the mandatory 
-            "event-time" node and use the XML namespace defined in the YANG module.</t>
+            "event-time" node and use the XML namespace defined in the YANG module.
+            Metadata nodes SHOULD be located at the beginning of the envelope. 
+            </t>
 
             <t>The content of the notification that is defined by the 'notification'
 			      statement is encoded in the "notification-contents" node.
@@ -503,13 +514,15 @@ module: ietf-yp-notification
             representing the event time and the notification
             payload.  The "event-time" node is defined within the same namespace as the
             "ietf-yp-notification:envelope" container and is compliant with
-            <xref target="RFC3339"/>. Other metadata defined within the YANG module defined
-            in <xref target="ietf-yp-notification-yang-module"/> MUST use the same namespace "ietf-yp-notification".</t>
+            <xref target="RFC3339"/>. Other metadata specified within the YANG module defined
+            in <xref target="ietf-yp-notification-yang-module"/> MUST use the same
+            namespace "ietf-yp-notification".</t>
 
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level of the mandatory 'event-time'
-            node and use the YANG module name as its namespace. See <xref
-            target="extensions-notif"/> for more details.</t>
+            node and use the YANG module name as its namespace. 
+            Metadata nodes SHOULD be located at the beginning of the envelope.
+            See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "notification-contents" node.
@@ -574,10 +587,11 @@ module: ietf-yp-notification
             target="RFC3339"/>.</t>
 
             <t>When other notification metadata is enabled through configuration, the
-			supplementary nodes are encoded at the same level of the mandatory "event-time"
-			node and use the YANG module name as its namespace when they are encoded as
-			names. When they are encoded using YANG SIDs, a SID value assigned to the
-			metadata node is used. See <xref target="extensions-notif"/> for more details.</t>
+            supplementary nodes are encoded at the same level of the mandatory "event-time"
+            node and use the YANG module name as its namespace when they are encoded as
+            names. When they are encoded using YANG SIDs, a SID value assigned to the
+            metadata node is used. Metadata nodes SHOULD be located at the beginning of
+            the envelope. See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "notification-contents" node.
@@ -1047,8 +1061,8 @@ Timeline
 module: ietf-yp-notification
 
   augment /sn:subscriptions:
-    +--rw enable-notification-envelope?   boolean
-    +--rw metadata
+    +--ro enable-notification-envelope?   boolean
+    +--ro metadata
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro notification-metadata
        +--ro notification-envelope?   boolean
@@ -1075,8 +1089,7 @@ module: ietf-yp-notification
           augments the module "ietf-notification-capabilities" <xref target="RFC9196"/> and
           uses "ietf-yang-types" module <xref target="RFC6991"/> and "ietf-yang-structure-ext" module <xref target="RFC8791"/>.</t>
 
-        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-01-15.yang"><![CDATA[
-
+        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-01-27.yang"><![CDATA[
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1153,29 +1166,29 @@ module ietf-yp-notification {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2025-01-15 {
+  revision 2025-01-27 {
     description
       "First revision";
     reference
       "RFC XXXX: YANG-Push Notification Envelope";
   }
 
-  grouping notif-env-configuration {
+  identity notif-envelope-error {
+    description 
+      "Base identify for errors found while attempting to
+      change configuration values during the
+      'enable-notif-envelope' RPC requests.";
+  }
+
+  identity invalid-notification-envelope-config {
+    base notif-envelope-error;
     description
-      "This grouping defines the configuration switches for
-      enabling the notification-envelope defined in RFC XXXX
-      and the different supported metadata.";
-    leaf enable-notification-envelope {
-      type boolean;
-      default false;
-      description
-        "Enables YANG-Push to use the notification-envelope 
-        defined in RFC XXXX.";
-    }
-    container metadata {
-      description 
-        "Container for configuring optional metadata.";
-    }
+      "This error is triggered and sent in the response of
+      the RPC 'enable-notif-envelope' when attempting to change
+      the value of the 'enable-notification-envelope' node
+      while any Dynamic Subscription is active. The node
+      'enable-notification-envelope' can only be changed prior to 
+      the creation of the Dynamic Subscription.";
   }
 
   grouping notif-env-capabilities {
@@ -1240,7 +1253,19 @@ module ietf-yp-notification {
     description
       "This augmentation adds the configuration switches for
       enabling the notification envelope and metadatas.";
-    uses notif-env-configuration;
+    leaf enable-notification-envelope {
+      config false;
+      type boolean;
+      default false;
+      description
+        "Enables YANG-Push to use the notification-envelope 
+        defined in RFC XXXX.";
+    }
+    container metadata {
+      config false;
+      description 
+        "Container for configuring optional metadata.";
+    }
   }
 
   // RPCs
@@ -1251,7 +1276,17 @@ module ietf-yp-notification {
       Notifications from all the subscriptions are encoded following
       this structure.";
     input {
-      uses notif-env-configuration;
+      leaf enable-notification-envelope {
+        type boolean;
+        default false;
+        description
+          "Enables YANG-Push to use the notification-envelope 
+          defined in RFC XXXX.";
+      }
+      container metadata {
+        description 
+          "Container for configuring optional metadata.";
+      }
     }
   }
 

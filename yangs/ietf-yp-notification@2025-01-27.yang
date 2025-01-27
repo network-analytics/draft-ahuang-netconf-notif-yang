@@ -74,29 +74,29 @@ module ietf-yp-notification {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2025-01-15 {
+  revision 2025-01-27 {
     description
       "First revision";
     reference
       "RFC XXXX: YANG-Push Notification Envelope";
   }
 
-  grouping notif-env-configuration {
+  identity notif-envelope-error {
+    description 
+      "Base identify for errors found while attempting to
+      change configuration values during the
+      'enable-notif-envelope' RPC requests.";
+  }
+
+  identity invalid-notification-envelope-config {
+    base notif-envelope-error;
     description
-      "This grouping defines the configuration switches for
-      enabling the notification-envelope defined in RFC XXXX
-      and the different supported metadata.";
-    leaf enable-notification-envelope {
-      type boolean;
-      default false;
-      description
-        "Enables YANG-Push to use the notification-envelope 
-        defined in RFC XXXX.";
-    }
-    container metadata {
-      description 
-        "Container for configuring optional metadata.";
-    }
+      "This error is triggered and sent in the response of
+      the RPC 'enable-notif-envelope' when attempting to change
+      the value of the 'enable-notification-envelope' node
+      while any Dynamic Subscription is active. The node
+      'enable-notification-envelope' can only be changed prior to 
+      the creation of the Dynamic Subscription.";
   }
 
   grouping notif-env-capabilities {
@@ -161,7 +161,19 @@ module ietf-yp-notification {
     description
       "This augmentation adds the configuration switches for
       enabling the notification envelope and metadatas.";
-    uses notif-env-configuration;
+    leaf enable-notification-envelope {
+      config false;
+      type boolean;
+      default false;
+      description
+        "Enables YANG-Push to use the notification-envelope 
+        defined in RFC XXXX.";
+    }
+    container metadata {
+      config false;
+      description 
+        "Container for configuring optional metadata.";
+    }
   }
 
   // RPCs
@@ -172,7 +184,17 @@ module ietf-yp-notification {
       Notifications from all the subscriptions are encoded following
       this structure.";
     input {
-      uses notif-env-configuration;
+      leaf enable-notification-envelope {
+        type boolean;
+        default false;
+        description
+          "Enables YANG-Push to use the notification-envelope 
+          defined in RFC XXXX.";
+      }
+      container metadata {
+        description 
+          "Container for configuring optional metadata.";
+      }
     }
   }
 
