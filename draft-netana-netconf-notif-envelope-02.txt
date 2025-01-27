@@ -190,8 +190,8 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    In addition, this document defines the following terms:
 
    Notification Metadata: Additional data describing the context of a
-   notification, e.g.  which node generated the messsage or at which
-   time the notification was published.
+   notification that is sent in each message, e.g. which node generated
+   the messsage or at which time the notification was published.
 
 2.  Relationship to past documents
 
@@ -312,7 +312,8 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    YANG-Push [RFC8641] environments and can be implemented with NETCONF
    [RFC6241] and RESTCONF [RFC8040].  Thus, when enabled, this new
    header replaces the notifications defined in Subscribed Notifications
-   [RFC8639] and YANG-Push [RFC8641] notifications.
+   [RFC8639] and YANG-Push [RFC8641] notifications globally for all the
+   entire server.
 
    Section 3.1 defines how a client enables the header defined in this
    document.  Section 3.2 extends the model from [RFC9196] to enable
@@ -329,7 +330,6 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    to support the configuration of "notification-envelope".  When
    enabled, all the notifications defined in Subscribed Notification
    [RFC8639] and YANG-Push [RFC8641] are encoded as defined in
-   Section 3.3.
 
 
 
@@ -337,6 +337,8 @@ Huang Feng, et al.        Expires 31 July 2025                  [Page 6]
 
 Internet-Draft       YANG-Push Notification Envelope        January 2025
 
+
+   Section 3.3.
 
    module: ietf-yp-notification
 
@@ -384,8 +386,6 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
 
    *  A container 'metadata' containing all the supported extensions to
       this header.  Extensions are defined in Section 3.4.
-
-
 
 
 

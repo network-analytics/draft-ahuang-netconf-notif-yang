@@ -193,8 +193,9 @@
 
         <t>In addition, this document defines the following terms:</t>
 
-        <t>Notification Metadata: Additional data describing the context of a notification, e.g.
-        which node generated the messsage or at which time the notification was published.</t>
+        <t>Notification Metadata: Additional data describing the context of a notification that
+        is sent in each message, e.g. which node generated the messsage or at which
+        time the notification was published.</t>
       </section>
     </section>
 
@@ -334,7 +335,7 @@
       can be implemented with NETCONF <xref target="RFC6241"/>
 	    and RESTCONF <xref target="RFC8040"/>. Thus, when enabled, this new header
       replaces the notifications defined in Subscribed Notifications <xref target="RFC8639"/>
-      and YANG-Push <xref target="RFC8641"/> notifications.</t>
+      and YANG-Push <xref target="RFC8641"/> notifications globally for all the entire server.</t>
       
       <t><xref target="enable-notif"/> defines how a client enables the header defined in this document.
       <xref target="discovery-notif"/> extends the model from <xref target="RFC9196"/> to enable clients to discover the capability of using the new notification header
