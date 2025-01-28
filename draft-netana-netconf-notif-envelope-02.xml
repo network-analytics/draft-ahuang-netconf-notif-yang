@@ -196,6 +196,9 @@
         <t>Notification Metadata: Additional data describing the context of a notification that
         is sent in each message, e.g. which node generated the messsage or at which
         time the notification was published.</t>
+
+        <t>Notification Envelope: YANG structure encapsulating the payload of a notification,
+        allowing the inclusion of metadata.</t>
       </section>
     </section>
 
@@ -310,7 +313,7 @@
       A notification is created by defining a 'notification' statement in the YANG module.
       When a NETCONF server sends this notification, it is composed of two parts: a header
       containing notification metadata which encapsulates the content and the content defined
-	  by the 'notification' statement.</t>
+	    by the 'notification' statement.</t>
       
       <t>In YANG 1.1 <xref target="RFC7950"/>, the notification header is based on the model
       defined in <xref target="RFC5277"/> which contains a single metadata 'eventTime'
@@ -430,6 +433,8 @@ module: ietf-yp-notification
             container.</li>
             <li>The content of the notification defined by the 'notification' statement is encoded
               in the 'notification-contents' leaf.</li>
+            <li>The 'notification-contents' element SHOULD be located at the end of the notification envelop
+            structure.</li>
             <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
           </ul>
 
@@ -470,8 +475,7 @@ module: ietf-yp-notification
 
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level of the mandatory 
-            "event-time" node and use the XML namespace defined in the YANG module.
-            Metadata nodes SHOULD be located at the beginning of the envelope. 
+            "event-time" node and use the XML namespace defined in the YANG module. 
             </t>
 
             <t>The content of the notification that is defined by the 'notification'
@@ -522,7 +526,6 @@ module: ietf-yp-notification
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level of the mandatory 'event-time'
             node and use the YANG module name as its namespace. 
-            Metadata nodes SHOULD be located at the beginning of the envelope.
             See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
@@ -591,8 +594,7 @@ module: ietf-yp-notification
             supplementary nodes are encoded at the same level of the mandatory "event-time"
             node and use the YANG module name as its namespace when they are encoded as
             names. When they are encoded using YANG SIDs, a SID value assigned to the
-            metadata node is used. Metadata nodes SHOULD be located at the beginning of
-            the envelope. See <xref target="extensions-notif"/> for more details.</t>
+            metadata node is used. See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "notification-contents" node.
