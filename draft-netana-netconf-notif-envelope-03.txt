@@ -436,10 +436,10 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
       child nodes of the root "notification-envelope" container.
 
    *  The content of the notification defined by the 'notification'
-      statement is encoded in the 'notification-contents' leaf.
+      statement is encoded in the 'contents' leaf.
 
-   *  The 'notification-contents' element SHOULD be located at the end
-      of the notification envelop structure.
+   *  The 'contents' element SHOULD be located at the end of the
+      notification envelop structure.
 
 
 
@@ -454,10 +454,9 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    envelope supporting only the mandatory metadata 'event-time'.  See
    Section 3.4 for more extensions to this header.
 
-     notifications:
-       +---n envelope
-          +--ro event-time                   yang:date-and-time
-          +--ro notification-contents?       <anydata>
+     structure envelope:
+       +-- event-time         yang:date-and-time
+       +-- contents?          <anydata>
 
 3.3.2.  Encoding of the Notification model
 
@@ -486,13 +485,14 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    YANG module.
 
    The content of the notification that is defined by the 'notification'
-   statement is encoded in the "notification-contents" node.  The name
-   and namespace of this payload element are determined by the YANG
-   module containing the 'notification' statement representing the
-   notification message.
+   statement is encoded in the "contents" node.  The name and namespace
+   of this payload element are determined by the YANG module containing
+   the 'notification' statement representing the notification message.
 
    The following example shows a "push-update" notification defined in
    the YANG module of YANG-Push [RFC8641] encoded in XML:
+
+
 
 
 
@@ -508,7 +508,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
 
      <envelope xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-notification">
        <event-time>2024-10-10T10:59:55.32Z</event-time>
-       <notification-contents>
+       <contents>
          <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
            <id>1011</id>
            <datastore-contents>
@@ -520,7 +520,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
              </interfaces>
            </datastore-contents>
          </push-update>
-       </notification-contents>
+       </contents>
      </envelope>
 
                      Figure 1: XML-encoded notification
@@ -545,13 +545,13 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    namespace.  See Section 3.4 for more details.
 
    The content of the notification that is defined by the 'notification'
-   statement is encoded in the "notification-contents" node.  The name
-   and namespace of this payload element are determined by the YANG
-   module containing the 'notification' statement representing the
-   notification message.
+   statement is encoded in the "contents" node.  The name and namespace
+   of this payload element are determined by the YANG module containing
+   the 'notification' statement representing the notification message.
 
    The following example shows a "push-update" notification defined in
    the YANG module of YANG-Push [RFC8641] encoded in JSON:
+
 
 
 
@@ -565,7 +565,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        {
            "ietf-yp-notification:envelope": {
                "event-time": "2024-10-10T08:00:11.22Z",
-               "notification-contents": {
+               "contents": {
                  "ietf-yang-push:push-update": {
                      "id": 1011,
                      "datastore-contents": {
@@ -626,11 +626,10 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    See Section 3.4 for more details.
 
    The content of the notification that is defined by the 'notification'
-   statement is encoded in the "notification-contents" node.  The name
-   and namespace of this payload element are determined by the YANG
-   module containing the 'notification' statement representing the
-   notification message.  Similarly, SIDs can be used as keys if they
-   are well allocated.
+   statement is encoded in the "contents" node.  The name and namespace
+   of this payload element are determined by the YANG module containing
+   the 'notification' statement representing the notification message.
+   Similarly, SIDs can be used as keys if they are well allocated.
 
    Figure 3 shows a "push-update" notification defined in the YANG
    module of YANG-Push [RFC8641] encoded in CBOR using names as keys.
@@ -640,7 +639,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
      {
          "ietf-yp-notification:envelope": {
              "event-time": "2024-10-10T08:00:11.22Z",
-             "notification-contents": {
+             "contents": {
                "ietf-yang-push:push-update": {
                    "id": 1011,
                    "datastore-contents": {
@@ -661,6 +660,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        Figure 3: CBOR-encoded notification using diagnostic notation
 
    And Figure 4 shows the same notifcation encoded using SIDs:
+
 
 
 
@@ -740,14 +740,11 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    the following YANG tree [RFC8340].  It also defines an extension to
    the YANG-Push header.  See the following sections for more details.
 
-     notifications:
-       +---n envelope
-          +--ro event-time                   yang:date-and-time
-          +--ro hostname?                    inet:host
-          |       {notification-hostname-sequence-number}?
-          +--ro sequence-number?             yang:counter32
-          |       {notification-hostname-sequence-number}?
-          +--ro notification-contents?       <anydata>
+     structure envelope:
+       +-- event-time         yang:date-and-time
+       +-- hostname?          inet:host
+       +-- sequence-number?   yang:counter32
+       +-- contents?          <anydata>
 
 3.4.1.  Support of Hostname and Sequencing
 
@@ -777,6 +774,9 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    known.  In other terms, the source-host [RFC6470], which is the
    "Address of the remote host for the session" might not be the
    management IP address.
+
+
+
 
 
 
@@ -812,7 +812,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        "event-time": "2023-03-25T08:30:11.22Z",
        "hostname": "example-router",
        "sequence-number": 1,
-       "notification-contents": {
+       "contents": {
          "ietf-yang-push:push-update": {
            "id": 6666,
            "datastore-contents": {
@@ -1017,7 +1017,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        "event-time": "2023-03-25T08:30:12.22Z",
        "hostname": "example-router",
        "sequence-number": 1,
-       "notification-contents": {
+       "contents": {
          "ietf-yang-push:push-change-update": {
            "id": 2222,
            "ietf-yp-observation:timestamp": \
@@ -1129,7 +1129,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        "event-time": "2023-03-25T08:30:11.22Z",
        "hostname": "example-router",
        "sequence-number": 1,
-       "notification-contents": {
+       "contents": {
          "ietf-yang-push:push-update": {
            "id": 6666,
            "ietf-yp-observation:timestamp": \
@@ -1202,10 +1202,10 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
              +---w metadata
 
      structure envelope:
-       +-- event-time               yang:date-and-time
-       +-- hostname?                inet:host
-       +-- sequence-number?         yang:counter32
-       +-- notification-contents?   <anydata>
+       +-- event-time         yang:date-and-time
+       +-- hostname?          inet:host
+       +-- sequence-number?   yang:counter32
+       +-- contents?          <anydata>
 
 5.1.2.  YANG ietf-yp-notification Module
 
@@ -1214,7 +1214,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    [RFC9196] and uses "ietf-yang-types" module [RFC6991] and "ietf-yang-
    structure-ext" module [RFC8791].
 
-   <CODE BEGINS> file "ietf-yp-notification@2025-01-27.yang"
+   <CODE BEGINS> file "ietf-yp-notification@2025-02-19.yang"
    module ietf-yp-notification {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1307,7 +1307,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
        for full legal notices.";
 
-     revision 2025-01-27 {
+     revision 2025-02-19 {
        description
          "First revision";
        reference
@@ -1390,7 +1390,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
            "Unique sequence number as described in [RFC9187] for each
            published message.";
        }
-       anydata notification-contents {
+       anydata contents {
          description
            "This contains the values defined by the 'notification'
            statement unchanged.";
@@ -1971,7 +1971,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
          },
          {
            "namespace": "data",
-           "identifier": "/ietf-yp-notification:envelope/notification-contents",
+           "identifier": "/ietf-yp-notification:envelope/contents",
            "sid": "2555"
          }
        ]

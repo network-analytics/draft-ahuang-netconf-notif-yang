@@ -432,8 +432,8 @@ module: ietf-yp-notification
             the configuration of the subscription as a child nodes of the root "notification-envelope"
             container.</li>
             <li>The content of the notification defined by the 'notification' statement is encoded
-              in the 'notification-contents' leaf.</li>
-            <li>The 'notification-contents' element SHOULD be located at the end of the notification envelop
+              in the 'contents' leaf.</li>
+            <li>The 'contents' element SHOULD be located at the end of the notification envelop
             structure.</li>
             <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
           </ul>
@@ -442,10 +442,9 @@ module: ietf-yp-notification
            supporting only the mandatory metadata 'event-time'.
            See <xref target="extensions-notif"/> for more extensions to this header.</t>
           <sourcecode type="yangtree"><![CDATA[
-  notifications:
-    +---n envelope
-       +--ro event-time                   yang:date-and-time
-       +--ro notification-contents?       <anydata>
+  structure envelope:
+    +-- event-time         yang:date-and-time
+    +-- contents?          <anydata>
 ]]></sourcecode>
           
           <!-- <t>The following sections defines the encodings of this header.</t> -->
@@ -479,7 +478,7 @@ module: ietf-yp-notification
             </t>
 
             <t>The content of the notification that is defined by the 'notification'
-			      statement is encoded in the "notification-contents" node.
+			      statement is encoded in the "contents" node.
             The name and namespace of this payload element are determined by the
             YANG module containing the 'notification' statement representing the
             notification message.</t>
@@ -492,7 +491,7 @@ module: ietf-yp-notification
                   <sourcecode type="xml"><![CDATA[
   <envelope xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-notification">
     <event-time>2024-10-10T10:59:55.32Z</event-time>
-    <notification-contents>
+    <contents>
       <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
         <id>1011</id>
         <datastore-contents>
@@ -504,7 +503,7 @@ module: ietf-yp-notification
           </interfaces>
         </datastore-contents>
       </push-update>
-    </notification-contents>
+    </contents>
   </envelope>
         ]]></sourcecode>
                 </figure>
@@ -529,7 +528,7 @@ module: ietf-yp-notification
             See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
-            encoded in the "notification-contents" node.
+            encoded in the "contents" node.
             The name and namespace of this payload element are determined by the
             YANG module containing the 'notification' statement representing the
             notification message.</t>
@@ -543,7 +542,7 @@ module: ietf-yp-notification
     {
         "ietf-yp-notification:envelope": {
             "event-time": "2024-10-10T08:00:11.22Z",
-            "notification-contents": {
+            "contents": {
               "ietf-yang-push:push-update": {
                   "id": 1011,
                   "datastore-contents": {
@@ -597,7 +596,7 @@ module: ietf-yp-notification
             metadata node is used. See <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
-            encoded in the "notification-contents" node.
+            encoded in the "contents" node.
             The name and namespace of this payload element are determined by the
             YANG module containing the 'notification' statement representing the
             notification message. Similarly, SIDs can be used as keys if they are well allocated.</t>
@@ -613,7 +612,7 @@ module: ietf-yp-notification
   {
       "ietf-yp-notification:envelope": {
           "event-time": "2024-10-10T08:00:11.22Z",
-          "notification-contents": {
+          "contents": {
             "ietf-yang-push:push-update": {
                 "id": 1011,
                 "datastore-contents": {
@@ -699,14 +698,11 @@ module: ietf-yp-observation
       the YANG-Push header. See the following sections for more
       details.</t>
         <sourcecode type="yangtree"><![CDATA[
-  notifications:
-    +---n envelope
-       +--ro event-time                   yang:date-and-time
-       +--ro hostname?                    inet:host
-       |       {notification-hostname-sequence-number}?
-       +--ro sequence-number?             yang:counter32
-       |       {notification-hostname-sequence-number}?
-       +--ro notification-contents?       <anydata>
+  structure envelope:
+    +-- event-time         yang:date-and-time
+    +-- hostname?          inet:host
+    +-- sequence-number?   yang:counter32
+    +-- contents?          <anydata>
 ]]></sourcecode>
 
 	    <section title="Support of Hostname and Sequencing">
@@ -775,7 +771,7 @@ module: ietf-yp-observation
     "event-time": "2023-03-25T08:30:11.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
-    "notification-contents": {
+    "contents": {
       "ietf-yang-push:push-update": {
         "id": 6666,
         "datastore-contents": {
@@ -945,7 +941,7 @@ Timeline
     "event-time": "2023-03-25T08:30:12.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
-    "notification-contents": {
+    "contents": {
       "ietf-yang-push:push-change-update": {
         "id": 2222,
         "ietf-yp-observation:timestamp": \
@@ -1018,7 +1014,7 @@ Timeline
     "event-time": "2023-03-25T08:30:11.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
-    "notification-contents": {
+    "contents": {
       "ietf-yang-push:push-update": {
         "id": 6666,
         "ietf-yp-observation:timestamp": \
@@ -1079,10 +1075,10 @@ module: ietf-yp-notification
           +---w metadata
 
   structure envelope:
-    +-- event-time               yang:date-and-time
-    +-- hostname?                inet:host
-    +-- sequence-number?         yang:counter32
-    +-- notification-contents?   <anydata>
+    +-- event-time         yang:date-and-time
+    +-- hostname?          inet:host
+    +-- sequence-number?   yang:counter32
+    +-- contents?          <anydata>
 ]]></sourcecode>
         </section>
 
@@ -1092,7 +1088,7 @@ module: ietf-yp-notification
           augments the module "ietf-notification-capabilities" <xref target="RFC9196"/> and
           uses "ietf-yang-types" module <xref target="RFC6991"/> and "ietf-yang-structure-ext" module <xref target="RFC8791"/>.</t>
 
-        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-01-27.yang"><![CDATA[
+        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-02-19.yang"><![CDATA[
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1169,7 +1165,7 @@ module ietf-yp-notification {
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.";
 
-  revision 2025-01-27 {
+  revision 2025-02-19 {
     description
       "First revision";
     reference
@@ -1244,7 +1240,7 @@ module ietf-yp-notification {
         "Unique sequence number as described in [RFC9187] for each
         published message.";
     }
-    anydata notification-contents {
+    anydata contents {
       description 
         "This contains the values defined by the 'notification'
         statement unchanged.";
@@ -1704,7 +1700,7 @@ reference: RFC-to-be]]></artwork>
       },
       {
         "namespace": "data",
-        "identifier": "/ietf-yp-notification:envelope/notification-contents",
+        "identifier": "/ietf-yp-notification:envelope/contents",
         "sid": "2555"
       }
     ]
