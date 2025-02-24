@@ -1,0 +1,26 @@
+{
+  "ietf-yp-notification:envelope": {
+    "event-time": "2023-03-25T08:30:11.22Z",
+    "hostname": "example-router",
+    "sequence-number": 1,
+    "contents": {
+      "ietf-yang-push:push-update": {
+        "id": 6666,
+        "ietf-yp-observation:timestamp": "2023-03-25T08:30:11.22Z",
+        "ietf-yp-observation:point-in-time": "current-accounting",
+        "datastore-contents": {
+          "ietf-interfaces:interfaces": [
+            {
+              "interface": {
+                "name": "eth0",
+                "type": "iana-if-type:ethernetCsmacd",
+                "oper-status": "up",
+                "mtu": 1500
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
