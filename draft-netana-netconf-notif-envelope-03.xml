@@ -105,7 +105,7 @@
       for use in YANG-Push Notification messages enabling any YANG compatible encodings
       such as XML, JSON or CBOR. Additionally, it defines two essential extensions to this
       structure, the support of a hostname and a sequence number and the support of a
-      timestamp caracterizing the moment when the changed data was observed.</t>
+      timestamp characterizing the moment when the changed data was observed.</t>
     </abstract>
   </front>
 
@@ -119,7 +119,7 @@
 
       <t>The notification container from YANG-Push is currently based on the XML model 
       from NETCONF Event Notifications <xref target="RFC5277"/>. This model has
-      the drawback that only a single mandatory "eventTime" leaf is defined and does offer a way
+      the drawback that only a single mandatory "eventTime" leaf is defined and does not offer a way
       to extend this header with new notification metadata.
       Additionally, this XML model is only valid for XML-based environments. When messages
       are encoded in other YANG encodings, such as JSON <xref target="RFC7951"/> or CBOR

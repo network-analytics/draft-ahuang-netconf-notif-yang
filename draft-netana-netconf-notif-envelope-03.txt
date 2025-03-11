@@ -22,7 +22,7 @@ Abstract
    any YANG compatible encodings such as XML, JSON or CBOR.
    Additionally, it defines two essential extensions to this structure,
    the support of a hostname and a sequence number and the support of a
-   timestamp caracterizing the moment when the changed data was
+   timestamp characterizing the moment when the changed data was
    observed.
 
 Status of This Memo
@@ -126,7 +126,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    The notification container from YANG-Push is currently based on the
    XML model from NETCONF Event Notifications [RFC5277].  This model has
    the drawback that only a single mandatory "eventTime" leaf is defined
-   and does offer a way to extend this header with new notification
+   and does not offer a way to extend this header with new notification
    metadata.  Additionally, this XML model is only valid for XML-based
    environments.  When messages are encoded in other YANG encodings,
    such as JSON [RFC7951] or CBOR [RFC9254], validators cannot use YANG
@@ -1825,9 +1825,9 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
               Zheng, G., Zhou, T., Graf, T., Francois, P., Feng, A. H.,
               and P. Lucente, "UDP-based Transport for Configured
               Subscriptions", Work in Progress, Internet-Draft, draft-
-              ietf-netconf-udp-notif-18, 13 January 2025,
+              ietf-netconf-udp-notif-20, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
-              udp-notif-18>.
+              udp-notif-20>.
 
    [I-D.ietf-netmod-rfc8407bis]
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
