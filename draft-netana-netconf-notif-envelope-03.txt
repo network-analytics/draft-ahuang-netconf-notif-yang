@@ -1010,8 +1010,6 @@ Huang Feng, et al.        Expires 31 July 2025                 [Page 18]
 Internet-Draft       YANG-Push Notification Envelope        January 2025
 
 
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
-
    {
      "ietf-yp-notification:envelope": {
        "event-time": "2023-03-25T08:30:12.22Z",
@@ -1020,28 +1018,28 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        "contents": {
          "ietf-yang-push:push-change-update": {
            "id": 2222,
-           "ietf-yp-observation:timestamp": "2023-03-25T08:30:11.22Z",
+           "ietf-yp-observation:timestamp": "2023-03-25T08:30:05.22Z",
            "ietf-yp-observation:point-in-time": "state-changed",
            "datastore-contents": {
              "yang-patch": {
-               "patch-id": "patch_54",
-               "comment": "Change encoding to JSON and increasing the p\
-   eriod to 10 minutes",
-               "edit": [
-                 {
-                   "edit-id": "id_change_1",
-                   "operation": "merge",
-                   "target": "/ietf-subscribed-notifications:subscripti\
-   ons/subscription[id=2222]",
-                   "value": {
-                     "ietf-subscribed-notifications:encoding": "ietf-su\
-   bscribed-notifications:encode-json",
-                     "ietf-yang-push:periodic": {
-                       "period": 60000
+               "patch-id": "52",
+               "edit": {
+                 "edit-id": "edit_example_1",
+                 "operation": "replace",
+                 "target": "/ietf-interfaces:interfaces",
+                 "value": {
+                   "interfaces": [
+                     {
+                       "interface": {
+                         "name": "eth0",
+                         "type": "iana-if-type:ethernetCsmacd",
+                         "oper-status": "down",
+                         "mtu": 1500
+                       }
                      }
-                   }
+                   ]
                  }
-               ]
+               }
              }
            }
          }
@@ -1058,6 +1056,8 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
    store to "T2" and point-in-time is set "current-accounting".  At "T3"
    the timestamp of observation timestamp of "T3" is used.  At "T4" the
    timestamp of observation timestamp of "T4" is used.
+
+
 
 
 
@@ -1089,7 +1089,7 @@ Internet-Draft       YANG-Push Notification Envelope        January 2025
        "contents": {
          "ietf-yang-push:push-update": {
            "id": 6666,
-           "ietf-yp-observation:timestamp": "2023-03-25T08:30:11.22Z",
+           "ietf-yp-observation:timestamp": "2023-03-25T08:30:08.22Z",
            "ietf-yp-observation:point-in-time": "current-accounting",
            "datastore-contents": {
              "ietf-interfaces:interfaces": [
