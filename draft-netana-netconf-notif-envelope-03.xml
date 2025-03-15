@@ -399,7 +399,7 @@ module: ietf-yp-notification
         </ul>
 
         <t>The YANG models defined in <xref target="yang-models"/> augments the
-        'ietf-notification-capabilities' model with the leaf and container listed above.</t>
+        'ietf-notification-capabilities' model with the leaf and container listed above:</t>
 
         <sourcecode type="yangtree"><![CDATA[
   augment /sysc:system-capabilities/notc:subscription-capabilities:
@@ -576,7 +576,7 @@ module: ietf-yp-notification
             the keys of the CBOR encoded message for a 63 bit unsigned integer.
             In this case, the keys of the encoded data use the SID value as defined in Section 3.2
             of <xref target="RFC9254"/>.
-            A SID allocation process is needed beforehand following <xref target="I-D.ietf-core-sid"/>.</t>
+            A SID allocation process is needed beforehand as defined in <xref target="RFC9595"/>.</t>
 
             <t>In the notification, two mandatory child nodes within the "ietf-yp-notification:envelope" container
             are expected, representing the event time and the notification
@@ -659,13 +659,13 @@ module: ietf-yp-notification
         </section>
       </section>
       <section anchor="extensions-notif" title="Extensions for the Notification Envelope">
-	    <t>This section described two YANG notification header extensions
-		    which are sent by default when the notification envelope is enabled.
-        When the envelope is enabled using the "enable-notification-envelope" node, the
-        publisher includes by default the "hostname" and "sequence-number" defined in the
-        following sections.
-        The client discovers the support of these two extension headers
-        with the mechanism defined in <xref target="discovery-notif"/>. When the extensions
+	    <t>This section describes two envelope header extensions.
+		    <!-- which are sent by default when the notification envelope is enabled. -->
+        When the envelope is enabled via the "enable-notification-envelope" node, the
+        publisher includes by default the "hostname" and "sequence-number" defined in <xref target="host-ext"/>.
+        The client discovers the support of these two extensions
+        with the mechanism defined in <xref target="discovery-notif"/>.
+        When the extensions
         defined in this document are supported by the server, the client discovers the presence
         of these new metadata with the following augmentations in the 'ietf-notification-capabilities':
       </t>
@@ -700,7 +700,7 @@ module: ietf-yp-observation
     +-- contents?          <anydata>
 ]]></sourcecode>
 
-	    <section title="Support of Hostname and Sequencing">
+	    <section title="Support of Hostname and Sequencing" anchor="host-ext">
 
         <t>When YANG-Push notification messages are forwarded from a
         receiver to another system, such as a message broker or a time series
@@ -1030,7 +1030,11 @@ Timeline
     </section>
 
     <section anchor="operational-cons" title="Operational Considerations">
-      <t>TBD: explain co-existence with RFC5277</t>
+
+      <t>The header defined by NETCONF Event Notifications <xref target="RFC5277"/>
+      and the notification envelope defined in this document may cohexist in a network. An operator
+      deploying the header defined in this document should take the appropriate actions when both
+      headers are used within the same network. It is RECOMMENDED to deploy one receiver for each header.</t>
     </section>
 
     <section anchor="yang-models" title="YANG Modules">
@@ -1523,7 +1527,7 @@ reference: RFC-to-be]]></artwork>
 
       <section title="YANG SID-file" anchor="iana-sid">
         <t>IANA is requested to register a new ".sid" file in the <xref
-        target="I-D.ietf-core-sid">"IETF YANG SID Registry"</xref>:</t>
+        target="RFC9595">"IETF YANG SID Registry"</xref>:</t>
 
         <artwork align="left"><![CDATA[
 SID range entry point: TBD
@@ -1607,15 +1611,15 @@ reference: RFC-to-be]]></artwork>
         <refcontent>W3C</refcontent>
       </reference>
       
-      <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-core-sid.xml"?>
 
     </references>
 
     <references title="Informative References">
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6470.xml'?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9000.xml"?>
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6470.xml'?>
+      <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9595.xml"?>
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8259.xml'?>
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"?>
