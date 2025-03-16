@@ -11,7 +11,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std"
-  docName="draft-netana-netconf-notif-envelope-03"
+  docName="draft-ietf-netconf-notif-envelope-01"
   ipr="trust200902"
   consensus="true"
   submissionType="IETF"
@@ -98,7 +98,7 @@
       </address>
     </author>
 
-    <date day="27" month="January" year="2025"/>
+    <date day="16" month="March" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -1048,15 +1048,15 @@ Timeline
           <figure anchor="timeline_examplen_periodical_fig"
             title="Example timeline for Periodical Subscription">
             <artwork><![CDATA[
-Timeline
------------------------------------------------------->
- | (T1) YANG-Push | (T2) YANG-Push | (T3) YANG-Push
- | "periodical"   | process polls  | "periodical"   
- | subscription   | the metrics    | current        
- | for interface  | from the       | accounting.    
- | counter is     | datastore.     |                
- | established    |                |                
- v                v                v                
+    Timeline
+    ------------------------------------------------------>
+    | (T1) YANG-Push | (T2) YANG-Push | (T3) YANG-Push
+    | "periodical"   | process polls  | "periodical"   
+    | subscription   | the metrics    | current        
+    | for interface  | from the       | accounting.    
+    | counter is     | datastore.     |                
+    | established    |                |                
+    v                v                v                
             ]]></artwork>
           </figure>
 
