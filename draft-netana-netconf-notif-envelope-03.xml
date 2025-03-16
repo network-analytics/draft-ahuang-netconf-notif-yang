@@ -824,18 +824,18 @@ module: ietf-yang-push
         YANG-Push subscription types, as defined in Section 3.1 of <xref
         target="RFC8641"/>, a receiver needs a 
         timestamp reference to align all the metrics and events.
-        The observation timestamp defined in this document describes when the state
-        change was observed or when the data was accounted, so that a receiver can
+        The observation timestamp defined in this document characterizes the moment the state
+        change was observed or the moment when the data was measured, so that a receiver can
         correctly align the collected data.
         </t>
 
-        <t>With the node 'event-time' defined in <xref target="base-notif-model"/> the delay
-        between the YANG notification export process and the arrival at the downstream
-        system storing the data can be measured. With observation timestamp
-        described in this section, the delay between the time of the network
-        observation and the data export of the YANG-Push publisher process can
-        be measured as well, extending the delay measurement scope from the time
-        the network observation and storing the data.</t>
+        <t>The delay between the YANG-Push export process and the reception of the message 
+        at the receiver instance can be measured using the node 'event-time' defined in <xref target="base-notif-model"/>.
+        However, as the 'event-time' node only defines the moment when the YANG-Push message was crafted and sent,
+        the moment when such metrics were collected or the state changes were observed cannot be measured using this timestamp.
+        The observation timestamp defined in this section characterizes the moment when the metrics were observed, 
+        which enable aligning the received metrics to the actual moment they were measured.
+        </t>
 
         <t>When the time bucket length in a time series database and the
         periodical YANG-Push subscription time is configured with the same values,
@@ -897,46 +897,100 @@ module: ietf-yang-push
           </dd>
         </dl>
 
-        <t><xref target="timeline_examplen_on-change_fig"/> provides an example
-        timeline of events to describe observation timestamp and point-in-time
-        for "on-change sync on start" subscriptions. At "T2" when the "on-change
-        sync on start" subscription is established, the timestamp of "T2" is
-        used in observation timestamp and "point-in-time" is set to
-        "initial-state". At "T3" and "T4" the timestamp of "T3" respectively
-        "T4" is used in observation timestamp and point-in-time is set to
-        "state-changed".</t>
+        <section anchor="examples" title="Usage Example">
+          <t>
+          This section illustrates the usage of the "point-in-time" node in two different subscriptions.
+          <xref target="on-change-examples"/> showcases a YANG-Push subscription monitoring the state of an interface using a 'on-change sync on start' subscription.
+          <xref target="periodical-examples"/> illustrates the usage of the 'point-in-time' node within periodical subscriptions.</t>
 
-        <figure anchor="timeline_examplen_on-change_fig"
+          <section anchor="on-change-examples" title="On-Change Subscriptions">
+            <t><xref target="timeline_examplen_on-change_fig"/> illustrates the set of events that lead to the 
+            generation of 'on-change' YANG-Push notifications. This timeline depicts the following states and events:</t>
+
+            <ul>
+              <li>T1: At first, the operational state of the interface is "Up".</li>
+              <li>T2: After configuring an 'on-change' subscription supporting 'sync on start',
+              the publisher sends the initial state of the interface.</li>
+              <li>T3: This is the moment the interface changes its operational status to "Down".</li>
+              <li>T4: After the interface state changes, the publisher generates the 'on-change'
+              notification alerting the receiver.</li>
+            </ul>
+
+            <figure anchor="timeline_examplen_on-change_fig"
               title="Example timeline for On-Change Sync on Start Subscription">
-            <artwork><![CDATA[
+              <artwork><![CDATA[
 Timeline
 ---------------------------------------------------------------------->
- | (T1) Interface | (T2) YANG-Push   | (T3) Interface | (T4) Interface
- | state changed  | "on-change sync  | state changed  | state changed
- | to "Up".       | on start"        | to "Down".     | to "Up".
- |                | subscription for |                |
- |                | interface state  |                |
+ | (T1) Interface | (T2) YANG-Push   | (T3) Interface | (T4) YANG-Push
+ | state changed  | "on-change sync  | state changed  | "on-change"
+ | to "Up".       | on start"        | to "Down".     | notification
+ |                | subscription for |                | with the new  
+ |                | interface state  |                | interface state.
  |                | is established.  |                |
  v                v                  v                v
-            ]]></artwork>
+]]></artwork>
+            </figure>
+
+            <t>At T2, after configuring the subscription, the publisher triggers a 'push-update' notification
+            as depicted in <xref target="push-update-initial"/>.
+            The 'event-time' is the moment the YANG-Push process triggered the notification while the 
+            'ietf-yp-observation:timestamp' node characterizes the timestamp T1, the latest moment
+            this state was observed. In this case, the 'point-in-time' node is set to 'initial-state'.
+            </t>
+
+
+        <figure anchor="push-update-initial"
+              title="Example of 'push-update' notification sent after the subscription is established.">
+            <sourcecode type="json"><![CDATA[
+{
+  "ietf-yp-notification:envelope": {
+    "event-time": "2025-03-25T08:30:11.22Z",
+    "hostname": "example-router",
+    "sequence-number": 1,
+    "contents": {
+      "ietf-yang-push:push-update": {
+        "id": 6666,
+        "ietf-yp-observation:timestamp": "2025-03-25T08:29:30.22Z",
+        "ietf-yp-observation:point-in-time": "initial-state",
+        "datastore-contents": {
+          "ietf-interfaces:interfaces": [
+            {
+              "interface": {
+                "name": "eth0",
+                "type": "iana-if-type:ethernetCsmacd",
+                "oper-status": "up",
+                "mtu": 1500
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+            ]]></sourcecode>
         </figure>
 
-        <t><xref target="push-change-update_example_json_fig"/> provides an example of
-        a JSON encoded, <xref target="RFC8259"/>, "push-change-update"
-        notification message with <xref target="extensions-notif"/> as extension.</t>
+        <t>After T3, the publisher triggers a 'push-change-update' notification
+        announcing an interface status change to the receiver as depicted in
+        <xref target="push-change-update_example_json_fig"/>. In this case,
+        the 'ietf-yp-observation:timestamp' node 
+        characterizes the moment the interface changed its status at T3 while the value of the 'event-time'
+        node characterizes the moment the YANG-Push process generated the message at T4.
+        </t>
 
         <figure anchor="push-change-update_example_json_fig"
               title="JSON Push Example for a push-change-update notification message">
             <sourcecode type="json"><![CDATA[
 {
   "ietf-yp-notification:envelope": {
-    "event-time": "2023-03-25T08:30:12.22Z",
+    "event-time": "2025-03-25T08:35:12.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
     "contents": {
       "ietf-yang-push:push-change-update": {
         "id": 2222,
-        "ietf-yp-observation:timestamp": "2023-03-25T08:30:05.22Z",
+        "ietf-yp-observation:timestamp": "2025-03-25T08:34:05.22Z",
         "ietf-yp-observation:point-in-time": "state-changed",
         "datastore-contents": {
           "yang-patch": {
@@ -966,46 +1020,64 @@ Timeline
 }
             ]]></sourcecode>
         </figure>
+          </section>
+          <section anchor="periodical-examples" title="Periodical Subscriptions">
+          <t>In periodical subscription, the observation time characterizes the
+          time when the metrics were polled from the datastore before it generates
+          the actual YANG-Push message.</t>
 
-        <t><xref target="timeline_examplen_periodical_fig"/> provides an example
-        timeline of events to describe point-in-time for "periodical"
-        subscriptions. The timestamp of observation timestamp in "T2" is set at
-        the start of the polling of the YANG data store to "T2" and
-        point-in-time is set "current-accounting". At "T3" the timestamp of
-        observation timestamp of "T3" is used. At "T4" the timestamp of
-        observation timestamp of "T4" is used.</t>
+          <t><xref target="timeline_examplen_periodical_fig"/> illustrates the delays 
+          associated to the generation of the YANG-Push message. The timeline shows the 
+          following states:</t>
+          
+          <ul>
+            <li>T1: First, the periodical subscription is configured to push the operational status of the interface every N interval.</li>
+            <li>T2: This is the moment the YANG-Push process polls the data state data and metrics from the datastore.</li>
+            <li>T3: After polling the metrics, the YANG-Push process generates the 'push-update' notification.</li>
+          </ul>
 
-        <figure anchor="timeline_examplen_periodical_fig"
-              title="Example timeline for Periodical Subscription">
+
+          <!-- an example
+          timeline of events to describe point-in-time for "periodical"
+          subscriptions. The timestamp of observation timestamp in "T2" is set at
+          the start of the polling of the YANG data store to "T2" and
+          point-in-time is set "current-accounting". At "T3" the timestamp of
+          observation timestamp of "T3" is used. At "T4" the timestamp of
+          observation timestamp of "T4" is used.</t> -->
+
+          <figure anchor="timeline_examplen_periodical_fig"
+            title="Example timeline for Periodical Subscription">
             <artwork><![CDATA[
 Timeline
----------------------------------------------------------------------->
- | (T1) YANG-Push | (T2) YANG-Push | (T3) YANG-Push | (T4) YANG-Push
- | "periodical"   | "periodical"   | "periodical"   | "periodical"
- | subscription   | current        | current        | current
- | for interface  | accounting     | accounting.    | accounting.
- | counter is     |                |                |
- | established    |                |                |
- v                v                v                v
+------------------------------------------------------>
+ | (T1) YANG-Push | (T2) YANG-Push | (T3) YANG-Push
+ | "periodical"   | process polls  | "periodical"   
+ | subscription   | the metrics    | current        
+ | for interface  | from the       | accounting.    
+ | counter is     | datastore.     |                
+ | established    |                |                
+ v                v                v                
             ]]></artwork>
-        </figure>
+          </figure>
 
-        <t><xref target="push-update_example_json_fig"/> provides an example of
-        a JSON encoded, <xref target="RFC8259"/>, "push-update"
-        notification message with <xref target="extensions-notif"/> as extension.</t>
+          <t>An example of a 'push-update' notification sent at T3 is illustrated in <xref target="push-update_example_json_fig"/>.
+          In this case, the node 'event-time' characterizes the moment the YANG-Push process generated the message while
+          the node 'ietf-yp-observation:timestamp' establishes the moment when the metrics were polled from the datastore.
+          For these periodical subscriptions, the 'point-in-time' node must be set to 'current-accounting'.
+          </t>
 
-        <figure anchor="push-update_example_json_fig"
-              title="JSON Push Example for a push-update notification message">
+          <figure anchor="push-update_example_json_fig"
+            title="JSON Push Example for a push-update notification message">
             <sourcecode type="json"><![CDATA[
 {
   "ietf-yp-notification:envelope": {
-    "event-time": "2023-03-25T08:30:11.22Z",
+    "event-time": "2023-03-25T08:30:12.25Z",
     "hostname": "example-router",
     "sequence-number": 1,
     "contents": {
       "ietf-yang-push:push-update": {
         "id": 6666,
-        "ietf-yp-observation:timestamp": "2023-03-25T08:30:08.22Z",
+        "ietf-yp-observation:timestamp": "2023-03-25T08:30:00.00Z",
         "ietf-yp-observation:point-in-time": "current-accounting",
         "datastore-contents": {
           "ietf-interfaces:interfaces": [
@@ -1024,7 +1096,10 @@ Timeline
   }
 }
 ]]></sourcecode>
-        </figure>
+            </figure>
+          
+          </section>
+        </section>
        </section>
       </section>
     </section>
