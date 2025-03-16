@@ -53,7 +53,7 @@ module ietf-yp-observation {
     This version of this YANG module is part of RFC XXXX; see the RFC
     itself for full legal notices.";
 
-  revision 2025-02-19 {
+  revision 2025-02-24 {
     description
       "First revision";
     reference
