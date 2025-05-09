@@ -2075,15 +2075,16 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
 
 
    Specifically, the example extends the notification envelope with a
-   metadata field named "foo".  The YANG module shown in Appendix B
-   illustrates the necessary augmentations to both the 'ietf-yp-
-   notification' module and the 'ietf-notification-capabilities' module.
+   metadata field named "foo".  The YANG module illustrates the
+   necessary augmentations to both the 'ietf-yp-notification' module and
+   the 'ietf-notification-capabilities' module.
 
    <CODE BEGINS> file "example-foo-extension.yang"
    module example-foo-extension {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:example-foo-extension";
      prefix fooext;
+
      import ietf-subscribed-notifications {
        prefix sn;
      }
@@ -2103,7 +2104,8 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
      description
        "Defines a new 'foo' metadata for the notification envelope.";
 
-     // Extending the notification envelope header with a new 'foo' metadata
+     // Extending the notification envelope header with a new
+     // 'foo' metadata
      sx:augment-structure "/inotenv:envelope" {
        leaf foo {
          type string;
@@ -2112,16 +2114,14 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
        }
      }
 
-     // Extending the notifications capabilities so that clients can learn whether this new header is supported or not
-     augment "/sysc:system-capabilities/notc:subscription-capabilities/inotenv:notification-metadata/inotenv:metadata" {
+     // Extending the notifications capabilities so that clients can
+     // learn whether this new header is supported or not
+     augment "/sysc:system-capabilities"
+           + "/notc:subscription-capabilities"
+           + "/inotenv:notification-metadata/inotenv:metadata" {
        description
          "Extension to the subscription-capabilities model to enable
-         clients to learn whether the publisher supports the new 'foo' metadata.";
-       leaf foo {
-         type boolean;
-         default false;
-         description
-           "Adds the 'foo' capability.";
+          clients to learn whether the publisher supports the new
 
 
 
@@ -2130,22 +2130,43 @@ Huang Feng, et al.      Expires 10 November 2025               [Page 38]
 Internet-Draft       YANG-Push Notification Envelope            May 2025
 
 
+          'foo' metadata.";
+       leaf foo {
+         type boolean;
+         default "false";
+         description
+           "Adds the 'foo' capability.";
        }
      }
 
-     // (Optional) A user can optionally add knobs for enabling and disabling specific metadata.
+     // (Optional) A user can optionally add knobs for enabling and
+     // disabling specific metadata.
      augment "/sn:subscriptions/inotenv:metadata" {
        description
-         "An user can optionally, support a configuration knob for enabling or disabling a metadata.";
+         "An user can optionally, support a configuration knob for enabling
+         or disabling a metadata.";
        leaf foo {
          type boolean;
-         default false;
+         default "false";
          description
            "Configuration knob for enabling and disabling the 'foo' metadata.";
        }
      }
    }
    <CODE ENDS>
+
+   The extensions result in the following YANG tree:
+
+   module: example-foo-extension
+
+     augment /sysc:system-capabilities/notc:subscription-capabilities
+               /inotenv:notification-metadata/inotenv:metadata:
+       +--ro foo?   boolean
+     augment /sn:subscriptions/inotenv:metadata:
+       +--rw foo?   boolean
+
+     augment-structure /inotenv:envelope:
+       +-- foo?   string
 
 Authors' Addresses
 
@@ -2154,6 +2175,15 @@ Authors' Addresses
    Lyon
    France
    Email: alex.huang-feng@insa-lyon.fr
+
+
+
+
+
+
+Huang Feng, et al.      Expires 10 November 2025               [Page 39]
+
+Internet-Draft       YANG-Push Notification Envelope            May 2025
 
 
    Pierre Francois
@@ -2181,4 +2211,30 @@ Authors' Addresses
 
 
 
-Huang Feng, et al.      Expires 10 November 2025               [Page 39]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Huang Feng, et al.      Expires 10 November 2025               [Page 40]

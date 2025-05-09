@@ -10,3 +10,7 @@ $ pyang ietf-notification-envelope@2024-10-14.yang -f tree -p dependencies --tre
 $ pyang ietf-yp-notification@2025-02-24.yang -f tree -p dependencies --tree-line-length=69 --tree-print-structures
 $ pyang ietf-yp-observation@2025-02-24.yang -f tree -p dependencies --tree-line-length=69 --tree-print-structures
 ```
+
+```shell
+$ pyang example-foo-extension.yang -f tree  --yang-line-length=69 --keep-comments -p dependencies --tree-print-structures --tree-line-length=69
+```

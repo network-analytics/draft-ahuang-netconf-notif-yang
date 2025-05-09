@@ -2,6 +2,7 @@ module example-foo-extension {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:example-foo-extension";
   prefix fooext;
+
   import ietf-subscribed-notifications {
     prefix sn;
   }
@@ -21,7 +22,8 @@ module example-foo-extension {
   description
     "Defines a new 'foo' metadata for the notification envelope.";
 
-  // Extending the notification envelope header with a new 'foo' metadata
+  // Extending the notification envelope header with a new
+  // 'foo' metadata
   sx:augment-structure "/inotenv:envelope" {
     leaf foo {
       type string;
@@ -30,26 +32,32 @@ module example-foo-extension {
     }
   }
 
-  // Extending the notifications capabilities so that clients can learn whether this new header is supported or not
-  augment "/sysc:system-capabilities/notc:subscription-capabilities/inotenv:notification-metadata/inotenv:metadata" {
+  // Extending the notifications capabilities so that clients can
+  // learn whether this new header is supported or not
+  augment "/sysc:system-capabilities"
+        + "/notc:subscription-capabilities"
+        + "/inotenv:notification-metadata/inotenv:metadata" {
     description
       "Extension to the subscription-capabilities model to enable
-      clients to learn whether the publisher supports the new 'foo' metadata.";
+       clients to learn whether the publisher supports the new
+       'foo' metadata.";
     leaf foo {
       type boolean;
-      default false;
+      default "false";
       description
         "Adds the 'foo' capability.";
     }
   }
 
-  // (Optional) A user can optionally add knobs for enabling and disabling specific metadata.
+  // (Optional) A user can optionally add knobs for enabling and
+  // disabling specific metadata.
   augment "/sn:subscriptions/inotenv:metadata" {
     description
-      "An user can optionally, support a configuration knob for enabling or disabling a metadata.";
+      "An user can optionally, support a configuration knob for enabling
+      or disabling a metadata.";
     leaf foo {
       type boolean;
-      default false;
+      default "false";
       description
         "Configuration knob for enabling and disabling the 'foo' metadata.";
     }
