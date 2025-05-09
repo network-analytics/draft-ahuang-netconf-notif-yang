@@ -422,7 +422,7 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
    *  The content of the notification defined by the 'notification'
       statement is encoded in the 'contents' leaf.
 
-   *  The 'contents' element SHOULD be located at the end of the
+   *  The 'contents' element MUST be located at the end of the
       notification envelop structure.
 
    The following YANG tree [RFC8340] illustrates the notification

@@ -428,7 +428,7 @@ module: ietf-yp-notification
             container.</li>
             <li>The content of the notification defined by the 'notification' statement is encoded
               in the 'contents' leaf.</li>
-            <li>The 'contents' element SHOULD be located at the end of the notification envelop
+            <li>The 'contents' element MUST be located at the end of the notification envelop
             structure.</li>
             <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
           </ul>
