@@ -55,8 +55,8 @@ module ietf-yp-notification {
     is enabled through configuration, the root container of the 
     notification is encoded as defined in RFCXXX.
     
-    This module can be used to validate XML encoded notifications
-    [RFC7950], JSON encoded messages [RFC7951] and CBOR encoded
+    This module can be used to validate XML-encoded notifications
+    [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
     messages [RFC9254]. Refer to Section Y of RFC XXXX for more
     details.
 
@@ -83,7 +83,7 @@ module ietf-yp-notification {
 
   identity notif-envelope-error {
     description 
-      "Base identify for errors found while attempting to
+      "Base identity for errors found while attempting to
       change the value of the leaf 'enable-notification-envelope'.";
   }
 
@@ -128,8 +128,8 @@ module ietf-yp-notification {
       description
         "The hostname of the network node according to
         [RFC1213]. This value is usually configured on the node
-        by the administrator to uniquely identify the node in
-        the network.";
+        by the administrator to identify the node in
+        the network uniquely.";
     }
     leaf sequence-number {
       type yang:counter32;
@@ -148,7 +148,7 @@ module ietf-yp-notification {
   augment "/sn:subscriptions" {
     description
       "This augmentation adds the configuration switches for
-      enabling the notification envelope and metadatas.";
+      enabling the notification envelope and metadata.";
     leaf enable-notification-envelope {
       type boolean;
       default false;
