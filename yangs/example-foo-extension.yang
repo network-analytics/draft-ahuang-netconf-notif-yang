@@ -33,7 +33,7 @@ module example-foo-extension {
   }
 
   // Extending the notifications capabilities so that clients can
-  // learn whether this new header is supported or not
+  // learn whether this new extension is supported or not
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities"
         + "/inotenv:notification-metadata/inotenv:metadata" {
