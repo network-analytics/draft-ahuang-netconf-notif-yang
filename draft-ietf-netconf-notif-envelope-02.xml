@@ -1772,5 +1772,76 @@ reference: RFC-to-be]]></artwork>
     ]]></sourcecode>
       </figure>
     </section>
+
+    <section title="Example extending the Notification Envelope" anchor="appendix-example">
+
+      <t>This appendix provides a non-normative example illustrating how an extension
+      to the notification envelope should be implemented. The example does not define
+      valid metadata, but serves to demonstrate how future extensions should be specified.</t>
+      
+      <t>Specifically, the example extends the notification envelope with a metadata field named "foo".
+      The YANG module illustrates the necessary augmentations to
+      both the 'ietf-yp-notification' module and the 'ietf-notification-capabilities' module.</t>
+
+      <sourcecode anchor="yang-ex" type="yang" markers="true" name="example-foo-extension.yang"><![CDATA[
+module example-foo-extension {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:example-foo-extension";
+  prefix fooext;
+  import ietf-subscribed-notifications {
+    prefix sn;
+  }
+  import ietf-system-capabilities {
+    prefix sysc;
+  }
+  import ietf-notification-capabilities {
+    prefix notc;
+  }
+  import ietf-yang-structure-ext {
+    prefix sx;
+  }
+  import ietf-yp-notification {
+    prefix inotenv;
+  }
+
+  description
+    "Defines a new 'foo' metadata for the notification envelope.";
+
+  // Extending the notification envelope header with a new 'foo' metadata
+  sx:augment-structure "/inotenv:envelope" {
+    leaf foo {
+      type string;
+      description
+        "Description of the 'foo' extension.";
+    }
+  }
+
+  // Extending the notifications capabilities so that clients can learn whether this new header is supported or not
+  augment "/sysc:system-capabilities/notc:subscription-capabilities/inotenv:notification-metadata/inotenv:metadata" {
+    description
+      "Extension to the subscription-capabilities model to enable
+      clients to learn whether the publisher supports the new 'foo' metadata.";
+    leaf foo {
+      type boolean;
+      default false;
+      description
+        "Adds the 'foo' capability.";
+    }
+  }
+
+  // (Optional) A user can optionally add knobs for enabling and disabling specific metadata.
+  augment "/sn:subscriptions/inotenv:metadata" {
+    description
+      "An user can optionally, support a configuration knob for enabling or disabling a metadata.";
+    leaf foo {
+      type boolean;
+      default false;
+      description
+        "Configuration knob for enabling and disabling the 'foo' metadata.";
+    }
+  }
+}
+]]></sourcecode>
+    </section>
   </back>
 </rfc>

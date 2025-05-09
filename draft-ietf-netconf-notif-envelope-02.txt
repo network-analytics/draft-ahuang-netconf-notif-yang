@@ -114,7 +114,8 @@ Huang Feng, et al.      Expires 10 November 2025                [Page 2]
 Internet-Draft       YANG-Push Notification Envelope            May 2025
 
 
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
+   Appendix B.  Example extending the Notification Envelope  . . . .  37
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
 
 1.  Introduction
 
@@ -157,7 +158,6 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
       extensions globally at the server, making the coexistence of
       different YANG-Push and NETCONF Event Notification [RFC5277]
       possible.
-
 
 
 
@@ -2056,13 +2056,13 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
 
            Figure 11: .sid file for "ietf-yp-notification" module
 
-Authors' Addresses
+Appendix B.  Example extending the Notification Envelope
 
-   Alex Huang Feng
-   INSA-Lyon
-   Lyon
-   France
-   Email: alex.huang-feng@insa-lyon.fr
+   This appendix provides a non-normative example illustrating how an
+   extension to the notification envelope should be implemented.  The
+   example does not define valid metadata, but serves to demonstrate how
+   future extensions should be specified.
+
 
 
 
@@ -2072,6 +2072,88 @@ Authors' Addresses
 Huang Feng, et al.      Expires 10 November 2025               [Page 37]
 
 Internet-Draft       YANG-Push Notification Envelope            May 2025
+
+
+   Specifically, the example extends the notification envelope with a
+   metadata field named "foo".  The YANG module shown in Appendix B
+   illustrates the necessary augmentations to both the 'ietf-yp-
+   notification' module and the 'ietf-notification-capabilities' module.
+
+   <CODE BEGINS> file "example-foo-extension.yang"
+   module example-foo-extension {
+     yang-version 1.1;
+     namespace "urn:ietf:params:xml:ns:yang:example-foo-extension";
+     prefix fooext;
+     import ietf-subscribed-notifications {
+       prefix sn;
+     }
+     import ietf-system-capabilities {
+       prefix sysc;
+     }
+     import ietf-notification-capabilities {
+       prefix notc;
+     }
+     import ietf-yang-structure-ext {
+       prefix sx;
+     }
+     import ietf-yp-notification {
+       prefix inotenv;
+     }
+
+     description
+       "Defines a new 'foo' metadata for the notification envelope.";
+
+     // Extending the notification envelope header with a new 'foo' metadata
+     sx:augment-structure "/inotenv:envelope" {
+       leaf foo {
+         type string;
+         description
+           "Description of the 'foo' extension.";
+       }
+     }
+
+     // Extending the notifications capabilities so that clients can learn whether this new header is supported or not
+     augment "/sysc:system-capabilities/notc:subscription-capabilities/inotenv:notification-metadata/inotenv:metadata" {
+       description
+         "Extension to the subscription-capabilities model to enable
+         clients to learn whether the publisher supports the new 'foo' metadata.";
+       leaf foo {
+         type boolean;
+         default false;
+         description
+           "Adds the 'foo' capability.";
+
+
+
+Huang Feng, et al.      Expires 10 November 2025               [Page 38]
+
+Internet-Draft       YANG-Push Notification Envelope            May 2025
+
+
+       }
+     }
+
+     // (Optional) A user can optionally add knobs for enabling and disabling specific metadata.
+     augment "/sn:subscriptions/inotenv:metadata" {
+       description
+         "An user can optionally, support a configuration knob for enabling or disabling a metadata.";
+       leaf foo {
+         type boolean;
+         default false;
+         description
+           "Configuration knob for enabling and disabling the 'foo' metadata.";
+       }
+     }
+   }
+   <CODE ENDS>
+
+Authors' Addresses
+
+   Alex Huang Feng
+   INSA-Lyon
+   Lyon
+   France
+   Email: alex.huang-feng@insa-lyon.fr
 
 
    Pierre Francois
@@ -2099,30 +2181,4 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Huang Feng, et al.      Expires 10 November 2025               [Page 38]
+Huang Feng, et al.      Expires 10 November 2025               [Page 39]
