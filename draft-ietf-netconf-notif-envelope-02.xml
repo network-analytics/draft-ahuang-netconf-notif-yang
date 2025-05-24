@@ -1528,7 +1528,7 @@ module ietf-yp-observation {
        the observation timestamps in streaming update notifications.";
   }
 
-  feature yang-push-subscription-filter {
+  feature yang-push-subscription-filter-metadata {
     description
       "This feature indicates the YANG-push Notifications support
        the subscription filter metadata in streaming update notifications.";

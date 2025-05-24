@@ -1704,7 +1704,7 @@ Internet-Draft       YANG-Push Notification Envelope            May 2025
           the observation timestamps in streaming update notifications.";
      }
 
-     feature yang-push-subscription-filter {
+     feature yang-push-subscription-filter-metadata {
        description
          "This feature indicates the YANG-push Notifications support
           the subscription filter metadata in streaming update notifications.";
