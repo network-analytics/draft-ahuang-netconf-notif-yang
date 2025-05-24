@@ -684,16 +684,10 @@ module: ietf-yp-notification
 module: ietf-yp-observation
 
   augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro yang-push-observation-supported?   boolean
-            {yang-push-observation-timestamp}?
-]]></sourcecode>
-
-    <sourcecode type="yangtree"><![CDATA[
-module: ietf-yp-subscribed-metadata
-
-  augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro yang-push-subscribed-metadata-supported?   boolean
-            {yang-push-subscribed-metadata}?
+    +--ro yang-push-observation-supported?                    boolean
+    |       {yang-push-observation-timestamp}?
+    +--ro yang-push-subscription-filter-metadata-supported?   boolean
+            {yang-push-subscription-filter-metadata}?
 ]]></sourcecode>
 
       <t>This document defines the following notification metadata as shown in the
@@ -811,42 +805,35 @@ module: ietf-yp-subscribed-metadata
 module: ietf-yp-observation
 
   augment /yp:push-update:
-    +--ro timestamp?       yang:date-and-time
-    +--ro point-in-time?   enumeration
-  augment /yp:push-change-update:
-    +--ro timestamp?       yang:date-and-time
-    +--ro point-in-time?   enumeration
-]]></sourcecode>
-
-        <sourcecode type="yangtree"><![CDATA[
-module: ietf-yp-subscribed-metadata
-
-  augment /yp:push-update:
     +--ro (selection-filter)?
-       +--:(by-reference)
-       |  +--ro selection-filter-ref
-       |          selection-filter-ref
-       +--:(within-subscription)
-          +--ro (filter-spec)?
-             +--:(datastore-subtree-filter)
-             |  +--ro datastore-subtree-filter?   <anydata>
-             |          {sn:subtree}?
-             +--:(datastore-xpath-filter)
-                +--ro datastore-xpath-filter?     yang:xpath1.0
-                        {sn:xpath}?
+    |  +--:(by-reference)
+    |  |  +--ro selection-filter-ref
+    |  |          selection-filter-ref
+    |  +--:(within-subscription)
+    |     +--ro (filter-spec)?
+    |        +--:(datastore-subtree-filter)
+    |        |  +--ro datastore-subtree-filter?   <anydata>
+    |        |          {sn:subtree}?
+    |        +--:(datastore-xpath-filter)
+    |           +--ro datastore-xpath-filter?     yang:xpath1.0
+    |                   {sn:xpath}?
+    +--ro timestamp?                              yang:date-and-time
+    +--ro point-in-time?                          enumeration
   augment /yp:push-change-update:
     +--ro (selection-filter)?
-       +--:(by-reference)
-       |  +--ro selection-filter-ref
-       |          selection-filter-ref
-       +--:(within-subscription)
-          +--ro (filter-spec)?
-             +--:(datastore-subtree-filter)
-             |  +--ro datastore-subtree-filter?   <anydata>
-             |          {sn:subtree}?
-             +--:(datastore-xpath-filter)
-                +--ro datastore-xpath-filter?     yang:xpath1.0
-                        {sn:xpath}?
+    |  +--:(by-reference)
+    |  |  +--ro selection-filter-ref
+    |  |          selection-filter-ref
+    |  +--:(within-subscription)
+    |     +--ro (filter-spec)?
+    |        +--:(datastore-subtree-filter)
+    |        |  +--ro datastore-subtree-filter?   <anydata>
+    |        |          {sn:subtree}?
+    |        +--:(datastore-xpath-filter)
+    |           +--ro datastore-xpath-filter?     yang:xpath1.0
+    |                   {sn:xpath}?
+    +--ro timestamp?                              yang:date-and-time
+    +--ro point-in-time?                          enumeration
 ]]></sourcecode>
 
 	    <section title="Support of Observation Timestamp">
@@ -986,7 +973,7 @@ Timeline
         "id": 6666,
         "ietf-yp-observation:timestamp": "2025-03-25T08:29:30.22Z",
         "ietf-yp-observation:point-in-time": "initial-state",
-        "ietf-yp-subscribed-metadata:datastore-xpath-filter": \
+        "ietf-yp-observation:datastore-xpath-filter": \
 				"/ietf-interfaces:interfaces",
         "datastore-contents": {
           "ietf-interfaces:interfaces": [
@@ -1029,7 +1016,7 @@ Timeline
         "id": 2222,
         "ietf-yp-observation:timestamp": "2025-03-25T08:34:05.22Z",
         "ietf-yp-observation:point-in-time": "state-changed",
-        "ietf-yp-subscribed-metadata:datastore-xpath-filter": \
+        "ietf-yp-observation:datastore-xpath-filter": \
 				"/ietf-interfaces:interfaces",
         "datastore-contents": {
           "yang-patch": {
@@ -1120,7 +1107,7 @@ Timeline
         "id": 6666,
         "ietf-yp-observation:timestamp": "2023-03-25T08:30:00.00Z",
         "ietf-yp-observation:point-in-time": "current-accounting",
-        "ietf-yp-subscribed-metadata:datastore-xpath-filter": \
+        "ietf-yp-observation:datastore-xpath-filter": \
 				"/ietf-interfaces:interfaces/statistics",
         "datastore-contents": {
           "ietf-interfaces:interfaces": [
@@ -1145,7 +1132,7 @@ Timeline
         </section>
       </section>
 			
-	    <section title="Support of Subscribed Metadata">
+	    <section title="Support of Subscription Filter">
 
         <t>To identify which subscription filter has been applied to
 				push-update and push-change-update notifications at the
@@ -1429,14 +1416,40 @@ module ietf-yp-notification {
 module: ietf-yp-observation
 
   augment /yp:push-update:
-    +--ro timestamp?       yang:date-and-time
-    +--ro point-in-time?   enumeration
+    +--ro (selection-filter)?
+    |  +--:(by-reference)
+    |  |  +--ro selection-filter-ref
+    |  |          selection-filter-ref
+    |  +--:(within-subscription)
+    |     +--ro (filter-spec)?
+    |        +--:(datastore-subtree-filter)
+    |        |  +--ro datastore-subtree-filter?   <anydata>
+    |        |          {sn:subtree}?
+    |        +--:(datastore-xpath-filter)
+    |           +--ro datastore-xpath-filter?     yang:xpath1.0
+    |                   {sn:xpath}?
+    +--ro timestamp?                              yang:date-and-time
+    +--ro point-in-time?                          enumeration
   augment /yp:push-change-update:
-    +--ro timestamp?       yang:date-and-time
-    +--ro point-in-time?   enumeration
+    +--ro (selection-filter)?
+    |  +--:(by-reference)
+    |  |  +--ro selection-filter-ref
+    |  |          selection-filter-ref
+    |  +--:(within-subscription)
+    |     +--ro (filter-spec)?
+    |        +--:(datastore-subtree-filter)
+    |        |  +--ro datastore-subtree-filter?   <anydata>
+    |        |          {sn:subtree}?
+    |        +--:(datastore-xpath-filter)
+    |           +--ro datastore-xpath-filter?     yang:xpath1.0
+    |                   {sn:xpath}?
+    +--ro timestamp?                              yang:date-and-time
+    +--ro point-in-time?                          enumeration
   augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro yang-push-observation-supported?   boolean
-            {yang-push-observation-timestamp}?
+    +--ro yang-push-observation-supported?                    boolean
+    |       {yang-push-observation-timestamp}?
+    +--ro yang-push-subscription-filter-metadata-supported?   boolean
+            {yang-push-subscription-filter-metadata}?
 
 ]]></sourcecode>
         </section>
@@ -1445,197 +1458,17 @@ module: ietf-yp-observation
           <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
           augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
 
-          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-02-24.yang"><![CDATA[
+          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-05-24.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
-  namespace
-    "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
   prefix ypot;
+
   import ietf-yang-types {
     prefix yang;
     reference
       "RFC 6991: Common YANG Data Types";
   }
-  import ietf-yang-push {
-    prefix yp;
-    reference
-      "RFC 8641: Subscription to YANG Notifications for Datastore Updates";
-  }
-  import ietf-system-capabilities {
-    prefix sysc;
-    reference
-      "RFC 9196: YANG Modules Describing Capabilities for
-       Systems and Datastore Update Notifications";
-  }
-  import ietf-notification-capabilities {
-    prefix notc;
-    reference
-      "RFC 9196: YANG Modules Describing Capabilities for
-       Systems and Datastore Update Notifications";
-  }
-  organization "IETF NETCONF (Network Configuration) Working Group";
-  contact
-    "WG Web:   <http:/tools.ietf.org/wg/netconf/>
-     WG List:  <mailto:netconf@ietf.org>
-
-     Authors:  Thomas Graf
-               <mailto:thomas.graf@swisscom.com>
-               Benoit Claise
-               <mailto:benoit.claise@huawei.com>
-               Alex Huang Feng
-               <mailto:alex.huang-feng@insa-lyon.fr>";
-
-  description
-    "Defines YANG-Push event notification header with the observation
-    time in streaming update notifications.
-
-    Copyright (c) 2025 IETF Trust and the persons identified as
-    authors of the code.  All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, is permitted pursuant to, and subject to the license
-    terms contained in, the Revised BSD License set forth in Section
-    4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
-    (https://trustee.ietf.org/license-info).
-
-    This version of this YANG module is part of RFC XXXX; see the RFC
-    itself for full legal notices.";
-
-  revision 2025-02-24 {
-    description
-      "First revision";
-    reference
-      "RFC XXXX: Support of YANG-Push Notifications Observation Time";
-  }
-
-  feature yang-push-observation-timestamp {
-    description
-      "This feature indicates the YANG-push Notifications support
-      the observation timestamps in streaming update notifications.";
-  }
-
-  grouping yang-push-observation {
-    description
-      "This grouping adds the observation timestamp for the observed metrics.";
-    leaf timestamp {
-      type yang:date-and-time;
-      description
-        "This is the time when metrics were observed.";
-    }
-    leaf point-in-time {
-      type enumeration {
-        enum current-accounting {
-          description "For periodical subscriptions, the point-in-time
-          where the metrics are being polled and observed.";
-        }
-        enum initial-state {
-          description "For 'on-change sync on start' subscriptions, the
-            initial point in time when the subscription was established
-            and the state was observed.";
-        }
-        enum state-changed {
-          description "For 'on-change sync on start' subscriptions, the
-            point in time when the state change was observed after the
-            subscription was established.";
-        }
-      }
-      description
-      "This describes at which point in time the metrics were observed";
-    }
-  }
-
-  // Event notifications
-  augment "/yp:push-update" {
-    description
-      "This augmentation adds the observation timestamp of the accounted metrics
-      in the push-update notification.";
-    uses ypot:yang-push-observation;
-  }
-
-  augment "/yp:push-change-update" {
-    description
-      "This augmentation adds the observation timestamp of the event 
-      in the push-change-update notification.";
-      uses ypot:yang-push-observation;
-  }
-
-  // Event capabilities
-  augment "/sysc:system-capabilities/notc:subscription-capabilities" {
-    description
-      "Add system level capabilities";
-    leaf yang-push-observation-supported {
-      if-feature "yang-push-observation-timestamp";
-      type boolean;
-      description
-        "Specifies whether the publisher supports exporting
-        observation-timestamp and point-in-time in notifications.";
-      reference
-        "RFC XXXX: YANG Notifications Observation Time";
-    }
-  }
-}
-]]></sourcecode>
-        </section>
-      </section>
-
-      <section anchor="ietf-yp-subscribed-metadata-model"
-			title="The 'ietf-yp-subscribed-metadata' Module">
-        <t>The following sections show the YANG tree and YANG module for
-				the 'ietf-yp-subscribed-metadata' module.</t>
-        <section anchor="ietf-yp-subscribed-metadata-yang-tree"
-				title="YANG ietf-yp-subscribed-metadata Tree Diagram">
-          <t>This YANG module extends "ietf-yang-push" <xref target="RFC8641"/>
-          and "ietf-notification-capabilities" <xref target="RFC9196"/> as shown in the
-          following YANG tree <xref target="RFC8340"/>:</t>
-          <sourcecode type="yangtree"><![CDATA[
-module: ietf-yp-subscribed-metadata
-
-  augment /yp:push-update:
-    +--ro (selection-filter)?
-       +--:(by-reference)
-       |  +--ro selection-filter-ref
-       |          selection-filter-ref
-       +--:(within-subscription)
-          +--ro (filter-spec)?
-             +--:(datastore-subtree-filter)
-             |  +--ro datastore-subtree-filter?   <anydata>
-             |          {sn:subtree}?
-             +--:(datastore-xpath-filter)
-                +--ro datastore-xpath-filter?     yang:xpath1.0
-                        {sn:xpath}?
-  augment /yp:push-change-update:
-    +--ro (selection-filter)?
-       +--:(by-reference)
-       |  +--ro selection-filter-ref
-       |          selection-filter-ref
-       +--:(within-subscription)
-          +--ro (filter-spec)?
-             +--:(datastore-subtree-filter)
-             |  +--ro datastore-subtree-filter?   <anydata>
-             |          {sn:subtree}?
-             +--:(datastore-xpath-filter)
-                +--ro datastore-xpath-filter?     yang:xpath1.0
-                        {sn:xpath}?
-  augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro yang-push-subscribed-metadata-supported?   boolean
-            {yang-push-subscribed-metadata}?
-
-]]></sourcecode>
-        </section>
-
-        <section anchor="ietf-yp-subscribed-metadata-yang-module"
-				title="YANG ietf-yp-subscribed-metadata Module">
-          <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
-          augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
-
-          <sourcecode type="yang" markers="true"
-					name="ietf-yp-subscribed-metadata@2025-05-24.yang"><![CDATA[
-module ietf-yp-subscribed-metadata {
-  yang-version 1.1;
-  namespace
-    "urn:ietf:params:xml:ns:yang:ietf-yp-subscribed-metadata";
-  prefix ypsm;
-
   import ietf-yang-push {
     prefix yp;
     reference
@@ -1667,8 +1500,8 @@ module ietf-yp-subscribed-metadata {
                Alex Huang Feng
                <mailto:alex.huang-feng@insa-lyon.fr>";
   description
-    "Defines YANG-Push event notification header with the subscribed
-     metadata in streaming update notifications.
+    "Defines YANG-Push event notification header with the observation
+     time and subscription filter in streaming update notifications.
 
      Copyright (c) 2025 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
@@ -1686,21 +1519,60 @@ module ietf-yp-subscribed-metadata {
     description
       "First revision";
     reference
-      "RFC XXXX: Support of YANG-Push Notifications Observation Time";
+      "RFC XXXX: Extensible YANG Model for Network Telemetry Notifications";
   }
 
-  feature yang-push-subscribed-metadata {
+  feature yang-push-observation-timestamp {
     description
       "This feature indicates the YANG-push Notifications support
-       the subscribed metadata in streaming update notifications.";
+       the observation timestamps in streaming update notifications.";
+  }
+
+  feature yang-push-subscription-filter {
+    description
+      "This feature indicates the YANG-push Notifications support
+       the subscription filter metadata in streaming update notifications.";
+  }
+
+  grouping yang-push-observation {
+    description
+      "This grouping adds the observation timestamp for the observed metrics.";
+    leaf timestamp {
+      type yang:date-and-time;
+      description
+        "This is the time when metrics were observed.";
+    }
+    leaf point-in-time {
+      type enumeration {
+        enum current-accounting {
+          description
+            "For periodical subscriptions, the point-in-time
+             where the metrics are being polled and observed.";
+        }
+        enum initial-state {
+          description
+            "For 'on-change sync on start' subscriptions, the
+             initial point in time when the subscription was established
+             and the state was observed.";
+        }
+        enum state-changed {
+          description
+            "For 'on-change sync on start' subscriptions, the
+             point in time when the state change was observed after the
+             subscription was established.";
+        }
+      }
+      description
+        "This describes at which point in time the metrics were observed";
+    }
   }
 
   // Event notifications
 
   augment "/yp:push-update" {
     description
-      "This augmentation adds the subscribed metadata of the accounted
-        \t\tmetrics in the push-update notification.";
+      "This augmentation adds the observation timestamp of the accounted metrics
+       in the push-update notification.";
     uses yp:selection-filter-objects {
       refine "selection-filter/within-subscription" {
         description
@@ -1711,11 +1583,12 @@ module ietf-yp-subscribed-metadata {
            of the subscription itself.";
       }
     }
+    uses ypot:yang-push-observation;
   }
 
   augment "/yp:push-change-update" {
     description
-      "This augmentation adds the subscribed metadata of the event
+      "This augmentation adds the observation timestamp of the event
        in the push-change-update notification.";
     uses yp:selection-filter-objects {
       refine "selection-filter/within-subscription" {
@@ -1727,6 +1600,7 @@ module ietf-yp-subscribed-metadata {
            of the subscription itself.";
       }
     }
+    uses ypot:yang-push-observation;
   }
 
   // Event capabilities
@@ -1735,13 +1609,21 @@ module ietf-yp-subscribed-metadata {
         + "/notc:subscription-capabilities" {
     description
       "Add system level capabilities";
-    leaf yang-push-subscribed-metadata-supported {
-      if-feature "yang-push-subscribed-metadata";
+    leaf yang-push-observation-supported {
+      if-feature "yang-push-observation-timestamp";
       type boolean;
       description
         "Specifies whether the publisher supports exporting
-         YANG-Push data store, selection filter and YANG library content
-                \t\tin notifications.";
+         observation-timestamp and point-in-time in notifications.";
+      reference
+        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+    }
+    leaf yang-push-subscription-filter-metadata-supported {
+      if-feature "yang-push-subscription-filter-metadata";
+      type boolean;
+      description
+        "Specifies whether the publisher supports exporting
+         YANG-Push subscription filter in notifications.";
       reference
         "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
