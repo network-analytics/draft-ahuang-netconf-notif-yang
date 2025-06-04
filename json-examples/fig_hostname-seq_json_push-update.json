@@ -1,15 +1,11 @@
 {
-  "ietf-yp-notification:envelope": {
-    "event-time": "2023-03-25T08:30:12.25Z",
+    "ietf-yp-notification:envelope": {
+    "event-time": "2023-03-25T08:30:11.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
     "contents": {
       "ietf-yang-push:push-update": {
         "id": 6666,
-        "ietf-yp-observation:timestamp": "2023-03-25T08:30:00.00Z",
-        "ietf-yp-observation:point-in-time": "current-accounting",
-        "ietf-yp-observation:datastore-xpath-filter": 
-          "/ietf-interfaces:interfaces/statistics",
         "datastore-contents": {
           "ietf-interfaces:interfaces": [
             {

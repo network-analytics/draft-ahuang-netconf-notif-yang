@@ -54,7 +54,7 @@ module example-foo-extension {
   augment "/sn:subscriptions/inotenv:metadata" {
     description
       "An user can optionally, support a configuration knob for enabling
-      or disabling a metadata.";
+       or disabling a metadata.";
     leaf foo {
       type boolean;
       default "false";

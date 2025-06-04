@@ -1,0 +1,38 @@
+{
+  "ietf-yp-notification:envelope": {
+    "event-time": "2025-03-25T08:35:12.22Z",
+    "hostname": "example-router",
+    "sequence-number": 1,
+    "contents": {
+      "ietf-yang-push:push-change-update": {
+        "id": 2222,
+        "ietf-yp-observation:timestamp": "2025-03-25T08:34:05.22Z",
+        "ietf-yp-observation:point-in-time": "state-changed",
+        "ietf-yp-observation:datastore-xpath-filter":
+          "/ietf-interfaces:interfaces",
+        "datastore-contents": {
+          "yang-patch": {
+            "patch-id": "52",
+            "edit": {
+              "edit-id": "edit_example_1",
+              "operation": "replace",
+              "target": "/ietf-interfaces:interfaces",
+              "value": {
+                "interfaces": [
+                  {
+                    "interface": {
+                      "name": "eth0",
+                      "type": "iana-if-type:ethernetCsmacd",
+                      "oper-status": "down",
+                      "mtu": 1500
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
