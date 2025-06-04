@@ -112,7 +112,6 @@ module ietf-yp-observation {
   }
 
   // Event notifications
-
   augment "/yp:push-update" {
     description
       "This augmentation adds the observation timestamp of the accounted
@@ -150,7 +149,6 @@ module ietf-yp-observation {
   }
 
   // Event capabilities
-
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities"
         + "/inotenv:notification-metadata/inotenv:metadata" {

@@ -792,8 +792,8 @@ module: ietf-yp-notification
             the support of these two extension headers with the mechanism defined in <xref
             target="discovery-notif"/>.</t>
 
-          <t>This document defines the following notification metadata as shown in the
-            following YANG tree <xref target="RFC8340"/>. See the following sections for more
+          <t>This document defines the following notification metadata as shown in the 
+          following YANG tree <xref target="RFC8340"/>. See the following sections for more
             details.</t>
         <sourcecode type="yangtree"><![CDATA[
 module: ietf-yp-observation
