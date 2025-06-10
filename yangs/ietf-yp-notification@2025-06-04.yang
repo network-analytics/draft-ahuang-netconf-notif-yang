@@ -146,7 +146,6 @@ module ietf-yp-notification {
   }
 
   // Subscription container
-
   augment "/sn:subscriptions" {
     description
       "This augmentation adds the configuration switches for
@@ -165,7 +164,6 @@ module ietf-yp-notification {
   }
 
   // YANG-Push Capabilities extension
-
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities" {
     description

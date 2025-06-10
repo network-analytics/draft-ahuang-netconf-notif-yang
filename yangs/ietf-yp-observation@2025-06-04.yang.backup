@@ -13,6 +13,11 @@ module ietf-yp-observation {
     reference
       "RFC 8641: Subscription to YANG Notifications for Datastore Updates";
   }
+  import ietf-yp-notification {
+    prefix inotenv;
+    reference
+      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+  }
   import ietf-system-capabilities {
     prefix sysc;
     reference
@@ -40,7 +45,7 @@ module ietf-yp-observation {
                <mailto:alex.huang-feng@insa-lyon.fr>";
   description
     "Defines YANG-Push event notification header with the observation
-     time in streaming update notifications.
+     time and subscription filter in streaming update notifications.
 
      Copyright (c) 2025 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
@@ -65,6 +70,12 @@ module ietf-yp-observation {
     description
       "This feature indicates the YANG-push Notifications support
        the observation timestamps in streaming update notifications.";
+  }
+
+  feature yang-push-subscription-filter {
+    description
+      "This feature indicates the YANG-push Notifications support
+       the subscription filter metadata in streaming update notifications.";
   }
 
   grouping yang-push-observation {
@@ -104,20 +115,43 @@ module ietf-yp-observation {
   augment "/yp:push-update" {
     description
       "This augmentation adds the observation timestamp of the accounted
-       metrics in the push-update notification.";
+       metrics and the YANG-Push subscription filters in the push-update
+       notification.";
+    uses yp:selection-filter-objects {
+      refine "selection-filter/within-subscription" {
+        description
+          "Specifies the selection filter and where it originated
+           from. If the 'selection-filter-ref' is populated, the
+           filter in the subscription came from the 'filters'
+           container. Otherwise, it is populated in-line as part
+           of the subscription itself.";
+      }
+    }
     uses ypot:yang-push-observation;
   }
 
   augment "/yp:push-change-update" {
     description
       "This augmentation adds the observation timestamp of the event
-       in the push-change-update notification.";
+       and the YANG-Push subscription filters in the
+       push-change-update notification.";
+    uses yp:selection-filter-objects {
+      refine "selection-filter/within-subscription" {
+        description
+          "Specifies the selection filter and where it originated
+           from. If the 'selection-filter-ref' is populated, the
+           filter in the subscription came from the 'filters'
+           container. Otherwise, it is populated in-line as part
+           of the subscription itself.";
+      }
+    }
     uses ypot:yang-push-observation;
   }
 
   // Event capabilities
   augment "/sysc:system-capabilities"
-        + "/notc:subscription-capabilities" {
+        + "/notc:subscription-capabilities"
+        + "/inotenv:notification-metadata/inotenv:metadata" {
     description
       "Add YANG-Push notification capabilities to system-level capability
        container.";
@@ -127,6 +161,15 @@ module ietf-yp-observation {
       description
         "Specifies whether the publisher supports exporting
          observation-timestamp and point-in-time in notifications.";
+      reference
+        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+    }
+    leaf yang-push-subscription-filter-supported {
+      if-feature "yang-push-subscription-filter";
+      type boolean;
+      description
+        "Specifies whether the publisher supports exporting
+         YANG-Push subscription filter in notifications.";
       reference
         "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }

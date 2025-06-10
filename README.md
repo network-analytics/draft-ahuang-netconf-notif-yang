@@ -1,6 +1,7 @@
 ```shell
 $ pyang ietf-yp-notification@2025-06-04.yang -f tree -p dependencies --tree-line-length=69 --tree-print-structures
 $ pyang ietf-yp-observation@2025-06-04.yang -f tree -p dependencies --tree-line-length=69 --tree-print-structures
+$ pyang dependencies/ietf-yang-push@2019-05-21.yang ietf-yp-observation@2025-06-04.yang -f tree -p dependencies --tree-line-length=69 --tree-print-structures --tree-depth=2
 ```
 
 ```shell
