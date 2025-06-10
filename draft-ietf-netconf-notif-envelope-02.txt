@@ -80,32 +80,32 @@ Table of Contents
      3.3.  Notification Envelope . . . . . . . . . . . . . . . . . .   8
        3.3.1.  Base Notification Model . . . . . . . . . . . . . . .   8
        3.3.2.  Encoding of the Notification Model  . . . . . . . . .   8
-     3.4.  Extensions for the Notification Envelope  . . . . . . . .  13
-       3.4.1.  Support of Hostname and Sequencing  . . . . . . . . .  13
-     3.5.  Extensions for the YANG-Push Header . . . . . . . . . . .  15
-       3.5.1.  Support of Observation Timestamp  . . . . . . . . . .  16
-   4.  Operational Considerations  . . . . . . . . . . . . . . . . .  22
-   5.  YANG Modules  . . . . . . . . . . . . . . . . . . . . . . . .  22
-     5.1.  The 'ietf-yp-notification' Module . . . . . . . . . . . .  22
-       5.1.1.  YANG ietf-yp-notification Tree Diagram  . . . . . . .  23
-       5.1.2.  YANG ietf-yp-notification Module  . . . . . . . . . .  23
-     5.2.  The 'ietf-yp-observation' Module  . . . . . . . . . . . .  27
-       5.2.1.  YANG ietf-yp-observation Tree Diagram . . . . . . . .  27
-       5.2.2.  YANG ietf-yp-observation Module . . . . . . . . . . .  27
-   6.  Implementation Status . . . . . . . . . . . . . . . . . . . .  30
-     6.1.  Huawei VRP  . . . . . . . . . . . . . . . . . . . . . . .  31
-     6.2.  6WIND VSR . . . . . . . . . . . . . . . . . . . . . . . .  31
-     6.3.  Cisco IOS XR  . . . . . . . . . . . . . . . . . . . . . .  31
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  31
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  32
-     8.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .  32
-     8.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  32
-     8.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .  32
-   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  33
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  33
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  33
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  35
-   Appendix A.  .sid file  . . . . . . . . . . . . . . . . . . . . .  36
+     3.4.  Extensions for the Notification Envelope  . . . . . . . .  14
+       3.4.1.  Support of Hostname and Sequencing  . . . . . . . . .  15
+     3.5.  Extensions for the YANG-Push Header . . . . . . . . . . .  17
+       3.5.1.  Support of Observation Timestamp  . . . . . . . . . .  18
+   4.  Operational Considerations  . . . . . . . . . . . . . . . . .  24
+   5.  YANG Modules  . . . . . . . . . . . . . . . . . . . . . . . .  24
+     5.1.  The 'ietf-yp-notification' Module . . . . . . . . . . . .  24
+       5.1.1.  YANG ietf-yp-notification Tree Diagram  . . . . . . .  25
+       5.1.2.  YANG ietf-yp-notification Module  . . . . . . . . . .  25
+     5.2.  The 'ietf-yp-observation' Module  . . . . . . . . . . . .  29
+       5.2.1.  YANG ietf-yp-observation Tree Diagram . . . . . . . .  29
+       5.2.2.  YANG ietf-yp-observation Module . . . . . . . . . . .  29
+   6.  Implementation Status . . . . . . . . . . . . . . . . . . . .  32
+     6.1.  Huawei VRP  . . . . . . . . . . . . . . . . . . . . . . .  33
+     6.2.  6WIND VSR . . . . . . . . . . . . . . . . . . . . . . . .  33
+     6.3.  Cisco IOS XR  . . . . . . . . . . . . . . . . . . . . . .  33
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  33
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  34
+     8.1.  URI . . . . . . . . . . . . . . . . . . . . . . . . . . .  34
+     8.2.  YANG module name  . . . . . . . . . . . . . . . . . . . .  34
+     8.3.  YANG SID-file . . . . . . . . . . . . . . . . . . . . . .  34
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  35
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  35
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  37
+   Appendix A.  .sid file  . . . . . . . . . . . . . . . . . . . . .  38
 
 
 
@@ -114,8 +114,8 @@ Huang-Feng, et al.       Expires 6 December 2025                [Page 2]
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
-   Appendix B.  Example extending the Notification Envelope  . . . .  40
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  41
+   Appendix B.  Example extending the Notification Envelope  . . . .  42
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  43
 
 1.  Introduction
 
@@ -479,6 +479,33 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    The following example shows a "push-update" notification defined in
    the YANG module of YANG-Push [RFC8641] encoded in XML:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025                [Page 9]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
+
    <envelope xmlns="urn:ietf:params:xml:ns:yang:ietf-yp-notification">
      <event-time>2024-10-10T10:59:55.32Z</event-time>
      <contents>
@@ -489,8 +516,16 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
              xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
              <interface>
                <name>eth0</name>
-               <oper-status>up</oper-status>
-             </interface>
+               <type>iana-if-type:ethernetCsmacd</type>
+               <if-index>1</if-index>
+               <admin-status>down</admin-status>
+               <oper-status>down</oper-status>
+               <statistics>
+                 <discontinuity-time>
+                   2013-04-01T03:00:00+00:00
+                 </discontinuity-time>
+               </statistics>
+            </interface>
            </interfaces>
          </datastore-contents>
        </push-update>
@@ -498,13 +533,6 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    </envelope>
 
                      Figure 1: XML-encoded notification
-
-
-
-Huang-Feng, et al.       Expires 6 December 2025                [Page 9]
-
-Internet-Draft       YANG-Push Notification Envelope           June 2025
-
 
 3.3.2.2.  JSON Encoding
 
@@ -525,34 +553,6 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    mandatory 'event-time' node and use the YANG module name as its
    namespace.  See Section 3.4 for more details.
 
-   The content of the notification that is defined by the 'notification'
-   statement is encoded in the "contents" node.  The name and namespace
-   of this payload element are determined by the YANG module containing
-   the 'notification' statement representing the notification message.
-
-   The following example shows a "push-update" notification defined in
-   the YANG module of YANG-Push [RFC8641] encoded in JSON:
-
-       {
-           "ietf-yp-notification:envelope": {
-               "event-time": "2024-10-10T08:00:11.22Z",
-               "contents": {
-                 "ietf-yang-push:push-update": {
-                     "id": 1011,
-                     "datastore-contents": {
-                         "ietf-interfaces:interfaces": [
-                             {
-                                 "interface": {
-                                     "name": "eth0",
-                                     "oper-status": "up"
-                                 }
-                             }
-                         ]
-                     }
-                 }
-               }
-           }
-       }
 
 
 
@@ -561,6 +561,41 @@ Huang-Feng, et al.       Expires 6 December 2025               [Page 10]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
+
+   The content of the notification that is defined by the 'notification'
+   statement is encoded in the "contents" node.  The name and namespace
+   of this payload element are determined by the YANG module containing
+   the 'notification' statement representing the notification message.
+
+   The following example shows a "push-update" notification defined in
+   the YANG module of YANG-Push [RFC8641] encoded in JSON:
+
+     {
+       "ietf-yp-notification:envelope": {
+         "event-time": "2024-10-10T08:00:11.22Z",
+         "contents": {
+           "ietf-yang-push:push-update": {
+             "id": 1011,
+             "datastore-contents": {
+               "ietf-interfaces:interfaces": {
+                 "interface": [
+                   {
+                     "name": "eth0",
+                     "type": "iana-if-type:ethernetCsmacd",
+                     "if-index": 1,
+                     "admin-status": "up",
+                     "oper-status": "up",
+                     "statistics": {
+                       "discontinuity-time": "2025-03-25T06:43:12Z"
+                     }
+                   }
+                 ]
+               }
+             }
+           }
+         }
+       }
+     }
 
                     Figure 2: JSON-encoded notification
 
@@ -574,6 +609,14 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    the name of the element itself or be namespace-qualified.  In the
    latter case, the namespace of the notification container uses the
    YANG module name "ietf-yp-notification", defined in Section 5.1.2.
+
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 11]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
 
    Notification encoded using YANG-SIDs replaces the names of the keys
    of the CBOR encoded message for a 63-bit unsigned integer.  In this
@@ -613,59 +656,16 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 11]
-
-Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
-     {
-         "ietf-yp-notification:envelope": {
-             "event-time": "2024-10-10T08:00:11.22Z",
-             "contents": {
-               "ietf-yang-push:push-update": {
-                   "id": 1011,
-                   "datastore-contents": {
-                       "ietf-interfaces:interfaces": [
-                           {
-                               "interface": {
-                                   "name": "eth0",
-                                   "oper-status": "up"
-                               }
-                           }
-                       ]
-                   }
-               }
-             }
-         }
-     }
 
-       Figure 3: CBOR-encoded notification using diagnostic notation
 
-   And Figure 4 shows the same notification encoded using SIDs:
 
-     {
-         2551: {
-             1: "2024-10-10T08:00:11.22Z",
-             4: {
-               "ietf-yang-push:push-update": {
-                   "id": 1011,
-                   "datastore-contents": {
-                       "ietf-interfaces:interfaces": [
-                           {
-                               "interface": {
-                                   "name": "eth0",
-                                   "oper-status": "up"
-                               }
-                           }
-                       ]
-                   }
-               }
-             }
-         }
-     }
 
-        Figure 4: CBOR-encoded notification using YANG SIDs in CBOR
-                            diagnostic notation
+
+
+
+
 
 
 
@@ -673,6 +673,92 @@ Huang-Feng, et al.       Expires 6 December 2025               [Page 12]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
+
+     {
+       "ietf-yp-notification:envelope": {
+         "event-time": "2024-10-10T08:00:11.22Z",
+         "contents": {
+           "ietf-yang-push:push-update": {
+             "id": 1011,
+             "datastore-contents": {
+               "ietf-interfaces:interfaces": {
+                 "interface": [
+                   {
+                     "name": "eth0",
+                     "type": "iana-if-type:ethernetCsmacd",
+                     "if-index": 1,
+                     "admin-status": "up",
+                     "oper-status": "up",
+                     "statistics": {
+                       "discontinuity-time": "2025-03-25T06:43:12Z"
+                     }
+                   }
+                 ]
+               }
+             }
+           }
+         }
+       }
+     }
+
+       Figure 3: CBOR-encoded notification using diagnostic notation
+
+   And Figure 4 shows the same notification encoded using SIDs:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 13]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
+
+     {
+       2958: {
+         2: "2024-10-10T08:00:11.22Z",
+         1: {
+           "ietf-yang-push:push-update": {
+             "id": 1011,
+             "datastore-contents": {
+               "ietf-interfaces:interfaces": {
+                 "interface": [
+                   {
+                     "name": "eth0",
+                     "type": "iana-if-type:ethernetCsmacd",
+                     "if-index": 1,
+                     "admin-status": "up",
+                     "oper-status": "up",
+                     "statistics": {
+                       "discontinuity-time": "2025-03-25T06:43:12Z"
+                     }
+                   }
+                 ]
+               }
+             }
+           }
+         }
+       }
+     }
+
+        Figure 4: CBOR-encoded notification using YANG SIDs in CBOR
+                            diagnostic notation
 
 3.4.  Extensions for the Notification Envelope
 
@@ -684,6 +770,21 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    extensions defined in this document are supported by the server, the
    client discovers the presence of new metadata with the following
    augmentations in the 'ietf-notification-capabilities':
+
+
+
+
+
+
+
+
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 14]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
 
    module: ietf-yp-notification
 
@@ -722,14 +823,6 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    To correlate network data among different Network Telemetry planes as
    described in Section 3.1 of [RFC9232] or among different YANG-Push
    subscription types as defined in Section 3.1 of [RFC8641], a
-
-
-
-Huang-Feng, et al.       Expires 6 December 2025               [Page 13]
-
-Internet-Draft       YANG-Push Notification Envelope           June 2025
-
-
    reference to the node streaming the data is needed.  This is
    essential for understanding the timely relationship among these
    different planes and YANG-Push subscription types.
@@ -739,6 +832,15 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    publishing process.  However, this implies encoding this information
    in the YANG-Push notification messages which impact the semantic
    readability of the message in the downstream system.
+
+
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 15]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
 
    On top of that, the transport source IP address might not represent
    the management IP address by which the YANG-Push publisher should be
@@ -781,7 +883,17 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 14]
+
+
+
+
+
+
+
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 16]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -795,16 +907,20 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
          "ietf-yang-push:push-update": {
            "id": 6666,
            "datastore-contents": {
-             "ietf-interfaces:interfaces": [
-               {
-                 "interface": {
+             "ietf-interfaces:interfaces": {
+               "interface": [
+                 {
                    "name": "eth0",
                    "type": "iana-if-type:ethernetCsmacd",
+                   "if-index": 1,
+                   "admin-status": "up",
                    "oper-status": "up",
-                   "mtu": 1500
+                   "statistics": {
+                     "discontinuity-time": "2025-03-25T06:43:12Z"
+                   }
                  }
-               }
-             ]
+               ]
+             }
            }
          }
        }
@@ -824,6 +940,20 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    the following YANG tree [RFC8340].  See the following sections for
    more details.
 
+
+
+
+
+
+
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 17]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
+
    module: ietf-yp-observation
 
      augment /yp:push-update:
@@ -832,15 +962,6 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
      augment /yp:push-change-update:
        +--ro timestamp?       yang:date-and-time
        +--ro point-in-time?   enumeration
-
-
-
-
-
-Huang-Feng, et al.       Expires 6 December 2025               [Page 15]
-
-Internet-Draft       YANG-Push Notification Envelope           June 2025
-
 
 3.5.1.  Support of Observation Timestamp
 
@@ -881,6 +1002,14 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    and a 'point-in-time' node, the data collection process can always
    ensure it has the best available time for indexing the data.  It can
    therefore use unconditionally the observation timestamp node in the
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 18]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
+
    data processing chain to correctly align the metrics and events.  At
    the same time, the 'point-in-time' node ensures that the semantics
    associated with the timestamp are not lost throughout the data
@@ -889,14 +1018,6 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    Besides the Subscription ID as described in Section 3.7 of [RFC8641],
    the following network observation time metadata objects are part of
    "push-update" and "push-change-update" notifications.
-
-
-
-
-Huang-Feng, et al.       Expires 6 December 2025               [Page 16]
-
-Internet-Draft       YANG-Push Notification Envelope           June 2025
-
 
    timestamp:  States the measurement observation time for the "push-
       update" notification in "periodical" subscriptions and for the
@@ -937,6 +1058,14 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    'on-change' YANG-Push notifications.  This timeline depicts the
    following states and events:
 
+
+
+
+Huang-Feng, et al.       Expires 6 December 2025               [Page 19]
+
+Internet-Draft       YANG-Push Notification Envelope           June 2025
+
+
    *  T1: At first, the operational state of the interface is "Up".
 
    *  T2: After configuring an 'on-change' subscription supporting 'sync
@@ -944,15 +1073,6 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
    *  T3: This is the moment the interface changes its operational
       status to "Down".
-
-
-
-
-
-Huang-Feng, et al.       Expires 6 December 2025               [Page 17]
-
-Internet-Draft       YANG-Push Notification Envelope           June 2025
-
 
    *  T4: After the interface state changes, the publisher generates the
       'on-change' notification alerting the receiver.
@@ -997,15 +1117,7 @@ Timeline
 
 
 
-
-
-
-
-
-
-
-
-Huang-Feng, et al.       Expires 6 December 2025               [Page 18]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 20]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1061,7 +1173,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 19]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 21]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1117,7 +1229,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 20]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 22]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1173,7 +1285,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 21]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 23]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1197,7 +1309,9 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
                  "admin-status": "up",
                  "oper-status": "up",
                  "statistics": {
-                   "discontinuity-time": "2023-03-25T07:43:12Z"
+                   "discontinuity-time": "2023-03-25T07:43:12Z",
+                   "in-octets": 200,
+                   "in-octets": 250
                  }
                }]
              }
@@ -1227,9 +1341,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-
-
-Huang-Feng, et al.       Expires 6 December 2025               [Page 22]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 24]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1268,7 +1380,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    module ietf-yp-notification {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
-     prefix inotenv;
+     prefix iypn;
 
      import ietf-yang-types {
        prefix yang;
@@ -1285,7 +1397,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 23]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 25]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1341,7 +1453,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 24]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 26]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1397,7 +1509,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 25]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 27]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1453,7 +1565,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 26]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 28]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1509,7 +1621,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 27]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 29]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1565,7 +1677,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 28]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 30]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1621,7 +1733,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 29]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 31]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1677,7 +1789,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 30]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 32]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1733,12 +1845,12 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 31]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 33]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
-   *  /sn:subscriptions/inotenv:enable-notification-envelope
+   *  /sn:subscriptions/iypn:enable-notification-envelope
 
    The entries in the list above will show whether the mechanism defined
    in this document is enabled.  Access control MUST be set so that only
@@ -1772,7 +1884,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
    name: ietf-yp-notification
    namespace: urn:ietf:params:xml:ns:yang:ietf-yp-notification
-   prefix: inotenv
+   prefix: iypn
    reference: RFC-to-be
 
    name: ietf-yp-observation
@@ -1789,7 +1901,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 32]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 34]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1845,7 +1957,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 33]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 35]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1901,7 +2013,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 34]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 36]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -1957,7 +2069,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 35]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 37]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -2013,7 +2125,7 @@ Appendix A.  .sid file
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 36]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 38]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -2069,7 +2181,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 37]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 39]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -2125,7 +2237,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 38]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 40]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -2181,7 +2293,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 39]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 41]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -2217,7 +2329,7 @@ Appendix B.  Example extending the Notification Envelope
        prefix sx;
      }
      import ietf-yp-notification {
-       prefix inotenv;
+       prefix iypn;
      }
 
      description
@@ -2225,7 +2337,7 @@ Appendix B.  Example extending the Notification Envelope
 
      // Extending the notification envelope header with a new
      // 'foo' metadata
-     sx:augment-structure "/inotenv:envelope" {
+     sx:augment-structure "/iypn:envelope" {
        leaf foo {
          type string;
          description
@@ -2237,7 +2349,7 @@ Appendix B.  Example extending the Notification Envelope
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 40]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 42]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -2245,7 +2357,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
      // learn whether this new extension is supported or not
      augment "/sysc:system-capabilities"
            + "/notc:subscription-capabilities"
-           + "/inotenv:notification-metadata/inotenv:metadata" {
+           + "/iypn:notification-metadata/iypn:metadata" {
        description
          "Extension to the subscription-capabilities model to enable
           clients to learn whether the publisher supports the new
@@ -2260,7 +2372,7 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
      // (Optional) A user can optionally add knobs for enabling and
      // disabling specific metadata.
-     augment "/sn:subscriptions/inotenv:metadata" {
+     augment "/sn:subscriptions/iypn:metadata" {
        description
          "An user can optionally, support a configuration knob for enabling
           or disabling a metadata.";
@@ -2279,12 +2391,12 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
    module: example-foo-extension
 
      augment /sysc:system-capabilities/notc:subscription-capabilities
-               /inotenv:notification-metadata/inotenv:metadata:
+               /iypn:notification-metadata/iypn:metadata:
        +--ro foo?   boolean
-     augment /sn:subscriptions/inotenv:metadata:
+     augment /sn:subscriptions/iypn:metadata:
        +--rw foo?   boolean
 
-     augment-structure /inotenv:envelope:
+     augment-structure /iypn:envelope:
        +-- foo?   string
 
 Authors' Addresses
@@ -2293,7 +2405,7 @@ Authors' Addresses
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 41]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 43]
 
 Internet-Draft       YANG-Push Notification Envelope           June 2025
 
@@ -2349,4 +2461,4 @@ Internet-Draft       YANG-Push Notification Envelope           June 2025
 
 
 
-Huang-Feng, et al.       Expires 6 December 2025               [Page 42]
+Huang-Feng, et al.       Expires 6 December 2025               [Page 44]

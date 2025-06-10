@@ -16,7 +16,7 @@ module example-foo-extension {
     prefix sx;
   }
   import ietf-yp-notification {
-    prefix inotenv;
+    prefix iypn;
   }
 
   description
@@ -24,7 +24,7 @@ module example-foo-extension {
 
   // Extending the notification envelope header with a new
   // 'foo' metadata
-  sx:augment-structure "/inotenv:envelope" {
+  sx:augment-structure "/iypn:envelope" {
     leaf foo {
       type string;
       description
@@ -36,7 +36,7 @@ module example-foo-extension {
   // learn whether this new extension is supported or not
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities"
-        + "/inotenv:notification-metadata/inotenv:metadata" {
+        + "/iypn:notification-metadata/iypn:metadata" {
     description
       "Extension to the subscription-capabilities model to enable
        clients to learn whether the publisher supports the new
@@ -51,7 +51,7 @@ module example-foo-extension {
 
   // (Optional) A user can optionally add knobs for enabling and
   // disabling specific metadata.
-  augment "/sn:subscriptions/inotenv:metadata" {
+  augment "/sn:subscriptions/iypn:metadata" {
     description
       "An user can optionally, support a configuration knob for enabling
        or disabling a metadata.";

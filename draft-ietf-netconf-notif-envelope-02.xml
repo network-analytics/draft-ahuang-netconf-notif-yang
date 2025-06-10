@@ -494,8 +494,16 @@ module: ietf-yp-notification
           xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
           <interface>
             <name>eth0</name>
-            <oper-status>up</oper-status>
-          </interface>
+            <type>iana-if-type:ethernetCsmacd</type>
+            <if-index>1</if-index>
+            <admin-status>down</admin-status>
+            <oper-status>down</oper-status>
+            <statistics>
+              <discontinuity-time>
+                2013-04-01T03:00:00+00:00
+              </discontinuity-time>
+            </statistics>
+         </interface>
         </interfaces>
       </datastore-contents>
     </push-update>
@@ -535,26 +543,32 @@ module: ietf-yp-notification
             <figure anchor="fig_json"
                   title="JSON-encoded notification">
                   <sourcecode type="json"><![CDATA[
-    {
-        "ietf-yp-notification:envelope": {
-            "event-time": "2024-10-10T08:00:11.22Z",
-            "contents": {
-              "ietf-yang-push:push-update": {
-                  "id": 1011,
-                  "datastore-contents": {
-                      "ietf-interfaces:interfaces": [
-                          {
-                              "interface": {
-                                  "name": "eth0",
-                                  "oper-status": "up"
-                              }
-                          }
-                      ]
+  {
+    "ietf-yp-notification:envelope": {
+      "event-time": "2024-10-10T08:00:11.22Z",
+      "contents": {
+        "ietf-yang-push:push-update": {
+          "id": 1011,
+          "datastore-contents": {
+            "ietf-interfaces:interfaces": {
+              "interface": [
+                {
+                  "name": "eth0",
+                  "type": "iana-if-type:ethernetCsmacd",
+                  "if-index": 1,
+                  "admin-status": "up",
+                  "oper-status": "up",
+                  "statistics": {
+                    "discontinuity-time": "2025-03-25T06:43:12Z"
                   }
-              }
+                }
+              ]
             }
+          }
         }
+      }
     }
+  }
         ]]></sourcecode>
             </figure>
             
@@ -606,24 +620,30 @@ module: ietf-yp-notification
                 title="CBOR-encoded notification using diagnostic notation">
                 <sourcecode type="cbor-diag"><![CDATA[
   {
-      "ietf-yp-notification:envelope": {
-          "event-time": "2024-10-10T08:00:11.22Z",
-          "contents": {
-            "ietf-yang-push:push-update": {
-                "id": 1011,
-                "datastore-contents": {
-                    "ietf-interfaces:interfaces": [
-                        {
-                            "interface": {
-                                "name": "eth0",
-                                "oper-status": "up"
-                            }
-                        }
-                    ]
+    "ietf-yp-notification:envelope": {
+      "event-time": "2024-10-10T08:00:11.22Z",
+      "contents": {
+        "ietf-yang-push:push-update": {
+          "id": 1011,
+          "datastore-contents": {
+            "ietf-interfaces:interfaces": {
+              "interface": [
+                {
+                  "name": "eth0",
+                  "type": "iana-if-type:ethernetCsmacd",
+                  "if-index": 1,
+                  "admin-status": "up",
+                  "oper-status": "up",
+                  "statistics": {
+                    "discontinuity-time": "2025-03-25T06:43:12Z"
+                  }
                 }
+              ]
             }
           }
+        }
       }
+    }
   }
       ]]></sourcecode>
             </figure>
@@ -635,24 +655,30 @@ module: ietf-yp-notification
                 title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
                 <sourcecode type="cbor-diag"><![CDATA[
   {
-      2551: {
-          1: "2024-10-10T08:00:11.22Z",
-          4: {
-            "ietf-yang-push:push-update": {
-                "id": 1011,
-                "datastore-contents": {
-                    "ietf-interfaces:interfaces": [
-                        {
-                            "interface": {
-                                "name": "eth0",
-                                "oper-status": "up"
-                            }
-                        }
-                    ]
+    2958: {
+      2: "2024-10-10T08:00:11.22Z",
+      1: {
+        "ietf-yang-push:push-update": {
+          "id": 1011,
+          "datastore-contents": {
+            "ietf-interfaces:interfaces": {
+              "interface": [
+                {
+                  "name": "eth0",
+                  "type": "iana-if-type:ethernetCsmacd",
+                  "if-index": 1,
+                  "admin-status": "up",
+                  "oper-status": "up",
+                  "statistics": {
+                    "discontinuity-time": "2025-03-25T06:43:12Z"
+                  }
                 }
+              ]
             }
           }
+        }
       }
+    }
   }
         ]]></sourcecode>
             </figure>
@@ -767,16 +793,20 @@ module: ietf-yp-observation
       "ietf-yang-push:push-update": {
         "id": 6666,
         "datastore-contents": {
-          "ietf-interfaces:interfaces": [
-            {
-              "interface": {
+          "ietf-interfaces:interfaces": {
+            "interface": [
+              {
                 "name": "eth0",
                 "type": "iana-if-type:ethernetCsmacd",
+                "if-index": 1,
+                "admin-status": "up",
                 "oper-status": "up",
-                "mtu": 1500
+                "statistics": {
+                  "discontinuity-time": "2025-03-25T06:43:12Z"
+                }
               }
-            }
-          ]
+            ]
+          }
         }
       }
     }
@@ -1082,7 +1112,9 @@ Timeline
               "admin-status": "up",
               "oper-status": "up",
               "statistics": {
-                "discontinuity-time": "2023-03-25T07:43:12Z"
+                "discontinuity-time": "2023-03-25T07:43:12Z",
+                "in-octets": 200,
+                "in-octets": 250
               }
             }]
           }
@@ -1191,7 +1223,7 @@ module: ietf-yp-notification
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
-  prefix inotenv;
+  prefix iypn;
 
   import ietf-yang-types {
     prefix yang;
@@ -1595,7 +1627,7 @@ module ietf-yp-observation {
       </t>
 
       <ul>
-        <li>/sn:subscriptions/inotenv:enable-notification-envelope</li>
+        <li>/sn:subscriptions/iypn:enable-notification-envelope</li>
       </ul>
 
       <t>The entries in the list above will show whether the mechanism defined in
@@ -1635,7 +1667,7 @@ Reference: RFC-to-be]]></artwork>
         <artwork align="left"><![CDATA[
 name: ietf-yp-notification
 namespace: urn:ietf:params:xml:ns:yang:ietf-yp-notification
-prefix: inotenv
+prefix: iypn
 reference: RFC-to-be]]></artwork>
 
         <artwork align="left"><![CDATA[
@@ -1948,7 +1980,7 @@ module example-foo-extension {
     prefix sx;
   }
   import ietf-yp-notification {
-    prefix inotenv;
+    prefix iypn;
   }
 
   description
@@ -1956,7 +1988,7 @@ module example-foo-extension {
 
   // Extending the notification envelope header with a new
   // 'foo' metadata
-  sx:augment-structure "/inotenv:envelope" {
+  sx:augment-structure "/iypn:envelope" {
     leaf foo {
       type string;
       description
@@ -1968,7 +2000,7 @@ module example-foo-extension {
   // learn whether this new extension is supported or not
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities"
-        + "/inotenv:notification-metadata/inotenv:metadata" {
+        + "/iypn:notification-metadata/iypn:metadata" {
     description
       "Extension to the subscription-capabilities model to enable
        clients to learn whether the publisher supports the new
@@ -1983,7 +2015,7 @@ module example-foo-extension {
 
   // (Optional) A user can optionally add knobs for enabling and
   // disabling specific metadata.
-  augment "/sn:subscriptions/inotenv:metadata" {
+  augment "/sn:subscriptions/iypn:metadata" {
     description
       "An user can optionally, support a configuration knob for enabling
        or disabling a metadata.";
@@ -2002,12 +2034,12 @@ module example-foo-extension {
 module: example-foo-extension
 
   augment /sysc:system-capabilities/notc:subscription-capabilities
-            /inotenv:notification-metadata/inotenv:metadata:
+            /iypn:notification-metadata/iypn:metadata:
     +--ro foo?   boolean
-  augment /sn:subscriptions/inotenv:metadata:
+  augment /sn:subscriptions/iypn:metadata:
     +--rw foo?   boolean
 
-  augment-structure /inotenv:envelope:
+  augment-structure /iypn:envelope:
     +-- foo?   string
 ]]></sourcecode>
     </section>
