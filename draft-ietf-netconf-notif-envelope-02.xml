@@ -98,7 +98,7 @@
       </address>
     </author>
 
-    <date day="04" month="June" year="2025"/>
+    <date day="17" month="June" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -1777,7 +1777,6 @@ reference: RFC-to-be]]></artwork>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"?>
       <?rfc include="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9232.xml"?>
       <?rfc include="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-netconf-udp-notif.xml"?>
-      <?rfc include="https://datatracker.ietf.org/doc/bibxml3/draft-netana-nmop-message-broker-telemetry-message.xml"?>
       <?rfc include="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml"?>
       <!-- <?rfc include="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-netconf-notification-messages-08.xml"?> -->
     </references>
