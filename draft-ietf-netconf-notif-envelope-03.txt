@@ -74,12 +74,12 @@ Table of Contents
      2.3.  Relationship to RFC7950 . . . . . . . . . . . . . . . . .   5
      2.4.  Relationship to RFC7951 . . . . . . . . . . . . . . . . .   5
      2.5.  Relationship to RFC9254 . . . . . . . . . . . . . . . . .   5
-   3.  Solution  . . . . . . . . . . . . . . . . . . . . . . . . . .   6
+   3.  Notification Envelope Model . . . . . . . . . . . . . . . . .   6
      3.1.  Enabling the Notification Envelope  . . . . . . . . . . .   7
-     3.2.  Discovering the support of this model . . . . . . . . . .   7
-     3.3.  Notification Envelope . . . . . . . . . . . . . . . . . .   8
+     3.2.  Discovering the Support of this Model . . . . . . . . . .   7
+     3.3.  Notification Envelope Structure . . . . . . . . . . . . .   8
        3.3.1.  Base Notification Model . . . . . . . . . . . . . . .   8
-       3.3.2.  Encoding of the Notification Model  . . . . . . . . .   8
+       3.3.2.  Encodings of the Notification Envelope  . . . . . . .   8
      3.4.  Extensions for the Notification Envelope  . . . . . . . .  14
        3.4.1.  Support of Hostname and Sequencing  . . . . . . . . .  15
      3.5.  Extensions for the YANG-Push Header . . . . . . . . . . .  17
@@ -234,8 +234,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    *  Section 1.4 of [RFC8639] states that the solution uses the
       notification header defined in [RFC5277].  This document proposes
-      a new header, which clients can enable and replace the previously
-      [RFC5277] defined.  When this new header is used, notification
+      a new header, which clients can enable to replace the [RFC5277]
+      defined header.  When this new header is used, notification
       messages are encoded as defined in Section 3.3.
 
    *  Section 2.4.2 of [RFC8639] defines how a YANG-Push subscription is
@@ -288,7 +288,7 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
       the notifications are encoded according to Section 3.3.2.3 in this
       document.
 
-3.  Solution
+3.  Notification Envelope Model
 
    Section 4.2.10 of [RFC7950] defines the encoding of YANG
    notifications.  A notification is created by defining a
@@ -357,8 +357,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    When the node 'enable-notification-envelope' is set to true, the
    notifications published by a YANG-Push publisher MUST use the header
    defined in Section 3.3.1.  If any notification metadata is enabled
-   during the subcription configuration, the notification metadata nodes
-   MUST be present in the header.  When this node is disabled,
+   during the subscription configuration, the notification metadata
+   nodes MUST be present in the header.  When this node is disabled,
    notifications are encoded as defined in NETCONF Event Notifications
    [RFC5277].
 
@@ -367,11 +367,11 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    terminated.  The publisher MUST send a 'subscription-terminated'
    notification to all the existing subscriptions using the header
    configured before the change.  Any new subscription after the change
-   use the header defined by the node 'enable-notification-envelope',
+   uses the header defined by the node 'enable-notification-envelope',
    i.e. encoded as Section 3.3.1 when enabled and as defined in
    [RFC5277] if disabled.
 
-3.2.  Discovering the support of this model
+3.2.  Discovering the Support of this Model
 
    A client can discover the support of 'notification-envelope' model
    through the capabilities model defined in [RFC9196].  This documents
@@ -384,8 +384,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    *  A container 'metadata' containing all the supported extensions to
       this header.  Extensions are defined in Section 3.4.
 
-   The YANG models defined in Section 5 augments the 'ietf-notification-
-   capabilities' model with the leaf and container listed above:
+
+
 
 
 
@@ -394,6 +394,10 @@ Huang-Feng, et al.        Expires 8 March 2026                  [Page 7]
 Internet-Draft       YANG-Push Notification Envelope      September 2025
 
 
+   The "ietf-yp-notification" model defined in Section 5 augments the
+   'ietf-notification-capabilities' model with the leaf and container
+   listed above:
+
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro notification-metadata
           +--ro notification-envelope?   boolean
@@ -401,7 +405,7 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    This model can be retrieved via a NETCONF <get> RPC.
 
-3.3.  Notification Envelope
+3.3.  Notification Envelope Structure
 
    This section defines how YANG notifications are structured when the
    notification envelope is enabled on YANG-Push subscriptions.  The
@@ -416,14 +420,14 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    *  The notification is encapsulated in a root "envelope" container.
 
    *  The header of the notification contains the notification metadata
-      that is enabled during the configuration of the subscription as a
+      that is enabled during the configuration of the subscription as
       child nodes of the root "notification-envelope" container.
 
    *  The content of the notification defined by the 'notification'
       statement is encoded in the 'contents' leaf.
 
    *  The 'contents' element MUST be located at the end of the
-      notification envelop structure.
+      notification envelope structure.
 
    The following YANG tree [RFC8340] illustrates the notification
    envelope supporting only the mandatory metadata 'event-time'.  See
@@ -433,14 +437,10 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
        +-- event-time         yang:date-and-time
        +-- contents?          <anydata>
 
-3.3.2.  Encoding of the Notification Model
+3.3.2.  Encodings of the Notification Envelope
 
    The YANG notification can be encoded using XML
    [W3C.REC-xml-20001006][RFC7951], JSON [RFC7951] and CBOR [RFC9254].
-
-
-
-
 
 
 

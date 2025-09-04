@@ -249,8 +249,8 @@
           <li>Section 1.4 of <xref target="RFC8639"/> states that the 
           solution uses the notification header defined in <xref
           target="RFC5277"/>. This document proposes a new header, which
-          clients can enable and replace the previously <xref
-          target="RFC5277"/> defined. When this new header is used, notification
+          clients can enable to replace the <xref
+          target="RFC5277"/> defined header. When this new header is used, notification
           messages are encoded as defined in <xref
           target="struct-notif"/>.</li>
 
@@ -310,7 +310,7 @@
 
     </section>
 
-    <section anchor="overview" title="Solution">
+    <section anchor="overview" title="Notification Envelope Model">
 
       <t>Section 4.2.10 of <xref target="RFC7950"/> defines the encoding of YANG notifications.
       A notification is created by defining a 'notification' statement in the YANG module.
@@ -367,7 +367,7 @@ module: ietf-yp-notification
         
         <t>When the node 'enable-notification-envelope' is set to true, the notifications published
         by a YANG-Push publisher MUST use the header defined in <xref target="base-notif-model"/>.
-        If any notification metadata is enabled during the subcription configuration, the
+        If any notification metadata is enabled during the subscription configuration, the
         notification metadata nodes MUST be present in the header.
         When this node is disabled, notifications are encoded as defined in NETCONF Event Notifications <xref target="RFC5277"/>.
         </t>
@@ -381,12 +381,12 @@ module: ietf-yp-notification
         <t>When there are existing subscriptions and a client changes the node 'enable-notification-envelope',
         all existing subscriptions MUST be terminated. The publisher MUST send a 'subscription-terminated'
         notification to all the existing subscriptions using the header configured before the change.
-        Any new subscription after the change use the header defined by the node 'enable-notification-envelope',
+        Any new subscription after the change uses the header defined by the node 'enable-notification-envelope',
         i.e. encoded as
         <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
       </section>
 
-      <section anchor="discovery-notif" title="Discovering the support of this model">
+      <section anchor="discovery-notif" title="Discovering the Support of this Model">
         <t>A client can discover the support of 'notification-envelope' model through
         the capabilities model defined in <xref target="RFC9196"/>. This documents
         extends the 'ietf-notification-capabilities' model with:</t>
@@ -401,7 +401,7 @@ module: ietf-yp-notification
           push-change-update notification are extended with observation timestamp extensions.</li> -->
         </ul>
 
-        <t>The YANG models defined in <xref target="yang-models"/> augments the
+        <t>The "ietf-yp-notification" model defined in <xref target="yang-models"/> augments the
         'ietf-notification-capabilities' model with the leaf and container listed above:</t>
 
         <sourcecode type="yangtree"><![CDATA[
@@ -414,7 +414,7 @@ module: ietf-yp-notification
         <t>This model can be retrieved via a NETCONF &lt;get&gt; RPC.</t>
       </section>
       
-      <section anchor="struct-notif" title="Notification Envelope">
+      <section anchor="struct-notif" title="Notification Envelope Structure">
 
         <t>This section defines how YANG notifications are structured when 
         the notification envelope is enabled on YANG-Push subscriptions. The following sections
@@ -427,11 +427,11 @@ module: ietf-yp-notification
           <ul>
             <li>The notification is encapsulated in a root "envelope" container.</li>
             <li>The header of the notification contains the notification metadata that is enabled during
-            the configuration of the subscription as a child nodes of the root "notification-envelope"
+            the configuration of the subscription as child nodes of the root "notification-envelope"
             container.</li>
             <li>The content of the notification defined by the 'notification' statement is encoded
               in the 'contents' leaf.</li>
-            <li>The 'contents' element MUST be located at the end of the notification envelop
+            <li>The 'contents' element MUST be located at the end of the notification envelope
             structure.</li>
             <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
           </ul>
@@ -448,7 +448,7 @@ module: ietf-yp-notification
           <!-- <t>The following sections defines the encodings of this header.</t> -->
         </section>
 
-        <section anchor="encodings-notif" title="Encoding of the Notification Model">
+        <section anchor="encodings-notif" title="Encodings of the Notification Envelope">
           <t>The YANG notification can be encoded using XML <xref target="W3C.REC-xml-20001006"/><xref target="RFC7951"/>,
           JSON <xref target="RFC7951"/> and CBOR <xref target="RFC9254"/>.</t>
 
