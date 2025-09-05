@@ -94,11 +94,11 @@
       <organization>Huawei</organization>
 
       <address>
-        <email>benoit.claise@huawei.com</email>
+        <email>benoit@everything-ops.net</email>
       </address>
     </author>
 
-    <date day="4" month="September" year="2025"/>
+    <date day="5" month="September" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -432,7 +432,7 @@ module: ietf-yp-notification
             <li>The content of the notification defined by the 'notification' statement is encoded
               in the 'contents' leaf.</li>
             <li>The 'contents' element MUST be located at the end of the notification envelope
-            structure.</li>
+            structure. Metadata placed after the 'contents' element may be ignored by the receiver.</li>
             <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
           </ul>
 
@@ -562,7 +562,7 @@ module: ietf-yp-notification
                   "admin-status": "up",
                   "oper-status": "up",
                   "statistics": {
-                    "discontinuity-time": "2025-03-25T06:43:12Z"
+                    "discontinuity-time": "2024-10-10T07:50:00Z"
                   }
                 }
               ]
@@ -591,9 +591,9 @@ module: ietf-yp-notification
             in <xref target="ietf-yp-notification-yang-module"/>.</t>
 
             <t>Notification encoded using YANG-SIDs replaces the names of
-            the keys of the CBOR encoded message for a 63-bit unsigned integer.
-            In this case, the keys of the encoded data use the SID value as defined in Section 3.2
-            of <xref target="RFC9254"/>.
+            the keys of the CBOR encoded message with a 63-bit unsigned integer.
+            In this case, the keys of the encoded data use the SID value as defined in 
+            <xref section="3.2" sectionFormat="of" target="RFC9254"/>.
             A SID allocation process is needed beforehand as defined in <xref target="RFC9595"/>.</t>
 
             <t>In the notification, two mandatory child nodes within the "ietf-yp-notification:envelope" container
@@ -612,7 +612,8 @@ module: ietf-yp-notification
             encoded in the "contents" node.
             The name and namespace of this payload element are determined by the
             YANG module containing the 'notification' statement representing the
-            notification message. Similarly, SIDs can be used as keys if they are well allocated.</t>
+            notification message. Similarly, SIDs can be used as keys if they are
+            allocated following the process defined in <xref target="RFC9595"/>.</t>
 
             <t><xref target="fig_cbor"/> shows a "push-update" notification defined
             in the YANG module of YANG-Push <xref target="RFC8641"/> encoded in CBOR
@@ -638,7 +639,7 @@ module: ietf-yp-notification
                   "admin-status": "up",
                   "oper-status": "up",
                   "statistics": {
-                    "discontinuity-time": "2025-03-25T06:43:12Z"
+                    "discontinuity-time": "2024-10-10T07:50:00Z"
                   }
                 }
               ]
@@ -673,7 +674,7 @@ module: ietf-yp-notification
                   "admin-status": "up",
                   "oper-status": "up",
                   "statistics": {
-                    "discontinuity-time": "2025-03-25T06:43:12Z"
+                    "discontinuity-time": "2024-10-10T07:50:00.00Z"
                   }
                 }
               ]
@@ -767,8 +768,8 @@ module: ietf-yp-observation
 
           <dd>Describes the node's hostname according to the
           'sysName' object definition in <xref target="RFC1213"/> from where the
-          message was published from. This value is usually configured on the
-          node by the administrator to identify the node in the
+          message was published from. This value MUST be configured on the
+          node by the administrator or orchestrator to identify the node in the
           network uniquely.</dd>
         </dl>
 
@@ -790,7 +791,7 @@ module: ietf-yp-observation
 {
     "ietf-yp-notification:envelope": {
     "event-time": "2023-03-25T08:30:11.22Z",
-    "hostname": "example-router",
+    "hostname": "example-router.example.com",
     "sequence-number": 1,
     "contents": {
       "ietf-yang-push:push-update": {
@@ -805,7 +806,7 @@ module: ietf-yp-observation
                 "admin-status": "up",
                 "oper-status": "up",
                 "statistics": {
-                  "discontinuity-time": "2025-03-25T06:43:12Z"
+                  "discontinuity-time": "2023-03-25T08:20:00.00Z"
                 }
               }
             ]
@@ -968,7 +969,7 @@ Timeline
 {
   "ietf-yp-notification:envelope": {
     "event-time": "2025-03-25T08:30:11.22Z",
-    "hostname": "example-router",
+    "hostname": "example-router.example.com",
     "sequence-number": 1,
     "contents": {
       "ietf-yang-push:push-update": {
@@ -1010,7 +1011,7 @@ Timeline
 {
   "ietf-yp-notification:envelope": {
     "event-time": "2025-03-25T08:35:12.22Z",
-    "hostname": "example-router",
+    "hostname": "example-router.example.com",
     "sequence-number": 1,
     "contents": {
       "ietf-yang-push:push-change-update": {
@@ -1099,7 +1100,7 @@ Timeline
 {
   "ietf-yp-notification:envelope": {
     "event-time": "2023-03-25T08:30:12.25Z",
-    "hostname": "example-router",
+    "hostname": "example-router.example.com",
     "sequence-number": 1,
     "contents": {
       "ietf-yang-push:push-update": {
@@ -1182,9 +1183,12 @@ Timeline
     <section anchor="operational-cons" title="Operational Considerations">
 
       <t>The header defined by NETCONF Event Notifications <xref target="RFC5277"/>
-      and the notification envelope defined in this document may coexist in a network. An operator
-      deploying the header defined in this document should take the appropriate actions when both
-      headers are used within the same network. It is RECOMMENDED to deploy one receiver for each header.</t>
+      and the notification envelope defined in this document may coexist in a network. 
+      An operator deploying the header defined in this document should ensure clear
+      separation of notification formats, either by assigning distinct receivers
+      to each header type or by implementing validation and filtering mechanisms
+      when both are present in the same network. It is RECOMMENDED to deploy one
+      receiver for each header.</t>
     </section>
 
     <section anchor="yang-models" title="YANG Modules">
@@ -1222,7 +1226,7 @@ module: ietf-yp-notification
           augments the module "ietf-notification-capabilities" <xref target="RFC9196"/> and
           uses "ietf-yang-types" module <xref target="RFC6991"/> and "ietf-yang-structure-ext" module <xref target="RFC8791"/>.</t>
 
-        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-06-04.yang"><![CDATA[
+        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-09-05.yang"><![CDATA[
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1300,11 +1304,11 @@ module ietf-yp-notification {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2025-06-04 {
+  revision 2025-09-05 {
     description
-      "First revision";
+      "Initial version.";
     reference
-      "RFC XXXX: YANG-Push Notification Envelope";
+      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
   }
 
   identity notif-envelope-error {
@@ -1432,11 +1436,11 @@ module: ietf-yp-observation
           <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
           augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
 
-          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-06-04.yang"><![CDATA[
+          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-09-05.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
-  prefix ypot;
+  prefix iypo;
 
   import ietf-yang-types {
     prefix yang;
@@ -1489,11 +1493,11 @@ module ietf-yp-observation {
      This version of this YANG module is part of RFC XXXX; see the RFC
      itself for full legal notices.";
 
-  revision 2025-06-04 {
+  revision 2025-09-05 {
     description
-      "First revision";
+      "Initial version.";
     reference
-      "RFC XXXX: Extensible YANG Model for Network Telemetry Notifications";
+      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
   }
 
   feature yang-push-observation-timestamp {
@@ -1606,11 +1610,12 @@ module ietf-yp-observation {
       <t>This section uses the template described in
       <xref target="I-D.ietf-netmod-rfc8407bis" section="3.7"/>.</t>
 
-      <t>The "ietf-yp-notification" and "ietf-yp-observation" YANG modules defines data models that are
+      <t>The "ietf-yp-notification" and "ietf-yp-observation" YANG modules define data models that are
         designed to be accessed via YANG-based management protocols, such as
-        NETCONF <xref target="RFC6241"/> and RESTCONF <xref target="RFC8040"/>. These protocols have to
+        NETCONF <xref target="RFC6241"/> and RESTCONF <xref target="RFC8040"/>.
+        These YANG-based management protocols (1) have to
         use a secure transport layer (e.g., SSH <xref target="RFC6242"/>, TLS <xref target="RFC8446"/>, and
-        QUIC <xref target="RFC9000"/>) and have to use mutual authentication.
+        QUIC <xref target="RFC9000"/>) and (2) have to use mutual authentication.
       </t>
 
       <t>The Network Configuration Access Control Model (NACM) <xref target="RFC8341"/>
@@ -1694,7 +1699,7 @@ reference: RFC-to-be]]></artwork>
         <artwork align="left"><![CDATA[
 name: ietf-yp-observation
 namespace: urn:ietf:params:xml:ns:yang:ietf-yp-observation
-prefix: ypot
+prefix: iypo
 reference: RFC-to-be]]></artwork>
       </section>
 
@@ -1709,6 +1714,9 @@ YANG module name: ietf-yp-notification
 reference: RFC-to-be]]></artwork>
 
         <t>A ".sid" file is proposed in <xref target="sid_appendix"/>.</t>
+        
+        <t>Note to the RFC-Editor:</t>
+        <t>Please replace TBD with the value allocated by IANA.</t>
       </section>
     </section>
 
@@ -1728,7 +1736,7 @@ reference: RFC-to-be]]></artwork>
     </section> -->
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The authors would like to thank Per Anderson, Andy Bierman, Carsten Bormann,
+      <t>The authors would like to thank Paul Aitken, Per Anderson, Andy Bierman, Carsten Bormann,
       Mohamed Boucadair, Tom Petch, Jason Sterne, Kent Watsen and Rob Wilton for
       their review and valuable comments.</t>
     </section>
@@ -1803,20 +1811,24 @@ reference: RFC-to-be]]></artwork>
     </references>
 
     <section title=".sid file" anchor="sid_appendix">
-      <t>Note to the RFC-Editor: Please remove this section before publishing.</t>
-
-      <t>For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is requested
+      <t>This appendix is normative. 
+      For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is requested
       to IANA in <xref target="iana-sid"/>.</t>
 
+      <t>Note to the RFC-Editor:</t>
+      <t>Please replace the entry-point and SID values with the ones allocated by IANA.</t>
+      <t>Please change the 'sid-file-status' to 'published' once the .sid file is published.</t>
+      <t></t>
+
       <figure anchor="fig_sid_file"
-            title='.sid file for "ietf-yp-notification" module'>
-        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-06-04.sid"><![CDATA[
+            title='ietf-yp-notification .sid file'>
+        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-09-05.sid"><![CDATA[
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-yp-notification",
-    "module-revision": "2025-06-04",
+    "module-revision": "2025-09-05",
     "sid-file-status":"unpublished",
-    "description": "draft-ietf-netconf-notif-envelope-02: Extensible YANG Model for YANG-Push Notifications",
+    "description": "RFC-to-be: Extensible YANG Model for YANG-Push Notifications",
     "dependency-revision": [
       {
         "module-name":"ietf-datastores",
