@@ -234,9 +234,11 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    *  Section 1.4 of [RFC8639] states that the solution uses the
       notification header defined in [RFC5277].  This document proposes
-      a new header, which clients can enable to replace the [RFC5277]
-      defined header.  When this new header is used, notification
-      messages are encoded as defined in Section 3.3.
+      a new header, which clients can enable to replace the header
+      defined in [RFC5277] for YANG-defined event records.  When this
+      new header is used, YANG-defined notification messages are encoded
+      as defined in Section 3.3.  Servers may continue using the
+      [RFC5277] header for event streams.
 
    *  Section 2.4.2 of [RFC8639] defines how a YANG-Push subscription is
       defined via a 'establish-subscription' RPC.  This document extends
@@ -269,8 +271,6 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    [RFC9254] defines how YANG data is encoded using CBOR.  These are the
    key relationship points between the current document and [RFC9254]:
-
-
 
 
 

@@ -249,10 +249,14 @@
           <li>Section 1.4 of <xref target="RFC8639"/> states that the 
           solution uses the notification header defined in <xref
           target="RFC5277"/>. This document proposes a new header, which
-          clients can enable to replace the <xref
-          target="RFC5277"/> defined header. When this new header is used, notification
+          clients can enable to replace the header defined in <xref
+          target="RFC5277"/> for YANG-defined event records.
+          When this new header is used, YANG-defined notification
           messages are encoded as defined in <xref
-          target="struct-notif"/>.</li>
+          target="struct-notif"/>. 
+          Servers may continue using the <xref
+          target="RFC5277"/> header for event streams.
+          </li>
 
           <li>Section 2.4.2 of <xref target="RFC8639"/> defines how a
           YANG-Push subscription is defined via a 'establish-subscription'
