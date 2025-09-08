@@ -242,7 +242,7 @@
       <section title="Relationship to RFC8639">
         <t>Subscribed Notifications <xref target="RFC8639"/> defines a mechanism 
         on top of <xref target="RFC5277"/> to stream notifications from
-        the server (typically a NETCONF or a RESTCONF node). These are the key
+        the server (typically a NETCONF or a RESTCONF server). These are the key
         relationships between the current
         document and <xref target="RFC8639"/>:</t>
 

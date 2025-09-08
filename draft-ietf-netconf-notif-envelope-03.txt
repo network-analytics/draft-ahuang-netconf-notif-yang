@@ -230,8 +230,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    Subscribed Notifications [RFC8639] defines a mechanism on top of
    [RFC5277] to stream notifications from the server (typically a
-   NETCONF or a RESTCONF node).  These are the key relationships between
-   the current document and [RFC8639]:
+   NETCONF or a RESTCONF server).  These are the key relationships
+   between the current document and [RFC8639]:
 
    *  Section 1.4 of [RFC8639] states that the solution uses the
       notification header defined in [RFC5277].  This document proposes
