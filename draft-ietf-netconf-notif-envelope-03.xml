@@ -142,7 +142,7 @@
     
         <ul>
           <li>First, it provides an extensible YANG notification header allowing
-          implementors and IETF contributors to easily add new notification metadata to the
+          implementors and Authors of Internet-Drafts to easily add new notification metadata to the
           notification message.</li>
     
           <li>Second, it provides the first crucial extensions enabling operators to
@@ -242,7 +242,8 @@
       <section title="Relationship to RFC8639">
         <t>Subscribed Notifications <xref target="RFC8639"/> defines a mechanism 
         on top of <xref target="RFC5277"/> to stream notifications from
-        the NETCONF node. These are the key relationships between the current
+        the server (typically a NETCONF or a RESTCONF node). These are the key
+        relationships between the current
         document and <xref target="RFC8639"/>:</t>
 
         <ul>
@@ -255,7 +256,7 @@
           messages are encoded as defined in <xref
           target="struct-notif"/>. 
           Servers may continue using the <xref
-          target="RFC5277"/> header for event streams.
+          target="RFC5277"/> header for NETCONF event streams.
           </li>
 
           <li>Section 2.4.2 of <xref target="RFC8639"/> defines how a
@@ -936,11 +937,14 @@ module: ietf-yp-observation
             generation of 'on-change' YANG-Push notifications. This timeline depicts the following states and events:</t>
 
             <ul>
-              <li>T1: At first, the operational state of the interface is "Up".</li>
+              <li>T1: At first, the operational state of the interface is "Up". The
+              subscription is not configured yet at this stage and thus,
+              notifications are not triggered for this state change.</li>
               <li>T2: After configuring an 'on-change' subscription supporting 'sync on start',
-              the publisher sends the initial state of the interface.</li>
+              the publisher sends the initial state of the interface. The initial
+              state is polled based on the event having happened at T1.</li>
               <li>T3: This is the moment the interface changes its operational status to "Down".</li>
-              <li>T4: After the interface state changes, the publisher generates the 'on-change'
+              <li>T4: After the interface state changes at T3, the publisher generates the 'on-change'
               notification alerting the receiver.</li>
             </ul>
 
@@ -961,10 +965,10 @@ Timeline
 
             <t>At T2, after configuring the subscription, the publisher triggers a 'push-update' notification
             as depicted in <xref target="push-update-initial"/>.
-            The 'event-time' is the moment the YANG-Push process triggered the notification while the 
-            'ietf-yp-observation:timestamp' node characterizes the timestamp T1, the latest moment
-            this state was observed. In this case, the 'point-in-time' node is set to 'initial-state'.
-            </t>
+            The 'event-time' is the moment the YANG-Push process generates the notification (T2). The 
+            'ietf-yp-observation:timestamp' node characterizes the moment of the interface changed it status to "Up" (T1).
+            T1 is the latest moment this state was observed by the process.
+            In this case, the 'point-in-time' node is set to 'initial-state'.</t>
 
 
         <figure anchor="push-update-initial"
@@ -1005,8 +1009,8 @@ Timeline
         announcing an interface status change to the receiver as depicted in
         <xref target="push-change-update_example_json_fig"/>. In this case,
         the 'ietf-yp-observation:timestamp' node 
-        characterizes the moment the interface changed its status at T3 while the value of the 'event-time'
-        node characterizes the moment the YANG-Push process generated the message at T4.
+        characterizes the moment the interface changed its status at T3. The value of the 'event-time'
+        node characterizes the moment the YANG-Push process generated the notification at T4.
         </t>
 
         <figure anchor="push-change-update_example_json_fig"
@@ -1063,11 +1067,18 @@ Timeline
           following states:</t>
           
           <ul>
-            <li>T1: First, the periodical subscription is configured to push the operational status of the interface every N interval.</li>
-            <li>T2: This is the moment the YANG-Push process polls the data state data and metrics from the datastore.</li>
-            <li>T3: After polling the metrics, the YANG-Push process generates the 'push-update' notification.</li>
+            <li>T1: This is the moment the periodical subscription is configured to
+            push the operational status of the interface every N interval.</li>
+            <li>T2: This is the moment the YANG-Push process polls the state
+            data and metrics from the datastore. At this stage, the notification is not
+            built nor sent yet.</li>
+            <li>T3: This is the moment the YANG-Push process
+            generates the 'push-update' notification and sends it to the receiver.</li>
           </ul>
 
+          <t>At every N interval, the process repeats the steps from T2 and T3, first
+          polling the datastore to retrieve the data (T2) and then building and sending
+          the notification to the receiver (T3).</t>
 
           <!-- an example
           timeline of events to describe point-in-time for "periodical"
@@ -1092,9 +1103,10 @@ Timeline
             ]]></artwork>
           </figure>
 
-          <t>An example of a 'push-update' notification sent at T3 is illustrated in <xref target="push-update_example_json_fig"/>.
-          In this case, the node 'event-time' characterizes the moment the YANG-Push process generated the message while
-          the node 'ietf-yp-observation:timestamp' establishes the moment when the metrics were polled from the datastore.
+          <t>An example of a 'push-update' notification is illustrated in <xref target="push-update_example_json_fig"/>. 
+          This example represents a message sent at T3, after the process built the YANG-Push notification.
+          The node 'event-time' characterizes the moment the YANG-Push process generated the message (T3).
+          The node 'ietf-yp-observation:timestamp' establishes the moment when the metrics were polled from the datastore (T2).
           For these periodical subscriptions, the 'point-in-time' node must be set to 'current-accounting'.
           </t>
 
@@ -1741,7 +1753,7 @@ reference: RFC-to-be]]></artwork>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Paul Aitken, Per Anderson, Andy Bierman, Carsten Bormann,
-      Mohamed Boucadair, Tom Petch, Jason Sterne, Kent Watsen and Rob Wilton for
+      Mohamed Boucadair, Tom Petch, Jason Sterne, Kent Watsen, Rob Wilton and Qin Wu for
       their review and valuable comments.</t>
     </section>
   </middle>

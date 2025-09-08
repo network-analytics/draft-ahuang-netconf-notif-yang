@@ -149,8 +149,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    For such reasons, this document proposes the following:
 
    *  First, it provides an extensible YANG notification header allowing
-      implementors and IETF contributors to easily add new notification
-      metadata to the notification message.
+      implementors and Authors of Internet-Drafts to easily add new
+      notification metadata to the notification message.
 
    *  Second, it provides the first crucial extensions enabling
       operators to identify which network node publishes which YANG-Push
@@ -229,8 +229,9 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 2.2.  Relationship to RFC8639
 
    Subscribed Notifications [RFC8639] defines a mechanism on top of
-   [RFC5277] to stream notifications from the NETCONF node.  These are
-   the key relationships between the current document and [RFC8639]:
+   [RFC5277] to stream notifications from the server (typically a
+   NETCONF or a RESTCONF node).  These are the key relationships between
+   the current document and [RFC8639]:
 
    *  Section 1.4 of [RFC8639] states that the solution uses the
       notification header defined in [RFC5277].  This document proposes
@@ -238,7 +239,7 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
       defined in [RFC5277] for YANG-defined event records.  When this
       new header is used, YANG-defined notification messages are encoded
       as defined in Section 3.3.  Servers may continue using the
-      [RFC5277] header for event streams.
+      [RFC5277] header for NETCONF event streams.
 
    *  Section 2.4.2 of [RFC8639] defines how a YANG-Push subscription is
       defined via a 'establish-subscription' RPC.  This document extends
@@ -271,7 +272,6 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    [RFC9254] defines how YANG data is encoded using CBOR.  These are the
    key relationship points between the current document and [RFC9254]:
-
 
 
 
@@ -1066,16 +1066,20 @@ Huang-Feng, et al.        Expires 9 March 2026                 [Page 19]
 Internet-Draft       YANG-Push Notification Envelope      September 2025
 
 
-   *  T1: At first, the operational state of the interface is "Up".
+   *  T1: At first, the operational state of the interface is "Up".  The
+      subscription is not configured yet at this stage and thus,
+      notifications are not triggered for this state change.
 
    *  T2: After configuring an 'on-change' subscription supporting 'sync
       on start', the publisher sends the initial state of the interface.
+      The initial state is polled based on the event having happened at
+      T1.
 
    *  T3: This is the moment the interface changes its operational
       status to "Down".
 
-   *  T4: After the interface state changes, the publisher generates the
-      'on-change' notification alerting the receiver.
+   *  T4: After the interface state changes at T3, the publisher
+      generates the 'on-change' notification alerting the receiver.
 
 Timeline
 ---------------------------------------------------------------------->
@@ -1091,15 +1095,11 @@ Timeline
 
    At T2, after configuring the subscription, the publisher triggers a
    'push-update' notification as depicted in Figure 7.  The 'event-time'
-   is the moment the YANG-Push process triggered the notification while
-   the 'ietf-yp-observation:timestamp' node characterizes the timestamp
-   T1, the latest moment this state was observed.  In this case, the
+   is the moment the YANG-Push process generates the notification (T2).
+   The 'ietf-yp-observation:timestamp' node characterizes the moment of
+   the interface changed it status to "Up" (T1).  T1 is the latest
+   moment this state was observed by the process.  In this case, the
    'point-in-time' node is set to 'initial-state'.
-
-
-
-
-
 
 
 
@@ -1157,9 +1157,9 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    After T3, the publisher triggers a 'push-change-update' notification
    announcing an interface status change to the receiver as depicted in
    Figure 8.  In this case, the 'ietf-yp-observation:timestamp' node
-   characterizes the moment the interface changed its status at T3 while
-   the value of the 'event-time' node characterizes the moment the YANG-
-   Push process generated the message at T4.
+   characterizes the moment the interface changed its status at T3.  The
+   value of the 'event-time' node characterizes the moment the YANG-Push
+   process generated the notification at T4.
 
 
 
@@ -1237,14 +1237,19 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    Figure 9 illustrates the delays associated with the generation of the
    YANG-Push message.  The timeline shows the following states:
 
-   *  T1: First, the periodical subscription is configured to push the
-      operational status of the interface every N interval.
+   *  T1: This is the moment the periodical subscription is configured
+      to push the operational status of the interface every N interval.
 
-   *  T2: This is the moment the YANG-Push process polls the data state
-      data and metrics from the datastore.
+   *  T2: This is the moment the YANG-Push process polls the state data
+      and metrics from the datastore.  At this stage, the notification
+      is not built nor sent yet.
 
-   *  T3: After polling the metrics, the YANG-Push process generates the
-      'push-update' notification.
+   *  T3: This is the moment the YANG-Push process generates the 'push-
+      update' notification and sends it to the receiver.
+
+   At every N interval, the process repeats the steps from T2 and T3,
+   first polling the datastore to retrieve the data (T2) and then
+   building and sending the notification to the receiver (T3).
 
        Timeline
        ------------------------------------------------------>
@@ -1258,19 +1263,14 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
            Figure 9: Example timeline for Periodical Subscription
 
-   An example of a 'push-update' notification sent at T3 is illustrated
-   in Figure 10.  In this case, the node 'event-time' characterizes the
-   moment the YANG-Push process generated the message while the node
-   'ietf-yp-observation:timestamp' establishes the moment when the
-   metrics were polled from the datastore.  For these periodical
-   subscriptions, the 'point-in-time' node must be set to 'current-
-   accounting'.
-
-
-
-
-
-
+   An example of a 'push-update' notification is illustrated in
+   Figure 10.  This example represents a message sent at T3, after the
+   process built the YANG-Push notification.  The node 'event-time'
+   characterizes the moment the YANG-Push process generated the message
+   (T3).  The node 'ietf-yp-observation:timestamp' establishes the
+   moment when the metrics were polled from the datastore (T2).  For
+   these periodical subscriptions, the 'point-in-time' node must be set
+   to 'current-accounting'.
 
 
 
@@ -1941,7 +1941,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    The authors would like to thank Paul Aitken, Per Anderson, Andy
    Bierman, Carsten Bormann, Mohamed Boucadair, Tom Petch, Jason Sterne,
-   Kent Watsen and Rob Wilton for their review and valuable comments.
+   Kent Watsen, Rob Wilton and Qin Wu for their review and valuable
+   comments.
 
 10.  References
 
@@ -1951,7 +1952,6 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
               for Network Management of TCP/IP-based internets: MIB-II",
               STD 17, RFC 1213, DOI 10.17487/RFC1213, March 1991,
               <https://www.rfc-editor.org/info/rfc1213>.
-
 
 
 
