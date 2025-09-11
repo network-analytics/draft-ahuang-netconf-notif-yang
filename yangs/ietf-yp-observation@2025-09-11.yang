@@ -105,14 +105,14 @@ module ietf-yp-observation {
     description
       "This augmentation adds the observation timestamp of the accounted
        metrics in the push-update notification.";
-    uses ypot:yang-push-observation;
+    uses iypo:yang-push-observation;
   }
 
   augment "/yp:push-change-update" {
     description
       "This augmentation adds the observation timestamp of the event
        in the push-change-update notification.";
-    uses ypot:yang-push-observation;
+    uses iypo:yang-push-observation;
   }
 
   // Event capabilities
