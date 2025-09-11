@@ -456,20 +456,18 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    container.  The namespace of this container is the namespace defined
    in the YANG module "ietf-yp-notification":
 
-       urn:ietf:params:xml:ns:yang:ietf-yp-notification
+     urn:ietf:params:xml:ns:yang:ietf-yp-notification
 
    Two mandatory child nodes within the "envelope" container are
    expected, representing the event time and the notification payload.
-   The "event-time" node is defined within the same XML namespace as the
-   "envelope" container.  The "event-time" node MUST be compliant with
-   [RFC3339].  Other notification metadata within the YANG module
-   defined in Section 5.1.2 MUST use the same XML namespace.  See
-   Section 3.4 for more details.
+   The "event-time" node MUST be compliant with [RFC3339].
 
    When other notification metadata is enabled through configuration,
    the supplementary nodes are encoded at the same level as the
-   mandatory "event-time" node and use the XML namespace defined in the
-   YANG module.
+   mandatory "event-time" node.  The YANG nodes in the notification
+   header use the XML namespace from the module that defines the nodes.
+   This document defines two notification metadata.  See Section 3.4 for
+   more details.
 
    The content of the notification that is defined by the 'notification'
    statement is encoded in the "contents" node.  The name and namespace
@@ -478,6 +476,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    The following example shows a "push-update" notification defined in
    the YANG module of YANG-Push [RFC8641] encoded in XML:
+
+
 
 
 
@@ -544,14 +544,14 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    container are expected, representing the event time and the
    notification payload.  The "event-time" node is defined within the
    same namespace as the "ietf-yp-notification:envelope" container and
-   is compliant with [RFC3339].  Other metadata specified within the
-   YANG module defined in Section 5.1.2 MUST use the same namespace
-   "ietf-yp-notification".
+   is compliant with [RFC3339].
 
    When other notification metadata is enabled through configuration,
    the supplementary nodes are encoded at the same level as the
-   mandatory 'event-time' node and use the YANG module name as its
-   namespace.  See Section 3.4 for more details.
+   mandatory 'event-time' node.  The YANG nodes in the notification
+   header use the YANG module name from the module that defines the
+   nodes as its namespace.  Two additional metadata are described in
+   this document.  Refer to Section 3.4 for more details.
 
 
 
@@ -632,10 +632,13 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
    When other notification metadata is enabled through configuration,
    the supplementary nodes are encoded at the same level as the
-   mandatory "event-time" node and use the YANG module name as its
-   namespace when they are encoded as names.  When encoded using YANG
-   SIDs, a SID value assigned to the metadata node is used.  See
-   Section 3.4 for more details.
+   mandatory "event-time" node.  The YANG nodes in the notification
+   header use the YANG module name from the module that defines the
+   nodes as its namespace when they are encoded as names.  When encoded
+   using YANG SIDs, the SID value assigned to the metadata node is used.
+   A .sid file requesting the SID values for the metadata defined in
+   this document can be found in Appendix A.  The .sid file includes the
+   metadata defined in Section 3.4.
 
    The content of the notification that is defined by the 'notification'
    statement is encoded in the "contents" node.  The name and namespace
@@ -648,9 +651,6 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    module of YANG-Push [RFC8641] encoded in CBOR using names as keys.
    The example uses the CBOR diagnostic notation as defined in section
    3.1 of [RFC9254]:
-
-
-
 
 
 
@@ -703,7 +703,7 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 
        Figure 3: CBOR-encoded notification using diagnostic notation
 
-   And Figure 4 shows the same notification encoded using SIDs:
+   Figure 4 shows the same notification encoded using SIDs:
 
 
 
@@ -760,6 +760,16 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
         Figure 4: CBOR-encoded notification using YANG SIDs in CBOR
                             diagnostic notation
 
+   Note that in the example shown in Figure 4, the notification payload
+   uses names as keys.  These keys can also be encoded as SIDs.  The
+   corresponding SID values must be allocated in the IANA registry,
+   following the procedures defined in [RFC9595].
+
+   When SIDs are used throughout the notification envelope, they are
+   encoded as deltas relative to the parent node by default.  The
+   absolute SID can also be used using the tag 47.  Refer to [RFC9254]
+   for more details.
+
 3.4.  Extensions for the Notification Envelope
 
    This section describes two envelope header extensions.  When the
@@ -768,16 +778,6 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    defined in Section 3.4.1.  The client discovers the support of these
    two extensions with the mechanism defined in Section 3.2.  When the
    extensions defined in this document are supported by the server, the
-   client discovers the presence of new metadata with the following
-   augmentations in the 'ietf-notification-capabilities':
-
-
-
-
-
-
-
-
 
 
 
@@ -785,6 +785,9 @@ Huang-Feng, et al.        Expires 9 March 2026                 [Page 14]
 
 Internet-Draft       YANG-Push Notification Envelope      September 2025
 
+
+   client discovers the presence of new metadata with the following
+   augmentations in the 'ietf-notification-capabilities':
 
    module: ietf-yp-notification
 
@@ -827,11 +830,8 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    essential for understanding the timely relationship among these
    different planes and YANG-Push subscription types.
 
-   Today, network operators work around this impediment by preserving
-   the transport source IP address and sequence numbers of the
-   publishing process.  However, this implies encoding this information
-   in the YANG-Push notification messages which impact the semantic
-   readability of the message in the downstream system.
+
+
 
 
 
@@ -841,6 +841,12 @@ Huang-Feng, et al.        Expires 9 March 2026                 [Page 15]
 
 Internet-Draft       YANG-Push Notification Envelope      September 2025
 
+
+   Today, network operators work around this impediment by preserving
+   the transport source IP address and sequence numbers of the
+   publishing process.  However, this implies encoding this information
+   in the YANG-Push notification messages which impact the semantic
+   readability of the message in the downstream system.
 
    On top of that, the transport source IP address might not represent
    the management IP address by which the YANG-Push publisher should be
@@ -867,12 +873,6 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
    Figure 5 provides an example of a JSON encoded, [RFC8259], "push-
    update" notification message with hostname and sequence-number as
    extension.
-
-
-
-
-
-
 
 
 

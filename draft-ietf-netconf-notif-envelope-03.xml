@@ -463,21 +463,19 @@ module: ietf-yp-notification
             defined in the YANG module "ietf-yp-notification":</t>
 
             <artwork align="left"><![CDATA[
-    urn:ietf:params:xml:ns:yang:ietf-yp-notification
+  urn:ietf:params:xml:ns:yang:ietf-yp-notification
             ]]></artwork>
 
             <t>Two mandatory child nodes within the "envelope" container are expected,
             representing the event time and the notification
-            payload. The "event-time" node is defined
-            within the same XML namespace as the "envelope" container. The "event-time"
-            node MUST be compliant with <xref target="RFC3339"/>. Other notification
-            metadata within the YANG module defined in <xref
-            target="ietf-yp-notification-yang-module"/> MUST use the same XML namespace.
-            See <xref target="extensions-notif"/> for more details.</t>
+            payload. The "event-time" node MUST be compliant with <xref target="RFC3339"/>.
+            </t>
 
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level as the mandatory 
-            "event-time" node and use the XML namespace defined in the YANG module. 
+            "event-time" node. The YANG nodes in the notification header use the XML namespace
+            from the module that defines the nodes. This document defines two notification metadata.
+            See <xref target="extensions-notif"/> for more details.
             </t>
 
             <t>The content of the notification that is defined by the 'notification'
@@ -528,16 +526,16 @@ module: ietf-yp-notification
 
             <t>Two mandatory child nodes within the "ietf-notification:envelope" container are expected,
             representing the event time and the notification
-            payload.  The "event-time" node is defined within the same namespace as the
+            payload. The "event-time" node is defined within the same namespace as the
             "ietf-yp-notification:envelope" container and is compliant with
-            <xref target="RFC3339"/>. Other metadata specified within the YANG module defined
-            in <xref target="ietf-yp-notification-yang-module"/> MUST use the same
-            namespace "ietf-yp-notification".</t>
+            <xref target="RFC3339"/>.</t>
 
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level as the mandatory 'event-time'
-            node and use the YANG module name as its namespace. 
-            See <xref target="extensions-notif"/> for more details.</t>
+            node. The YANG nodes in the notification header use the YANG module name
+            from the module that defines the nodes as its namespace.
+            Two additional metadata are described in this document.
+            Refer to <xref target="extensions-notif"/> for more details.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "contents" node.
@@ -609,9 +607,12 @@ module: ietf-yp-notification
 
             <t>When other notification metadata is enabled through configuration, the
             supplementary nodes are encoded at the same level as the mandatory "event-time"
-            node and use the YANG module name as its namespace when they are encoded as
-            names. When encoded using YANG SIDs, a SID value assigned to the
-            metadata node is used. See <xref target="extensions-notif"/> for more details.</t>
+            node. The YANG nodes in the notification header use the YANG module name
+            from the module that defines the nodes as its namespace when they are encoded as names.
+            When encoded using YANG SIDs, the SID value assigned to the
+            metadata node is used. A .sid file requesting the SID values for
+            the metadata defined in this document can be found in <xref target="sid_appendix"/>.
+            The .sid file includes the metadata defined in <xref target="extensions-notif"/>.</t>
 
             <t>The content of the notification that is defined by the 'notification' statement is
             encoded in the "contents" node.
@@ -658,15 +659,15 @@ module: ietf-yp-notification
             </figure>
 
 
-            <t>And <xref target="fig_cbor_sid"/> shows the same notification encoded using SIDs:</t>
+            <t><xref target="fig_cbor_sid"/> shows the same notification encoded using SIDs:</t>
 
             <figure anchor="fig_cbor_sid"
                 title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
                 <sourcecode type="cbor-diag"><![CDATA[
   {
-    2958: {
-      2: "2024-10-10T08:00:11.22Z",
-      1: {
+    2958: {                                    / ietf-yp-notification:envelope (SID 2958) /
+      2: "2024-10-10T08:00:11.22Z",            / event-time (SID 2960) /
+      1: {                                     / contents (SID 2959) /
         "ietf-yang-push:push-update": {
           "id": 1011,
           "datastore-contents": {
@@ -691,6 +692,15 @@ module: ietf-yp-notification
   }
         ]]></sourcecode>
             </figure>
+            <t>Note that in the example shown in <xref target="fig_cbor_sid"/>,
+            the notification payload uses names as keys. These keys can
+            also be encoded as SIDs. The corresponding SID values must be allocated
+            in the IANA registry, following the procedures defined in <xref target="RFC9595"/>.</t>
+
+            <t>When SIDs are used throughout the notification envelope, they are encoded
+            as deltas relative to the parent node by default. The absolute
+            SID can also be used using the tag 47. Refer to <xref target="RFC9254"/>
+            for more details.</t>
           </section>
         </section>
       </section>
