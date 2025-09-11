@@ -669,9 +669,9 @@ module: ietf-yp-notification
                 title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
                 <sourcecode type="cbor-diag"><![CDATA[
   {
-    2957: {                                    / ietf-yp-notification:envelope (SID 2957) /
-      2: "2024-10-10T08:00:11.22Z",            / event-time (SID 2959) /
-      1: {                                     / contents (SID 2958) /
+    2957: {                                / ietf-yp-notification:envelope (SID 2957) /
+      2: "2024-10-10T08:00:11.22Z",        / event-time (SID 2959) /
+      1: {                                 / contents (SID 2958) /
         "ietf-yang-push:push-update": {
           "id": 1011,
           "datastore-contents": {
