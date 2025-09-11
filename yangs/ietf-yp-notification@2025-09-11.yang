@@ -75,17 +75,11 @@ module ietf-yp-notification {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2025-09-05 {
+  revision 2025-09-11 {
     description
       "Initial version.";
     reference
       "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
-  }
-
-  identity notif-envelope-error {
-    description
-      "Base identity for errors found while attempting to
-       change the value of the leaf 'enable-notification-envelope'.";
   }
 
   grouping notif-env-capabilities {

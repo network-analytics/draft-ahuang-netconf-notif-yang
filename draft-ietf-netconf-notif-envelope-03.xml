@@ -345,8 +345,9 @@
       are to be used in YANG-Push <xref target="RFC8641"/> environments and
       can be implemented with NETCONF <xref target="RFC6241"/>
       and RESTCONF <xref target="RFC8040"/>. Thus, when enabled, this new header
-      replaces the notifications defined in Subscribed Notifications <xref target="RFC8639"/>
-      and YANG-Push <xref target="RFC8641"/> notifications globally for all the entire server.</t>
+      globally replaces all notifications defined in both Subscribed Notifications
+      <xref target="RFC8639"/> and YANG-Push <xref target="RFC8641"/>
+      for the entire server.</t>
       
       <t><xref target="enable-notif"/> defines how a client enables the header defined in this document.
       <xref target="discovery-notif"/> extends the model from <xref target="RFC9196"/> to enable clients to discover the capability of using the new notification header
@@ -358,9 +359,12 @@
         <t>The notification envelope defined in this document can be 
         enabled during the configuration of a YANG-Push subscription. 
         This document augments the "ietf-subscribed-notification" model <xref target="RFC8639"/>
-        to support the configuration of the "notification-envelope". When enabled, all the 
+        to support the configuration of the "notification-envelope". When the node 'enable-notification-envelope' is enabled, all the 
         notifications defined in Subscribed Notification <xref target="RFC8639"/> and
-        YANG-Push <xref target="RFC8641"/> are encoded as defined in <xref target="struct-notif"/>.</t>
+        YANG-Push <xref target="RFC8641"/> are encoded as defined in <xref target="struct-notif"/>.
+        If additionally, any notification metadata is enabled, the notification metadata nodes are present in the header.
+        When the node 'enable-notification-envelope' is disabled, notifications are encoded as defined in NETCONF Event Notifications <xref target="RFC5277"/>.
+        </t>
 
         <sourcecode type="yangtree"><![CDATA[
 module: ietf-yp-notification
@@ -370,12 +374,12 @@ module: ietf-yp-notification
     +--rw metadata
 ]]></sourcecode>
         
-        <t>When the node 'enable-notification-envelope' is set to true, the notifications published
+        <!-- <t>When the node 'enable-notification-envelope' is set to true, the notifications published
         by a YANG-Push publisher MUST use the header defined in <xref target="base-notif-model"/>.
         If any notification metadata is enabled during the subscription configuration, the
         notification metadata nodes MUST be present in the header.
         When this node is disabled, notifications are encoded as defined in NETCONF Event Notifications <xref target="RFC5277"/>.
-        </t>
+        </t> -->
 
         <!-- <t>This node 'enable-notification-envelope' MUST be enabled and disabled via the RPC
         'enable-notif-envelope' only. This node MUST be changed prior to the creation of any
@@ -416,7 +420,7 @@ module: ietf-yp-notification
        +--ro metadata
 ]]></sourcecode>
 
-        <t>This model can be retrieved via a NETCONF &lt;get&gt; RPC.</t>
+        <!-- <t>This model can be retrieved via a NETCONF &lt;get&gt; RPC.</t> -->
       </section>
       
       <section anchor="struct-notif" title="Notification Envelope Structure">
@@ -665,9 +669,9 @@ module: ietf-yp-notification
                 title="CBOR-encoded notification using YANG SIDs in CBOR diagnostic notation">
                 <sourcecode type="cbor-diag"><![CDATA[
   {
-    2958: {                                    / ietf-yp-notification:envelope (SID 2958) /
-      2: "2024-10-10T08:00:11.22Z",            / event-time (SID 2960) /
-      1: {                                     / contents (SID 2959) /
+    2957: {                                    / ietf-yp-notification:envelope (SID 2957) /
+      2: "2024-10-10T08:00:11.22Z",            / event-time (SID 2959) /
+      1: {                                     / contents (SID 2958) /
         "ietf-yang-push:push-update": {
           "id": 1011,
           "datastore-contents": {
@@ -705,13 +709,12 @@ module: ietf-yp-notification
         </section>
       </section>
       <section anchor="extensions-notif" title="Extensions for the Notification Envelope">
-      <t>This section describes two envelope header extensions.
+      <t>This section describes two optional YANG nodes for the envelope header.
         When the envelope is enabled via the "enable-notification-envelope" node, the
         publisher includes by default the "hostname" and "sequence-number" defined in <xref target="host-ext"/>.
-        The client discovers the support of these two extensions
+        The client discovers the support of these two optional leafs
         with the mechanism defined in <xref target="discovery-notif"/>.
-        When the extensions
-        defined in this document are supported by the server, the client discovers the presence
+        When the leafs defined in this document are supported by the server, the client discovers the presence
         of new metadata with the following augmentations in the 'ietf-notification-capabilities':
       </t>
 
@@ -733,9 +736,7 @@ module: ietf-yp-observation
 ]]></sourcecode>
 
       <t>This document defines the following notification metadata as shown in the
-      following YANG tree <xref target="RFC8340"/>. It also defines an extension to
-      the YANG-Push header. See the following sections for more
-      details.</t>
+      following YANG tree <xref target="RFC8340"/>.</t>
         <sourcecode type="yangtree"><![CDATA[
   structure envelope:
     +-- event-time         yang:date-and-time
@@ -772,7 +773,7 @@ module: ietf-yp-observation
         is the "Address of the remote host for the session" might not be the
         management IP address.</t>
 
-        <t>To overcome these issues, this document proposes a notification
+        <t>To overcome these issues, this document defines a notification
           container extension with a hostname and a sequence number. This allows
           the downstream system to not only be able to identify from which network
           node, subscription, and time the message was published but also, the order
@@ -798,7 +799,7 @@ module: ietf-yp-observation
 
         <t><xref target="fig_hostname-seq_json_push-update"/> provides an example of
         a JSON encoded, <xref target="RFC8259"/>, "push-update"
-        notification message with hostname and sequence-number as extension.</t>
+        notification message with 'hostname' and 'sequence-number' included.</t>
 
         <figure anchor="fig_hostname-seq_json_push-update"
               title="JSON Example for a 'push-update' notification message">
@@ -837,9 +838,10 @@ module: ietf-yp-observation
       </section>
 
         <section anchor="extensions-yang-push" title="Extensions for the YANG-Push Header">
-          <t>This section described two optional YANG 'push-update' and 'push-change-update'
-            notification header extensions which are enabled by default. The client discovers
-            the support of these two extension headers with the mechanism defined in <xref
+          <t>This section described two optional 'push-update' and 'push-change-update'
+            notification header extensions which are enabled by default
+            when using the notification envelope defined in this document. The client discovers
+            the support of these two leafs with the mechanism defined in <xref
             target="discovery-notif"/>.</t>
 
           <t>This document defines the following notification metadata as shown in the 
@@ -877,7 +879,7 @@ module: ietf-yp-observation
         </t>
 
         <t>When the time bucket length in a time series database and the
-        periodical YANG-Push subscription time are configured with the same values,
+        periodic YANG-Push subscription time are configured with the same values,
         the 'event-time' of the NETCONF notification message header can be used for indexing
         the data in the time series database.
         There is a variable delay between the observation timestamp, the 'event-time', and
@@ -907,11 +909,11 @@ module: ietf-yp-observation
 
           <dd>
             <t>States the measurement observation time for the "push-update"
-            notification in "periodical" subscriptions and for the "push-change-update"
+            notification in "periodic" subscriptions and for the "push-change-update"
             notification in "on-change" subscriptions.</t>
 
             <t>By comparing the observation timestamp of two "push-update"
-            notifications in a periodical subscription, the collector can deduce
+            notifications in a periodic subscription, the collector can deduce
             the actual cadence of the measurements, and compare it with the
             subscription configuration. In case of an "on-change" subscription
             it states the time when the network state change was observed.</t>
@@ -924,7 +926,7 @@ module: ietf-yp-observation
             observation timestamp was observed. Choices are:</t>
 
             <t>'current-accounting' states the point in time where the metrics are
-            polled and observed in "periodical" subscriptions.</t>
+            polled and observed in "periodic" subscriptions.</t>
 
             <t>'initial-state' states the initial point in time when the subscription
             was established and the state was observed for "on-change sync on start"
@@ -940,7 +942,7 @@ module: ietf-yp-observation
           <t>
           This section illustrates the usage of the "point-in-time" node in two different subscriptions.
           <xref target="on-change-examples"/> showcases a YANG-Push subscription monitoring the state of an interface using an 'on-change sync on start' subscription.
-          <xref target="periodical-examples"/> illustrates the usage of the 'point-in-time' node within periodical subscriptions.</t>
+          <xref target="periodic-examples"/> illustrates the usage of the 'point-in-time' node within periodic subscriptions.</t>
 
           <section anchor="on-change-examples" title="On-Change Subscriptions">
             <t><xref target="timeline_examplen_on-change_fig"/> illustrates the set of events that lead to the 
@@ -1067,17 +1069,17 @@ Timeline
             ]]></sourcecode>
         </figure>
           </section>
-          <section anchor="periodical-examples" title="Periodical Subscriptions">
-          <t>In periodical subscription, the observation time characterizes the
+          <section anchor="periodic-examples" title="Periodic Subscriptions">
+          <t>In periodic subscription, the observation time characterizes the
           time when the metrics were polled from the datastore before it generates
           the actual YANG-Push message.</t>
 
-          <t><xref target="timeline_examplen_periodical_fig"/> illustrates the delays 
+          <t><xref target="timeline_examplen_periodic_fig"/> illustrates the delays 
           associated with the generation of the YANG-Push message. The timeline shows the 
           following states:</t>
           
           <ul>
-            <li>T1: This is the moment the periodical subscription is configured to
+            <li>T1: This is the moment the periodic subscription is configured to
             push the operational status of the interface every N interval.</li>
             <li>T2: This is the moment the YANG-Push process polls the state
             data and metrics from the datastore. At this stage, the notification is not
@@ -1090,21 +1092,13 @@ Timeline
           polling the datastore to retrieve the data (T2) and then building and sending
           the notification to the receiver (T3).</t>
 
-          <!-- an example
-          timeline of events to describe point-in-time for "periodical"
-          subscriptions. The timestamp of observation timestamp in "T2" is set at
-          the start of the polling of the YANG data store to "T2" and
-          point-in-time is set "current-accounting". At "T3" the timestamp of
-          observation timestamp of "T3" is used. At "T4" the timestamp of
-          observation timestamp of "T4" is used.</t> -->
-
-          <figure anchor="timeline_examplen_periodical_fig"
-            title="Example timeline for Periodical Subscription">
+          <figure anchor="timeline_examplen_periodic_fig"
+            title="Example timeline for Periodic Subscription">
             <artwork><![CDATA[
     Timeline
     ------------------------------------------------------>
     | (T1) YANG-Push | (T2) YANG-Push | (T3) YANG-Push
-    | "periodical"   | process polls  | "periodical"   
+    | "periodic"     | process polls  | "periodic"   
     | subscription   | the metrics    | current        
     | for interface  | from the       | accounting.    
     | counter is     | datastore.     |                
@@ -1117,7 +1111,7 @@ Timeline
           This example represents a message sent at T3, after the process built the YANG-Push notification.
           The node 'event-time' characterizes the moment the YANG-Push process generated the message (T3).
           The node 'ietf-yp-observation:timestamp' establishes the moment when the metrics were polled from the datastore (T2).
-          For these periodical subscriptions, the 'point-in-time' node must be set to 'current-accounting'.
+          For these periodic subscriptions, the 'point-in-time' node must be set to 'current-accounting'.
           </t>
 
           <figure anchor="push-update_example_json_fig"
@@ -1213,8 +1207,7 @@ Timeline
       An operator deploying the header defined in this document should ensure clear
       separation of notification formats, either by assigning distinct receivers
       to each header type or by implementing validation and filtering mechanisms
-      when both are present in the same network. It is RECOMMENDED to deploy one
-      receiver for each header.</t>
+      when both are present in the same network.</t>
     </section>
 
     <section anchor="yang-models" title="YANG Modules">
@@ -1252,7 +1245,7 @@ module: ietf-yp-notification
           augments the module "ietf-notification-capabilities" <xref target="RFC9196"/> and
           uses "ietf-yang-types" module <xref target="RFC6991"/> and "ietf-yang-structure-ext" module <xref target="RFC8791"/>.</t>
 
-        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-09-05.yang"><![CDATA[
+        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-09-11.yang"><![CDATA[
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1330,17 +1323,11 @@ module ietf-yp-notification {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2025-09-05 {
+  revision 2025-09-11 {
     description
       "Initial version.";
     reference
       "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
-  }
-
-  identity notif-envelope-error {
-    description
-      "Base identity for errors found while attempting to
-       change the value of the leaf 'enable-notification-envelope'.";
   }
 
   grouping notif-env-capabilities {
@@ -1462,7 +1449,7 @@ module: ietf-yp-observation
           <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
           augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
 
-          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-09-05.yang"><![CDATA[
+          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-09-11.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
@@ -1519,7 +1506,7 @@ module ietf-yp-observation {
      This version of this YANG module is part of RFC XXXX; see the RFC
      itself for full legal notices.";
 
-  revision 2025-09-05 {
+  revision 2025-09-11 {
     description
       "Initial version.";
     reference
@@ -1538,13 +1525,13 @@ module ietf-yp-observation {
     leaf timestamp {
       type yang:date-and-time;
       description
-        "This is the time when metrics were observed.";
+        "This is the time when the metrics were observed.";
     }
     leaf point-in-time {
       type enumeration {
         enum current-accounting {
           description
-            "For periodical subscriptions, the point-in-time
+            "For periodic subscriptions, the point-in-time
              where the metrics are being polled and observed.";
         }
         enum initial-state {
@@ -1848,13 +1835,13 @@ reference: RFC-to-be]]></artwork>
 
       <figure anchor="fig_sid_file"
             title='ietf-yp-notification .sid file'>
-        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-09-05.sid"><![CDATA[
+        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-09-11.sid"><![CDATA[
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-yp-notification",
-    "module-revision": "2025-09-05",
+    "module-revision": "2025-06-04",
     "sid-file-status":"unpublished",
-    "description": "RFC-to-be: Extensible YANG Model for YANG-Push Notifications",
+    "description": "draft-ietf-netconf-notif-envelope-02: Extensible YANG Model for YANG-Push Notifications",
     "dependency-revision": [
       {
         "module-name":"ietf-datastores",
@@ -1932,75 +1919,69 @@ reference: RFC-to-be]]></artwork>
       },
       {
         "status":"unstable",
-        "namespace":"identity",
-        "identifier":"notif-envelope-error",
+        "namespace":"data",
+        "identifier":"/ietf-subscribed-notifications:subscriptions/ietf-yp-notification:enable-notification-envelope",
         "sid":"2951"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-subscribed-notifications:subscriptions/ietf-yp-notification:enable-notification-envelope",
+        "identifier":"/ietf-subscribed-notifications:subscriptions/ietf-yp-notification:metadata",
         "sid":"2952"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-subscribed-notifications:subscriptions/ietf-yp-notification:metadata",
+        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata",
         "sid":"2953"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata",
+        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/notification-envelope",
         "sid":"2954"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/notification-envelope",
+        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/metadata",
         "sid":"2955"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/metadata",
+        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/metadata/hostname-sequence-number",
         "sid":"2956"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/metadata/hostname-sequence-number",
+        "identifier":"/ietf-yp-notification:envelope",
         "sid":"2957"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-yp-notification:envelope",
+        "identifier":"/ietf-yp-notification:envelope/contents",
         "sid":"2958"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-yp-notification:envelope/contents",
+        "identifier":"/ietf-yp-notification:envelope/event-time",
         "sid":"2959"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-yp-notification:envelope/event-time",
+        "identifier":"/ietf-yp-notification:envelope/hostname",
         "sid":"2960"
       },
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-yp-notification:envelope/hostname",
-        "sid":"2961"
-      },
-      {
-        "status":"unstable",
-        "namespace":"data",
         "identifier":"/ietf-yp-notification:envelope/sequence-number",
-        "sid":"2962"
+        "sid":"2961"
       }
     ]
   }

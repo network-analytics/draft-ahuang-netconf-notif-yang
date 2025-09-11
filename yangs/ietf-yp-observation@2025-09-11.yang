@@ -54,7 +54,7 @@ module ietf-yp-observation {
      This version of this YANG module is part of RFC XXXX; see the RFC
      itself for full legal notices.";
 
-  revision 2025-09-05 {
+  revision 2025-09-11 {
     description
       "Initial version.";
     reference
@@ -73,13 +73,13 @@ module ietf-yp-observation {
     leaf timestamp {
       type yang:date-and-time;
       description
-        "This is the time when metrics were observed.";
+        "This is the time when the metrics were observed.";
     }
     leaf point-in-time {
       type enumeration {
         enum current-accounting {
           description
-            "For periodical subscriptions, the point-in-time
+            "For periodic subscriptions, the point-in-time
              where the metrics are being polled and observed.";
         }
         enum initial-state {
