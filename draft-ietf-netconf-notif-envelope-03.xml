@@ -440,9 +440,8 @@ module: ietf-yp-notification
             container.</li>
             <li>The content of the notification defined by the 'notification' statement is encoded
               in the 'contents' leaf.</li>
-            <li>The 'contents' element MUST be located at the end of the notification envelope
-            structure. Metadata placed after the 'contents' element may be ignored by the receiver.</li>
-            <!-- <li>The following metadata is mandatory and MUST be present in the notification</li> -->
+            <!-- <li>The 'contents' element MUST be located at the end of the notification envelope
+            structure. Metadata placed after the 'contents' element may be ignored by the receiver.</li> -->
           </ul>
 
           <t>The following YANG tree <xref target="RFC8340"/> illustrates the notification envelope
@@ -731,8 +730,6 @@ module: ietf-yp-observation
 
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro yang-push-observation-supported?   boolean
-            {yang-push-observation-timestamp}?
-
 ]]></sourcecode>
 
       <t>This document defines the following notification metadata as shown in the
@@ -1401,7 +1398,8 @@ module ietf-yp-notification {
     }
     container metadata {
       description
-        "Container for configuring optional metadata.";
+        "Container for configuring optional metadata.
+        Refer to Section 3.1 of RFC XXXX for more information.";
     }
   }
 
@@ -1441,7 +1439,6 @@ module: ietf-yp-observation
     +--ro point-in-time?   enumeration
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro yang-push-observation-supported?   boolean
-            {yang-push-observation-timestamp}?
 ]]></sourcecode>
         </section>
 
@@ -1513,12 +1510,6 @@ module ietf-yp-observation {
       "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
   }
 
-  feature yang-push-observation-timestamp {
-    description
-      "This feature indicates the YANG-push Notifications support
-       the observation timestamps in streaming update notifications.";
-  }
-
   grouping yang-push-observation {
     description
       "This grouping adds the observation timestamp for the observed metrics.";
@@ -1574,8 +1565,8 @@ module ietf-yp-observation {
       "Add YANG-Push notification capabilities to system-level capability
        container.";
     leaf yang-push-observation-supported {
-      if-feature "yang-push-observation-timestamp";
       type boolean;
+      default "false";
       description
         "Specifies whether the publisher supports exporting
          observation-timestamp and point-in-time in notifications.";
@@ -1750,7 +1741,7 @@ reference: RFC-to-be]]></artwork>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Paul Aitken, Per Anderson, Andy Bierman, Carsten Bormann,
-      Mohamed Boucadair, Tom Petch, Jason Sterne, Kent Watsen, Rob Wilton and Qin Wu for
+      Mohamed Boucadair, Tom Petch, Reshad Rahman, Jason Sterne, Kent Watsen, Rob Wilton and Qin Wu for
       their review and valuable comments.</t>
     </section>
   </middle>

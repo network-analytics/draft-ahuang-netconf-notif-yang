@@ -61,12 +61,6 @@ module ietf-yp-observation {
       "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
   }
 
-  feature yang-push-observation-timestamp {
-    description
-      "This feature indicates the YANG-push Notifications support
-       the observation timestamps in streaming update notifications.";
-  }
-
   grouping yang-push-observation {
     description
       "This grouping adds the observation timestamp for the observed metrics.";
@@ -122,8 +116,8 @@ module ietf-yp-observation {
       "Add YANG-Push notification capabilities to system-level capability
        container.";
     leaf yang-push-observation-supported {
-      if-feature "yang-push-observation-timestamp";
       type boolean;
+      default "false";
       description
         "Specifies whether the publisher supports exporting
          observation-timestamp and point-in-time in notifications.";

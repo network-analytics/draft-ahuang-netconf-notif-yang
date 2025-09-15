@@ -153,7 +153,8 @@ module ietf-yp-notification {
     }
     container metadata {
       description
-        "Container for configuring optional metadata.";
+        "Container for configuring optional metadata.
+        Refer to Section 3.1 of RFC XXXX for more information.";
     }
   }
 
