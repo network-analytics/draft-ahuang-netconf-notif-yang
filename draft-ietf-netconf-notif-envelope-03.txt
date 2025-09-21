@@ -291,9 +291,9 @@ Internet-Draft       YANG-Push Notification Envelope      September 2025
 3.  Notification Envelope Model
 
    Section 4.2.10 of [RFC7950] defines the encoding of YANG
-   notifications.  A notification is created by defining a
-   'notification' statement in the YANG module.  When a NETCONF server
-   sends this notification, it comprises two parts: a header containing
+   notifications.  A notification is defined by a 'notification'
+   statement in the YANG module.  When a NETCONF server sends a
+   notification, it comprises two parts: a header containing
    notification metadata that encapsulates the content and the content
    defined by the 'notification' statement.
 
