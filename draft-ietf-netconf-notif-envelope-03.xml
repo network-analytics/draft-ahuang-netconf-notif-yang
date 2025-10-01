@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="US-ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc>
 <?rfc toc="yes"?>
 <?rfc tocompact="yes"?>
@@ -1753,8 +1753,8 @@ reference: RFC-to-be]]></artwork>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Paul Aitken, Per Anderson, Andy Bierman, Carsten Bormann,
-      Mohamed Boucadair, Tom Petch, Reshad Rahman, Jason Sterne, Kent Watsen, Rob Wilton and Qin Wu for
-      their review and valuable comments.</t>
+      Mohamed Boucadair, Tom Petch, Reshad Rahman, Jürgen Schönwälder, Jason Sterne, Kent Watsen,
+      Rob Wilton and Qin Wu for their review and valuable comments.</t>
     </section>
   </middle>
 

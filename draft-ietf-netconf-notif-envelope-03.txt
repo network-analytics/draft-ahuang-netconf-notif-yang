@@ -1946,8 +1946,8 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
    The authors would like to thank Paul Aitken, Per Anderson, Andy
    Bierman, Carsten Bormann, Mohamed Boucadair, Tom Petch, Reshad
-   Rahman, Jason Sterne, Kent Watsen, Rob Wilton and Qin Wu for their
-   review and valuable comments.
+   Rahman, Jürgen Schönwälder, Jason Sterne, Kent Watsen, Rob Wilton and
+   Qin Wu for their review and valuable comments.
 
 10.  References
 
