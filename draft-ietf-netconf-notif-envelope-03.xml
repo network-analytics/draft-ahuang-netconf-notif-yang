@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="1" month="October" year="2025"/>
+    <date day="19" month="October" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
