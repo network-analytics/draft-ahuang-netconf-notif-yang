@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="19" month="October" year="2025"/>
+    <date day="20" month="October" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -402,7 +402,7 @@ module: ietf-yp-notification
         extends the 'ietf-notification-capabilities' model with:</t>
 
         <ul>
-          <li>A container containing a leaf 'notification-envelope', stating that the YANG
+          <li>A container containing a leaf 'envelope', stating that the YANG
           notification can be encoded following the notification-envelope model.</li>
           <li>A container 'metadata' containing all the supported extensions to this header.
           Extensions are defined in <xref target="extensions-notif"/>.
@@ -417,7 +417,7 @@ module: ietf-yp-notification
         <sourcecode type="yangtree"><![CDATA[
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro notification-metadata
-       +--ro notification-envelope?   boolean
+       +--ro envelope?   boolean
        +--ro metadata
 ]]></sourcecode>
 
@@ -437,7 +437,7 @@ module: ietf-yp-notification
           <ul>
             <li>The notification is encapsulated in a root "envelope" container.</li>
             <li>The header of the notification contains the notification metadata that is enabled during
-            the configuration of the subscription as child nodes of the root "notification-envelope"
+            the configuration of the subscription as child nodes of the root "envelope"
             container.</li>
             <li>The content of the notification defined by the 'notification' statement is encoded
               in the 'contents' leaf.</li>
@@ -721,7 +721,7 @@ module: ietf-yp-notification
 
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro notification-metadata
-       +--ro notification-envelope?   boolean
+       +--ro envelope?   boolean
        +--ro metadata
           +--ro hostname-sequence-number?   boolean
 
@@ -1224,7 +1224,7 @@ module: ietf-yp-notification
     +--rw metadata
   augment /sysc:system-capabilities/notc:subscription-capabilities:
     +--ro notification-metadata
-       +--ro notification-envelope?   boolean
+       +--ro envelope?   boolean
        +--ro metadata
           +--ro hostname-sequence-number?   boolean
 
@@ -1242,7 +1242,7 @@ module: ietf-yp-notification
           augments the module "ietf-notification-capabilities" <xref target="RFC9196"/> and
           uses "ietf-yang-types" module <xref target="RFC6991"/> and "ietf-yang-structure-ext" module <xref target="RFC8791"/>.</t>
 
-        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-10-01.yang"><![CDATA[
+        <sourcecode type="yang" markers="true" name="ietf-yp-notification@2025-10-20.yang"><![CDATA[
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1294,7 +1294,7 @@ module ietf-yp-notification {
                Thomas Graf
                <mailto:thomas.graf@swisscom.com>
                Benoit Claise
-               <mailto:benoit.claise@huawei.com>";
+               <mailto:benoit@everything-ops.net>";
   description
     "Defines a notification header for Subscribed Notifications
      [RFC8639] and YANG-Push [RFC8641]. When this notification header
@@ -1320,7 +1320,7 @@ module ietf-yp-notification {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
      for full legal notices.";
 
-  revision 2025-10-01 {
+  revision 2025-10-20 {
     description
       "Initial version.";
     reference
@@ -1344,7 +1344,7 @@ module ietf-yp-notification {
       "This grouping defines the capabilities for
        the notification-envelope defined in RFC XXXX
        and the different supported metadata.";
-    leaf notification-envelope {
+    leaf envelope {
       type boolean;
       default "false";
       description
@@ -1458,7 +1458,7 @@ module: ietf-yp-observation
           <t>The YANG module augments the module "ietf-yang-push" <xref target="RFC8641"/>,
           augments the module "ietf-system-capabilities" <xref target="RFC9196"/>.</t>
 
-          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-09-11.yang"><![CDATA[
+          <sourcecode type="yang" markers="true" name="ietf-yp-observation@2025-10-20.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
@@ -1496,7 +1496,7 @@ module ietf-yp-observation {
      Authors:  Thomas Graf
                <mailto:thomas.graf@swisscom.com>
                Benoit Claise
-               <mailto:benoit.claise@huawei.com>
+               <mailto:benoit@everything-ops.net>
                Alex Huang Feng
                <mailto:alex.huang-feng@insa-lyon.fr>";
   description
@@ -1515,7 +1515,7 @@ module ietf-yp-observation {
      This version of this YANG module is part of RFC XXXX; see the RFC
      itself for full legal notices.";
 
-  revision 2025-09-11 {
+  revision 2025-10-20 {
     description
       "Initial version.";
     reference
@@ -1837,13 +1837,13 @@ reference: RFC-to-be]]></artwork>
 
       <figure anchor="fig_sid_file"
             title='ietf-yp-notification .sid file'>
-        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-09-11.sid"><![CDATA[
+        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-10-20.sid"><![CDATA[
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-yp-notification",
-    "module-revision": "2025-06-04",
+    "module-revision": "2025-10-20",
     "sid-file-status":"unpublished",
-    "description": "draft-ietf-netconf-notif-envelope-02: Extensible YANG Model for YANG-Push Notifications",
+    "description": "draft-ietf-netconf-notif-envelope-03: Extensible YANG Model for YANG-Push Notifications",
     "dependency-revision": [
       {
         "module-name":"ietf-datastores",
@@ -1940,7 +1940,7 @@ reference: RFC-to-be]]></artwork>
       {
         "status":"unstable",
         "namespace":"data",
-        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/notification-envelope",
+        "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/envelope",
         "sid":"2954"
       },
       {

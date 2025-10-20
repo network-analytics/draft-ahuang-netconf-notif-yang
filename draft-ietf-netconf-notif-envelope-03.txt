@@ -5,11 +5,11 @@
 Network Working Group                                      A. Huang-Feng
 Internet-Draft                                               P. Francois
 Intended status: Standards Track                               INSA-Lyon
-Expires: 22 April 2026                                           T. Graf
+Expires: 23 April 2026                                           T. Graf
                                                                 Swisscom
                                                                B. Claise
                                                                   Huawei
-                                                         19 October 2025
+                                                         20 October 2025
 
 
            Extensible YANG Model for YANG-Push Notifications
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 April 2026.
+   This Internet-Draft will expire on 23 April 2026.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 1]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 1]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 2]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 2]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -165,7 +165,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 3]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 3]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -221,7 +221,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 4]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 4]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -277,7 +277,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 5]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 5]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -333,7 +333,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 6]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 6]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -374,9 +374,9 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
    through the capabilities model defined in [RFC9196].  This documents
    extends the 'ietf-notification-capabilities' model with:
 
-   *  A container containing a leaf 'notification-envelope', stating
-      that the YANG notification can be encoded following the
-      notification-envelope model.
+   *  A container containing a leaf 'envelope', stating that the YANG
+      notification can be encoded following the notification-envelope
+      model.
 
    *  A container 'metadata' containing all the supported extensions to
       this header.  Extensions are defined in Section 3.4.
@@ -389,14 +389,14 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 7]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 7]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro notification-metadata
-          +--ro notification-envelope?   boolean
+          +--ro envelope?   boolean
           +--ro metadata
 
 3.3.  Notification Envelope Structure
@@ -415,7 +415,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
    *  The header of the notification contains the notification metadata
       that is enabled during the configuration of the subscription as
-      child nodes of the root "notification-envelope" container.
+      child nodes of the root "envelope" container.
 
    *  The content of the notification defined by the 'notification'
       statement is encoded in the 'contents' leaf.
@@ -445,7 +445,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 8]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 8]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -501,7 +501,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                 [Page 9]
+Huang-Feng, et al.        Expires 23 April 2026                 [Page 9]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -557,7 +557,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 10]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 10]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -613,7 +613,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 11]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 11]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -669,7 +669,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 12]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 12]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -725,7 +725,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 13]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 13]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -781,7 +781,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 14]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 14]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -793,7 +793,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro notification-metadata
-          +--ro notification-envelope?   boolean
+          +--ro envelope?   boolean
           +--ro metadata
              +--ro hostname-sequence-number?   boolean
 
@@ -837,7 +837,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 15]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 15]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -893,7 +893,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 16]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 16]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -949,7 +949,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 17]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 17]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 18]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 18]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 19]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 19]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1117,7 +1117,7 @@ Timeline
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 20]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 20]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 21]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 21]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 22]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 22]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 23]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 23]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1341,7 +1341,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 24]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 24]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1366,7 +1366,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
        +--rw metadata
      augment /sysc:system-capabilities/notc:subscription-capabilities:
        +--ro notification-metadata
-          +--ro notification-envelope?   boolean
+          +--ro envelope?   boolean
           +--ro metadata
              +--ro hostname-sequence-number?   boolean
 
@@ -1383,7 +1383,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
    [RFC9196] and uses "ietf-yang-types" module [RFC6991] and "ietf-yang-
    structure-ext" module [RFC8791].
 
-   <CODE BEGINS> file "ietf-yp-notification@2025-10-01.yang"
+   <CODE BEGINS> file "ietf-yp-notification@2025-10-20.yang"
    module ietf-yp-notification {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1397,7 +1397,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 25]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 25]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1443,7 +1443,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
                   Thomas Graf
                   <mailto:thomas.graf@swisscom.com>
                   Benoit Claise
-                  <mailto:benoit.claise@huawei.com>";
+                  <mailto:benoit@everything-ops.net>";
      description
        "Defines a notification header for Subscribed Notifications
         [RFC8639] and YANG-Push [RFC8641]. When this notification header
@@ -1453,7 +1453,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 26]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 26]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1477,7 +1477,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
         for full legal notices.";
 
-     revision 2025-10-01 {
+     revision 2025-10-20 {
        description
          "Initial version.";
        reference
@@ -1501,7 +1501,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
          "This grouping defines the capabilities for
           the notification-envelope defined in RFC XXXX
           and the different supported metadata.";
-       leaf notification-envelope {
+       leaf envelope {
          type boolean;
          default "false";
          description
@@ -1509,7 +1509,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 27]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 27]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1565,7 +1565,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 28]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 28]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1621,7 +1621,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 29]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 29]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1642,7 +1642,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
    The YANG module augments the module "ietf-yang-push" [RFC8641],
    augments the module "ietf-system-capabilities" [RFC9196].
 
-   <CODE BEGINS> file "ietf-yp-observation@2025-09-11.yang"
+   <CODE BEGINS> file "ietf-yp-observation@2025-10-20.yang"
    module ietf-yp-observation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
@@ -1677,7 +1677,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 30]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 30]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1688,7 +1688,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
         Authors:  Thomas Graf
                   <mailto:thomas.graf@swisscom.com>
                   Benoit Claise
-                  <mailto:benoit.claise@huawei.com>
+                  <mailto:benoit@everything-ops.net>
                   Alex Huang Feng
                   <mailto:alex.huang-feng@insa-lyon.fr>";
      description
@@ -1707,7 +1707,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
         This version of this YANG module is part of RFC XXXX; see the RFC
         itself for full legal notices.";
 
-     revision 2025-09-11 {
+     revision 2025-10-20 {
        description
          "Initial version.";
        reference
@@ -1733,7 +1733,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 31]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 31]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1789,7 +1789,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 32]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 32]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1845,7 +1845,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 33]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 33]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1901,7 +1901,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 34]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 34]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -1957,7 +1957,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 35]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 35]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2013,7 +2013,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 36]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 36]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2069,7 +2069,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 37]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 37]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2125,7 +2125,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 38]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 38]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2144,13 +2144,13 @@ Appendix A.  .sid file
    is published.
 
 
-   <CODE BEGINS> file "ietf-yp-notification@2025-09-11.sid"
+   <CODE BEGINS> file "ietf-yp-notification@2025-10-20.sid"
    {
      "ietf-sid-file:sid-file": {
        "module-name": "ietf-yp-notification",
-       "module-revision": "2025-06-04",
+       "module-revision": "2025-10-20",
        "sid-file-status":"unpublished",
-       "description": "draft-ietf-netconf-notif-envelope-02: Extensible YANG Model for YANG-Push Notifications",
+       "description": "draft-ietf-netconf-notif-envelope-03: Extensible YANG Model for YANG-Push Notifications",
        "dependency-revision": [
          {
            "module-name":"ietf-datastores",
@@ -2181,7 +2181,7 @@ Appendix A.  .sid file
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 39]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 39]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2237,7 +2237,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 40]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 40]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2263,7 +2263,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
          {
            "status":"unstable",
            "namespace":"data",
-           "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/notification-envelope",
+           "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/envelope",
            "sid":"2954"
          },
          {
@@ -2293,7 +2293,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 41]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 41]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2349,7 +2349,7 @@ Appendix B.  Example extending the Notification Envelope
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 42]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 42]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2405,7 +2405,7 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 43]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 43]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2461,7 +2461,7 @@ Authors' Addresses
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 44]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 44]
 
 Internet-Draft       YANG-Push Notification Envelope        October 2025
 
@@ -2517,4 +2517,4 @@ Internet-Draft       YANG-Push Notification Envelope        October 2025
 
 
 
-Huang-Feng, et al.        Expires 22 April 2026                [Page 45]
+Huang-Feng, et al.        Expires 23 April 2026                [Page 45]
