@@ -1549,8 +1549,10 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
          if-feature "hostname-sequence-number";
          type yang:counter32;
          description
-           "Unique sequence number as described in [RFC9187] for each
-            published message.";
+           "Unique unique sequence number for each published message
+            by the publisher process. The initial number is 1 and
+            counts up by 1 at every published notification message
+            until it reaches 4294967295 and wraps around.";
        }
        anydata contents {
          description
@@ -1560,8 +1562,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
      }
 
      // Subscription container
-     augment "/sn:subscriptions" {
-       description
 
 
 
@@ -1570,6 +1570,8 @@ Huang-Feng, et al.        Expires 12 June 2026                 [Page 28]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
+     augment "/sn:subscriptions" {
+       description
          "This augmentation adds the configuration switches for
           enabling the notification envelope and metadata.";
        leaf enable-notification-envelope {
@@ -1616,8 +1618,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    This YANG module extends "ietf-yang-push" [RFC8641] and "ietf-
    notification-capabilities" [RFC9196] as shown in the following YANG
    tree [RFC8340]:
-
-
 
 
 

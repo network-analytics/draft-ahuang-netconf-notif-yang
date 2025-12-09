@@ -141,8 +141,10 @@ module ietf-yp-notification {
       if-feature "hostname-sequence-number";
       type yang:counter32;
       description
-        "Unique sequence number as described in [RFC9187] for each
-         published message.";
+        "Unique unique sequence number for each published message
+         by the publisher process. The initial number is 1 and
+         counts up by 1 at every published notification message
+         until it reaches 4294967295 and wraps around.";
     }
     anydata contents {
       description
