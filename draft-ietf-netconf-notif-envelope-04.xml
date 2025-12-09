@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="24" month="October" year="2025"/>
+    <date day="09" month="December" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -198,7 +198,7 @@
         <t>In addition, this document defines the following terms:</t>
 
         <t>Notification Metadata: Additional data describing the context of a notification that
-        is sent in each message, e.g. which node generated the messsage or at which
+        is sent in each message, e.g. which node generated the message or at which
         time the notification was published.</t>
 
         <t>Notification Envelope: YANG structure encapsulating the payload of a notification,
@@ -798,8 +798,10 @@ module: ietf-yp-observation
           <dt>sequence-number:</dt>
 
           <dd>Generates a unique sequence number for each published message by
-          the publisher process. The number counts up at every published
-          notification message as described in <xref target="RFC9187"/>.</dd>
+          the publisher process. The initial number is 1 and counts up by 1
+					at every published notification message until it reaches
+					4294967295 and wraps around. See <xref target="RFC9187"/> for
+					guidance.</dd>
         </dl>
 
         <t><xref target="fig_hostname-seq_json_push-update"/> provides an example of
@@ -1789,7 +1791,6 @@ reference: RFC-to-be]]></artwork>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8639.xml"/>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8641.xml"/>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8791.xml"/>
-      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9187.xml'/>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9254.xml"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc6991-bis.xml"/>
 
@@ -1834,6 +1835,7 @@ reference: RFC-to-be]]></artwork>
       <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8259.xml'/>
       <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'/>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9187.xml'/>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9232.xml"/>
       <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-netconf-udp-notif.xml"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml"/>
