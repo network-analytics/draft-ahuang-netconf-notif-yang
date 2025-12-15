@@ -1213,7 +1213,7 @@ Timeline
       in this document replaces the header defined by NETCONF Event Notifications
       <xref target="RFC5277"/> when enabled. The NETCONF Event Notifications <xref target="RFC5277"/> header
       and the notification envelope defined in this document may coexist in a network.
-      Because enabling or disabling the new envelope is performed on a YANG-Push publisher
+      Because enabling or disabling of the new envelope is performed on a YANG-Push publisher
       basis, receivers must be separated at the transport level. Operators should 
       ensure that receivers support the corresponding format or that proper validation 
       and filtering are implemented when both formats are present in the same network.
