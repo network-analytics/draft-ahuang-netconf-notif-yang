@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="09" month="December" year="2025"/>
+    <date day="15" month="December" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible notification structure, defined in YANG, 
@@ -391,7 +391,7 @@ module: ietf-yp-notification
         <t>When active subscriptions exist, the 'enable-notification-envelope'
         node MUST NOT be modified until all such subscriptions have been
         terminated. The publisher MUST reject any attempt to change the
-        'enable-notification-envelope' node while active subscriptions are actively sending notifications.
+        'enable-notification-envelope' node while subscriptions are actively sending notifications.
         Any new subscription after the change uses the header defined by the node 'enable-notification-envelope',
         i.e. encoded as
         <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
@@ -1213,8 +1213,8 @@ Timeline
       in this document replaces the header defined by NETCONF Event Notifications
       <xref target="RFC5277"/> when enabled. The NETCONF Event Notifications <xref target="RFC5277"/> header
       and the notification envelope defined in this document may coexist in a network.
-      Because enabling or disabling the new envelope is performed on a network element 
-      basis, collectors must be separated at the network element level. Operators should 
+      Because enabling or disabling the new envelope is performed on a YANG-Push publisher
+      basis, receivers must be separated at the transport level. Operators should 
       ensure that receivers support the corresponding format or that proper validation 
       and filtering are implemented when both formats are present in the same network.
       </t>
@@ -1400,7 +1400,7 @@ module ietf-yp-notification {
       if-feature "hostname-sequence-number";
       type yang:counter32;
       description
-        "Unique unique sequence number for each published message
+        "Unique sequence number for each published message
          by the publisher process. The initial number is 1 and
          counts up by 1 at every published notification message
          until it reaches 4294967295 and wraps around.";

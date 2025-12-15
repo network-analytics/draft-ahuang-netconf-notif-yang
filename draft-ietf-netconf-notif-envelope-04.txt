@@ -5,11 +5,11 @@
 Network Working Group                                      A. Huang-Feng
 Internet-Draft                                               P. Francois
 Intended status: Standards Track                               INSA-Lyon
-Expires: 12 June 2026                                            T. Graf
+Expires: 18 June 2026                                            T. Graf
                                                                 Swisscom
                                                                B. Claise
-                                                                  Huawei
-                                                         9 December 2025
+                                                          Everything OPS
+                                                        15 December 2025
 
 
            Extensible YANG Model for YANG-Push Notifications
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 June 2026.
+   This Internet-Draft will expire on 18 June 2026.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 1]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 1]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 2]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 2]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -165,7 +165,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 3]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 3]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -221,7 +221,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 4]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 4]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -277,7 +277,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 5]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 5]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -333,7 +333,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 6]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 6]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -362,11 +362,11 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    When active subscriptions exist, the 'enable-notification-envelope'
    node MUST NOT be modified until all such subscriptions have been
    terminated.  The publisher MUST reject any attempt to change the
-   'enable-notification-envelope' node while active subscriptions are
-   actively sending notifications.  Any new subscription after the
-   change uses the header defined by the node 'enable-notification-
-   envelope', i.e. encoded as Section 3.3.1 when enabled and as defined
-   in [RFC5277] if disabled.
+   'enable-notification-envelope' node while subscriptions are actively
+   sending notifications.  Any new subscription after the change uses
+   the header defined by the node 'enable-notification-envelope', i.e.
+   encoded as Section 3.3.1 when enabled and as defined in [RFC5277] if
+   disabled.
 
    Per-subscription support for this header was considered during the
    definition of this specification, however, a network node-wide
@@ -389,7 +389,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 7]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 7]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -445,7 +445,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 8]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 8]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -501,7 +501,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                  [Page 9]
+Huang-Feng, et al.        Expires 18 June 2026                  [Page 9]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -557,7 +557,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 10]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 10]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -613,7 +613,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 11]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 11]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -669,7 +669,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 12]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 12]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -725,7 +725,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 13]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 13]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -781,7 +781,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 14]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 14]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -837,7 +837,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 15]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 15]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -893,7 +893,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 16]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 16]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -949,7 +949,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 17]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 17]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 18]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 18]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 19]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 19]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1117,7 +1117,7 @@ Timeline
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 20]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 20]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 21]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 21]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 22]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 22]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 23]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 23]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1330,18 +1330,18 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    [RFC5277] when enabled.  The NETCONF Event Notifications [RFC5277]
    header and the notification envelope defined in this document may
    coexist in a network.  Because enabling or disabling the new envelope
-   is performed on a network element basis, collectors must be separated
-   at the network element level.  Operators should ensure that receivers
-   support the corresponding format or that proper validation and
-   filtering are implemented when both formats are present in the same
-   network.
+   is performed on a YANG-Push publisher basis, receivers must be
+   separated at the transport level.  Operators should ensure that
+   receivers support the corresponding format or that proper validation
+   and filtering are implemented when both formats are present in the
+   same network.
 
 5.  YANG Modules
 
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 24]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 24]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 25]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 25]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1453,7 +1453,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 26]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 26]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1509,7 +1509,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 27]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 27]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1549,7 +1549,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
          if-feature "hostname-sequence-number";
          type yang:counter32;
          description
-           "Unique unique sequence number for each published message
+           "Unique sequence number for each published message
             by the publisher process. The initial number is 1 and
             counts up by 1 at every published notification message
             until it reaches 4294967295 and wraps around.";
@@ -1565,7 +1565,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 28]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 28]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1621,7 +1621,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 29]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 29]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1677,7 +1677,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 30]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 30]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1733,7 +1733,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 31]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 31]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1789,7 +1789,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 32]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 32]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1845,7 +1845,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 33]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 33]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1901,7 +1901,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 34]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 34]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1957,7 +1957,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 35]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 35]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2013,7 +2013,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 36]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 36]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2069,7 +2069,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 37]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 37]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2125,7 +2125,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 38]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 38]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2181,7 +2181,7 @@ Appendix A.  .sid file
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 39]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 39]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2237,7 +2237,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 40]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 40]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2293,7 +2293,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 41]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 41]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2349,7 +2349,7 @@ Appendix B.  Example extending the Notification Envelope
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 42]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 42]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2405,7 +2405,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 43]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 43]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2457,11 +2457,11 @@ Authors' Addresses
 
 
    Benoit Claise
-   Huawei
+   Everything OPS
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 44]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 44]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2517,4 +2517,4 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.        Expires 12 June 2026                 [Page 45]
+Huang-Feng, et al.        Expires 18 June 2026                 [Page 45]
