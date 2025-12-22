@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="21" month="December" year="2025"/>
+    <date day="22" month="December" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -121,9 +121,9 @@
       content before forwarding to the next process in the data
       collection system.</t>
 
-      <t>The Notification container from YANG-Push <xref section="2.6"
-      sectionFormat="of" target="RFC8639"/> is currently based on the
-      XML model from NETCONF Event Notifications <xref
+      <t>The "notification" YANG statement from YANG-Push <xref
+			section="2.6" sectionFormat="of" target="RFC8639"/> is currently
+			based on the XML model from NETCONF Event Notifications <xref
       target="RFC5277"/>.  This model has the drawback that only a
       single mandatory 'eventTime' leaf is defined and does not offer a
       way to extend this header with new Notification metadata.
@@ -348,7 +348,7 @@
       target="RFC8639"/> and YANG-Push <xref target="RFC8641"/> for the
       entire Server, for both configured and Dynamic Subscriptions.</t>
       
-      <t>It also <xref target="discovery-notif"/> extends the model from
+      <t><xref target="discovery-notif"/> also extends the model from
       <xref target="RFC9196"/> to enable Clients to discover the
       capability of using the new Notification header for both
       implementation-time and runtime information. Lastly, <xref
