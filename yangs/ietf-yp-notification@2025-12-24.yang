@@ -52,40 +52,42 @@ module ietf-yp-notification {
                <mailto:benoit@everything-ops.net>";
   description
     "Defines a notification header for Subscribed Notifications
-     [RFC8639] and YANG-Push [RFC8641]. When this notification header
-     is enabled through configuration, the root container of the
-     notification is encoded as defined in RFCXXX.
+    [RFC8639] and YANG-Push [RFC8641]. When this notification header
+    is enabled through configuration, the root container of the
+    notification is encoded as defined in RFCXXX.
 
-     This module can be used to validate XML-encoded notifications
-     [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
-     messages [RFC9254]. Refer to Section 3.3.2 of RFC XXXX for more
-     details.
+    This module can be used to validate XML-encoded notifications
+    [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
+    messages [RFC9254]. Refer to Section 3.3.2 of RFC XXXX for more
+    details.
 
-     Copyright (c) 2025 IETF Trust and the persons identified as
-     authors of the code.  All rights reserved.
+    Copyright (c) 2025 IETF Trust and the persons identified as
+    authors of the code.  All rights reserved.
 
-     Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject to
-     the license terms contained in, the Revised BSD License set
-     forth in Section 4.c of the IETF Trust's Legal Provisions
-     Relating to IETF Documents
-     (https://trustee.ietf.org/license-info).
+    Redistribution and use in source and binary forms, with or without
+    modification, is permitted pursuant to, and subject to the license
+    terms contained in, the Revised BSD License set forth in Section
+    4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+    (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
-     for full legal notices.";
+    All revisions of IETF and IANA published modules can be found
+    at the YANG Parameters registry group
+    (https://www.iana.org/assignments/yang-parameters).
 
-  revision 2025-10-24 {
+    This version of this YANG module is part of RFC XXXX; see
+    the RFC itself for full legal notices.
+  
+    The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+    NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+    'MAY', and 'OPTIONAL' in this document are to be interpreted as
+    described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+    they appear in all capitals, as shown here.";
+
+  revision 2025-12-24 {
     description
       "Initial version.";
     reference
       "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
-  }
-
-  feature notification-envelope {
-    description
-      "This feature indicates the support of the notification 
-      envelope structure defined in RFC XXXX.";
   }
 
   feature hostname-sequence-number {
@@ -163,10 +165,16 @@ module ietf-yp-notification {
       default "false";
       description
         "Enables YANG-Push to use the notification-envelope
-         defined in RFC XXXX. A publisher MUST reject any attempt
-         to change this node while active subscriptions are
-         actively sending notifications. Refer to Section 3.1 of
-         RFC XXXX for more details.";
+        defined in RFC XXXX.
+        
+        Enabling or disabling this leaf terminates all 
+        existing active dynamic and configured YANG-Push
+        subscriptions. The publisher MUST send a
+        'subscription-terminated' notification to all the
+        existing active subscriptions using
+        the header configured before the change, then the
+        subscription is terminated. Refer to
+        Section 3.1 of RFC XXXX for more details.";
     }
     container metadata {
       description

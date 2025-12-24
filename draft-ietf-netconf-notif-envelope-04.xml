@@ -121,10 +121,10 @@
       content before forwarding to the next process in the data
       collection system.</t>
 
-      <t>The "notification" YANG statement from YANG-Push <xref
-			section="2.6" sectionFormat="of" target="RFC8639"/> is currently
-			based on the XML model from NETCONF Event Notifications <xref
-      target="RFC5277"/>.  This model has the drawback that only a
+      <t>The notification container from YANG-Push, as defined in <xref
+      section="2.6" sectionFormat="of" target="RFC8639"/>, is currently
+      based on the XML model from NETCONF Event Notifications <xref
+      target="RFC5277"/>. This model has the drawback that only a
       single mandatory 'eventTime' leaf is defined and does not offer a
       way to extend this header with new Notification metadata.
       Additionally, the 'eventTime' reports "The time the event was
@@ -160,9 +160,9 @@
           </li>
     
           <li>Second, it provides the first crucial extensions enabling
-          operators to identify which network node publishes in which
-          order which YANG-Push messages and when the events or metrics
-          were observed on the network node.</li>
+          operators to identify which network node publishes which YANG-Push
+          messages, when the events or metrics were observed on the network
+          node, and in which order the messages were transmitted to the Receiver.</li>
     
           <li>And finally, it provides a way to enable and disable these
           extensions globally at the Server, making the coexistence of
@@ -250,10 +250,11 @@
           MUST continue using the <xref target="RFC5277"/> header for
           NETCONF event streams. </li>
 
-          <li><xref section="2.4.2" sectionFormat="of"
-          target="RFC8639"/> defines how a Dynamic YANG-Push
-          Subscription is defined via a 'establish-subscription' RPC.
-          This document extends the RPCs from Subscribed Notifications
+          <li><xref section="2.4" target="RFC8639" sectionFormat="bare"/> and
+          <xref section="2.5" target="RFC8639" sectionFormat="bare"/> of <xref
+          target="RFC8639"/> defines how a Dynamic
+          Subscription and Configured Subscriptions are managed.
+          This document extends the Subscribed Notification configuration
           <xref target="RFC8639"/> to support enabling the new header
           defined in this document.</li>
         </ul>
@@ -335,24 +336,23 @@
   </notification>
 ]]></sourcecode>
 
-      <t>This document defines in <xref target="struct-notif"/> a new
-      Notification header and enables extending this header with new
-      Notification metadata as described in <xref
-      target="host-ext"/>. The Notification header and extensions in
-			this document are to be used in YANG-Push <xref
-			target="RFC8641"/> environments and can be implemented with
+      <t>This document defines a new Notification header and enables extending this header with new
+      Notification metadata. The Notification header and extensions in
+      this document are to be used in YANG-Push <xref
+      target="RFC8641"/> environments and can be implemented with
       NETCONF <xref target="RFC6241"/> and RESTCONF <xref
-      target="RFC8040"/>. When enabled globally <xref
-      target="enable-notif"/>, this new header MUST replace all
+      target="RFC8040"/>. When enabled globally, this new header MUST replace all
       Notifications defined in both Subscribed Notifications <xref
       target="RFC8639"/> and YANG-Push <xref target="RFC8641"/> for the
-      entire Server, for both configured and Dynamic Subscriptions.</t>
+      entire Server, for both Configured and Dynamic Subscriptions.</t>
       
-      <t><xref target="discovery-notif"/> also extends the model from
+      <t>The remainder of this section is structured as follows.
+      <xref target="enable-notif"/> presents how a Client enables the header defined in this document.
+      <xref target="discovery-notif"/> extends the model from
       <xref target="RFC9196"/> to enable Clients to discover the
       capability of using the new Notification header for both
       implementation-time and runtime information. Lastly, <xref
-      target="encodings-notif"/> defines the new Notification header and
+      target="struct-notif"/> defines the new Notification header and
       how it is encoded using XML, JSON, and CBOR.</t>
 
       <section anchor="enable-notif" title="Enabling the Notification
@@ -380,15 +380,12 @@ module: ietf-yp-notification
     +--rw metadata
 ]]></sourcecode>
         
-        <t>When active Subscriptions exist, the
-        'enable-notification-envelope' node MUST NOT be modified until
-        all such Subscriptions have been terminated. The Publisher MUST
-        reject any attempt to change the 'enable-notification-envelope'
-        node while Subscriptions are actively sending Notifications. Any
-        new Subscription after the change uses the header defined by the
-        node 'enable-notification-envelope', i.e. encoded as <xref
-        target="base-notif-model"/> when enabled and as defined in <xref
-        target="RFC5277"/> if disabled.</t>
+        <t>When there are existing subscriptions and a client changes the node 'enable-notification-envelope',
+        all existing subscriptions MUST be terminated. The publisher MUST send a 'subscription-terminated'
+        notification to all the existing subscriptions using the header configured before the change.
+        Any new subscription after the change uses the header defined by the node 'enable-notification-envelope',
+        i.e. encoded as
+        <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
 
         <t>Per-subscription support for this header was considered
         during the definition of this specification, however, a network
@@ -544,8 +541,8 @@ module: ietf-yp-notification
             <t>A YANG Notification encoded in JSON is structured as a
             root 'envelope' container. The namespace of this container
             is the name of the YANG module 'ietf-yp-notification'
-            defined in <xref target="ietf-yp-notification-yang-module"/>
-            .</t>
+            defined in
+            <xref target="ietf-yp-notification-yang-module"/>.</t>
 
             <t>Two mandatory child nodes within the
             'ietf-notification:envelope' container are expected,
@@ -822,10 +819,9 @@ module: ietf-yp-observation
         <dl>
           <dt>hostname:</dt>
 
-          <dd>Describes the hostname of the network node from where the
-          message was published. This value MUST be configured on the
-          node by the administrator or orchestrator to identify the node
-          in the network uniquely.</dd>
+          <dd>Describes the hostname of the network node that published
+          the message. The hostname uniquely identifies
+          the node within the network.</dd>
         </dl>
 
         <dl>
@@ -982,7 +978,7 @@ module: ietf-yp-observation
             of the observation timestamp was observed. Choices are:</t>
 
             <t>'current-accounting' states the point in time where the
-            metrics ar polled and observed in "periodic" Subscriptions.
+            metrics are polled and observed in "periodic" Subscriptions.
             </t>
 
             <t>'initial-state' states the initial point in time when the
@@ -1248,13 +1244,19 @@ Timeline
       NETCONF Event Notifications <xref target="RFC5277"/> when enabled.
       The NETCONF Event Notifications <xref target="RFC5277"/> header
       and the Notification envelope defined in this document may coexist
-      in a network. Because enabling or disabling of the new envelope is
-      performed on a YANG-Push Publisher basis, Receivers must be
-      separated at the transport level. Operators should ensure that
+      in the same network. Since enabling or disabling the Notification envelope is
+      performed on a YANG-Push Publisher basis, Receivers must only
+      receive Notifications in a format they support. Operators should ensure that
       Receivers support the corresponding format or that proper
       validation and filtering are implemented when both formats are
       present in the same network.</t>
 
+      <t>In network devices where existing subscriptions are active,
+      enabling or disabling the Notification envelope has operational impact.
+      Operators should acknowledge that any existing subscriptions will be
+      terminated when enabling or disabling the Notification envelope.
+      Careful planning is therefore required to avoid unintended service
+      disruption.</t>
     </section>
 
     <section anchor="yang-models" title="YANG Modules">
@@ -1301,7 +1303,7 @@ module: ietf-yp-notification
           <xref target="RFC8791"/>.</t>
 
         <sourcecode type="yang" markers="true"
-        name="ietf-yp-notification@2025-10-24.yang"><![CDATA[
+        name="ietf-yp-notification@2025-12-24.yang"><![CDATA[
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1356,40 +1358,42 @@ module ietf-yp-notification {
                <mailto:benoit@everything-ops.net>";
   description
     "Defines a notification header for Subscribed Notifications
-     [RFC8639] and YANG-Push [RFC8641]. When this notification header
-     is enabled through configuration, the root container of the
-     notification is encoded as defined in RFCXXX.
+    [RFC8639] and YANG-Push [RFC8641]. When this notification header
+    is enabled through configuration, the root container of the
+    notification is encoded as defined in RFCXXX.
 
-     This module can be used to validate XML-encoded notifications
-     [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
-     messages [RFC9254]. Refer to Section 3.3.2 of RFC XXXX for more
-     details.
+    This module can be used to validate XML-encoded notifications
+    [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
+    messages [RFC9254]. Refer to Section 3.3.2 of RFC XXXX for more
+    details.
 
-     Copyright (c) 2025 IETF Trust and the persons identified as
-     authors of the code.  All rights reserved.
+    Copyright (c) 2025 IETF Trust and the persons identified as
+    authors of the code.  All rights reserved.
 
-     Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject to
-     the license terms contained in, the Revised BSD License set
-     forth in Section 4.c of the IETF Trust's Legal Provisions
-     Relating to IETF Documents
-     (https://trustee.ietf.org/license-info).
+    Redistribution and use in source and binary forms, with or without
+    modification, is permitted pursuant to, and subject to the license
+    terms contained in, the Revised BSD License set forth in Section
+    4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+    (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
-     for full legal notices.";
+    All revisions of IETF and IANA published modules can be found
+    at the YANG Parameters registry group
+    (https://www.iana.org/assignments/yang-parameters).
 
-  revision 2025-10-24 {
+    This version of this YANG module is part of RFC XXXX; see
+    the RFC itself for full legal notices.
+  
+    The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+    NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+    'MAY', and 'OPTIONAL' in this document are to be interpreted as
+    described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+    they appear in all capitals, as shown here.";
+
+  revision 2025-12-24 {
     description
       "Initial version.";
     reference
       "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
-  }
-
-  feature notification-envelope {
-    description
-      "This feature indicates the support of the notification 
-      envelope structure defined in RFC XXXX.";
   }
 
   feature hostname-sequence-number {
@@ -1467,10 +1471,16 @@ module ietf-yp-notification {
       default "false";
       description
         "Enables YANG-Push to use the notification-envelope
-         defined in RFC XXXX. A publisher MUST reject any attempt
-         to change this node while active subscriptions are
-         actively sending notifications. Refer to Section 3.1 of
-         RFC XXXX for more details.";
+        defined in RFC XXXX.
+        
+        Enabling or disabling this leaf terminates all 
+        existing active dynamic and configured YANG-Push
+        subscriptions. The publisher MUST send a
+        'subscription-terminated' notification to all the
+        existing active subscriptions using
+        the header configured before the change, then the
+        subscription is terminated. Refer to
+        Section 3.1 of RFC XXXX for more details.";
     }
     container metadata {
       description
@@ -1531,7 +1541,7 @@ module: ietf-yp-observation
           'ietf-system-capabilities' <xref target="RFC9196"/>.</t>
 
           <sourcecode type="yang" markers="true"
-          name="ietf-yp-observation@2025-10-20.yang"><![CDATA[
+          name="ietf-yp-observation@2025-12-24.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
@@ -1575,19 +1585,23 @@ module ietf-yp-observation {
                <mailto:alex.huang-feng@insa-lyon.fr>";
   description
     "Defines YANG-Push event notification header with the observation
-     time in streaming update notifications.
+    time in streaming update notifications.
 
-     Copyright (c) 2025 IETF Trust and the persons identified as
-     authors of the code.  All rights reserved.
+    Copyright (c) 2025 IETF Trust and the persons identified as
+    authors of the code.  All rights reserved.
 
-     Redistribution and use in source and binary forms, with or without
-     modification, is permitted pursuant to, and subject to the license
-     terms contained in, the Revised BSD License set forth in Section
-     4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
-     (https://trustee.ietf.org/license-info).
+    Redistribution and use in source and binary forms, with or without
+    modification, is permitted pursuant to, and subject to the license
+    terms contained in, the Revised BSD License set forth in Section
+    4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+    (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX; see the RFC
-     itself for full legal notices.";
+    All revisions of IETF and IANA published modules can be found
+    at the YANG Parameters registry group
+    (https://www.iana.org/assignments/yang-parameters).
+
+    This version of this YANG module is part of RFC XXXX; see
+    the RFC itself for full legal notices.";
 
   revision 2025-10-20 {
     description
@@ -1598,8 +1612,7 @@ module ietf-yp-observation {
 
   grouping yang-push-observation {
     description
-      "This grouping adds the observation timestamp for the observed
-      metrics.";
+      "This grouping adds the observation timestamp for the observed metrics.";
     leaf timestamp {
       type yang:date-and-time;
       description
@@ -1650,8 +1663,8 @@ module ietf-yp-observation {
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities" {
     description
-      "Add YANG-Push notification capabilities to system-level
-       capability container.";
+      "Add YANG-Push notification capabilities to system-level capability
+       container.";
     leaf yang-push-observation-supported {
       type boolean;
       default "false";
