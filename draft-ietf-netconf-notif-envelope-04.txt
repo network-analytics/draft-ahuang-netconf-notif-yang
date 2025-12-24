@@ -114,7 +114,7 @@ Huang-Feng, et al.        Expires 25 June 2026                  [Page 2]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  44
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  45
 
 1.  Introduction
 
@@ -1664,7 +1664,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    The YANG module augments the module 'ietf-yang-push' [RFC8641],
    augments the module 'ietf-system-capabilities' [RFC9196].
 
-   <CODE BEGINS> file "ietf-yp-observation@2025-10-20.yang"
+   <CODE BEGINS> file "ietf-yp-observation@2025-12-24.yang"
    module ietf-yp-observation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
@@ -1716,20 +1716,20 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
                   <mailto:alex.huang-feng@insa-lyon.fr>";
      description
        "Defines YANG-Push event notification header with the observation
-        time in streaming update notifications.
+       time in streaming update notifications.
 
-        Copyright (c) 2025 IETF Trust and the persons identified as
-        authors of the code.  All rights reserved.
+       Copyright (c) 2025 IETF Trust and the persons identified as
+       authors of the code.  All rights reserved.
 
-        Redistribution and use in source and binary forms, with or without
-        modification, is permitted pursuant to, and subject to the license
-        terms contained in, the Revised BSD License set forth in Section
-        4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
-        (https://trustee.ietf.org/license-info).
+       Redistribution and use in source and binary forms, with or without
+       modification, is permitted pursuant to, and subject to the license
+       terms contained in, the Revised BSD License set forth in Section
+       4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+       (https://trustee.ietf.org/license-info).
 
-        This version of this YANG module is part of RFC XXXX; see the RFC
-        itself for full legal notices.";
-
+       All revisions of IETF and IANA published modules can be found
+       at the YANG Parameters registry group
+       (https://www.iana.org/assignments/yang-parameters).
 
 
 
@@ -1737,6 +1737,9 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 31]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
+
+       This version of this YANG module is part of RFC XXXX; see
+       the RFC itself for full legal notices.";
 
      revision 2025-10-20 {
        description
@@ -1747,8 +1750,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
      grouping yang-push-observation {
        description
-         "This grouping adds the observation timestamp for the observed
-         metrics.";
+         "This grouping adds the observation timestamp for the observed metrics.";
        leaf timestamp {
          type yang:date-and-time;
          description
@@ -1784,8 +1786,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
      augment "/yp:push-update" {
        description
          "This augmentation adds the observation timestamp of the accounted
-          metrics in the push-update notification.";
-       uses iypo:yang-push-observation;
 
 
 
@@ -1794,6 +1794,8 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 32]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
+          metrics in the push-update notification.";
+       uses iypo:yang-push-observation;
      }
 
      augment "/yp:push-change-update" {
@@ -1807,8 +1809,8 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
      augment "/sysc:system-capabilities"
            + "/notc:subscription-capabilities" {
        description
-         "Add YANG-Push notification capabilities to system-level
-          capability container.";
+         "Add YANG-Push notification capabilities to system-level capability
+          container.";
        leaf yang-push-observation-supported {
          type boolean;
          default "false";
@@ -1840,8 +1842,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    the timestamp and point-in-time extension as described in Section 3.5
    for a YANG-Push Publisher on UDP-based Transport for Configured
    Subscriptions [I-D.ietf-netconf-udp-notif] in their VSR platform.
-
-
 
 
 
@@ -2155,29 +2155,29 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 Appendix A.  .sid file
 
-   This appendix is normative.  For CBOR encoding using YANG-SIDs
+   This appendix is not normative.  For CBOR encoding using YANG-SIDs
    identifiers, a ".sid" file is requested to IANA in Section 8.3.
+
+   The .sid file can be found in TBD2.
 
    Note to the RFC-Editor:
 
-   Please replace the entry-point and SID values with the ones allocated
-   by IANA.
+   1.  Please replace the entry-point and SID values with the ones
+   allocated by IANA.
 
-   Please change the 'sid-file-status' to 'published' once the .sid file
-   is published.
+   2.  Please change the 'sid-file-status' to 'published' once the .sid
+   file is published.
+
+   3.  Please remove the .sid file from the document and insert a link
+   in TBD2 to the .sid file reference from IANA.
 
 
-   <CODE BEGINS> file "ietf-yp-notification@2025-10-20.sid"
+   <CODE BEGINS> file "ietf-yp-notification@2025-12-24.sid"
    {
      "ietf-sid-file:sid-file": {
        "module-name": "ietf-yp-notification",
-       "module-revision": "2025-10-20",
+       "module-revision": "2025-12-24",
        "sid-file-status":"unpublished",
-       "description": "draft-ietf-netconf-notif-envelope-03: Extensible YANG Model for YANG-Push Notifications",
-       "dependency-revision": [
-         {
-           "module-name":"ietf-datastores",
-           "module-revision":"2018-02-14"
 
 
 
@@ -2186,6 +2186,11 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 39]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
+       "description": "draft-ietf-netconf-notif-envelope-04: Extensible YANG Model for YANG-Push Notifications",
+       "dependency-revision": [
+         {
+           "module-name":"ietf-datastores",
+           "module-revision":"2018-02-14"
          },
          {
            "module-name":"ietf-interfaces",
@@ -2221,19 +2226,14 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
          },
          {
            "module-name": "ietf-yang-types",
-           "module-revision": "2013-07-15"
+           "module-revision": "2025-06-23"
          },
          {
            "module-name": "ietf-inet-types",
-           "module-revision": "2021-02-22"
+           "module-revision": "2025-06-23"
          },
          {
            "module-name": "ietf-subscribed-notifications",
-           "module-revision": "2019-09-09"
-         },
-         {
-           "module-name": "ietf-system-capabilities",
-           "module-revision": "2022-02-17"
 
 
 
@@ -2242,6 +2242,11 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 40]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
+           "module-revision": "2019-09-09"
+         },
+         {
+           "module-name": "ietf-system-capabilities",
+           "module-revision": "2022-02-17"
          },
          {
            "module-name": "ietf-notification-capabilities",
@@ -2285,11 +2290,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
          },
          {
            "status":"unstable",
-           "namespace":"data",
-           "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/envelope",
-           "sid":"2954"
-         },
-         {
 
 
 
@@ -2298,6 +2298,11 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 41]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
+           "namespace":"data",
+           "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/envelope",
+           "sid":"2954"
+         },
+         {
            "status":"unstable",
            "namespace":"data",
            "identifier":"/ietf-system-capabilities:system-capabilities/ietf-notification-capabilities:subscription-capabilities/ietf-yp-notification:notification-metadata/metadata",
@@ -2341,11 +2346,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
          }
        ]
      }
-   }
-   <CODE ENDS>
-
-                 Figure 11: ietf-yp-notification .sid file
-
 
 
 
@@ -2353,6 +2353,11 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 42]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
+
+   }
+   <CODE ENDS>
+
+                 Figure 11: ietf-yp-notification .sid file
 
 Appendix B.  Example extending the Notification Envelope
 
@@ -2397,11 +2402,6 @@ Appendix B.  Example extending the Notification Envelope
        leaf foo {
          type string;
          description
-           "Description of the 'foo' extension.";
-       }
-     }
-
-     // Extending the notifications capabilities so that clients can
 
 
 
@@ -2410,6 +2410,11 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 43]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
+           "Description of the 'foo' extension.";
+       }
+     }
+
+     // Extending the notifications capabilities so that clients can
      // learn whether this new extension is supported or not
      augment "/sysc:system-capabilities"
            + "/notc:subscription-capabilities"
@@ -2445,6 +2450,22 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
    The extensions result in the following YANG tree:
 
+
+
+
+
+
+
+
+
+
+
+
+Huang-Feng, et al.        Expires 25 June 2026                 [Page 44]
+
+Internet-Draft       YANG-Push Notification Envelope       December 2025
+
+
    module: example-foo-extension
 
      augment /sysc:system-capabilities/notc:subscription-capabilities
@@ -2457,14 +2478,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
        +-- foo?   string
 
 Authors' Addresses
-
-
-
-
-Huang-Feng, et al.        Expires 25 June 2026                 [Page 44]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2025
-
 
    Alex Huang Feng
    INSA-Lyon
@@ -2491,19 +2504,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    Benoit Claise
    Everything OPS
    Email: benoit@everything-ops.net
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

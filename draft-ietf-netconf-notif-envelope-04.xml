@@ -121,7 +121,7 @@
       content before forwarding to the next process in the data
       collection system.</t>
 
-      <t>The notification container from YANG-Push, as defined in <xref
+      <t>The Notification container from YANG-Push, as defined in <xref
       section="2.6" sectionFormat="of" target="RFC8639"/>, is currently
       based on the XML model from NETCONF Event Notifications <xref
       target="RFC5277"/>. This model has the drawback that only a
@@ -1908,24 +1908,27 @@ reference: RFC-to-be]]></artwork>
     </references>
 
     <section title=".sid file" anchor="sid_appendix">
-      <t>This appendix is normative. 
+      <t>This appendix is not normative. 
       For CBOR encoding using YANG-SIDs identifiers, a ".sid" file is requested
       to IANA in <xref target="iana-sid"/>.</t>
 
+      <t>The .sid file can be found in TBD2.</t>
+
       <t>Note to the RFC-Editor:</t>
-      <t>Please replace the entry-point and SID values with the ones allocated by IANA.</t>
-      <t>Please change the 'sid-file-status' to 'published' once the .sid file is published.</t>
+      <t>1. Please replace the entry-point and SID values with the ones allocated by IANA.</t>
+      <t>2. Please change the 'sid-file-status' to 'published' once the .sid file is published.</t>
+      <t>3. Please remove the .sid file from the document and insert a link in TBD2 to the .sid file reference from IANA.</t>
       <t></t>
 
       <figure anchor="fig_sid_file"
             title='ietf-yp-notification .sid file'>
-        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-10-20.sid"><![CDATA[
+        <sourcecode type="yang-sid" markers="true" name="ietf-yp-notification@2025-12-24.sid"><![CDATA[
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-yp-notification",
-    "module-revision": "2025-10-20",
+    "module-revision": "2025-12-24",
     "sid-file-status":"unpublished",
-    "description": "draft-ietf-netconf-notif-envelope-03: Extensible YANG Model for YANG-Push Notifications",
+    "description": "draft-ietf-netconf-notif-envelope-04: Extensible YANG Model for YANG-Push Notifications",
     "dependency-revision": [
       {
         "module-name":"ietf-datastores",
@@ -1965,11 +1968,11 @@ reference: RFC-to-be]]></artwork>
       },
       {
         "module-name": "ietf-yang-types",
-        "module-revision": "2013-07-15"
+        "module-revision": "2025-06-23"
       },
       {
         "module-name": "ietf-inet-types",
-        "module-revision": "2021-02-22"
+        "module-revision": "2025-06-23"
       },
       {
         "module-name": "ietf-subscribed-notifications",
