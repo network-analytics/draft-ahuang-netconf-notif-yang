@@ -123,7 +123,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    optionally validates the header and the content before forwarding to
    the next process in the data collection system.
 
-   The notification container from YANG-Push, as defined in Section 2.6
+   The Notification container from YANG-Push, as defined in Section 2.6
    of [RFC8639], is currently based on the XML model from NETCONF Event
    Notifications [RFC5277].  This model has the drawback that only a
    single mandatory 'eventTime' leaf is defined and does not offer a way
@@ -247,7 +247,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
    *  2.4 and 2.5 of [RFC8639] defines how a Dynamic Subscription and
       Configured Subscriptions are managed.  This document extends the
-      Subscribed Notification configuration [RFC8639] to support
+      Subscribed Notifications configuration [RFC8639] to support
       enabling the new header defined in this document.
 
 2.3.  Relationship to RFC7950

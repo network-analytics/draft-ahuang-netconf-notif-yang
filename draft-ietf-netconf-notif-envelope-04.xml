@@ -254,7 +254,7 @@
           <xref section="2.5" target="RFC8639" sectionFormat="bare"/> of <xref
           target="RFC8639"/> defines how a Dynamic
           Subscription and Configured Subscriptions are managed.
-          This document extends the Subscribed Notification configuration
+          This document extends the Subscribed Notifications configuration
           <xref target="RFC8639"/> to support enabling the new header
           defined in this document.</li>
         </ul>
