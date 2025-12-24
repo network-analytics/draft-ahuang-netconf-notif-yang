@@ -79,7 +79,7 @@ Table of Contents
      3.3.  Notification Envelope Structure . . . . . . . . . . . . .   8
        3.3.1.  Base Notification Model . . . . . . . . . . . . . . .   8
        3.3.2.  Encodings of the Notification Envelope  . . . . . . .   9
-     3.4.  Extensions for the Notification Envelope  . . . . . . . .  14
+     3.4.  Extensions for the Notification Envelope  . . . . . . . .  15
        3.4.1.  Support of Hostname and Sequencing  . . . . . . . . .  15
      3.5.  Extensions for the YANG-Push Header . . . . . . . . . . .  17
        3.5.1.  Support of Observation Timestamp  . . . . . . . . . .  18
@@ -760,6 +760,9 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
         Figure 4: CBOR-encoded Notification using YANG SIDs in CBOR
                             diagnostic notation
 
+   Note to the RFC-Editor: Please change the SID values from the example
+   Figure 4 with the ones allocated by IANA.
+
    Note that in the example shown in Figure 4, the Notification payload
    uses names as keys.  These keys can also be encoded as SIDs.  The
    corresponding SID values must be allocated in the IANA registry,
@@ -770,14 +773,11 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    absolute SID can also be used using the tag 47.  Refer to [RFC9254]
    for more details.
 
-3.4.  Extensions for the Notification Envelope
 
-   This section describes two optional YANG nodes for the envelope
-   header.  When the envelope is enabled via the 'enable-notification-
-   envelope' node, the Publisher includes by default the 'hostname' and
-   'sequence-number' defined in Section 3.4.1.  The Client discovers the
-   support of these two optional leafs with the mechanism defined in
-   Section 3.2.  When the leafs defined in this document are supported
+
+
+
+
 
 
 
@@ -786,6 +786,14 @@ Huang-Feng, et al.        Expires 25 June 2026                 [Page 14]
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
+3.4.  Extensions for the Notification Envelope
+
+   This section describes two optional YANG nodes for the envelope
+   header.  When the envelope is enabled via the 'enable-notification-
+   envelope' node, the Publisher includes by default the 'hostname' and
+   'sequence-number' defined in Section 3.4.1.  The Client discovers the
+   support of these two optional leafs with the mechanism defined in
+   Section 3.2.  When the leafs defined in this document are supported
    by the Server, the Client discovers the presence of new metadata with
    the following augmentations in the 'ietf-notification-capabilities':
 
@@ -821,6 +829,19 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    publishing process (the exporting network node), nor able to detect
    message loss or reordering.
 
+
+
+
+
+
+
+
+
+Huang-Feng, et al.        Expires 25 June 2026                 [Page 15]
+
+Internet-Draft       YANG-Push Notification Envelope       December 2025
+
+
    To correlate network data among different Network Telemetry planes as
    described in Section 3.1 of [RFC9232] or among different YANG-Push
    Subscription types as defined in Section 3.1 of [RFC8641], a
@@ -833,14 +854,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    publishing process.  However, this implies encoding this information
    in the YANG-Push Notification messages which impact the semantic
    readability of the message in the downstream system.
-
-
-
-
-Huang-Feng, et al.        Expires 25 June 2026                 [Page 15]
-
-Internet-Draft       YANG-Push Notification Envelope       December 2025
-
 
    On top of that, the transport source IP address might not represent
    the management IP address by which the YANG-Push Publisher should be
@@ -867,19 +880,6 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    Figure 5 provides an example of a JSON encoded, [RFC8259], 'push-
    update' Notification message with 'hostname' and 'sequence-number'
    included.
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

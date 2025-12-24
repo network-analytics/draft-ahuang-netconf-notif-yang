@@ -725,6 +725,9 @@ module: ietf-yp-notification
   }
         ]]></sourcecode>
             </figure>
+            <t>Note to the RFC-Editor: Please change the SID values from the example <xref
+            target="fig_cbor_sid"/> with the ones allocated by IANA.</t>
+
             <t>Note that in the example shown in <xref
             target="fig_cbor_sid"/>, the Notification payload uses names
             as keys. These keys can also be encoded as SIDs. The
