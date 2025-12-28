@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="22" month="December" year="2025"/>
+    <date day="28" month="December" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -833,8 +833,8 @@ module: ietf-yp-observation
           <dd>Generates a unique sequence number for each published
           message by the Publisher process. The initial number is 1 and
           counts up by 1 at every published Notification message until
-          it reaches 4294967295 and wraps around. See <xref
-          target="RFC9187"/> for guidance.</dd>
+          it reaches 4294967295 and wraps around and starts with 1
+					again. Number 0 is reserved.</dd>
         </dl>
 
         <t><xref target="fig_hostname-seq_json_push-update"/> provides
@@ -1903,7 +1903,6 @@ reference: RFC-to-be]]></artwork>
       <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8259.xml'/>
       <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'/>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml"/>
-      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9187.xml'/>
       <xi:include href="https://xml.resource.org/public/rfc/bibxml/reference.RFC.9232.xml"/>
       <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-netconf-udp-notif.xml"/>
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml"/>
