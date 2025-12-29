@@ -874,8 +874,8 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    sequence-number:  Generates a unique sequence number for each
       published message by the Publisher process.  The initial number is
       1 and counts up by 1 at every published Notification message until
-      it reaches 4294967295 and wraps around and starts with 1 again.
-      Number 0 is reserved.
+      it reaches 4294967295.  Then, it wraps around and starts with 1
+      again.  Number 0 is reserved.
 
    Figure 5 provides an example of a JSON encoded, [RFC8259], 'push-
    update' Notification message with 'hostname' and 'sequence-number'
