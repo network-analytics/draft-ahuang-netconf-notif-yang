@@ -5,11 +5,11 @@
 Network Working Group                                      A. Huang-Feng
 Internet-Draft                                               P. Francois
 Intended status: Standards Track                               INSA-Lyon
-Expires: 1 July 2026                                             T. Graf
+Expires: 3 July 2026                                             T. Graf
                                                                 Swisscom
                                                                B. Claise
                                                           Everything OPS
-                                                        28 December 2025
+                                                        30 December 2025
 
 
            Extensible YANG Model for YANG-Push Notifications
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 July 2026.
+   This Internet-Draft will expire on 3 July 2026.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 1]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 1]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 2]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 2]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -165,7 +165,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 3]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 3]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -221,7 +221,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 4]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 4]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -277,7 +277,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 5]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 5]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -333,7 +333,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 6]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 6]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -389,7 +389,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 7]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 7]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -445,7 +445,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 8]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 8]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -501,7 +501,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                  [Page 9]
+Huang-Feng, et al.         Expires 3 July 2026                  [Page 9]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -557,7 +557,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 10]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 10]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -613,7 +613,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 11]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 11]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -669,7 +669,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 12]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 12]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -725,7 +725,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 13]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 13]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -781,7 +781,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 14]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 14]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -837,7 +837,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 15]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 15]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -874,8 +874,8 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
    sequence-number:  Generates a unique sequence number for each
       published message by the Publisher process.  The initial number is
       1 and counts up by 1 at every published Notification message until
-      it reaches 4294967295 and wraps around and starts with 1 again.
-      Number 0 is reserved.
+      it reaches 4294967295.  Then, it wraps around and restarts at
+      0.The value 0 is used to detect wrap arounds.
 
    Figure 5 provides an example of a JSON encoded, [RFC8259], 'push-
    update' Notification message with 'hostname' and 'sequence-number'
@@ -893,7 +893,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 16]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 16]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -949,7 +949,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 17]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 17]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 18]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 18]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 19]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 19]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1117,7 +1117,7 @@ Timeline
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 20]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 20]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 21]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 21]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 22]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 22]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 23]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 23]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1341,7 +1341,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 24]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 24]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 25]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 25]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1453,7 +1453,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 26]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 26]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1509,7 +1509,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 27]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 27]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1565,7 +1565,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 28]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 28]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1621,7 +1621,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 29]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 29]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1677,7 +1677,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 30]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 30]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1733,7 +1733,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 31]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 31]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1789,7 +1789,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 32]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 32]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1845,7 +1845,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 33]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 33]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1901,7 +1901,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 34]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 34]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -1957,7 +1957,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 35]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 35]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2013,7 +2013,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 36]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 36]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2069,7 +2069,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 37]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 37]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2125,7 +2125,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 38]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 38]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2181,7 +2181,7 @@ Appendix A.  .sid file
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 39]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 39]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2237,7 +2237,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 40]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 40]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2293,7 +2293,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 41]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 41]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2349,7 +2349,7 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 42]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 42]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2405,7 +2405,7 @@ Appendix B.  Example extending the Notification Envelope
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 43]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 43]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2461,7 +2461,7 @@ Authors' Addresses
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 44]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 44]
 
 Internet-Draft       YANG-Push Notification Envelope       December 2025
 
@@ -2517,4 +2517,4 @@ Internet-Draft       YANG-Push Notification Envelope       December 2025
 
 
 
-Huang-Feng, et al.         Expires 1 July 2026                 [Page 45]
+Huang-Feng, et al.         Expires 3 July 2026                 [Page 45]

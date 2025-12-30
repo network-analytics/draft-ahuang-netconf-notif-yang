@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="28" month="December" year="2025"/>
+    <date day="30" month="December" year="2025"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -833,8 +833,8 @@ module: ietf-yp-observation
           <dd>Generates a unique sequence number for each published
           message by the Publisher process. The initial number is 1 and
           counts up by 1 at every published Notification message until
-          it reaches 4294967295 and wraps around and starts with 1
-					again. Number 0 is reserved.</dd>
+          it reaches 4294967295. Then, it wraps around and restarts at
+					0.The value 0 is used to detect wrap arounds.</dd>
         </dl>
 
         <t><xref target="fig_hostname-seq_json_push-update"/> provides
