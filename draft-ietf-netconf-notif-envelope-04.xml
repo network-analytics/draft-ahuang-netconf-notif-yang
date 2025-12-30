@@ -121,7 +121,7 @@
       content before forwarding to the next process in the data
       collection system.</t>
 
-      <t>The Notification container from YANG-Push, as defined in <xref
+      <t>The Notification encoded message from YANG-Push, as defined in <xref
       section="2.6" sectionFormat="of" target="RFC8639"/>, is currently
       based on the XML model from NETCONF Event Notifications <xref
       target="RFC5277"/>. This model has the drawback that only a
@@ -387,6 +387,17 @@ module: ietf-yp-notification
         i.e. encoded as
         <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
 
+        <t>The container metadata is intended to support optional extensions
+        that may be enabled on a per-extension basis. Defining explicit configuration
+        knobs to enable or disable these extensions is optional and left to
+        the extension designer. Refer to <xref target="appendix-example"/> for an example.</t>
+
+        <t>Per the YANG specifications (<xref section="7.17" target="RFC7950"/>),
+        which does not allow making mandatory statements on augmentations,
+        the 'enable-notification-envelope' YANG leaf must be made optional:
+        the metadata fields MUST not be enabled when the envelope is not enabled.
+        </t>
+
         <t>Per-subscription support for this header was considered
         during the definition of this specification, however, a network
         node-wide setting was chosen to simplify network operations. In
@@ -611,7 +622,7 @@ module: ietf-yp-notification
             sectionFormat="of" target="RFC9254"/>. The key of the
             element can be the name of the element itself or be
             namespace-qualified. In the latter case, the namespace of
-            the Notification container uses the YANG module name
+            the Notification encoded message uses the YANG module name
             'ietf-yp-notification', defined in <xref
             target="ietf-yp-notification-yang-module"/>.</t>
 
@@ -785,7 +796,7 @@ module: ietf-yp-observation
         <t>When YANG-Push Notification messages are forwarded from a
         Receiver to another system, such as a message broker or a time
         series database, the transport context is lost since it is not
-        part of the Notification metadata of the Notification container.
+        part of the Notification metadata of the Notification encoded message.
         Therefore, the downstream system is unable to associate the
         message with the publishing process (the exporting network
         node), nor able to detect message loss or reordering.</t>
@@ -812,8 +823,8 @@ module: ietf-yp-observation
         host for the session" might not be the management IP address.
         </t>
 
-        <t>To overcome these issues, this document defines a
-        Notification container extension with a hostname and a sequence
+        <t>To overcome these issues, this document defines an
+        extension to the Notification envelope to encode a hostname and a sequence
         number. This allows the downstream system to not only be able to
         identify from which network node, Subscription, and time the
         message was published but also, the order of the published
@@ -833,8 +844,8 @@ module: ietf-yp-observation
           <dd>Generates a unique sequence number for each published
           message by the Publisher process. The initial number is 1 and
           counts up by 1 at every published Notification message until
-          it reaches 4294967295. Then, it wraps around and starts with 1
-					again. Number 0 is reserved.</dd>
+          it reaches 4294967295. Then, it wraps around and restarts at 0.
+          The value 0 is used to detect wrap arounds.</dd>
         </dl>
 
         <t><xref target="fig_hostname-seq_json_push-update"/> provides
@@ -1455,7 +1466,9 @@ module ietf-yp-notification {
         "Unique sequence number for each published message
          by the publisher process. The initial number is 1 and
          counts up by 1 at every published notification message
-         until it reaches 4294967295 and wraps around.";
+         until it reaches 4294967295. Then, it wraps around and
+         restarts at 0. The value 0 is used to detect wrap
+         arounds.";
     }
     anydata contents {
       description
