@@ -1820,7 +1820,9 @@ Internet-Draft       YANG-Push Notification Envelope        January 2026
          default "false";
          description
            "Specifies whether the publisher supports exporting
-            observation-timestamp and point-in-time in notifications.";
+            observation-timestamp and point-in-time in notifications. If
+            set to true, publisher supports. If set to false, publisher
+            doesn't support.";
          reference
            "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
        }
@@ -1839,8 +1841,6 @@ Internet-Draft       YANG-Push Notification Envelope        January 2026
    in Section 3.5 for a YANG-Push Publisher on UDP-based Transport for
    Configured Subscriptions [I-D.ietf-netconf-udp-notif] in their VRP
    platform.
-
-
 
 
 

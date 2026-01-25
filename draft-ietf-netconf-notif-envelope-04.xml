@@ -1687,7 +1687,9 @@ module ietf-yp-observation {
       default "false";
       description
         "Specifies whether the publisher supports exporting
-         observation-timestamp and point-in-time in notifications.";
+         observation-timestamp and point-in-time in notifications. If
+         set to true, publisher supports. If set to false, publisher
+         doesn't support.";
       reference
         "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
