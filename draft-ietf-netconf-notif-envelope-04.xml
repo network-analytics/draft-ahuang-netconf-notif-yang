@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="28" month="December" year="2025"/>
+    <date day="25" month="January" year="2026"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -1426,7 +1426,8 @@ module ietf-yp-notification {
       default "false";
       description
         "Supports YANG-Push to use the notification-envelope
-         defined in RFC XXXX.";
+         defined in RFC XXXX. If set to true, publisher supports.
+         If set to false, publisher doesn't support.";
     }
     container metadata {
       description
