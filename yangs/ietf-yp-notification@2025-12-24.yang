@@ -103,23 +103,29 @@ module ietf-yp-notification {
        and the different supported metadata.";
     leaf envelope {
       type boolean;
-      default "false";
+      default "true";
       description
-        "Supports YANG-Push to use the notification-envelope
-         defined in RFC XXXX. If set to true, publisher supports.
-         If set to false, publisher doesn't support.";
+        "Supports YANG-Push to use the notification-envelope as
+         defined in RFC XXXX. If set to true, the publisher supports
+         the notification envelope. If set to false, the
+         notification envelope is not supported by the publisher.";
     }
     container metadata {
       description
         "Container with the supported optional metadata by the
          YANG-Push publisher.";
       leaf hostname-sequence-number {
+        if-feature "hostname-sequence-number";
         type boolean;
         default "false";
         description
           "Supports hostname and sequence-number
            in the YANG-Push notifications as defined in the
-           YANG-Push notification-envelope in RFC XXXX.";
+           YANG-Push notification-envelope in RFC XXXX.
+           If set to true, the publisher supports
+           sending the hostname and sequence numbers
+           within the notification envelope. If set to false,
+           the hostname and sequence numbers are not supported.";
       }
     }
   }
