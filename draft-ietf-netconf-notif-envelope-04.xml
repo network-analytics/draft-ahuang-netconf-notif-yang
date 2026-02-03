@@ -103,7 +103,7 @@
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
-      defined in YANG, for use in YANG-Push Notification messages
+      defined in YANG, for use in YANG-Push Notification messages, both for NETCONF and RESTCONF,
       enabling any YANG-compatible encodings such as XML, JSON, or CBOR.
       Additionally, it defines two essential extensions to this
       structure, the support of a hostname and a sequence number and the
@@ -341,7 +341,7 @@
       this document are to be used in YANG-Push <xref
       target="RFC8641"/> environments and can be implemented with
       NETCONF <xref target="RFC6241"/> and RESTCONF <xref
-      target="RFC8040"/>. When enabled globally, this new header MUST replace all
+      target="RFC8040"/>. When enabled, this new header MUST replace all
       Notifications defined in both Subscribed Notifications <xref
       target="RFC8639"/> and YANG-Push <xref target="RFC8641"/> for the
       entire Server, for both Configured and Dynamic Subscriptions.</t>
@@ -357,12 +357,15 @@
 
       <section anchor="enable-notif" title="Enabling the Notification
       Envelope">
-        <t>The Notification envelope defined in this document can be
+        <t>The Notification Envelope defined in this document can be
         enabled either prior to or within the same NETCONF transaction
         that configures the YANG-Push Subscriptions. This document
         augments the 'ietf-subscribed-notification' model <xref
         target="RFC8639"/> to support the configuration of the
-        'notification-envelope'. When the node
+        Notification Envelope. The structure of the Notification Envelope
+        and extensions are defined in <xref target="struct-notif"/>.</t>
+        
+        <t>When the node
         'enable-notification-envelope' is enabled, all the Notifications
         defined in Subscribed Notification <xref target="RFC8639"/> and
         YANG-Push <xref target="RFC8641"/> are encoded as defined in
@@ -387,7 +390,7 @@ module: ietf-yp-notification
         i.e. encoded as
         <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
 
-        <t>The container metadata is intended to support optional extensions
+        <t>The container 'metadata' is intended to support optional extensions
         that may be enabled on a per-extension basis. Defining explicit configuration
         knobs to enable or disable these extensions is optional and left to
         the extension designer. Refer to <xref target="appendix-example"/> for an example.</t>
@@ -415,7 +418,7 @@ module: ietf-yp-notification
       of this Model">
         <t>A Client can discover the support of 'notification-envelope'
         model through the capabilities model defined in <xref
-        target="RFC9196"/>. This documents extends the
+        target="RFC9196"/>. This document extends the
         'ietf-notification-capabilities' model with:</t>
 
         <ul>
@@ -1278,7 +1281,11 @@ Timeline
       <section anchor="ietf-yp-notif-model" title="The
       'ietf-yp-notification' Module">
         <t>The following sections show the YANG tree and YANG module for
-        the 'ietf-yp-notification' module.</t>
+        the 'ietf-yp-notification' module. This module defines the Notification
+        Envelope structure, and extends the 'ietf-subscribed-notifications' and 'ietf-notification-capabilities' modules 
+        to enable both the configuration of the Notification Envelope and the discovery
+        of supported extensions. This module supports the 'hostname'
+        and 'sequence-number' as extensions to the Notification Envelope.</t>
 
         <section anchor="ietf-yp-notification-yang-tree"
         title="YANG ietf-yp-notification Tree Diagram">
@@ -1536,12 +1543,14 @@ module ietf-yp-notification {
       <section anchor="ietf-yp-observation-model"
       title="The 'ietf-yp-observation' Module">
         <t>The following sections show the YANG tree and YANG module for
-        the 'ietf-yp-observation' module.</t>
+        the 'ietf-yp-observation' module. This module extends the 'ietf-yang-push'
+        module to support sending the observation timestamp in 'push-update' and 'push-change-update' Notifications. Additionally, it augments the 'ietf-notification-capabilities' to enable 
+        Clients to discover the support of observation timestamps.</t>
         
         <section anchor="ietf-yp-observation-yang-tree"
         title="YANG ietf-yp-observation Tree Diagram">
-          <t>This YANG module extends "ietf-yang-push" <xref
-          target="RFC8641"/> and "ietf-notification-capabilities"
+          <t>This YANG module extends 'ietf-yang-push' <xref
+          target="RFC8641"/> and 'ietf-notification-capabilities'
           <xref target="RFC9196"/> as shown in the following YANG tree
           <xref target="RFC8340"/>:</t>
           
