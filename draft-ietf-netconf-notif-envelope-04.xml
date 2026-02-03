@@ -346,7 +346,7 @@
       target="RFC8639"/> and YANG-Push <xref target="RFC8641"/> for the
       entire Server, for both Configured and Dynamic Subscriptions.</t>
       
-      <t>The remainder of this section is structured as follows.
+      <t>TODO:The remainder of this section is structured as follows.
       <xref target="enable-notif"/> presents how a Client enables the header defined in this document.
       <xref target="discovery-notif"/> extends the model from
       <xref target="RFC9196"/> to enable Clients to discover the
@@ -355,101 +355,12 @@
       target="struct-notif"/> defines the new Notification header and
       how it is encoded using XML, JSON, and CBOR.</t>
 
-      <section anchor="enable-notif" title="Enabling the Notification
-      Envelope">
-        <t>The Notification Envelope defined in this document can be
-        enabled either prior to or within the same NETCONF transaction
-        that configures the YANG-Push Subscriptions. This document
-        augments the 'ietf-subscribed-notification' model <xref
-        target="RFC8639"/> to support the configuration of the
-        Notification Envelope. The structure of the Notification Envelope
-        and extensions are defined in <xref target="struct-notif"/>.</t>
-        
-        <t>When the node
-        'enable-notification-envelope' is enabled, all the Notifications
-        defined in Subscribed Notification <xref target="RFC8639"/> and
-        YANG-Push <xref target="RFC8641"/> are encoded as defined in
-        <xref target="struct-notif"/>. If additionally, any Notification
-        metadata is enabled, the Notification metadata nodes are present
-        in the header. When the node 'enable-notification-envelope' is
-        disabled, Notifications are encoded as defined in NETCONF Event
-        Notifications <xref target="RFC5277"/>.</t>
 
-        <sourcecode type="yangtree"><![CDATA[
-module: ietf-yp-notification
-
-  augment /sn:subscriptions:
-    +--rw enable-notification-envelope?   boolean
-    +--rw metadata
-]]></sourcecode>
-        
-        <t>When there are existing subscriptions and a client changes the node 'enable-notification-envelope',
-        all existing subscriptions MUST be terminated. The publisher MUST send a 'subscription-terminated'
-        notification to all the existing subscriptions using the header configured before the change.
-        Any new subscription after the change uses the header defined by the node 'enable-notification-envelope',
-        i.e. encoded as
-        <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
-
-        <t>The container 'metadata' is intended to support optional extensions
-        that may be enabled on a per-extension basis. Defining explicit configuration
-        knobs to enable or disable these extensions is optional and left to
-        the extension designer. Refer to <xref target="appendix-example"/> for an example.</t>
-
-        <t>Per the YANG specifications (<xref section="7.17" target="RFC7950"/>),
-        which does not allow making mandatory statements on augmentations,
-        the 'enable-notification-envelope' YANG leaf must be made optional:
-        the metadata fields MUST not be enabled when the envelope is not enabled.
-        </t>
-
-        <t>Per-subscription support for this header was considered
-        during the definition of this specification, however, a network
-        node-wide setting was chosen to simplify network operations. In
-        practice, operators use YANG-Push Subscriptions in large-scale
-        deployments where numerous Subscriptions are created on each
-        network node. While per-subscription configuration provides more
-        flexibility, maintaining the choice of header format for each
-        Subscription adds significant operational complexity when
-        troubleshooting or migrating to a new header format. The desire
-        for simplifying operations led to the definition of a global
-        configuration knob for the Notification envelope.</t>
-      </section>
-
-      <section anchor="discovery-notif" title="Discovering the Support
-      of this Model">
-        <t>A Client can discover the support of 'notification-envelope'
-        model through the capabilities model defined in <xref
-        target="RFC9196"/>. This document extends the
-        'ietf-notification-capabilities' model with:</t>
-
-        <ul>
-          <li>A container containing a leaf 'envelope', stating that the
-          YANG Notification can be encoded following the 
-          notification-envelope model.</li>
-          <li>A container 'metadata' containing all the supported
-          extensions to this header. Extensions are defined in <xref
-          target="extensions-notif"/>.
-          </li>
-        </ul>
-
-        <t>The 'ietf-yp-notification' model defined in <xref
-        target="yang-models"/> augments the
-        'ietf-notification-capabilities' model with the leaf and
-        container listed above:</t>
-
-        <sourcecode type="yangtree"><![CDATA[
-  augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro notification-metadata
-       +--ro envelope?   boolean
-       +--ro metadata
-]]></sourcecode>
-      </section>
-      
       <section anchor="struct-notif" title="Notification Envelope
       Structure">
 
-        <t>This section defines how YANG Notifications are structured
-        when the Notification envelope is enabled on YANG-Push
-        Subscriptions. The following sections define how this model is
+        <t>This section defines the structure of the Notification Envelope.
+        The following sections define how this structure is
         encoded in XML, JSON and CBOR.</t>
 
         <section anchor="base-notif-model" title="Base Notification
@@ -471,7 +382,7 @@ module: ietf-yp-notification
 
           <t>The following YANG tree <xref target="RFC8340"/>
           illustrates the Notification envelope supporting only the
-          mandatory metadata 'event-time'. See <xref
+          mandatory metadata 'event-time'. Refer to <xref
           target="extensions-notif"/> for more extensions to this
           header.</t>
           <sourcecode type="yangtree"><![CDATA[
@@ -498,7 +409,7 @@ module: ietf-yp-notification
   urn:ietf:params:xml:ns:yang:ietf-yp-notification
             ]]></artwork>
 
-            <t>Two mandatory child nodes within the "envelope" container
+            <t>Two mandatory child nodes within the 'envelope' container
             are expected, representing the event time and the
             Notification payload.</t>
 
@@ -507,7 +418,7 @@ module: ietf-yp-notification
             same level as the mandatory 'event-time' node. The YANG
             nodes in the Notification header use the XML namespace from
             the module that defines the nodes. This document defines two
-            Notification metadata. See <xref target="extensions-notif"/>
+            Notification metadata. Refer to <xref target="extensions-notif"/>
             for more details.</t>
 
             <t>The content of the Notification that is defined by the
@@ -656,7 +567,7 @@ module: ietf-yp-notification
             target="extensions-notif"/>.</t>
 
             <t>The content of the Notification that is defined by the
-            'notification' statement is encoded in the "contents" node.
+            'notification' statement is encoded in the 'contents' node.
             The name and namespace of this payload element are
             determined by the YANG module containing the 'notification'
             statement representing the Notification message. Similarly,
@@ -759,34 +670,21 @@ module: ietf-yp-notification
       <section anchor="extensions-notif" title="Extensions for the
       Notification Envelope">
       <t>This section describes two optional YANG nodes for the envelope
-      header. When the envelope is enabled via the
-      'enable-notification-envelope' node, the Publisher includes by
-      default the 'hostname' and 'sequence-number' defined in <xref
+      header: a 'hostname' and a 'sequence-number'. Both extensions are included in the
+      Notification Envelope when enabled.  The Client discovers the support of these two
+      optional leafs with the mechanism defined in <xref
+      target="discovery-notif"/>.</t>
+
+      <!-- When the envelope is enabled via the mechanism defined in <xref target="enable-notif"/>
+      the Publisher includes by default the 'hostname' and 'sequence-number' defined in <xref
       target="host-ext"/>. The Client discovers the support of these two
       optional leafs with the mechanism defined in <xref
       target="discovery-notif"/>. When the leafs defined in this
       document are supported by the Server, the Client discovers the
       presence of new metadata with the following augmentations in the
-      'ietf-notification-capabilities':</t>
+      'ietf-notification-capabilities' module:</t> -->
 
-      <sourcecode type="yangtree"><![CDATA[
-module: ietf-yp-notification
-
-  augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro notification-metadata
-       +--ro envelope?   boolean
-       +--ro metadata
-          +--ro hostname-sequence-number?   boolean
-                  {hostname-sequence-number}?
-
-module: ietf-yp-observation
-
-  augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro yang-push-observation-supported?   boolean
-]]></sourcecode>
-
-      <t>This document defines the following Notification metadata as
-      shown in the following YANG tree <xref target="RFC8340"/>.</t>
+      <t>The Notification Envelope, including the metadata, results in the following YANG tree <xref target="RFC8340"/>.</t>
         <sourcecode type="yangtree"><![CDATA[
   structure envelope:
     +-- event-time         yang:date-and-time
@@ -1252,6 +1150,110 @@ Timeline
           </section>
          </section>
        </section>
+
+      <section anchor="enable-notif" title="Enabling the Notification
+      Envelope">
+        <t>The Notification Envelope defined in this document can be
+        enabled either prior to or within the same NETCONF transaction
+        that configures the YANG-Push Subscriptions. This document
+        augments the 'ietf-subscribed-notification' model <xref
+        target="RFC8639"/> to support the configuration of the
+        Notification Envelope.</t>
+        
+        <t>When the node
+        'enable-notification-envelope' is enabled, all the Notifications
+        defined in Subscribed Notification <xref target="RFC8639"/> and
+        YANG-Push <xref target="RFC8641"/> are encoded as defined in
+        <xref target="struct-notif"/>. If additionally, any Notification
+        metadata is enabled, the Notification metadata nodes are present
+        in the header. When the node 'enable-notification-envelope' is
+        disabled, Notifications are encoded as defined in NETCONF Event
+        Notifications <xref target="RFC5277"/>. Both extensions defined in 
+        <xref target="extensions-notif"/> and <xref target="extensions-yang-push"/>
+        are sent when the node 'enable-notification-envelope' is enabled.</t>
+
+        <sourcecode type="yangtree"><![CDATA[
+module: ietf-yp-notification
+
+  augment /sn:subscriptions:
+    +--rw enable-notification-envelope?   boolean
+    +--rw metadata
+]]></sourcecode>
+        
+        <t>When there are existing subscriptions and a client changes the node 'enable-notification-envelope',
+        all existing subscriptions MUST be terminated. The publisher MUST send a 'subscription-terminated'
+        notification to all the existing subscriptions using the header configured before the change.
+        Any new subscription after the change uses the header defined by the node 'enable-notification-envelope',
+        i.e. encoded as
+        <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
+
+        <t>The container 'metadata' is intended to support optional extensions
+        that may be enabled on a per-extension basis. Defining explicit configuration
+        knobs to enable or disable these extensions is optional and left to
+        the extension designer. Refer to <xref target="appendix-example"/> for an example.</t>
+
+        <t>Per the YANG specifications (<xref section="7.17" target="RFC7950"/>),
+        which does not allow making mandatory statements on augmentations,
+        the 'enable-notification-envelope' YANG leaf must be made optional:
+        the metadata fields MUST not be enabled when the envelope is not enabled.
+        </t>
+
+        <t>Per-subscription support for this header was considered
+        during the definition of this specification, however, a network
+        node-wide setting was chosen to simplify network operations. In
+        practice, operators use YANG-Push Subscriptions in large-scale
+        deployments where numerous Subscriptions are created on each
+        network node. While per-subscription configuration provides more
+        flexibility, maintaining the choice of header format for each
+        Subscription adds significant operational complexity when
+        troubleshooting or migrating to a new header format. The desire
+        for simplifying operations led to the definition of a global
+        configuration knob for the Notification envelope.</t>
+      </section>
+
+      <section anchor="discovery-notif" title="Discovering the Support
+      of this Model">
+        <t>A Client can discover the support of the Notification Envelope
+        model through the capabilities model defined in <xref
+        target="RFC9196"/>. This document extends the
+        'ietf-notification-capabilities' model with:</t>
+
+        <ul>
+          <li>A container containing a leaf 'envelope', stating that the
+          YANG Notification can be encoded following the 
+          Notification Envelope model.</li>
+          <li>A container 'metadata' containing all the supported
+          extensions to this header. Extensions are defined in <xref
+          target="extensions-notif"/> and <xref target="extensions-yang-push"/>.
+          </li>
+        </ul>
+
+        <!-- <t>The 'ietf-yp-notification' model defined in <xref
+        target="yang-models"/> augments the
+        'ietf-notification-capabilities' model with the leaf and
+        container listed above:</t> -->
+
+      <t>When the leafs defined in this
+      document are supported by the Server, the Client discovers the
+      presence of new metadata with the following augmentations in the
+      'ietf-notification-capabilities' module:</t>
+      <sourcecode type="yangtree"><![CDATA[
+module: ietf-yp-notification
+
+  augment /sysc:system-capabilities/notc:subscription-capabilities:
+    +--ro notification-metadata
+       +--ro envelope?   boolean
+       +--ro metadata
+          +--ro hostname-sequence-number?   boolean
+                  {hostname-sequence-number}?
+
+module: ietf-yp-observation
+
+  augment /sysc:system-capabilities/notc:subscription-capabilities:
+    +--ro yang-push-observation-supported?   boolean
+]]></sourcecode>
+      </section>
+      
     </section>
 
     <section anchor="operational-cons" title="Operational
@@ -1822,13 +1824,13 @@ module ietf-yp-observation {
 URI: urn:ietf:params:xml:ns:yang:ietf-yp-notification
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.
-Reference: RFC-to-be]]></artwork>
+Reference: RFC XXXX]]></artwork>
 
       <artwork align="left"><![CDATA[
 URI: urn:ietf:params:xml:ns:yang:ietf-yp-observation
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.
-Reference: RFC-to-be]]></artwork>
+Reference: RFC XXXX]]></artwork>
       </section>
 
       <section title="YANG module name">
@@ -1841,13 +1843,13 @@ Reference: RFC-to-be]]></artwork>
 name: ietf-yp-notification
 namespace: urn:ietf:params:xml:ns:yang:ietf-yp-notification
 prefix: iypn
-reference: RFC-to-be]]></artwork>
+reference: RFC XXXX]]></artwork>
 
         <artwork align="left"><![CDATA[
 name: ietf-yp-observation
 namespace: urn:ietf:params:xml:ns:yang:ietf-yp-observation
 prefix: iypo
-reference: RFC-to-be]]></artwork>
+reference: RFC XXXX]]></artwork>
       </section>
 
       <section title="YANG SID-file" anchor="iana-sid">
@@ -1858,7 +1860,7 @@ reference: RFC-to-be]]></artwork>
 SID range entry point: TBD
 SID range size: 50
 YANG module name: ietf-yp-notification
-reference: RFC-to-be]]></artwork>
+reference: RFC XXXX]]></artwork>
 
         <t>A ".sid" file is proposed in <xref target="sid_appendix"/>.
         </t>
