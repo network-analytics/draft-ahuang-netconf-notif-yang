@@ -58,7 +58,7 @@ module ietf-yp-notification {
 
     This module can be used to validate XML-encoded notifications
     [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
-    messages [RFC9254]. Refer to Section 3.3.2 of RFC XXXX for more
+    messages [RFC9254]. Refer to Section 3.1.2 of RFC XXXX for more
     details.
 
     Copyright (c) 2025 IETF Trust and the persons identified as
@@ -183,12 +183,12 @@ module ietf-yp-notification {
         existing active subscriptions using
         the header configured before the change, then the
         subscription is terminated. Refer to
-        Section 3.1 of RFC XXXX for more details.";
+        Section 4 of RFC XXXX for more details.";
     }
     container metadata {
       description
         "Container for configuring optional metadata.
-        Refer to Section 3.1 of RFC XXXX for more details.";
+        Refer to Section 4 of RFC XXXX for more details.";
     }
   }
 
