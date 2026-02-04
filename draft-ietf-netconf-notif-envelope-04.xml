@@ -155,7 +155,7 @@
     
         <ul>
           <li>First, it provides an extensible YANG Notification header
-          allowing implementors and Authors of Internet-Drafts to easily
+          allowing implementors and authors of Internet-Drafts to easily
           add new Notification metadata to the Notification message.
           </li>
     
@@ -180,17 +180,17 @@
         <xref target="RFC8174"/> when, and only when, they appear in all
         capitals, as shown here. </t>
         
-        <t>The terms "subscription", "dynamic subscription",
-        "configured subscription", "publisher", "receiver" and
+        <t>The terms "Subscription", "Dynamic Subscription",
+        "Configured Subscription", "Publisher", "Receiver" and
         "notification message" are used as defined in <xref
         target="RFC8639"/>.</t>
         
-        <t>The term "client" and "server" is used as defined in <xref
+        <t>The term "Client" and "Server" is used as defined in <xref
         target="RFC6241"/> for NETCONF and <xref target="RFC8040"/> for
         RESTCONF.</t>
 
-        <t>The terms "implementation-time information" and "runtime
-        information" are used as defined in <xref target="RFC9196"/>.
+        <t>The terms "Implementation-time information" and "Runtime
+        Information" are used as defined in <xref target="RFC9196"/>.
         </t>
 
         <t>In addition, this document defines the following terms:</t>
@@ -336,7 +336,7 @@
   </notification>
 ]]></sourcecode>
 
-      <t>This document defines a new Notification header and enables extending this header with new
+      <t>This document specifies a new Notification header and enables extending this header with new
       Notification metadata. The Notification header and extensions in
       this document are to be used in YANG-Push <xref
       target="RFC8641"/> environments and can be implemented with
@@ -351,7 +351,7 @@
       <xref target="discovery-notif"/> extends the model from
       <xref target="RFC9196"/> to enable Clients to discover the
       capability of using the new Notification header for both
-      implementation-time and runtime information. Lastly, <xref
+      Implementation-time and Runtime Information. Lastly, <xref
       target="struct-notif"/> defines the new Notification header and
       how it is encoded using XML, JSON, and CBOR.</t>
 
@@ -383,10 +383,10 @@ module: ietf-yp-notification
     +--rw metadata
 ]]></sourcecode>
         
-        <t>When there are existing subscriptions and a client changes the node 'enable-notification-envelope',
-        all existing subscriptions MUST be terminated. The publisher MUST send a 'subscription-terminated'
-        notification to all the existing subscriptions using the header configured before the change.
-        Any new subscription after the change uses the header defined by the node 'enable-notification-envelope',
+        <t>When there are existing Subscriptions and a Client changes the node 'enable-notification-envelope',
+        all existing Subscriptions MUST be terminated. The Publisher MUST send a 'subscription-terminated'
+        notification to all the existing Subscriptions using the header configured before the change.
+        Any new Subscription after the change uses the header defined by the node 'enable-notification-envelope',
         i.e. encoded as
         <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
 
@@ -1269,9 +1269,9 @@ Timeline
       validation and filtering are implemented when both formats are
       present in the same network.</t>
 
-      <t>In network devices where existing subscriptions are active,
+      <t>In network devices where existing Subscriptions are active,
       enabling or disabling the Notification envelope has operational impact.
-      Operators should acknowledge that any existing subscriptions will be
+      Operators should acknowledge that any existing Subscriptions will be
       terminated when enabling or disabling the Notification envelope.
       Careful planning is therefore required to avoid unintended service
       disruption.</t>
