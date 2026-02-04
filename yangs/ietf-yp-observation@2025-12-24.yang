@@ -68,7 +68,8 @@ module ietf-yp-observation {
 
   grouping yang-push-observation {
     description
-      "This grouping adds the observation timestamp for the observed metrics.";
+      "This grouping adds the observation timestamp for the
+      observed metrics.";
     leaf timestamp {
       type yang:date-and-time;
       description
@@ -84,34 +85,34 @@ module ietf-yp-observation {
         enum initial-state {
           description
             "For 'on-change sync on start' subscriptions, the
-             initial point in time when the subscription was established
-             and the state was observed.";
+             initial point in time when the subscription was
+             established and the state was observed.";
         }
         enum state-changed {
           description
             "For 'on-change sync on start' subscriptions, the
-             point in time when the state change was observed after the
-             subscription was established.";
+             point in time when the state change was observed after
+             the subscription was established.";
         }
       }
       description
         "This describes at which point in time the metrics were
-        observed";
+        observed.";
     }
   }
 
   // Event notifications
   augment "/yp:push-update" {
     description
-      "This augmentation adds the observation timestamp of the accounted
-       metrics in the push-update notification.";
+      "This augmentation adds the observation timestamp of the
+      accounted metrics in the push-update notification.";
     uses iypo:yang-push-observation;
   }
 
   augment "/yp:push-change-update" {
     description
-      "This augmentation adds the observation timestamp of the event
-       in the push-change-update notification.";
+      "This augmentation adds the observation timestamp of the
+      event in the push-change-update notification.";
     uses iypo:yang-push-observation;
   }
 
@@ -119,16 +120,16 @@ module ietf-yp-observation {
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities" {
     description
-      "Add YANG-Push notification capabilities to system-level capability
-       container.";
-    leaf yang-push-observation-supported {
+      "Add YANG-Push notification capabilities to system-level
+      capability container.";
+    leaf yang-push-observation-time-supported {
       type boolean;
       default "false";
       description
         "Specifies whether the publisher supports exporting
-         observation-timestamp and point-in-time in notifications. If
-         set to true, publisher supports. If set to false, publisher
-         doesn't support.";
+         observation-timestamp and point-in-time in notifications.
+         If set to true, publisher supports. If set to false,
+         the observation-timestamp is not supported.";
       reference
         "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }

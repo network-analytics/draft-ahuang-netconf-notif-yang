@@ -99,7 +99,7 @@
       </address>
     </author>
 
-    <date day="25" month="January" year="2026"/>
+    <date day="4" month="February" year="2026"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -155,7 +155,7 @@
     
         <ul>
           <li>First, it provides an extensible YANG Notification header
-          allowing implementors and Authors of Internet-Drafts to easily
+          allowing implementors and authors of Internet-Drafts to easily
           add new Notification metadata to the Notification message.
           </li>
     
@@ -180,17 +180,17 @@
         <xref target="RFC8174"/> when, and only when, they appear in all
         capitals, as shown here. </t>
         
-        <t>The terms "subscription", "dynamic subscription",
-        "configured subscription", "publisher", "receiver" and
-        "notification message" are used as defined in <xref
+        <t>The terms "Subscription", "Dynamic Subscription",
+        "Configured Subscription", "Publisher", "Receiver" and
+        "Notification Message" are used as defined in <xref
         target="RFC8639"/>.</t>
         
-        <t>The term "client" and "server" is used as defined in <xref
+        <t>The term "Client" and "Server" is used as defined in <xref
         target="RFC6241"/> for NETCONF and <xref target="RFC8040"/> for
         RESTCONF.</t>
 
-        <t>The terms "implementation-time information" and "runtime
-        information" are used as defined in <xref target="RFC9196"/>.
+        <t>The terms "Implementation-time Information" and "Runtime
+        Information" are used as defined in <xref target="RFC9196"/>.
         </t>
 
         <t>In addition, this document defines the following terms:</t>
@@ -669,9 +669,9 @@
       <section anchor="extensions-notif" title="Extensions for the
       Notification Envelope">
       <t>This section describes two optional YANG nodes for the envelope
-      header: a 'hostname' and a 'sequence-number'. Both extensions are included in the
-      Notification Envelope when enabled.  The Client discovers the support of these two
-      optional leafs with the mechanism defined in <xref
+      header: a 'hostname' and a 'sequence-number', which are enabled by default
+      when using the Notification envelope defined in this document.
+      The Client discovers the support of these two optional leafs with the mechanism defined in <xref
       target="discovery-notif"/>.</t>
 
       <!-- When the envelope is enabled via the mechanism defined in <xref target="enable-notif"/>
@@ -898,7 +898,7 @@ module: ietf-yp-observation
 
             <t>'initial-state' states the initial point in time when the
             Subscription was established and the state was observed for
-            'on-change sync on start' subscriptions.</t>
+            'on-change sync on start' Subscriptions.</t>
 
             <t>'state-changed' states the point in time when the state
             change was observed after the Subscription was established
@@ -1181,10 +1181,10 @@ module: ietf-yp-notification
     +--rw metadata
 ]]></sourcecode>
         
-      <t>When there are existing subscriptions and a client changes the node 'enable-notification-envelope',
-      all existing subscriptions MUST be terminated. The publisher MUST send a 'subscription-terminated'
-      notification to all the existing subscriptions using the header configured before the change.
-      Any new subscription after the change uses the header defined by the node 'enable-notification-envelope',
+      <t>When there are existing Subscriptions and a Client changes the node 'enable-notification-envelope',
+      all existing Subscriptions MUST be terminated. The Publisher MUST send a 'subscription-terminated'
+      notification to all the existing Subscriptions using the header configured before the change.
+      Any new Subscription after the change uses the header defined by the node 'enable-notification-envelope',
       i.e. encoded as
       <xref target="base-notif-model"/> when enabled and as defined in <xref target="RFC5277"/> if disabled.</t>
 
@@ -1251,7 +1251,7 @@ module: ietf-yp-notification
 module: ietf-yp-observation
 
   augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro yang-push-observation-supported?   boolean
+    +--ro yang-push-observation-time-supported?   boolean
 ]]></sourcecode>
     </section>
       
@@ -1271,10 +1271,10 @@ module: ietf-yp-observation
       validation and filtering are implemented when both formats are
       present in the same network.</t>
 
-      <t>In network devices where existing subscriptions are active,
+      <t>In network devices where existing Subscriptions are active,
       enabling or disabling the Notification envelope has operational impact.
-      Operators should acknowledge that any existing subscriptions will be
-      terminated when enabling or disabling the Notification envelope.
+      Operators should acknowledge that any existing Subscriptions will be
+      terminated when enabling or disabling the Notification Envelope.
       Careful planning is therefore required to avoid unintended service
       disruption.</t>
     </section>
@@ -1566,7 +1566,7 @@ module: ietf-yp-observation
     +--ro timestamp?       yang:date-and-time
     +--ro point-in-time?   enumeration
   augment /sysc:system-capabilities/notc:subscription-capabilities:
-    +--ro yang-push-observation-supported?   boolean
+    +--ro yang-push-observation-time-supported?   boolean
 ]]></sourcecode>
         </section>
 
@@ -1648,7 +1648,8 @@ module ietf-yp-observation {
 
   grouping yang-push-observation {
     description
-      "This grouping adds the observation timestamp for the observed metrics.";
+      "This grouping adds the observation timestamp for the
+      observed metrics.";
     leaf timestamp {
       type yang:date-and-time;
       description
@@ -1664,34 +1665,34 @@ module ietf-yp-observation {
         enum initial-state {
           description
             "For 'on-change sync on start' subscriptions, the
-             initial point in time when the subscription was established
-             and the state was observed.";
+             initial point in time when the subscription was
+             established and the state was observed.";
         }
         enum state-changed {
           description
             "For 'on-change sync on start' subscriptions, the
-             point in time when the state change was observed after the
-             subscription was established.";
+             point in time when the state change was observed after
+             the subscription was established.";
         }
       }
       description
         "This describes at which point in time the metrics were
-        observed";
+        observed.";
     }
   }
 
   // Event notifications
   augment "/yp:push-update" {
     description
-      "This augmentation adds the observation timestamp of the accounted
-       metrics in the push-update notification.";
+      "This augmentation adds the observation timestamp of the
+      accounted metrics in the push-update notification.";
     uses iypo:yang-push-observation;
   }
 
   augment "/yp:push-change-update" {
     description
-      "This augmentation adds the observation timestamp of the event
-       in the push-change-update notification.";
+      "This augmentation adds the observation timestamp of the
+      event in the push-change-update notification.";
     uses iypo:yang-push-observation;
   }
 
@@ -1699,16 +1700,16 @@ module ietf-yp-observation {
   augment "/sysc:system-capabilities"
         + "/notc:subscription-capabilities" {
     description
-      "Add YANG-Push notification capabilities to system-level capability
-       container.";
-    leaf yang-push-observation-supported {
+      "Add YANG-Push notification capabilities to system-level
+      capability container.";
+    leaf yang-push-observation-time-supported {
       type boolean;
       default "false";
       description
         "Specifies whether the publisher supports exporting
-         observation-timestamp and point-in-time in notifications. If
-         set to true, publisher supports. If set to false, publisher
-         doesn't support.";
+         observation-timestamp and point-in-time in notifications.
+         If set to true, publisher supports. If set to false,
+         the observation-timestamp is not supported.";
       reference
         "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
