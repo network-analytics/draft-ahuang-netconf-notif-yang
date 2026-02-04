@@ -380,7 +380,7 @@
           </ul>
 
           <t>The following YANG tree <xref target="RFC8340"/>
-          illustrates the Notification envelope supporting only the
+          illustrates the Notification Envelope supporting only the
           mandatory metadata 'event-time'. Refer to <xref
           target="extensions-notif"/> for more extensions to this
           header.</t>
@@ -659,7 +659,7 @@
             registry, following the procedures defined in <xref
             target="RFC9595"/>.</t>
 
-            <t>When SIDs are used throughout the Notification envelope,
+            <t>When SIDs are used throughout the Notification Envelope,
             they are encoded as deltas relative to the parent node by
             default. The absolute SID can also be used using the tag 47.
             Refer to <xref target="RFC9254"/> for more details.</t>
@@ -668,9 +668,9 @@
       </section>
       <section anchor="extensions-notif" title="Extensions for the
       Notification Envelope">
-      <t>This section describes two optional YANG nodes for the envelope
+      <t>This section describes two optional YANG nodes for the Notification Envelope
       header: a 'hostname' and a 'sequence-number', which are enabled by default
-      when using the Notification envelope defined in this document.
+      when using the Notification Envelope defined in this document.
       The Client discovers the support of these two optional leafs with the mechanism defined in <xref
       target="discovery-notif"/>.</t>
 
@@ -725,7 +725,7 @@
         </t>
 
         <t>To overcome these issues, this document defines an
-        extension to the Notification envelope to encode a hostname and a sequence
+        extension to the Notification Envelope to encode a hostname and a sequence
         number. This allows the downstream system to not only be able to
         identify from which network node, Subscription, and time the
         message was published but also, the order of the published
@@ -795,7 +795,7 @@
         YANG-Push Header">
           <t>This section described two optional 'push-update' and
           'push-change-update' Notification header extensions which are
-          enabled by default when using the Notification envelope
+          enabled by default when using the Notification Envelope
           defined in this document. The Client discovers the support of
           these two leafs with the mechanism defined in <xref
           target="discovery-notif"/>.</t>
@@ -1196,7 +1196,7 @@ module: ietf-yp-notification
       <t>Per the YANG specifications (<xref section="7.17" target="RFC7950"/>),
       which does not allow making mandatory statements on augmentations,
       the 'enable-notification-envelope' YANG leaf must be made optional:
-      the metadata fields MUST not be enabled when the envelope is not enabled.
+      the metadata fields MUST not be enabled when the Notification Envelope is not enabled.
       </t>
 
       <t>Per-subscription support for this header was considered
@@ -1260,11 +1260,11 @@ module: ietf-yp-observation
     Considerations">
 
       <t>As stated in <xref target="enable-notif"/>, the Notification
-      envelope defined in this document replaces the header defined by
+      Envelope defined in this document replaces the header defined by
       NETCONF Event Notifications <xref target="RFC5277"/> when enabled.
       The NETCONF Event Notifications <xref target="RFC5277"/> header
-      and the Notification envelope defined in this document may coexist
-      in the same network. Since enabling or disabling the Notification envelope is
+      and the Notification Envelope defined in this document may coexist
+      in the same network. Since enabling or disabling the Notification Envelope is
       performed on a YANG-Push Publisher basis, Receivers must only
       receive Notifications in a format they support. Operators should ensure that
       Receivers support the corresponding format or that proper
@@ -1272,7 +1272,7 @@ module: ietf-yp-observation
       present in the same network.</t>
 
       <t>In network devices where existing Subscriptions are active,
-      enabling or disabling the Notification envelope has operational impact.
+      enabling or disabling the Notification Envelope has operational impact.
       Operators should acknowledge that any existing Subscriptions will be
       terminated when enabling or disabling the Notification Envelope.
       Careful planning is therefore required to avoid unintended service
@@ -2118,11 +2118,11 @@ reference: RFC XXXX]]></artwork>
     anchor="appendix-example">
 
       <t>This appendix provides a non-normative example illustrating how
-      an extension to the Notification envelope should be implemented.
+      an extension to the Notification Envelope should be implemented.
       The example does not define valid metadata, but serves to
       demonstrate how future extensions should be specified.</t>
       
-      <t>Specifically, the example extends the Notification envelope
+      <t>Specifically, the example extends the Notification Envelope
       with a metadata field named "foo". The YANG module illustrates the
       necessary augmentations to both the 'ietf-yp-notification' module
       and the 'ietf-notification-capabilities' module.</t>
