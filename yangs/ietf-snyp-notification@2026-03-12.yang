@@ -1,0 +1,120 @@
+module ietf-snyp-notification {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-snyp-notification";
+  prefix isnypn;
+
+  import ietf-subscribed-notifications {
+    prefix sn;
+    reference
+      "RFC 8639: Subscription to YANG Notifications";
+  }
+  import ietf-system-capabilities {
+    prefix sysc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
+  import ietf-notification-capabilities {
+    prefix notc;
+    reference
+      "RFC 9196: YANG Modules Describing Capabilities for
+       Systems and Datastore Update Notifications";
+  }
+  import ietf-yp-notification {
+    prefix iypn;
+    reference
+      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+  }
+
+  organization
+    "IETF NETCONF (Network Configuration) Working Group";
+  contact
+    "WG Web:   <https://datatracker.ietf.org/group/netconf/>
+     WG List:  <mailto:netconf@ietf.org>
+
+     Authors:  Alex Huang Feng
+               <mailto:alex.huang-feng@insa-lyon.fr>
+               Pierre Francois
+               <mailto:pierre.francois@insa-lyon.fr>
+               Thomas Graf
+               <mailto:thomas.graf@swisscom.com>
+               Benoit Claise
+               <mailto:benoit@everything-ops.net>";
+  description
+    "Defines augmentations for Subscribed Notifications
+    [RFC8639] and YANG-Push [RFC8641] for configuring and discovering
+    the support of the notification envelope as defined in the 
+    'ietf-yp-notification' YANG module.
+
+    Copyright (c) 2026 IETF Trust and the persons identified as
+    authors of the code.  All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, is permitted pursuant to, and subject to the license
+    terms contained in, the Revised BSD License set forth in Section
+    4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+    (https://trustee.ietf.org/license-info).
+
+    All revisions of IETF and IANA published modules can be found
+    at the YANG Parameters registry group
+    (https://www.iana.org/assignments/yang-parameters).
+
+    This version of this YANG module is part of RFC XXXX; see
+    the RFC itself for full legal notices.
+  
+    The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+    NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+    'MAY', and 'OPTIONAL' in this document are to be interpreted as
+    described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+    they appear in all capitals, as shown here.";
+
+  revision 2026-03-12 {
+    description
+      "Initial version.";
+    reference
+      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+  }
+
+  // Subscription container
+  augment "/sn:subscriptions" {
+    description
+      "This augmentation adds the configuration switches for
+       enabling the notification envelope and metadata.";
+    leaf enable-notification-envelope {
+      type boolean;
+      default "false";
+      description
+        "Enables YANG-Push to use the notification-envelope
+        defined in RFC XXXX.
+        
+        Enabling or disabling this leaf terminates all 
+        existing active dynamic and configured YANG-Push
+        subscriptions. The publisher MUST send a
+        'subscription-terminated' notification to all the
+        existing active subscriptions using
+        the header configured before the change, then the
+        subscription is terminated. Refer to
+        Section 4 of RFC XXXX for more details.";
+    }
+    container metadata {
+      description
+        "Container for configuring optional metadata.
+        Refer to Section 4 of RFC XXXX for more details.";
+    }
+  }
+
+  // YANG-Push Capabilities extension
+  augment "/sysc:system-capabilities"
+        + "/notc:subscription-capabilities" {
+    description
+      "Extension to the subscription-capabilities model to enable
+       clients to learn whether the publisher supports the
+       notification-envelope";
+    container notification-metadata {
+      description
+        "Adds the notification metadata capabilities to subscription
+         capabilities.";
+      uses iypn:notif-env-capabilities;
+    }
+  }
+}

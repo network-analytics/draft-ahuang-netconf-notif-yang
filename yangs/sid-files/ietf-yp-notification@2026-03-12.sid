@@ -1,0 +1,102 @@
+{
+  "ietf-sid-file:sid-file": {
+    "module-name": "ietf-yp-notification",
+    "module-revision": "2026-03-12",
+    "sid-file-status":"unpublished",
+    "description": "draft-ietf-netconf-notif-envelope-05: Extensible YANG Model for YANG-Push Notifications",
+    "dependency-revision": [
+      {
+        "module-name":"ietf-datastores",
+        "module-revision":"2018-02-14"
+      },
+      {
+        "module-name":"ietf-interfaces",
+        "module-revision":"2018-02-20"
+      },
+      {
+        "module-name":"ietf-ip",
+        "module-revision":"2018-02-22"
+      },
+      {
+        "module-name":"ietf-netconf-acm",
+        "module-revision":"2018-02-14"
+      },
+      {
+        "module-name":"ietf-network-instance",
+        "module-revision":"2019-01-21"
+      },
+      {
+        "module-name":"ietf-restconf",
+        "module-revision":"2017-01-26"
+      },
+      {
+        "module-name":"ietf-yang-library",
+        "module-revision":"2019-01-04"
+      },
+      {
+        "module-name":"ietf-yang-patch",
+        "module-revision":"2017-02-22"
+      },
+      {
+        "module-name":"ietf-yang-schema-mount",
+        "module-revision":"2019-01-14"
+      },
+      {
+        "module-name": "ietf-yang-types",
+        "module-revision": "2025-06-23"
+      },
+      {
+        "module-name": "ietf-inet-types",
+        "module-revision": "2025-06-23"
+      },
+      {
+        "module-name": "ietf-yang-structure-ext",
+        "module-revision": "2020-06-17"
+      }
+    ],
+    "assignment-range": [
+      {
+        "entry-point": "2950",
+        "size": "50"
+      }
+    ],
+    "item": [
+      {
+        "status":"unstable",
+        "namespace":"module",
+        "identifier":"ietf-yp-notification",
+        "sid":"2950"
+      },
+      {
+        "status":"unstable",
+        "namespace":"data",
+        "identifier":"/ietf-yp-notification:envelope",
+        "sid":"2951"
+      },
+      {
+        "status":"unstable",
+        "namespace":"data",
+        "identifier":"/ietf-yp-notification:envelope/contents",
+        "sid":"2952"
+      },
+      {
+        "status":"unstable",
+        "namespace":"data",
+        "identifier":"/ietf-yp-notification:envelope/event-time",
+        "sid":"2953"
+      },
+      {
+        "status":"unstable",
+        "namespace":"data",
+        "identifier":"/ietf-yp-notification:envelope/hostname",
+        "sid":"2954"
+      },
+      {
+        "status":"unstable",
+        "namespace":"data",
+        "identifier":"/ietf-yp-notification:envelope/sequence-number",
+        "sid":"2955"
+      }
+    ]
+  }
+}
