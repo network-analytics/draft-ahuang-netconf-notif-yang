@@ -1752,6 +1752,15 @@ module ietf-yp-observation {
         target="I-D.ietf-netconf-udp-notif">UDP-based Transport for
         Configured Subscriptions</xref> in their IOS XR platform.</t>
       </section>
+
+	  <section anchor="Arrcus" title="ArcOS">
+        <t>Arrcus implemented in push-update and push-change-update
+        Notifications the timestamp and point-in-time extension as
+        described in  <xref target="extensions-yang-push"/> for a
+        YANG-Push Publisher on <xref
+        target="I-D.ietf-netconf-udp-notif">UDP-based Transport for
+        Configured Subscriptions</xref> in their ArcOS platform.</t>
+      </section>
     </section>
 
     <section anchor="Security" title="Security Considerations">
