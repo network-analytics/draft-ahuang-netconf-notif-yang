@@ -22,84 +22,60 @@
     Model for YANG-Push Notifications</title>
 
     <author fullname="Alex Huang Feng" initials="A." surname="Huang-Feng">
-      <organization>INSA-Lyon</organization>
-
+      <organization>Deutsche Telekom</organization>
       <address>
         <postal>
           <street/>
-
-          <city>Lyon</city>
-
+          <city>Barcelona</city>
           <region/>
-
           <code/>
-
-          <country>France</country>
+          <country>Spain</country>
         </postal>
-
         <phone/>
-
         <facsimile/>
-
-        <email>alex.huang-feng@insa-lyon.fr</email>
-
+        <email>alex.huang-feng@t-systems.com</email>
         <uri/>
       </address>
     </author>
 
     <author fullname="Pierre Francois" initials="P." surname="Francois">
       <organization>INSA-Lyon</organization>
-
       <address>
         <postal>
           <street/>
-
           <city>Lyon</city>
-
           <region/>
-
           <code/>
-
           <country>France</country>
         </postal>
-
         <phone/>
-
         <facsimile/>
-
         <email>pierre.francois@insa-lyon.fr</email>
-
         <uri/>
       </address>
     </author>
 
     <author fullname="Thomas Graf" initials="T" surname="Graf">
       <organization>Swisscom</organization>
-
       <address>
         <postal>
           <street>Binzring 17</street>
-
           <city>Zurich</city>
-
           <code>8045</code>
-
           <country>Switzerland</country>
         </postal>
-
         <email>thomas.graf@swisscom.com</email>
       </address>
     </author>
 
     <author fullname="Benoit Claise" initials="B" surname="Claise">
       <organization>Everything OPS</organization>
-
       <address>
         <email>benoit@everything-ops.net</email>
       </address>
     </author>
 
-    <date day="30" month="July" year="2026"/>
+    <date day="4" month="August" year="2026"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -204,10 +180,10 @@
         payload of a notification, allowing the inclusion of metadata.
         </t>
 
-        <t>Publisher Process: The system process which is publishing
-				the YANG Notification messages. With <xref
-				target="I-D.ietf-netconf-distributed-notif"/> more than one
-				publisher processes per network node can exist.
+        <t>Publisher Process: The system process responsible for
+        publishing YANG notification messages. With
+        <xref target="I-D.ietf-netconf-distributed-notif"/>, a network
+        node can host multiple Publisher Processes.
         </t>
       </section>
     </section>
@@ -695,7 +671,7 @@
     +-- event-time         yang:date-and-time
     +-- hostname?          inet:host-name {hostname-sequence-number}?
     +-- sequence-number?   yang:counter32 {hostname-sequence-number}?
-    +-- contents?          <anydata>
+    +-- contents           <anydata>
 ]]></sourcecode>
 
       <section title="Support of Hostname and Sequencing" anchor="host-ext">
@@ -1318,7 +1294,7 @@ module: ietf-yp-notification
     +-- event-time         yang:date-and-time
     +-- hostname?          inet:host-name {hostname-sequence-number}?
     +-- sequence-number?   yang:counter32 {hostname-sequence-number}?
-    +-- contents?          <anydata>
+    +-- contents           <anydata>
 ]]></sourcecode>
         </section>
 
@@ -1379,7 +1355,7 @@ module ietf-yp-notification {
      WG List:  <mailto:netconf@ietf.org>
 
      Authors:  Alex Huang Feng
-               <mailto:alex.huang-feng@insa-lyon.fr>
+               <mailto:alex.huang-feng@t-systems.com>
                Pierre Francois
                <mailto:pierre.francois@insa-lyon.fr>
                Thomas Graf
@@ -1388,36 +1364,36 @@ module ietf-yp-notification {
                <mailto:benoit@everything-ops.net>";
   description
     "Defines a notification header for Subscribed Notifications
-    [RFC8639] and YANG-Push [RFC8641]. When this notification header
-    is enabled through configuration, the root container of the
-    notification is encoded as defined in RFC XXXX.
+     [RFC8639] and YANG-Push [RFC8641]. When this notification header
+     is enabled through configuration, the root container of the
+     notification is encoded as defined in RFC XXXX.
 
-    This module can be used to validate XML-encoded notifications
-    [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
-    messages [RFC9254]. Refer to Section 3.1.2 of RFC XXXX for more
-    details.
+     This module can be used to validate XML-encoded notifications
+     [RFC7950], JSON-encoded messages [RFC7951], and CBOR-encoded
+     messages [RFC9254]. Refer to Section 3.1.2 of RFC XXXX for more
+     details.
 
-    Copyright (c) 2026 IETF Trust and the persons identified as
-    authors of the code.  All rights reserved.
+     Copyright (c) 2026 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
 
-    Redistribution and use in source and binary forms, with or without
-    modification, is permitted pursuant to, and subject to the license
-    terms contained in, the Revised BSD License set forth in Section
-    4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
-    (https://trustee.ietf.org/license-info).
+     Redistribution and use in source and binary forms, with or without
+     modification, is permitted pursuant to, and subject to the license
+     terms contained in, the Revised BSD License set forth in Section
+     4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
 
-    All revisions of IETF and IANA published modules can be found
-    at the YANG Parameters registry group
-    (https://www.iana.org/assignments/yang-parameters).
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
 
-    This version of this YANG module is part of RFC XXXX; see
-    the RFC itself for full legal notices.
-  
-    The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-    NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
-    'MAY', and 'OPTIONAL' in this document are to be interpreted as
-    described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-    they appear in all capitals, as shown here.";
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.
+
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
 
   revision 2026-07-30 {
     description
@@ -1429,45 +1405,38 @@ module ietf-yp-notification {
   feature hostname-sequence-number {
     description
       "This feature indicates that hostname and sequence numbers are
-      supported.";
+       supported.";
   }
 
   grouping notif-env-capabilities {
     description
-      "This grouping defines the capabilities for
-       the notification-envelope defined in RFC XXXX
-       and the different supported metadata.";
+      "This grouping defines the capabilities for the
+       notification-envelope, and the different supported metadata.";
+    reference
+      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     leaf envelope {
       type boolean;
       default "true";
       description
-        "Supports YANG-Push to use the notification-envelope as
-         defined in RFC XXXX. If set to true, the publisher supports
-         the notification envelope. If set to false, the
-         notification envelope is not supported by the publisher.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+        "Supports YANG-Push to use the notification-envelope. If set
+         to true, the publisher supports the notification envelope. If
+         set to false, the notification envelope is not supported by
+         the publisher.";
     }
     container metadata {
       description
         "Container with the supported optional metadata by the
          YANG-Push publisher.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
       leaf hostname-sequence-number {
         if-feature "hostname-sequence-number";
         type boolean;
         default "false";
         description
-          "Supports hostname and sequence-number
-           in the YANG-Push notifications as defined in the
-           YANG-Push notification-envelope in RFC XXXX.
-           If set to true, the publisher supports
-           sending the hostname and sequence numbers
-           within the notification envelope. If set to false,
-           the hostname and sequence numbers are not supported.";
-        reference
-          "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+          "Supports hostname and sequence-number in the YANG-Push
+           notifications. If set to true, the publisher supports
+           sending the hostname and sequence numbers within the
+           notification envelope. If set to false, the hostname
+           and sequence numbers are not supported.";
       }
     }
   }
@@ -1479,8 +1448,6 @@ module ietf-yp-notification {
       description
         "The date and time the event was generated by the network
          node.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
     leaf hostname {
       if-feature "hostname-sequence-number";
@@ -1489,8 +1456,6 @@ module ietf-yp-notification {
         "The hostname of the network node. This value is usually
          configured on the node by the administrator to identify
          the node in the network uniquely.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
     leaf sequence-number {
       if-feature "hostname-sequence-number";
@@ -1502,16 +1467,12 @@ module ietf-yp-notification {
          until it reaches 4294967295. Then, it wraps around and
          restarts at 0. The value 0 is used to detect wrap
          arounds.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
     anydata contents {
       mandatory true;
       description
         "This contains the values defined by the 'notification'
          statement unchanged.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
   }
 
@@ -1524,25 +1485,21 @@ module ietf-yp-notification {
       type boolean;
       default "false";
       description
-        "Enables YANG-Push to use the notification-envelope
-        defined in RFC XXXX. Enabling or disabling this leaf 
-        terminates all existing active dynamic and configured
-        YANG-Push subscriptions. The publisher MUST send a
-        'subscription-terminated' notification to all the
-        existing active subscriptions using
-        the header configured before the change, then the
-        subscription is terminated. Refer to
-        Section 4 of RFC XXXX for more details.";
+        "Enables YANG-Push to use the notification-envelope. Enabling
+         or disabling this leaf terminates all existing active dynamic
+         and configured YANG-Push subscriptions. Before terminating
+         each subscription, the publisher MUST send a
+         'subscription-terminated' notification using the header
+         configuration that was in effect before the change.";
       reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+        "Section 4 of RFC XXXX.";
     }
     container metadata {
       description
-        "This container is intended to be augmented by modules defining
-				optional notification metadata extensions. Refer to Section 4
-				of RFC XXXX for more details.";
+        "This container is intended to be augmented by modules
+         defining optional notification metadata extensions.";
       reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+        "Section 4 of RFC XXXX.";
     }
   }
 
@@ -1557,8 +1514,6 @@ module ietf-yp-notification {
       description
         "Adds the notification metadata capabilities to subscription
          capabilities.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
       uses notif-env-capabilities;
     }
   }
@@ -1617,7 +1572,7 @@ module ietf-yp-observation {
     prefix yp;
     reference
       "RFC 8641: Subscription to YANG Notifications for Datastore
-      Updates";
+       Updates";
   }
   import ietf-system-capabilities {
     prefix sysc;
@@ -1635,7 +1590,7 @@ module ietf-yp-observation {
   organization
     "IETF NETCONF (Network Configuration) Working Group";
   contact
-    "WG Web:   <http://tools.ietf.org/wg/netconf/>
+    "WG Web:   <https://datatracker.ietf.org/group/netconf/>
      WG List:  <mailto:netconf@ietf.org>
 
      Authors:  Thomas Graf
@@ -1643,27 +1598,26 @@ module ietf-yp-observation {
                Benoit Claise
                <mailto:benoit@everything-ops.net>
                Alex Huang Feng
-               <mailto:alex.huang-feng@insa-lyon.fr>";
+               <mailto:alex.huang-feng@t-systems.com>";
   description
     "Defines YANG-Push event notification header with the observation
-    time in streaming update notifications.
+     time in streaming update notifications.
 
-    Copyright (c) 2026 IETF Trust and the persons identified as
-    authors of the code.  All rights reserved.
+     Copyright (c) 2026 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
 
-    Redistribution and use in source and binary forms, with or
-    without modification, is permitted pursuant to, and subject to
-    the license terms contained in, the Revised BSD License set
-    forth in Section 4.c of the IETF Trust's Legal Provisions
-    Relating to IETF Documents
-    (https://trustee.ietf.org/license-info).
+     Redistribution and use in source and binary forms, with or without
+     modification, is permitted pursuant to, and subject to the license
+     terms contained in, the Revised BSD License set forth in Section
+     4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
 
-    All revisions of IETF and IANA published modules can be found
-    at the YANG Parameters registry group
-    (https://www.iana.org/assignments/yang-parameters).
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
 
-    This version of this YANG module is part of RFC XXXX; see
-    the RFC itself for full legal notices.";
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
   revision 2026-07-30 {
     description
@@ -1675,13 +1629,13 @@ module ietf-yp-observation {
   grouping yang-push-observation {
     description
       "This grouping adds the observation timestamp for the
-      observed metrics.";
+       observed metrics.";
+    reference
+      "Section 3.3.1 of RFC XXXX.";
     leaf timestamp {
       type yang:date-and-time;
       description
         "This is the time when the metrics were observed.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
     }
     leaf point-in-time {
       type enumeration {
@@ -1705,9 +1659,7 @@ module ietf-yp-observation {
       }
       description
         "This describes at which point in time the metrics were
-        observed.";
-      reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+         observed.";
     }
   }
 
@@ -1715,14 +1667,14 @@ module ietf-yp-observation {
   augment "/yp:push-update" {
     description
       "This augmentation adds the observation timestamp of the
-      accounted metrics in the push-update notification.";
+       accounted metrics in the push-update notification.";
     uses yang-push-observation;
   }
 
   augment "/yp:push-change-update" {
     description
       "This augmentation adds the observation timestamp of the
-      event in the push-change-update notification.";
+       event in the push-change-update notification.";
     uses yang-push-observation;
   }
 
@@ -1731,18 +1683,18 @@ module ietf-yp-observation {
         + "/notc:subscription-capabilities" {
     description
       "Add YANG-Push notification capabilities to system-level
-      capability container.";
+       capability container.";
     leaf yang-push-observation-time-supported {
       type boolean;
       default "false";
       description
         "Specifies whether the publisher supports exporting
-        observation-timestamp and point-in-time in notifications.
-        If set to true, the publisher supports the
-        observation-timestamp and point-in-time in notifications.
-        If set to false, these are not supported."
+         observation-timestamp and point-in-time in notifications.
+         If set to true, the publisher supports the
+         observation-timestamp and point-in-time in notifications.
+         If set to false, these are not supported.";
       reference
-        "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+        "Section 3.3.1 of RFC XXXX.";
     }
   }
 }
@@ -1993,13 +1945,13 @@ reference: RFC XXXX]]></artwork>
       <figure anchor="fig_sid_file"
             title='ietf-yp-notification .sid file'>
         <sourcecode type="yang-sid" markers="true"
-				name="ietf-yp-notification@2026-05-11.sid"><![CDATA[
+				name="ietf-yp-notification@2026-07-30.sid"><![CDATA[
 {
   "ietf-sid-file:sid-file": {
     "module-name": "ietf-yp-notification",
-    "module-revision": "2026-05-11",
+    "module-revision": "2026-07-30",
     "sid-file-status":"unpublished",
-    "description": "draft-ietf-netconf-notif-envelope-05: Extensible YANG Model for YANG-Push Notifications",
+    "description": "draft-ietf-netconf-notif-envelope-06: Extensible YANG Model for YANG-Push Notifications",
     "dependency-revision": [
       {
         "module-name":"ietf-datastores",
