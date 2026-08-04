@@ -807,7 +807,7 @@ Internet-Draft       YANG-Push Notification Envelope         August 2026
    included.
 
    {
-       "ietf-yp-notification:envelope": {
+     "ietf-yp-notification:envelope": {
        "event-time": "2023-03-25T08:30:11.22Z",
        "hostname": "example-router.example.com",
        "sequence-number": 1,
