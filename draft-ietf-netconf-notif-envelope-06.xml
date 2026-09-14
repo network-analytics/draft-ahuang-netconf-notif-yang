@@ -69,13 +69,13 @@
     </author>
 
     <author fullname="Benoit Claise" initials="B" surname="Claise">
-      <organization>Everything OPS & Arrcus</organization>
+      <organization>Everything OPS and Arrcus</organization>
       <address>
         <email>benoit@everything-ops.net</email>
       </address>
     </author>
 
-    <date day="4" month="August" year="2026"/>
+    <date day="14" month="September" year="2026"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -725,10 +725,14 @@
           <dt>sequence-number:</dt>
 
           <dd>Generates a unique sequence number for each published
-          message by the Publisher Process. The initial number is 1 and
+          message by the Publisher Process. If a network node has
+					multiple Publisher Processes, 'message-publisher-id' defined
+					in <xref section="10"
+					target="I-D.ietf-netconf-distributed-notif"/> diferentiates
+					between the Publisher Processes. The initial number is 1 and
           counts up by 1 at every published Notification message until
-          it reaches 4294967295. Then, it wraps around and restarts at 0.
-          The value 0 is used to detect wrap arounds.</dd>
+          it reaches 4294967295. Then, it wraps around and restarts at
+					0. The value 0 is used to detect wrap arounds.</dd>
         </dl>
 
         <t><xref target="fig_hostname-seq_json_push-update"/> provides
