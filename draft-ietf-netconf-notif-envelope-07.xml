@@ -11,7 +11,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std"
-  docName="draft-ietf-netconf-notif-envelope-06"
+  docName="draft-ietf-netconf-notif-envelope-07"
   ipr="trust200902"
   consensus="true"
   submissionType="IETF"
@@ -71,7 +71,7 @@
       </address>
     </author>
 
-    <date day="15" month="September" year="2026"/>
+    <date day="25" month="September" year="2026"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -724,7 +724,7 @@
           message by the Publisher Process. If a network node has
 					multiple Publisher Processes, 'message-publisher-id' defined
 					in <xref section="10"
-					target="I-D.ietf-netconf-distributed-notif"/> diferentiates
+					target="I-D.ietf-netconf-distributed-notif"/> differentiates
 					between the Publisher Processes. The initial number is 1 and
           counts up by 1 at every published Notification message until
           it reaches 4294967295. Then, it wraps around and restarts at
@@ -1309,7 +1309,7 @@ module: ietf-yp-notification
           <xref target="RFC8791"/>.</t>
 
         <sourcecode type="yang" markers="true"
-        name="ietf-yp-notification@2026-07-30.yang"><![CDATA[
+        name="ietf-yp-notification@2026-09-25.yang"><![CDATA[
 module ietf-yp-notification {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-notification";
@@ -1395,7 +1395,7 @@ module ietf-yp-notification {
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.";
 
-  revision 2026-07-30 {
+  revision 2026-09-25 {
     description
       "Initial version.";
     reference
@@ -1413,7 +1413,8 @@ module ietf-yp-notification {
       "This grouping defines the capabilities for the
        notification-envelope, and the different supported metadata.";
     reference
-      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
+      "Section 5 of RFC XXXX: Extensible YANG Model for YANG-Push
+       Notifications";
     leaf envelope {
       type boolean;
       default "true";
@@ -1442,6 +1443,13 @@ module ietf-yp-notification {
   }
 
   sx:structure envelope {
+    description
+      "This structure defines 'event-time', 'hostname' and
+       'sequence-number' for the 'notification' and 'contents' for the
+       subscribed YANG data.";
+    reference
+      "Section 3 of RFC XXXX: Extensible YANG Model for YANG-Push
+       Notifications";
     leaf event-time {
       type yang:date-and-time;
       mandatory true;
@@ -1485,12 +1493,13 @@ module ietf-yp-notification {
       type boolean;
       default "false";
       description
-        "Enables YANG-Push to use the notification-envelope. Enabling
-         or disabling this leaf terminates all existing active dynamic
-         and configured YANG-Push subscriptions. Before terminating
-         each subscription, the publisher MUST send a
-         'subscription-terminated' notification using the header
-         configuration that was in effect before the change.";
+        "Enables YANG-Push to use the notification-envelope instead of
+         RFC 5277 defined notifications. Enabling or disabling this leaf
+         terminates all existing active dynamic and configured YANG-Push
+         subscriptions. Before terminating each subscription, the
+         publisher MUST send a 'subscription-terminated' notification
+         using the header configuration that was in effect before the
+         change.";
       reference
         "Section 4 of RFC XXXX.";
     }
@@ -1557,7 +1566,7 @@ module: ietf-yp-observation
           'ietf-system-capabilities' <xref target="RFC9196"/>.</t>
 
           <sourcecode type="yang" markers="true"
-          name="ietf-yp-observation@2026-07-30.yang"><![CDATA[
+          name="ietf-yp-observation@2026-09-25.yang"><![CDATA[
 module ietf-yp-observation {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-yp-observation";
@@ -1585,6 +1594,13 @@ module ietf-yp-observation {
     reference
       "RFC 9196: YANG Modules Describing Capabilities for
        Systems and Datastore Update Notifications";
+  }
+
+  import ietf-yp-notification {
+	 prefix iypn;
+    reference
+      "draft-ietf-netconf-notif-envelope: Extensible YANG Model for
+       YANG-Push Notifications";
   }
 
   organization
@@ -1619,7 +1635,7 @@ module ietf-yp-observation {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2026-07-30 {
+  revision 2026-09-25 {
     description
       "Initial version.";
     reference
@@ -1669,6 +1685,7 @@ module ietf-yp-observation {
       "This augmentation adds the observation timestamp of the
        accounted metrics in the push-update notification.";
     uses yang-push-observation;
+      when "/sn:subscriptions/iypn:hostname-sequence-number = 'true'";
   }
 
   augment "/yp:push-change-update" {
@@ -1676,6 +1693,7 @@ module ietf-yp-observation {
       "This augmentation adds the observation timestamp of the
        event in the push-change-update notification.";
     uses yang-push-observation;
+      when "/sn:subscriptions/iypn:hostname-sequence-number = 'true'";
   }
 
   // Event capabilities
@@ -1708,30 +1726,35 @@ module ietf-yp-observation {
       publishing.</t>
 
       <section anchor="Huawei" title="Huawei VRP">
-        <t>Huawei implemented in push-update and push-change-update
-        Notifications the timestamp and point-in-time extension as
-        described in <xref target="extensions-yang-push"/> for a
-        YANG-Push Publisher on <xref
-        target="I-D.ietf-netconf-udp-notif">UDP-based Transport for
-        Configured Subscriptions</xref> in their VRP platform.</t>
+        <t>Huawei implemented Notification Envelope encoded in JSON as
+				described in <xref target="extensions-notif"/> and in
+				push-update and push-change-update Notifications the timestamp
+				and point-in-time extension as described in <xref
+				target="extensions-yang-push"/> for a YANG-Push Publisher on
+				<xref target="I-D.ietf-netconf-udp-notif">UDP-based Transport
+				for Configured Subscriptions</xref> in their VRP platform.</t>
       </section>
 
       <section anchor="SIXWIND" title="6WIND VSR">
-        <t>6WIND implemented in push-update and push-change-update
-        Notifications the timestamp and point-in-time extension as
-        described in <xref target="extensions-yang-push"/> for a
-        YANG-Push Publisher on <xref
-        target="I-D.ietf-netconf-udp-notif">UDP-based Transport for
-        Configured Subscriptions</xref> in their VSR platform.</t>
+        <t>6WIND implemented Notification Envelope encoded in JSON and
+        CBOR with Names in keys	as described in <xref
+				target="extensions-notif"/> and in push-update and
+				push-change-update Notifications the timestamp and point-in-time
+				extension as described in <xref target="extensions-yang-push"/>
+				for a YANG-Push Publisher on <xref
+				target="I-D.ietf-netconf-udp-notif">UDP-based Transport for
+				Configured Subscriptions</xref> in their VSR platform.</t>
       </section>
 
       <section anchor="Cisco" title="Cisco IOS XR">
-        <t>Cisco implemented in push-update and push-change-update
-        Notifications the timestamp and point-in-time extension as
-        described in  <xref target="extensions-yang-push"/> for a
-        YANG-Push Publisher on <xref
-        target="I-D.ietf-netconf-udp-notif">UDP-based Transport for
-        Configured Subscriptions</xref> in their IOS XR platform.</t>
+        <t>Cisco implemented Notification Envelope encoded in JSON and
+        CBOR with Names in keys	as described in <xref
+				target="extensions-notif"/> and in push-update and
+				push-change-update Notifications the timestamp and point-in-time
+				extension as described in <xref target="extensions-yang-push"/>
+				for a YANG-Push Publisher on <xref
+				target="I-D.ietf-netconf-udp-notif">UDP-based Transport for
+				Configured Subscriptions</xref> in their IOS XR platform.</t>
       </section>
     </section>
 
@@ -1859,8 +1882,8 @@ reference: RFC XXXX]]></artwork>
       <t>The authors would like to thank Paul Aitken, Per Anderson,
       Andy Bierman, Carsten Bormann, Mohamed Boucadair, Tom Petch,
       Reshad Rahman, Jürgen Schönwälder, Jason Sterne, Kent Watsen,
-      Rob Wilton, Qin Wu, Leonardo Rodoni and Ebben Aries for their
-      review and valuable comments.</t>
+      Rob Wilton, Qin Wu, Leonardo Rodoni, Ebben Aries and Mahesh
+      Jethanandani  for their review and valuable comments.</t>
     </section>
   </middle>
 
