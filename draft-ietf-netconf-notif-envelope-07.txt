@@ -9,7 +9,7 @@ Expires: 29 March 2027                                         INSA-Lyon
                                                                  T. Graf
                                                                 Swisscom
                                                                B. Claise
-                                               Everything OPS and Arrcus
+                                                 Everything OPS & Arrcus
                                                        25 September 2026
 
 
@@ -2643,7 +2643,7 @@ Internet-Draft       YANG-Push Notification Envelope      September 2026
 
 
    Benoit Claise
-   Everything OPS and Arrcus
+   Everything OPS & Arrcus
    Email: benoit@everything-ops.net
 
 
