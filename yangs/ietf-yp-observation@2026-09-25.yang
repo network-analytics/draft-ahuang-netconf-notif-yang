@@ -27,11 +27,15 @@ module ietf-yp-observation {
        Systems and Datastore Update Notifications";
   }
 
-  import ietf-yp-notification {
-	 prefix iypn;
+  import ietf-subscribed-notifications {
+    prefix sn;
     reference
-      "draft-ietf-netconf-notif-envelope: Extensible YANG Model for
-       YANG-Push Notifications";
+      "RFC 8639: Subscription to YANG Notifications";
+  }
+  import ietf-yp-notification {
+    prefix iypn;
+    reference
+      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
   }
 
   organization
@@ -93,15 +97,15 @@ module ietf-yp-observation {
         }
         enum initial-state {
           description
-            "For 'on-change sync on start' subscriptions, the
-             initial point in time when the subscription was
-             established and the state was observed.";
+            "For on-change subscriptions with 'sync-on-start' set to
+             'true', the initial point in time when the subscription
+             was established and the state was observed.";
         }
         enum state-changed {
           description
-            "For 'on-change sync on start' subscriptions, the
-             point in time when the state change was observed after
-             the subscription was established.";
+            "For on-change subscriptions, the point in time when the
+             state change was observed after the subscription was
+             established.";
         }
       }
       description
@@ -112,19 +116,19 @@ module ietf-yp-observation {
 
   // Event notifications
   augment "/yp:push-update" {
+    when "/sn:subscriptions/iypn:enable-notification-envelope = 'true'";
     description
       "This augmentation adds the observation timestamp of the
        accounted metrics in the push-update notification.";
     uses yang-push-observation;
-      when "/sn:subscriptions/iypn:hostname-sequence-number = 'true'";
   }
 
   augment "/yp:push-change-update" {
+    when "/sn:subscriptions/iypn:enable-notification-envelope = 'true'";
     description
       "This augmentation adds the observation timestamp of the
        event in the push-change-update notification.";
     uses yang-push-observation;
-      when "/sn:subscriptions/iypn:hostname-sequence-number = 'true'";
   }
 
   // Event capabilities
