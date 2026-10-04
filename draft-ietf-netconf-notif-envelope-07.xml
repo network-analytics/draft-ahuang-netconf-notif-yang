@@ -71,7 +71,7 @@
       </address>
     </author>
 
-    <date day="25" month="September" year="2026"/>
+    <date day="4" month="October" year="2026"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -792,11 +792,9 @@
         <section anchor="extensions-yang-push" title="Extensions for the
         YANG-Push Header">
           <t>This section describes two optional 'push-update' and
-          'push-change-update' Notification header extensions which are
-          enabled by default when using the Notification Envelope
-          defined in this document. The Client discovers the support of
-          these two leafs with the mechanism defined in <xref
-          target="discovery-notif"/>.</t>
+          'push-change-update' Notification header extensions. The
+					Client discovers the support of these two leafs with the
+					mechanism defined in <xref target="discovery-notif"/>.</t>
 
           <t>This document defines the following Notification metadata
           as shown in the following YANG tree <xref target="RFC8340"/>.
