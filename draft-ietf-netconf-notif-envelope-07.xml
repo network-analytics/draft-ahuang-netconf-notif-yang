@@ -792,9 +792,10 @@
         <section anchor="extensions-yang-push" title="Extensions for the
         YANG-Push Header">
           <t>This section describes two optional 'push-update' and
-          'push-change-update' Notification header extensions. The
-					Client discovers the support of these two leafs with the
-					mechanism defined in <xref target="discovery-notif"/>.</t>
+          'push-change-update' Notification header extensions which are
+          enabled by default when using the Notification Envelope defined
+          in this document. The Client discovers the support of these two
+          leafs with the mechanism defined in <xref target="discovery-notif"/>.</t>
 
           <t>This document defines the following Notification metadata
           as shown in the following YANG tree <xref target="RFC8340"/>.
@@ -869,17 +870,22 @@ module: ietf-yp-observation
           <dt>timestamp:</dt>
 
           <dd>
-            <t>States the measurement observation time for the
-            'push-update' Notification in 'periodic' Subscriptions and
-            for the 'push-change-update' Notification in 'on-change'
-            Subscriptions.</t>
+            <t>States the measurement observation time for the 'push-
+            update' Notification in 'periodic' Subscriptions, and the
+            observation time of the reported state for the 'push-update' and
+            'push-change-update' Notifications in 'on-change' Subscriptions.
+            The 'point-in-time' node states which of these points in time the
+            timestamp characterizes.</t>
 
-            <t>By comparing the observation timestamp of two
-            'push-update' Notifications in a periodic Subscription, the
-            collector can deduce the actual cadence of the measurements,
-            and compare it with the Subscription configuration. In case
-            of an 'on-change' Subscription it states the time when the
-            network state change was observed.</t>
+            <t>By comparing the observation timestamp of two 'push-update'
+            Notifications in a periodic Subscription, the collector can deduce
+            the actual cadence of the measurements, and compare it with the
+            Subscription configuration.  For a 'push-change-update'
+            Notification in an 'on-change' Subscription, it states the time
+            when the network state change was observed.  For the initial
+            'push-update' Notification of an 'on-change' Subscription with
+            'sync-on-start' set to 'true', it states the point in time
+            described for 'initial-state' below.</t>
           </dd>
 
           <dt>point-in-time:</dt>
@@ -891,11 +897,12 @@ module: ietf-yp-observation
             <t>'current-accounting' states the point in time where the
             metrics are polled and observed in "periodic" Subscriptions.
             </t>
-
-            <t>'initial-state' states the initial point in time when the
-            Subscription was established and the state was observed for
-            'on-change' Subscriptions with 'sync-on-start' set to 'true'
-            <xref target="RFC8641"/>.</t>
+            
+            <t>'initial-state' states, for the initial 'push-update' Notification
+            of an 'on-change' Subscription with 'sync-on-start' set to 'true'
+            <xref target="RFC8641"/>, the point in time when the reported state was last
+            observed to change.  This point in time can precede the
+            establishment of the Subscription.</t>
 
             <t>'state-changed' states the point in time when the state
             change was observed after the Subscription was established
@@ -957,11 +964,10 @@ Timeline
             triggers a 'push-update' Notification as depicted in <xref
             target="push-update-initial"/>. The 'event-time' is the
             moment the YANG-Push process generates the Notification
-            (T2). The 'ietf-yp-observation:timestamp' node characterizes
-            the moment the interface changed its status to "Up" (T1).
-            T1 is the latest moment this state was observed by the
-            process. In this case, the 'point-in-time' node is set to
-            'initial-state'.</t>
+            (T2). The 'ietf-yp-observation:timestamp' node characterizes the moment the
+            interface changed its status to "Up" (T1).  T1 is the last time this
+            state changed, before the Subscription was established.  In this
+            case, the 'point-in-time' node is set to 'initial-state'.</t>
 
         <figure anchor="push-update-initial"
               title="Example of 'push-update' Notification sent after
@@ -1638,17 +1644,6 @@ module ietf-yp-observation {
        Systems and Datastore Update Notifications";
   }
 
-  import ietf-subscribed-notifications {
-    prefix sn;
-    reference
-      "RFC 8639: Subscription to YANG Notifications";
-  }
-  import ietf-yp-notification {
-    prefix iypn;
-    reference
-      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
-  }
-
   organization
     "IETF NETCONF (Network Configuration) Working Group";
   contact
@@ -1697,7 +1692,9 @@ module ietf-yp-observation {
     leaf timestamp {
       type yang:date-and-time;
       description
-        "This is the time when the metrics were observed.";
+        "The point in time at which the reported data was observed.
+         The 'point-in-time' leaf states which point in time this
+         is.";
     }
     leaf point-in-time {
       type enumeration {
@@ -1708,9 +1705,11 @@ module ietf-yp-observation {
         }
         enum initial-state {
           description
-            "For on-change subscriptions with 'sync-on-start' set to
-             'true', the initial point in time when the subscription
-             was established and the state was observed.";
+            "For the initial 'push-update' notification of an
+             on-change subscription with 'sync-on-start' set to
+             'true', the point in time when the reported state was
+             last observed to change.  This point in time can precede
+             the establishment of the subscription.";
         }
         enum state-changed {
           description
@@ -1727,7 +1726,6 @@ module ietf-yp-observation {
 
   // Event notifications
   augment "/yp:push-update" {
-    when "/sn:subscriptions/iypn:enable-notification-envelope = 'true'";
     description
       "This augmentation adds the observation timestamp of the
        accounted metrics in the push-update notification.";
@@ -1735,7 +1733,6 @@ module ietf-yp-observation {
   }
 
   augment "/yp:push-change-update" {
-    when "/sn:subscriptions/iypn:enable-notification-envelope = 'true'";
     description
       "This augmentation adds the observation timestamp of the
        event in the push-change-update notification.";

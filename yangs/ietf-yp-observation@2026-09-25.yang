@@ -27,17 +27,6 @@ module ietf-yp-observation {
        Systems and Datastore Update Notifications";
   }
 
-  import ietf-subscribed-notifications {
-    prefix sn;
-    reference
-      "RFC 8639: Subscription to YANG Notifications";
-  }
-  import ietf-yp-notification {
-    prefix iypn;
-    reference
-      "RFC XXXX: Extensible YANG Model for YANG-Push Notifications";
-  }
-
   organization
     "IETF NETCONF (Network Configuration) Working Group";
   contact
@@ -86,7 +75,9 @@ module ietf-yp-observation {
     leaf timestamp {
       type yang:date-and-time;
       description
-        "This is the time when the metrics were observed.";
+        "The point in time at which the reported data was observed.
+         The 'point-in-time' leaf states which point in time this
+         is.";
     }
     leaf point-in-time {
       type enumeration {
@@ -97,9 +88,11 @@ module ietf-yp-observation {
         }
         enum initial-state {
           description
-            "For on-change subscriptions with 'sync-on-start' set to
-             'true', the initial point in time when the subscription
-             was established and the state was observed.";
+            "For the initial 'push-update' notification of an
+             on-change subscription with 'sync-on-start' set to
+             'true', the point in time when the reported state was
+             last observed to change.  This point in time can precede
+             the establishment of the subscription.";
         }
         enum state-changed {
           description
@@ -116,7 +109,6 @@ module ietf-yp-observation {
 
   // Event notifications
   augment "/yp:push-update" {
-    when "/sn:subscriptions/iypn:enable-notification-envelope = 'true'";
     description
       "This augmentation adds the observation timestamp of the
        accounted metrics in the push-update notification.";
@@ -124,7 +116,6 @@ module ietf-yp-observation {
   }
 
   augment "/yp:push-change-update" {
-    when "/sn:subscriptions/iypn:enable-notification-envelope = 'true'";
     description
       "This augmentation adds the observation timestamp of the
        event in the push-change-update notification.";
