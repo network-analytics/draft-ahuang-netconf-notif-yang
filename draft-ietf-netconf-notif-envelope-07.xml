@@ -71,7 +71,7 @@
       </address>
     </author>
 
-    <date day="9" month="October" year="2026"/>
+    <date day="12" month="October" year="2026"/>
 
     <abstract>
       <t>This document defines a new extensible Notification structure,
@@ -81,8 +81,7 @@
       extensions: an extension to this structure supporting a hostname
       and a sequence number, and an extension to the YANG-Push
       Notifications supporting a timestamp characterizing the moment
-      when the data was observed, which can be used with or without
-      this structure.</t>
+      when the data was observed.</t>
     </abstract>
   </front>
 
